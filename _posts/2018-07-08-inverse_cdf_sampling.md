@@ -19,3 +19,64 @@ The CDF specifies the probability that {% katex %}i \leq n{% endkatex %} and is 
 {% katex display %}
 P(i \leq n)=P(n)=\sum_{i=1}^n{p_i},
 {% endkatex %}
+
+For a given generated CDF value, {% katex %}U{% endkatex %}, Equation {% katex %}P(n){% endkatex %} can always be inverted by evaluating it for each {% katex %}n{% endkatex %} and
+searching for the value of {% katex %}n{% endkatex %} that satisfies, {% katex %}P(n) \geq U{% endkatex %}.
+It can be seen that the generated samples will have
+distribution {% katex %}\{p_i\}_N{% endkatex %} since the intervals
+{% katex %}P(n)-P(n-1) = p_n{% endkatex %} are Uniformly sampled.
+
+Consider the example distribution,
+
+{% katex display %}
+\{p_i\}_6 = \left\{\frac{1}{12}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{12}, \frac{5}{12} \right\}
+{% endkatex %}
+
+It is shown in the following plot with its CDF. Note that the CDF is a monotonically increasing function.
+
+![alt text](/assets/posts/inverse_cdf_sampling/discrete_cdf.png "Discrete DF CDF")
+
+<div style:"text-align:center">
+<img width = 600 src="/assets/posts/inverse_cdf_sampling/discrete_cdf.png"/>
+<\div>
+
+## Sampling Continuous Distributions
+
+### Proof that Inverse CD Sampling Works
+
+### Example
+
+Consider the [Weibull Distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The PDF is
+given by,
+
+{% katex display %}
+f_X(x; k, \lambda) =
+\begin{cases}
+\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{\left(\frac{-x}{\lambda}\right)^k} & x \geq 0 \\
+0 & x < 0,
+\end{cases}
+{% endkatex %}
+
+where {% katex %}k{% endkatex %} is the shape parameter and {%katex %}\lambda{% endkatex %} the scale parameter.
+The CDF is given by,
+
+{% katex display %}
+F_X(x; k, \lambda) =
+\begin{cases}
+1-e^{\left(\frac{-x}{\lambda}\right)^k
+} & x \geq 0 \\
+0 & x < 0.
+\end{cases}
+{% endkatex %}
+
+The CDF can be inverted to yield,
+
+{% katex display %}
+F_X^{-1}(u; k, \lambda) =
+\begin{cases}
+\lambda\ln\left(\frac{1}{1-u}\right)^{\frac{1}{k}} & 0 \leq u \leq 1 \\
+0 & u < 0 \text{ or } u > 1.
+\end{cases}
+{% endkatex %}
+
+### Performance
