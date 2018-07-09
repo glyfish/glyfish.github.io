@@ -34,11 +34,9 @@ Consider the example distribution,
 
 It is shown in the following plot with its CDF. Note that the CDF is a monotonically increasing function.
 
-![alt text](/assets/posts/inverse_cdf_sampling/discrete_cdf.png "Discrete DF CDF")
-
-<div style:"text-align:center">
-<img width = 600 src="/assets/posts/inverse_cdf_sampling/discrete_cdf.png"/>
-<\div>
+<div style="text-align:center;">
+<img src="/assets/posts/inverse_cdf_sampling/discrete_cdf.png">
+</div>
 
 ## Sampling Continuous Distributions
 
