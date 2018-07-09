@@ -1,10 +1,10 @@
 <!DOCTYPE html><html lang="en">
   <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>Archive - gly.fish</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>Inverse CDF Sampling - gly.fish</title>
 
-<meta name="description" content="">
-<link rel="canonical" href="http://localhost:4000/archive.html"><link rel="alternate" type="application/rss+xml" title="gly.fish" href="/feed.xml">
+<meta name="description" content="Inverse CDF sampling is a method for obtaining samples from both discrete and continuous probability distributions that requires the CDF to be invertible. Th...">
+<link rel="canonical" href="http://localhost:4000/2018/07/08/inverse_cdf_sampling.html"><link rel="alternate" type="application/rss+xml" title="gly.fish" href="/feed.xml">
 <!-- begin favicon --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
 
 <meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
@@ -248,7 +248,7 @@
 </head>
   <body>
     <div class="root" data-is-touch="false">
-      <div class="layout--page clearfix"><div class="page__main js-page-main"><div class="page__main-inner">
+      <div class="layout--page clearfix"><div class="page__main js-page-main has-aside"><div class="page__main-inner">
     <div></div><div class="page__header"><header class="header">
   <div class="main clearfix">
     <div class="logo"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -259,271 +259,69 @@
 <path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
 	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
 </svg><a title="" href="/">gly.fish</a></div><nav>
-      <ul><li class="active"><a href="/archive.html">Archive</a></li><li><a href="/about.html">About</a></li></ul>
+      <ul><li><a href="/archive.html">Archive</a></li><li><a href="/about.html">About</a></li></ul>
     </nav></div>
 </header>
-</div><div class="page__content"><div class ="main"><div class="col-aside js-col-aside"></div>
+</div><div class="page__content"><div class ="main"><div class="col-aside js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div></aside></div>
 
-          <div class="col-main"><article itemscope itemtype="http://schema.org/WebPage"><header style="display: none;"><h1 itemprop="headline">Archive</h1></header><div class="article__info clearfix"><meta itemprop="author" content="Troy Stribling"/></div>
-<div class="js-article-content"><div class="layout--archive js-all">
-  <div class="search-box js-search-box">
-    <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
-    <input type="text" />
-    <div class="search-box__icon-clear js-icon-clear">
-      <div class="button button--secondary button--circle button--sm"><i class="fas fa-times"></i></div>
-    </div>
-  </div><div class="site-tags js-tags">
-  <ul class="menu">
-    <li>
-      <button type="button" class="button button--secondary button--pill tag-button js-article-tag " data-encode="">
-        Show All<div class="tag-button__count">1</div>
-      </button>
-    </li></ul>
+          <div class="col-main"><article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1 itemprop="headline">Inverse CDF Sampling</h1></header><a class="edit-on-github ml-3"
+                        title="Edit on Github"
+                        href="https://github.com/glyfish/glyfish.github.io/tree/master/_posts/2018-07-08-inverse_cdf_sampling.md">
+                        <i class="far fa-edit"></i></a></div><div class="article__info clearfix"><meta itemprop="author" content="Troy Stribling"/><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <time datetime="2018-07-08T00:00:00-07:00"
+              itemprop="datePublished">Jul 08, 2018
+            </time></li></ul></div>
+<div class="js-article-content"><div class="layout--article">
+
+  <div class="article__content" itemprop="articleBody"><p>Inverse <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">CDF</a> sampling is a method for obtaining samples from both discrete and continuous probability distributions that requires the CDF to be invertible. The method assumes values of the CDF are Uniform random variables on <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mclose">]</span></span></span></span>.
+CDF values are generated and used as input into the inverted CDF to obtain samples with the
+distribution defined by the CDF.</p>
+
+<!--more-->
+
+<h2 id="sampling-discrete-distributions">Sampling Discrete Distributions</h2>
+
+<p>A discrete probability distribution consisting of a finite set of <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.68333em;"></span><span class="strut bottom" style="height:0.68333em;vertical-align:0em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.10903em;">N</span></span></span></span>
+probability values is defined by, <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>{</mo><msub><mi>p</mi><mi>i</mi></msub><msub><mo>}</mo><mi>N</mi></msub><mo>=</mo><mo>{</mo><msub><mi>p</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>p</mi><mn>2</mn></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>p</mi><mi>N</mi></msub><mo>}</mo></mrow><annotation encoding="application/x-tex">\{p_i\}_N = \{p_1, p_2,\ldots,p_N\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">{</span><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose"><span class="mclose">}</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mrel">=</span><span class="mopen">{</span><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathrm mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mpunct">,</span><span class="minner">…</span><span class="mpunct">,</span><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">}</span></span></span></span> with
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub><mo>≥</mo><mn>0</mn><mo separator="true">,</mo><mtext> </mtext><mi mathvariant="normal">∀</mi><mi>i</mi></mrow><annotation encoding="application/x-tex">p_i \geq 0, \  \forall i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.69444em;"></span><span class="strut bottom" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mrel">≥</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm"><span class="mspace"> </span><span class="mord mathrm">∀</span></span><span class="mord mathit">i</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></msubsup><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\sum_{i=1}^N{p_i} = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.981231em;"></span><span class="strut bottom" style="height:1.2809409999999999em;vertical-align:-0.29971000000000003em;"></span><span class="base"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">i</span><span class="mrel mtight">=</span><span class="mord mathrm mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"></span></span></span></span></span><span class="mord"><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span><span class="mrel">=</span><span class="mord mathrm">1</span></span></span></span>.
+The CDF specifies the probability that <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>≤</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">i \leq n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.65952em;"></span><span class="strut bottom" style="height:0.79549em;vertical-align:-0.13597em;"></span><span class="base"><span class="mord mathit">i</span><span class="mrel">≤</span><span class="mord mathit">n</span></span></span></span> and is given by,</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>i</mi><mo>≤</mo><mi>n</mi><mo>)</mo><mo>=</mo><mi>P</mi><mo>(</mo><mi>n</mi><mo>)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><mo separator="true">,</mo></mrow><annotation encoding="application/x-tex">
+P(i \leq n)=P(n)=\sum_{i=1}^n{p_i},
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:1.6513970000000002em;"></span><span class="strut bottom" style="height:2.929066em;vertical-align:-1.277669em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">i</span><span class="mrel">≤</span><span class="mord mathit">n</span><span class="mclose">)</span><span class="mrel">=</span><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathit">n</span><span class="mclose">)</span><span class="mrel">=</span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6513970000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">i</span><span class="mrel mtight">=</span><span class="mord mathrm mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"></span></span></span></span><span class="mord"><span class="mord"><span class="mord mathit">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span></span><span class="mpunct">,</span></span></span></span></span></p>
 </div>
-<div class="js-result layout--archive__result"></div>
-</div>
+
+  <footer class="article__footer"><meta itemprop="dateModified" content="2018-07-08T00:00:00-07:00"><!-- this will show at every article content's bottom --><div class="article__license"><div class="license">
+    <p>This work is licensed under a <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> license.
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer></div>
 
 <script>(function() {
   var SOURCES = window.TEXT_VARIABLES.sources;
-  function queryString() {
-    // This function is anonymous, is executed immediately and
-    // the return value is assigned to QueryString!
-    var i = 0, queryObj = {}, pair;
-    var queryStr = window.location.search.substring(1);
-    var queryArr = queryStr.split('&');
-    for (i = 0; i < queryArr.length; i++) {
-      pair = queryArr[i].split('=');
-      // If first entry with this name
-      if (typeof queryObj[pair[0]] === 'undefined') {
-        queryObj[pair[0]] = pair[1];
-        // If second entry with this name
-      } else if (typeof queryObj[pair[0]] === 'string') {
-        queryObj[pair[0]] = [queryObj[pair[0]], pair[1]];
-        // If third or later entry with this name
-      } else {
-        queryObj[pair[0]].push(pair[1]);
-      }
-    }
-    return queryObj;
-  }
-
-  function memorize(f) {
-    var cache = {};
-    return function () {
-      var key = Array.prototype.join.call(arguments, ',');
-      if (key in cache) return cache[key];
-      else return cache[key] = f.apply(this, arguments);
-    };
-  }
-
-  function initData(json) {
-    var _data = JSON.parse(json), i, j, cur, _tags;
-    Object.keys(_data).forEach(function(year) {
-      for (i = 0; i < _data[year].length; i++) {
-        cur = _data[year][i], _tags = cur.tags;
-        cur.title = window.decodeUrl(cur.title);
-        cur.url = window.decodeUrl(cur.url);
-        if (_tags && _tags.length > 0) {
-          for (j = 0; j < _tags.length; j++) {
-            _tags[j] = window.decodeUrl(_tags[j]);
-          }
-        }
-      }
-    });
-    return _data;
-  }
-
-  var setUrlQuery = (function() {
-    var baseUrl =  window.location.href.split('?')[0];
-    return function(query) {
-      if (typeof query === 'string') {
-        window.history.replaceState(null, '', baseUrl + query);
-      } else {
-        window.history.replaceState(null, '', baseUrl);
-      }
-    };
-  })();
-
-  var data = initData('{"2018":[{"key":"1","title":"Inverse+CDF+Sampling","tags":[],"url":"%2F2018%2F07%2F08%2Finverse_cdf_sampling.html","date":"Jul 08"}]}');
-
-  var searchByTag = memorize(function(tag) {
-    var i, j, cur, _tags, _tag, _data = {};
-    Object.keys(data).forEach(function(year) {
-      for (i = 0; i < data[year].length; i++) {
-        cur = data[year][i], _tags = cur.tags;
-        if (_tags && _tags.length > 0) {
-          for (j = 0; j < _tags.length; j++) {
-            _tag = _tags[j];
-            if (_tag === tag) {
-              if (!_data[year]) {
-                _data[year] = [];
-              }
-              _data[year].push(cur);
-              break;
-            }
-          }
-        }
-      }
-    });
-    return _data;
-  });
-
-  var searchByQuery = function(query) {
-    var i, cur, _title, _data = { _: [] };
-    Object.keys(data).forEach(function(year) {
-      for (i = 0; i < data[year].length; i++) {
-        cur = data[year][i], _title = cur.title;
-        if (_title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
-          _data._.push(cur);
-        }
-      }
-    });
-    return _data;
-  };
-
   window.Lazyload.js(SOURCES.jquery, function() {
-    var $root = $('.js-all');
-    var $searchBox = $('.js-search-box');
-    var $searchInput = $searchBox.children('input');
-    var $searchClear = $searchBox.children('.js-icon-clear');
-    var $tags = $('.js-tags');
-    var $articleTags = $('.js-article-tag');
-    var $tagShowAll = $('.js-tag-show-all');
-    var $result = $('.js-result');
-    var $lastFocusButton = null;
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
 
-    function addClass(dom, className) {
-      dom.hasClass(className) || dom.addClass(className);
-    }
-    function removeClass(dom, className) {
-      dom.hasClass(className) && dom.removeClass(className);
-    }
-
-    var renderHeading = memorize(function (year) {
-      return $('<h2 class="year">' + year + '</h2>');
-    });
-    var renderItem = memorize(function (key, title, date, url) {
-      return $('<li><span class="date">' + date + '</span><a class="link" href="' + url + '">' + title + '</a></li>');
-    });
-    function render(data) {
-      var $dom = $('<div></div>'), $section, $ul, i, cur;
-      Object.keys(data).sort(function(a, b) {
-        return b.localeCompare(a);
-      }).forEach(function(year) {
-        $section = $('<section></section>'), $ul = $('<ul></ul>');
-        (year === '_') || $section.append(renderHeading(year));
-        for (i = 0; i < data[year].length; i++) {
-          cur = data[year][i];
-          $ul.append(renderItem(cur.key, cur.title, cur.date, cur.url, cur.tags));
-        }
-        $dom.append($section.append($ul));
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
       });
-      return $dom;
-    }
-
-    function searchButtonsByTag(_tag/*raw tag*/) {
-      if (!_tag) {
-        return $tagShowAll;
-      }
-      var _buttons = $articleTags.filter('[data-encode="' + _tag + '"]');
-      if (_buttons.length === 0) {
-        return $tagShowAll;
-      }
-      return _buttons;
-    }
-    function buttonFoucs(target) {
-      if (target) {
-        addClass(target, 'focus');
-        $lastFocusButton && !$lastFocusButton.is(target) && removeClass($lastFocusButton, 'focus');
-        $lastFocusButton = target;
-      }
-    }
-
-    function setIsSearch() {
-      addClass($root, 'search');
-    }
-    function setNotSearch() {
-      removeClass($root, 'search');
-    }
-    function setIsEmpty() {
-      removeClass($searchBox, 'not-empty');
-    }
-    function setNotEmpty() {
-      addClass($searchBox, 'not-empty');
-    }
-    function setSearchBoxVal(val) {
-      ($searchInput.val() === val) || $searchInput.val(val);
-    }
-    function clearSearchBox() {
-      setSearchBoxVal(''); queryInput('');
-    }
-
-    function showAll() {
-      setNotSearch(); setIsEmpty(); buttonFoucs($tagShowAll); setUrlQuery();
-      $result.html(render(data));
-    }
-    function tagSelect(tag/*decode tag*/, target) {
-      var _tag;
-      if (tag === '' || tag === undefined) {
-        showAll();
-      } else {
-        $result.html(render(searchByTag(tag)));
-      }
-      if (target) {
-        buttonFoucs(target);
-        _tag = target.attr('data-encode');
-        if (_tag === '' || typeof _tag !== 'string') {
-          setUrlQuery();
-        } else {
-          setUrlQuery('?tag=' + _tag);
-        }
-      }
-    }
-    function queryInput(query) {
-      if (query === '' || typeof query !== 'string') {
-        showAll();
-      } else {
-        $result.html(render(searchByQuery(query))); setIsSearch(); setNotEmpty(); setUrlQuery('?q=' + query);
-
-      }
-    }
-
-    (function() {
-      $articleTags.removeClass('inactive');
-      var query = queryString(), _tag = query.tag, _q = query.q;
-      if (_tag !== undefined) {
-        query.tag === undefined || (_tag = query.tag);
-        tagSelect(window.decodeUrl(_tag));
-        buttonFoucs(searchButtonsByTag(_tag));
-      } else if (_q !== undefined) {
-        _q = window.decodeUrl(_q);
-        queryInput(_q); setSearchBoxVal(_q);
-      } else {
-        showAll();
-      }
-    })();
-
-    $tags.on('click', 'button', function() {
-      tagSelect($(this).children('span').text(), $(this));
-    });
-
-    $searchInput.on('input', window.throttle(function() {
-      queryInput($(this).val());
-    }, 400));
-    $searchInput.on('focus', function() {
-      addClass($(this), 'focus');
-    });
-    $searchInput.on('blur', function() {
-      removeClass($(this), 'focus');
-    });
-    $searchClear.on('click', function() {
-      clearSearchBox();
+      $articleContent.find('h1, h2, h3, h4, h5, h6').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
     });
   });
-})();
-</script>
-
-</div></article>
+})();</script></div></article>
           </div></div></div>
 
       <div class="page__footer">
@@ -793,7 +591,69 @@
   });
 })();/*(function () {
 
-})();*/</script>
+})();*/</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    setTimeout(function() {
+      toc = $tocRoot.toc({
+        selectors: TOC_SELECTOR,
+        container: $articleContent,
+        scrollTarget: hasSidebar ? '.js-page-main' : null,
+        scroller: hasSidebar ? '.js-page-main' : null,
+        disabled: tocDisabled
+      });
+    }, 1000);
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    setTimeout(function() {
+      affix = $pageAside.affix({
+        offsetBottom: $pageFooter.outerHeight(),
+        scrollTarget: hasSidebar ? '.js-page-main' : null,
+        scroller: hasSidebar ? '.js-page-main' : null,
+        scroll: hasSidebar ? $('.js-page-main').children() : null,
+        disabled: tocDisabled
+      });
+    }, 1000);
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+  });
+})();</script>
     </div>
     <script>(function () {
   var $root = document.getElementsByClassName('root')[0];
