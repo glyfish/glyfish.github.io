@@ -1,6 +1,7 @@
 ---
 title: Inverse CDF Sampling
 key: 20180708
+image: /assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png
 ---
 
 Inverse [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) sampling is a method for obtaining samples from both discrete and continuous probability distributions that requires the CDF to be invertible. The method assumes values of the CDF are Uniform random variables on {% katex %}[0, 1]{% endkatex %}.
@@ -231,9 +232,7 @@ analytic value.
 <div style="text-align:center;">
 <img src="/assets/posts/inverse_cdf_sampling/weibull_sampled_mean_convergence.png">
 </div>
-
-\ 
-
+\
 <div style="text-align:center;">
 <img src="/assets/posts/inverse_cdf_sampling/weibull_sampled_std_convergence.png">
 </div>

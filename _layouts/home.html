@@ -14,6 +14,7 @@ show_title: false
       <article itemscope itemtype="http://schema.org/BlogPosting">
 
         {%- assign __path = post.url -%}
+        {%- assign __image = post.image -%}
         {%- include snippets/prepend-baseurl.html -%}
         {%- assign _href = __return -%}
 
@@ -21,6 +22,9 @@ show_title: false
         {%- include snippets/locale-to-string.html -%}
         {%- assign _locale_readmore = __return -%}
 
+        <div style="text-align:center;">
+          <img src="{{ __image }}" width="500">
+        </div>
         <header class="article__header"><h2 itemprop="headline"><a href="{{ _href }}">{{ post.title }}</a></h2></header>
         <div class="article__content" itemprop="description articleBody">
           {%- assign _excerpt_type = site.excerpt_type | default: site.data.variables.default.excerpt_type  -%}
