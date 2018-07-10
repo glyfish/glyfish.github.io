@@ -81,17 +81,14 @@ mermaid: # false (default), true
 ## Chart
 chart: # false (default), true
 
-
 ## => Paginate
 ##############################
 paginate: 8
 paginate_path: /page:num # don't change this unless for special need
 
-
 ## => Sources
 ##############################
 sources: # bootcdn (default), unpkg
-
 
 ## => Comments
 ##############################
@@ -160,6 +157,16 @@ exclude:
   - /test
   - /vendor
 
+kramdown:
+  auto_ids:      true
+  entity_output: as_char
+  toc_levels:    1..6
+  smart_quotes:  lsquo,rsquo,ldquo,rdquo
+  input:         GFM
+  hard_wrap:     false
+  footnote_nr:   1
+  show_warnings: false
+  
 defaults:
   - scope:
       path: ""

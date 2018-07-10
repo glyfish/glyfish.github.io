@@ -29,7 +29,7 @@ distribution {% katex %}\{p_i\}_N{% endkatex %} since the intervals
 Consider the example distribution,
 
 {% katex display %}
-\{p_i\}_6 = \left\{\frac{1}{12}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{12}, \frac{5}{12} \right\}
+\left\{\frac{1}{12}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{12}, \frac{5}{12} \right\} \ \ \ \ \ (1)
 {% endkatex %}
 
 It is shown in the following plot with its CDF. Note that the CDF is a monotonically increasing function.
