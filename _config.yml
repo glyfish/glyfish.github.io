@@ -33,12 +33,12 @@ author:
   name      : Troy Stribling
   url       : troystribling.com
   avatar    : # path or url of avatar image
-  bio       : I am an amazing person.
-  email     : troy.stribling@gmail.com
+  bio       : Engineer.
+  email     :
   facebook  : # "user_name" the last part of your profile url, e.g. https://www.facebook.com/user_name
-  twitter   : troystribling
-  github    : troystribling
-  linkedin  : troystribling
+  twitter   : glyfish
+  github    : glyfish
+  linkedin  :
   googleplus: # "user_id"   the last part of your profile url, e.g. https://plus.google.com/u/0/user_id
   weibo     : # "user_id"   the last part of your profile url, e.g. https://www.weibo.com/user_id/profile?...
   douban    : # "user_name" the last part of your profile url, e.g. https://www.douban.com/people/user_name/
@@ -113,14 +113,7 @@ comments:
 ## => Pageview
 ##############################
 pageview:
-  provider: false # false (default), "leancloud", "custom"
-
-  ## Leancloud
-  leancloud:
-    app_id    : # LeanCloud App id
-    app_key   : # LeanCloud App key
-    app_class : # LeanCloud App class
-
+  provider: false # false (default), "custom"
 
 ## => Analytics
 ##############################
@@ -157,16 +150,12 @@ exclude:
   - /test
   - /vendor
 
-kramdown:
-  auto_ids:      true
-  entity_output: as_char
-  toc_levels:    1..6
-  smart_quotes:  lsquo,rsquo,ldquo,rdquo
-  input:         GFM
-  hard_wrap:     false
-  footnote_nr:   1
-  show_warnings: false
-  
+katex:
+  js_path: "{{ Gem::lib_path }}/assets/js"
+  rendering_options:
+    throw_error: false
+    error_color: "#cc0000"
+
 defaults:
   - scope:
       path: ""

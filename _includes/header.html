@@ -1,12 +1,11 @@
 <header class="header">
   <div class="main clearfix">
     <div class="logo">
-    {%- include svg/logo.svg -%}
+    {%- if site.title -%}
+      <a title="{%- if site.description -%}{{ site.description }}{%- endif -%}" href="{{ __return }}">{%- include svg/logo.svg -%}</a>
+    {%- endif -%}
     {%- assign __path = site.paths.root | default: site.data.variables.default.paths.root  -%}
     {%- include snippets/get-nav-url.html -%}
-    {%- if site.title -%}
-      <a title="{%- if site.description -%}{{ site.description }}{%- endif -%}" href="{{ __return }}">{{ site.title }}</a>
-    {%- endif -%}
     </div>
     {%- if site.data.navigation.header -%}
     <nav>
