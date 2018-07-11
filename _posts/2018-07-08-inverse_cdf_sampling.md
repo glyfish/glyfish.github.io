@@ -9,7 +9,6 @@ CDF values are generated and used as input into the inverted CDF to obtain sampl
 distribution defined by the CDF.
 
 <!--more-->
-
 ## Discrete Distributions
 
 A discrete probability distribution consisting of a finite set of {% katex %}N{% endkatex %}
@@ -32,7 +31,6 @@ Consider the example distribution,
 {% katex display %}
 \left\{\frac{1}{12}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{12}, \frac{5}{12} \right\} \ \ \ \ \ (1)
 {% endkatex %}
-
 It is shown in the following plot with its CDF. Note that the CDF is a monotonically increasing function.
 
 <div style="text-align:center;">
