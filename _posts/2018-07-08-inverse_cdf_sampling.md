@@ -4,7 +4,9 @@ key: 20180708
 image: /assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png
 ---
 
-Inverse [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) sampling is a method for obtaining samples from both discrete and continuous probability distributions that requires the CDF to be invertible. The method assumes values of the CDF are Uniform random variables on {% katex %}[0, 1]{% endkatex %}.
+Inverse [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) sampling is a method for obtaining
+samples from both discrete and continuous probability distributions that requires the CDF to be invertible.
+The method assumes values of the CDF are Uniform random variables on {% katex %}[0, 1]{% endkatex %}.
 CDF values are generated and used as input into the inverted CDF to obtain samples with the
 distribution defined by the CDF.
 
@@ -20,13 +22,14 @@ The CDF specifies the probability that {% katex %}i \leq n{% endkatex %} and is 
 P(i \leq n)=P(n)=\sum_{i=1}^n{p_i},
 {% endkatex %}
 
-For a given generated CDF value, {% katex %}U{% endkatex %}, Equation {% katex %}P(n){% endkatex %} can always be inverted by evaluating it for each {% katex %}n{% endkatex %} and
+For a given CDF value, {% katex %}U{% endkatex %}, Equation {% katex %}P(n){% endkatex %} can always
+be inverted by evaluating it for each {% katex %}n{% endkatex %} and
 searching for the value of {% katex %}n{% endkatex %} that satisfies, {% katex %}P(n) \geq U{% endkatex %}.
-It can be seen that the generated samples will have
-distribution {% katex %}\{p_i\}_N{% endkatex %} since the intervals
-{% katex %}P(n)-P(n-1) = p_n{% endkatex %} are Uniformly sampled.
+It follows that generated samples of {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} will have distribution
+{% katex %}\{p_i\}_N{% endkatex %} since the intervals {% katex %}P(n)-P(n-1) = p_n{% endkatex %}
+are Uniformly sampled.
 
-Consider the example distribution,
+Consider the distribution,
 
 {% katex display %}
 \left\{\frac{1}{12}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{12}, \frac{5}{12} \right\} \ \ \ \ \ (1)
@@ -38,12 +41,7 @@ It is shown in the following plot with its CDF. Note that the CDF is a monotonic
 </div>
 
 A sampler using the Inverse CDF method on the distribution {% katex %}\{p_i\}_N{% endkatex %} implemented in
-Python is shown below. The program first stores the CDF computed from each of the sums
-{% katex %}P(n){% endkatex %} in an array. Next, CDF samples using
-{% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} are generated. Finally, for each sampled CDF value,
-{% katex %}U{% endkatex %}, the array containing {% katex %}P(n){% endkatex %} is scanned for
-the value of $n$ where {% katex %}P(n) \geq U{% endkatex %}. The resulting values of {% katex %}n{% endkatex %}
-will have the distribution {% katex %}\{p_i\}_N{% endkatex %}.
+Python is shown below.
 
 ```python
 import numpy
@@ -54,6 +52,13 @@ cdf = numpy.cumsum(df)
 
 samples = [numpy.flatnonzero(cdf >= u)[0] for u in numpy.random.rand(n)]
 ```
+The program first stores the CDF computed from each of the sums
+{% katex %}P(n){% endkatex %} in an array. Next, CDF samples using
+{% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} are generated. Finally, for each sampled CDF value,
+{% katex %}U{% endkatex %}, the array containing {% katex %}P(n){% endkatex %} is scanned for
+the value of  {% katex %}n{% endkatex %} where {% katex %}P(n) \geq U{% endkatex %}. The resulting
+values of {% katex %}n{% endkatex %}
+will have the distribution {% katex %}\{p_i\}_N{% endkatex %}.
 
 The figure below favorably compares generated samples and Equation (1),
 
@@ -240,7 +245,7 @@ analytic value.
 Any continuous distribution, {% katex %}f_X(x){% endkatex %}, can be approximated by the discrete distribution,
 {% katex %}\left\{f_X(x_i)\Delta x_i \right\}_N{% endkatex %} for
 {% katex %}i=1,2,3,\ldots,N{% endkatex %}, where {% katex %}\Delta x_i=(x_{max}-x_{min})/(N-1){% endkatex %} and
-{% katex %}x_i = x_{min}+(i-1)\Delta x_i{% endkatex %}. This method has a couple of drawbacks compared to using
+{% katex %}x_i = x_{min}+(i-1)\Delta x_i{% endkatex %}. This method has disadvantages compared to using
 Inverse CDF sampling on the continuous distribution. First, a bounded range for the samples must
 be assumed when in general the range of the samples can be unbounded.
 The Inverse CDF method can sample an unbounded range. Second, the performance for
