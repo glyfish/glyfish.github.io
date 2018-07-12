@@ -5,7 +5,7 @@
 .footer {
   @include flexbox;
   @include align-items(center);
-  background-color: $main-color-3;
+  background-color: $background-color;
   height: map-get($layout, footer-height);
   .follow-me {
     padding-top: 1rem;
