@@ -40,7 +40,7 @@ It is shown in the following plot with its CDF. Note that the CDF is a monotonic
 <img src="/assets/posts/inverse_cdf_sampling/discrete_cdf.png">
 </div>
 
-A sampler using the Inverse CDF method on the distribution {% katex %}\{p_i\}_N{% endkatex %} implemented in
+A sampler using the Inverse CDF method on the distribution specified in {% katex %}(1){% endkatex %} implemented in
 Python is shown below.
 
 ```python
@@ -58,15 +58,15 @@ The program first stores the CDF computed from each of the sums
 {% katex %}U{% endkatex %}, the array containing {% katex %}P(n){% endkatex %} is scanned for
 the value of  {% katex %}n{% endkatex %} where {% katex %}P(n) \geq U{% endkatex %}. The resulting
 values of {% katex %}n{% endkatex %}
-will have the distribution {% katex %}\{p_i\}_N{% endkatex %}.
+will have the distribution {% katex %}(1){% endkatex %}.
 
-The figure below favorably compares generated samples and Equation (1),
+The figure below favorably compares generated samples and (1),
 
 <div style="text-align:center;">
 <img src="/assets/posts/inverse_cdf_sampling/discrete_sampled_distribution.png">
 </div>
 
-It is also possible to directly sample {% katex %}\{p_i\}_N{% endkatex %} using the `multinomial` sampler from `numpy`,
+It is also possible to directly sample distribution {% katex %}(1){% endkatex %} using the `multinomial` sampler from `numpy`,
 
 ```python
 import numpy
@@ -137,7 +137,7 @@ where,
 f_Y(y) = f_X(G^{-1}(y)) \frac{dG^{-1}}{dy}
 {% endkatex %}
 
-The desired proof of Equation (2) follows from Equation (3) by noting that
+The desired proof of equation (2) follows from equation (3) by noting that
 {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} so {% katex %}f_U(u) = 1{% endkatex %},
 
 {% katex display %}

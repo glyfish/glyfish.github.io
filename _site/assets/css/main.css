@@ -602,7 +602,7 @@ ul.toc--navigator a { padding: 0 0 0 .5rem; margin: .2rem 0; border-radius: 0; }
 .root[data-is-touch="false"] .header a:hover svg path { fill: #1D84ff; }
 .root[data-is-touch] .header a.active, .root[data-is-touch] .header a:active { color: #005fd0; }
 .root[data-is-touch] .header a.active svg path, .root[data-is-touch] .header a:active svg path { fill: #005fd0; }
-.header > .main > .logo { float: left; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: wrap; -moz-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; margin-top: 0; margin-bottom: 0; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; height: 5rem; }
+.header > .main > .logo { float: left; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: wrap; -moz-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; margin-top: 0; margin-bottom: 0; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; height: 10rem; }
 .header > .main > .logo > li { margin-top: 0; margin-bottom: 0; list-style-type: none; margin-right: 1rem; }
 .header > .main > .logo > li:last-child { margin-right: 0; }
 .header > .main > .logo > svg { margin-right: .8rem; vertical-align: middle; width: 100; height: 100; }
@@ -610,7 +610,7 @@ ul.toc--navigator a { padding: 0 0 0 .5rem; margin: .2rem 0; border-radius: 0; }
 .header > .main > .logo > a { display: inline-block; font-size: 1.2rem; }
 @media screen and (max-width: 500px) { .header > .main > .logo { float: none; height: 3rem; } }
 .header > .main > nav { display: block; float: right; white-space: nowrap; overflow: auto; -webkit-overflow-scrolling: touch; }
-.header > .main > nav ul { margin: 0; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: nowrap; -moz-flex-wrap: nowrap; -ms-flex-wrap: none; flex-wrap: nowrap; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; margin-top: 0; margin-bottom: 0; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; height: 5rem; }
+.header > .main > nav ul { margin: 0; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-flex-wrap: nowrap; -moz-flex-wrap: nowrap; -ms-flex-wrap: none; flex-wrap: nowrap; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; margin-top: 0; margin-bottom: 0; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; height: 10rem; }
 .header > .main > nav ul > li { margin-top: 0.5rem; margin-bottom: 0.5rem; list-style-type: none; margin-right: 1rem; }
 .header > .main > nav ul > li:last-child { margin-right: 0; }
 @media screen and (max-width: 500px) { .header > .main > nav ul { height: auto; } }
