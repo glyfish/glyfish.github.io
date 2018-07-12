@@ -9,6 +9,7 @@
     </div>
     {%- if site.data.navigation.header -%}
     <nav>
+      {%- include follow-me.html -%}
       <ul>
         {%- for _item in site.data.navigation.header -%}
           {%- assign __path = _item.url -%}

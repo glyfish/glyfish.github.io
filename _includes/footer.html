@@ -9,7 +9,25 @@
       {%- assign _author_itemtype = 'http://schema.org/Person' -%}
     {%- endif -%}
 
-    <aside  itemscope itemtype="{{ _author_itemtype }}">
+
+      <ul>
+        {%- for _item in site.data.navigation.header -%}
+          {%- assign __path = _item.url -%}
+          {%- include snippets/get-nav-url.html -%}
+          {%- assign _nav_url = __return -%}
+          {%- assign __path = page.url -%}
+          {%- include snippets/get-nav-url.html -%}
+          {%- assign _page_url = __return -%}
+          {%- assign __locale = _item.titles -%}
+          {%- include snippets/locale-to-string.html -%}
+          {%- if _nav_url == _page_url -%}
+            <li class="active"><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+          {%- else -%}
+            <li><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      <aside  itemscope itemtype="{{ _author_itemtype }}">
       <meta itemprop="name" content="{{ __author.name }}">
       {%- assign __path = __author.url | default: '/'-%}
       {%- include snippets/get-nav-url.html -%}
@@ -18,7 +36,6 @@
       {%- if __author.bio -%}
         <meta itemprop="description" content="{{ __author.bio }}">
       {%- endif -%}
-      {%- include follow-me.html -%}
     </aside>
     <footer class="site-info">
       {%- assign __path = site.paths.rss | default: site.data.variables.default.paths.rss -%}

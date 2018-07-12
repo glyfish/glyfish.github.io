@@ -18,7 +18,7 @@ url     : https://glyfish.github.io
 baseurl :
 title   : gly.fish
 description: > # this means to ignore newlines until "Language & timezone"
-
+  Writings on limits
 
 ## => Language and Timezone
 ##############################
@@ -33,7 +33,7 @@ author:
   name      : Troy Stribling
   url       : troystribling.com
   avatar    : # path or url of avatar image
-  bio       : Engineer.
+  bio       : Physicist
   email     :
   facebook  : # "user_name" the last part of your profile url, e.g. https://www.facebook.com/user_name
   twitter   : glyfish
