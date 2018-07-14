@@ -1,592 +1,75 @@
-<!DOCTYPE html><html lang="en">
-  <head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>gly.fish</title>
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>gly.fish | A study of random processes</title>
+<meta name="generator" content="Jekyll v3.7.3" />
+<meta property="og:title" content="gly.fish" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A study of random processes" />
+<meta property="og:description" content="A study of random processes" />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="gly.fish" />
+<script type="application/ld+json">
+{"name":"gly.fish","description":"A study of random processes","@type":"WebSite","url":"http://localhost:4000/","headline":"gly.fish","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="gly.fish" /></head>
+<body><header class="site-header" role="banner">
 
-<meta name="description" content="Writings on limits
-">
-<link rel="canonical" href="http://localhost:4000/"><link rel="alternate" type="application/rss+xml" title="gly.fish" href="/feed.xml">
-<!-- begin favicon --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">gly.fish</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
 
-<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
-
-<meta name="theme-color" content="#ffffff">
-<!-- end favicon --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" >
-<link rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.10.0-alpha/katex.min.css" >
-<script>(function() {
-  window.isArray = function(val) {
-    return Object.prototype.toString.call(val) === '[object Array]';
-  };
-  window.isString = function(val) {
-    return typeof val === 'string';
-  };
-
-  window.decodeUrl = function(str) {
-    return str ? decodeURIComponent(str.replace(/\+/g, '%20')) : '';
-  };
-
-
-  window.hasEvent = function(event) {
-    return 'on'.concat(event) in window.document;
-  };
-
-  window.isOverallScroller = function(node) {
-    return node === document.documentElement || node === document.body;
-  };
-
-  window.pageLoad = (function () {
-    var loaded = false, cbs = [];
-    window.addEventListener('load', function () {
-      var i, cb; loaded = true;
-      if (cbs.length > 0) {
-        for (i = 0; i < cbs.length; i++) {
-          cb = cbs[i]; cb();
-        }
-      }
-    });
-    return {
-      then: function(cb) {
-        cb && (loaded ? cb() : (cbs.push(cb)));
-      }
-    };
-  })();
-})();(function() {
-  window.throttle = function(func, wait) {
-    var args, result, thisArg, timeoutId, lastCalled = 0;
-
-    function trailingCall() {
-      lastCalled = new Date;
-      timeoutId = null;
-      result = func.apply(thisArg, args);
-    }
-    return function() {
-      var now = new Date,
-        remaining = wait - (now - lastCalled);
-
-      args = arguments;
-      thisArg = this;
-
-      if (remaining <= 0) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
-        lastCalled = now;
-        result = func.apply(thisArg, args);
-      } else if (!timeoutId) {
-        timeoutId = setTimeout(trailingCall, remaining);
-      }
-      return result;
-    };
-  };
-})();(function() {
-  var Set = (function() {
-    var add = function(item) {
-      var i, data = this._data;
-      for (i = 0; i < data.length; i++) {
-        if (data[i] === item) {
-          return;
-        }
-      }
-      this.size ++;
-      data.push(item);
-      return data;
-    };
-
-    var Set = function(data) {
-      this.size = 0;
-      this._data = [];
-      var i;
-      if (data.length > 0) {
-        for (i = 0; i < data.length; i++) {
-          add.call(this, data[i]);
-        }
-      }
-    };
-    Set.prototype.add = add;
-    Set.prototype.get = function(index) { return this._data[index]; };
-    Set.prototype.has = function(item) {
-      var i, data = this._data;
-      for (i = 0; i < data.length; i++) {
-        if (this.get(i) === item) {
-          return true;
-        }
-      }
-      return false;
-    };
-    Set.prototype.is = function(map) {
-      if (map._data.length !== this._data.length) { return false; }
-      var i, j, flag, tData = this._data, mData = map._data;
-      for (i = 0; i < tData.length; i++) {
-        for (flag = false, j = 0; j < mData.length; j++) {
-          if (tData[i] === mData[j]) {
-            flag = true;
-            break;
-          }
-        }
-        if (!flag) { return false; }
-      }
-      return true;
-    };
-    Set.prototype.values = function() {
-      return this._data;
-    };
-    return Set;
-  })();
-
-  window.Lazyload = (function(doc) {
-    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
-    var createNode = function(name, attrs) {
-      var node = doc.createElement(name), attr;
-      for (attr in attrs) {
-        if (attrs.hasOwnProperty(attr)) {
-          node.setAttribute(attr, attrs[attr]);
-        }
-      }
-      return node;
-    };
-    var end = function(type, url) {
-      var s, q, qi, cbs, i, j, cur, val, flag;
-      if (type === 'js' || type ==='css') {
-        s = sources[type], q = queue[type];
-        s[url] = true;
-        for (i = 0; i < q.length; i++) {
-          cur = q[i];
-          if (cur.urls.has(url)) {
-            qi = cur, val = qi.urls.values();
-            qi && (cbs = qi.callbacks);
-            for (flag = true, j = 0; j < val.length; j++) {
-              cur = val[j];
-              if (!s[cur]) {
-                flag = false;
-              }
-            }
-            if (flag && cbs && cbs.length > 0) {
-              for (j = 0; j < cbs.length; j++) {
-                cbs[j].call(context);
-              }
-              qi.load = true;
-            }
-          }
-        }
-      }
-    };
-    var load = function(type, urls, callback) {
-      var s, q, qi, node, i, cur,
-        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
-      if (type === 'js' || type ==='css') {
-        s = sources[type], q = queue[type];
-        for (i = 0; i < q.length; i++) {
-          cur = q[i];
-          if (_urls.is(cur.urls)) {
-            qi = cur;
-            break;
-          }
-        }
-        val = _urls.values();
-        if (qi) {
-          callback && (qi.load || qi.callbacks.push(callback));
-          callback && (qi.load && callback());
-        } else {
-          q.push({
-            urls: _urls,
-            callbacks: callback ? [callback] : [],
-            load: false
-          });
-          for (i = 0; i < val.length; i++) {
-            node = null, url = val[i];
-            if (s[url] === undefined) {
-              (type === 'js' ) && (node = createNode('script', { src: url }));
-              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
-              if (node) {
-                node.onload = (function(type, url) {
-                  return function() {
-                    end(type, url);
-                  };
-                })(type, url);
-                (doc.head || doc.body).appendChild(node);
-                s[url] = false;
-              }
-            }
-          }
-        }
-      }
-    };
-    return {
-      js: function(url, callback) {
-        load('js', url, callback);
-      },
-      css: function(url, callback) {
-        load('css', url, callback);
-      }
-    };
-  })(this.document);
-})();</script><script>
-  (function() {
-    var TEXT_VARIABLES = {
-      sources: {
-        font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
-        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
-        leancloud_js_sdk: '//cdn1.lncld.net/static/js/3.4.1/av-min.js',
-        chart: 'https://cdn.bootcss.com/Chart.js/2.7.1/Chart.bundle.min.js',
-        gitalk: {
-          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
-          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
-        },
-        katex: {
-          js: 'https://cdn.bootcss.com/KaTeX/0.10.0-alpha/katex.min.js',
-          css: 'https://cdn.bootcss.com/KaTeX/0.10.0-alpha/katex.min.css'
-        },
-        mermaid: 'https://cdn.bootcss.com/mermaid/7.1.2/mermaid.min.js'
-      },
-      site: {
-        toc: {
-          selectors: 'h1,h2,h3'
-        }
-      }
-    };
-    window.TEXT_VARIABLES = TEXT_VARIABLES;
-  })();
-</script>
-</head>
-  <body>
-    <div class="root" data-is-touch="false">
-      <div class="layout--page clearfix"><div class="page__main js-page-main"><div class="page__main-inner">
-    <div></div><div class="page__header"><header class="header">
-  <div class="main clearfix">
-    <div class="logo"><a title="Writings on limits
-" href="/"><?xml version='1.0' encoding='UTF-8'?>
-<!-- This file was generated by dvisvgm 1.15.1 -->
-<svg height='38.4949pt' version='1.1' viewBox='-0.239051 -0.228264 186.672 38.4949' width='186.672pt' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
-<defs>
-<path d='M5.00033 -6.79797H11.4057L11.6743 -8.05838H5.26894L6.30207 -12.9761H8.96753C9.21548 -12.9761 9.46343 -12.9554 9.71138 -12.9554H13.2447L13.534 -14.2985H4.85569L1.8183 0H10.7652L11.0751 -1.42571L6.63267 -1.40505C4.97967 -1.40505 4.21515 -1.40505 3.84323 -1.38439L5.00033 -6.79797Z' id='g0-69'/>
-<path d='M8.76091 -7.56248L14.8564 -14.3398H12.9761L8.20302 -8.96753L5.62021 -14.3398H3.59528L7.06658 -7.56248L0.268613 0H2.16956L7.64513 -6.30207L10.5792 0H12.6248L8.76091 -7.56248Z' id='g0-88'/>
-<path d='M5.08298 -7.68646H7.76911L8.01706 -8.88488H5.33093L5.88882 -11.4264H4.42178L3.86389 -8.88488H2.23155L1.9836 -7.68646H3.57462C3.42998 -6.98393 2.62414 -3.24402 2.56215 -2.91342C2.37619 -2.00426 2.33486 -1.8183 2.33486 -1.36373C2.33486 -0.0619876 2.95474 0.1653 3.55395 0.1653C5.00033 0.1653 6.19876 -0.41325 6.59134 -0.599213L6.52936 -1.8183C5.84749 -1.3224 5.16563 -1.13644 4.64907 -1.13644C4.17383 -1.13644 3.94654 -1.42571 3.94654 -2.04559C3.94654 -2.27288 3.9672 -2.39685 4.00853 -2.56215L5.08298 -7.68646Z' id='g0-116'/>
-<use id='g1-69' transform='scale(1.19961)' xlink:href='#g0-69'/>
-<use id='g1-88' transform='scale(1.19961)' xlink:href='#g0-88'/>
-<use id='g3-49' transform='scale(1.19961)' xlink:href='#g2-49'/>
-<path d='M17.2325 -4.75238C16.0961 -3.88455 15.5382 -3.03739 15.3729 -2.76878C14.4431 -1.34306 14.2778 -0.041325 14.2778 -0.0206625C14.2778 0.227288 14.5258 0.227288 14.6911 0.227288C15.0423 0.227288 15.063 0.185963 15.1456 -0.185963C15.6209 -2.21089 16.84 -3.94654 19.1748 -4.89702C19.4228 -4.97967 19.4848 -5.02099 19.4848 -5.16563S19.3608 -5.37226 19.3195 -5.39292C18.4103 -5.74418 15.9101 -6.77731 15.125 -10.2486C15.063 -10.4966 15.0423 -10.5585 14.6911 -10.5585C14.5258 -10.5585 14.2778 -10.5585 14.2778 -10.3106C14.2778 -10.2693 14.4638 -8.96753 15.3316 -7.58315C15.7448 -6.96327 16.3441 -6.24008 17.2325 -5.57888H1.88029C1.50836 -5.57888 1.13644 -5.57888 1.13644 -5.16563S1.50836 -4.75238 1.88029 -4.75238H17.2325Z' id='g2-33'/>
-<path d='M10.4966 -5.59954C9.38078 -7.00459 9.13283 -7.31453 8.4923 -7.8311C7.33519 -8.76091 6.17809 -9.13283 5.12431 -9.13283C2.70679 -9.13283 1.13644 -6.85996 1.13644 -4.44244C1.13644 -2.06625 2.66547 0.227288 5.04166 0.227288S9.13283 -1.653 10.1453 -3.306C11.2611 -1.90095 11.509 -1.59101 12.1496 -1.07445C13.3067 -0.144638 14.4638 0.227288 15.5176 0.227288C17.9351 0.227288 19.5054 -2.04559 19.5054 -4.4631C19.5054 -6.83929 17.9764 -9.13283 15.6002 -9.13283S11.509 -7.25254 10.4966 -5.59954ZM11.0338 -4.89702C11.8809 -6.38472 13.41 -8.47163 15.7448 -8.47163C17.9351 -8.47163 19.0508 -6.32273 19.0508 -4.4631C19.0508 -2.43818 17.6665 -0.764513 15.8482 -0.764513C14.6497 -0.764513 13.7199 -1.63234 13.286 -2.06625C12.7694 -2.62414 12.2942 -3.26468 11.0338 -4.89702ZM9.60807 -4.00853C8.76091 -2.52083 7.23188 -0.433913 4.89702 -0.433913C2.70679 -0.433913 1.59101 -2.58282 1.59101 -4.44244C1.59101 -6.46737 2.9754 -8.14103 4.7937 -8.14103C5.99213 -8.14103 6.92194 -7.27321 7.35586 -6.83929C7.87242 -6.28141 8.34766 -5.64087 9.60807 -4.00853Z' id='g2-49'/>
-<path d='M16.062 -7.95664C16.4338 -7.95664 16.8056 -7.95664 16.8056 -8.37802C16.8056 -8.82419 16.3842 -8.82419 15.9629 -8.82419H2.13169C1.71031 -8.82419 1.28893 -8.82419 1.28893 -8.37802C1.28893 -7.95664 1.66073 -7.95664 2.03254 -7.95664H16.062ZM15.9629 -3.54455C16.3842 -3.54455 16.8056 -3.54455 16.8056 -3.99072C16.8056 -4.4121 16.4338 -4.4121 16.062 -4.4121H2.03254C1.66073 -4.4121 1.28893 -4.4121 1.28893 -3.99072C1.28893 -3.54455 1.71031 -3.54455 2.13169 -3.54455H15.9629Z' id='g4-61'/>
-<path d='M6.24634 6.17198V4.65997H4.11465V-17.0535H6.24634V-18.5655H2.3052V6.17198H6.24634Z' id='g4-91'/>
-<path d='M4.43688 -18.5655H0.495741V-17.0535H2.62743V4.65997H0.495741V6.17198H4.43688V-18.5655Z' id='g4-93'/>
-<path d='M3.79242 -16.3099H1.71031V-14.2278H3.79242V-16.3099ZM3.66848 -10.6584H1.83424V0H3.66848V-10.6584Z' id='g4-105'/>
-<path d='M3.66848 -17.2022H1.83424V0H3.66848V-17.2022Z' id='g4-108'/>
-<path d='M16.6073 -7.23782C16.6073 -8.89855 16.1859 -10.8567 13.4098 -10.8567C11.5508 -10.8567 10.4353 -9.69174 9.93961 -8.97291C9.49344 -10.2866 8.45239 -10.8567 6.96516 -10.8567C5.27964 -10.8567 4.2138 -9.89003 3.6437 -9.196V-10.7328H1.83424V0H3.71806V-5.99847C3.71806 -7.4609 4.26337 -9.34472 6.02325 -9.34472C8.27888 -9.34472 8.27888 -7.75835 8.27888 -7.03952V0H10.1627V-5.99847C10.1627 -7.4609 10.708 -9.34472 12.4679 -9.34472C14.7235 -9.34472 14.7235 -7.75835 14.7235 -7.03952V0H16.6073V-7.23782Z' id='g4-109'/>
-</defs>
-<g id='page1' transform='matrix(1.13 0 0 1.13 -63.986 -61.0987)'>
-<use x='66.5609' xlink:href='#g4-108' y='72.3662'/>
-<use x='72.0589' xlink:href='#g4-105' y='72.3662'/>
-<use x='77.5568' xlink:href='#g4-109' y='72.3662'/>
-<use x='56.4133' xlink:href='#g0-116' y='87.9339'/>
-<use x='64.8626' xlink:href='#g2-33' y='87.9339'/>
-<use x='85.448' xlink:href='#g2-49' y='87.9339'/>
-<use x='110.345' xlink:href='#g1-69' y='72.3662'/>
-<use x='127.21' xlink:href='#g4-91' y='72.3662'/>
-<use x='133.949' xlink:href='#g1-88' y='72.3662'/>
-<use x='149.371' xlink:href='#g0-116' y='76.0843'/>
-<use x='158.344' xlink:href='#g4-93' y='72.3662'/>
-<use x='171.968' xlink:href='#g4-61' y='72.3662'/>
-<use x='196.915' xlink:href='#g3-49' y='72.3662'/>
-</g>
-</svg>
-</a></div><nav><div class="follow-me">
-  <ul class="menu menu--nowrap menu--center"><link itemprop="url" href="troystribling.com"><li title="Follow me on Twitter.">
-        <a class="button button--circle twitter-button" itemprop="sameAs" href="https://twitter.com/glyfish" target="_blank">
-          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M1024.032 194.432c-37.664 16.704-78.176 28-120.672 33.088 43.36-26.016 76.672-67.168 92.384-116.224-40.608 24.064-85.568 41.568-133.408 50.976-38.336-40.832-92.928-66.336-153.344-66.336-116.032 0-210.08 94.048-210.08 210.08 0 16.48 1.856 32.512 5.44 47.872-174.592-8.768-329.408-92.416-433.024-219.52-18.08 31.04-28.448 67.104-28.448 105.632 0 72.896 37.088 137.184 93.472 174.88-34.432-1.088-66.816-10.528-95.168-26.272-0.032 0.864-0.032 1.76-0.032 2.656 0 101.792 72.416 186.688 168.512 205.984-17.632 4.8-36.192 7.36-55.36 7.36-13.536 0-26.688-1.312-39.52-3.776 26.72 83.456 104.32 144.192 196.256 145.888-71.904 56.352-162.496 89.92-260.928 89.92-16.96 0-33.664-0.992-50.112-2.944 92.96 59.616 203.392 94.4 322.048 94.4 386.432 0 597.728-320.128 597.728-597.76 0-9.12-0.192-18.176-0.608-27.168 41.056-29.632 76.672-66.624 104.832-108.736z" />
-</svg>
-</div>
-        </a>
-      </li><li title="Follow me on Github.">
-        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/glyfish" target="_blank">
-          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
-</svg>
-</div>
-        </a>
-      </li></ul>
-</div>
-<ul><li><a href="/archive.html">Archive</a></li><li><a href="/about.html">About</a></li></ul>
-    </nav></div>
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
 </header>
-</div><div class="page__content"><div class ="main"><div class="col-aside js-col-aside"></div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="home">
+<h2 class="post-list-heading">Posts</h2>
+    <ul class="post-list"><li><span class="post-meta">Jul 8, 2018</span>
+        <h3>
+          <a class="post-link" href="/2018/07/08/inverse_cdf_sampling.html">
+            Inverse CDF Sampling
+          </a>
+        </h3></li></ul>
 
-          <div class="col-main"><article itemscope itemtype="http://schema.org/WebPage"><header style="display: none;"><h1 itemprop="headline"></h1></header><div class="article__info clearfix"><meta itemprop="author" content="Troy Stribling"/></div>
-<div class="js-article-content"><div class="layout--home">
+    <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p></div>
 
-  <div class="post-list"><article itemscope itemtype="http://schema.org/BlogPosting"><div style="text-align:center;">
-          <img src="/assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png" width="600">
-        </div>
-        <header class="article__header"><h2 itemprop="headline"><a href="/2018/07/08/inverse_cdf_sampling.html">Inverse CDF Sampling</a></h2></header>
-        <div class="article__content" itemprop="description articleBody"><p>Inverse <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">CDF</a> sampling is a method for obtaining
-samples from both discrete and continuous probability distributions that requires the CDF to be invertible.
-The method assumes values of the CDF are Uniform random variables on <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mclose">]</span></span></span></span>.
-CDF values are generated and used as input into the inverted CDF to obtain samples with the
-distribution defined by the CDF.</p>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
 
+  <div class="wrapper">
+
+    <h2 class="footer-heading">gly.fish</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">gly.fish</li><li><a class="u-email" href="mailto:me@troystribling.com">me@troystribling.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/glyfish"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">glyfish</span></a></li><li><a href="https://www.twitter.com/glyfish"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">glyfish</span></a></li></ul>
 </div>
 
-        <p><a href="/2018/07/08/inverse_cdf_sampling.html">Read more ...</a></p><div class="article__info clearfix"><meta itemprop="author" content="Troy Stribling"/><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span itemprop="datePublished">Jul 08, 2018</span></li></ul></div>
-</article></div></div>
-
-<script>/*(function () {
-
-})();*/</script>
-
-
-</div></article>
-          </div></div></div>
-
-      <div class="page__footer">
-<div class="footer js-page-footer">
-  <div class="main"><ul><li><a href="/archive.html">Archive</a></li><li><a href="/about.html">About</a></li></ul>
-      <aside  itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Troy Stribling"><meta itemprop="url" content="troystribling.com"><meta itemprop="description" content="Physicist"></aside>
-    <footer class="site-info"><p>
-        <span class="site-info__copyright">© gly.fish 2018</span>
-        <a class="site-info__rss" type="application/rss+xml" href="/feed.xml">RSS</a>
-      </p>
-      <p>Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
-        title="TeXt is a succinct theme for blogging." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
-      </p>
-    </footer>
-  </div>
-</div>
-</div>
-
+      <div class="footer-col footer-col-3">
+        <p>A study of random processes</p>
+      </div>
     </div>
+
   </div>
-</div>
 
+</footer>
+</body>
 
-<script>(function() {
-  var SOURCES = window.TEXT_VARIABLES.sources;
-  window.Lazyload.js(SOURCES.jquery, function() {
-    function scrollToAnchor(anchor, duration, callback) {
-      var $root = this;
-      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
-        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
-        callback && callback();
-      });
-    }
-    $.fn.scrollToAnchor = scrollToAnchor;
-  });
-})();(function() {
-  var SOURCES = window.TEXT_VARIABLES.sources;
-  window.Lazyload.js(SOURCES.jquery, function() {
-    var $window = $(window), $root, $scrollTarget, $scroller, $scroll;
-    var rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop, lastScrollTop;
-    var offsetBottom = 0, disabled = false, scrollTarget = window, scroller = 'html, body', scroll = window.document;
-    var hasInit = false, isOverallScroller = true;
-
-    function setOptions(options) {
-      var _options = options || {};
-      _options.offsetBottom && (offsetBottom = _options.offsetBottom);
-      _options.scrollTarget && (scrollTarget = _options.scrollTarget);
-      _options.scroller && (scroller = _options.scroller);
-      _options.scroll && (scroll = _options.scroll);
-      _options.disabled !== undefined && (disabled = _options.disabled);
-      $scrollTarget = $(scrollTarget);
-      $scroller = $(scroller);
-      isOverallScroller = window.isOverallScroller($scroller[0]);
-      $scroll = $(scroll);
-      calc(true);
-    }
-    function initData() {
-      top();
-      rootHeight = $root.outerHeight();
-      rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scroller.scrollTop());
-      rootLeft = $root.offset().left;
-    }
-    function calc(needInitData) {
-      needInitData && initData();
-      scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
-      rootBottomTop = scrollBottom - rootTop;
-    }
-    function top() {
-      $root.removeClass('fixed').css({
-        left: 0,
-        top: 0
-      });
-    }
-    function fixed() {
-      $root.addClass('fixed').css({
-        left: rootLeft + 'px',
-        top: 0
-      });
-    }
-    function bottom() {
-      $root.removeClass('fixed').css({
-        left: 0,
-        top: rootBottomTop + 'px'
-      });
-    }
-    function setState(force) {
-      force !== true && (force = false);
-      var scrollTop = $scrollTarget.scrollTop();
-      if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
-        (!force && lastScrollTop >= rootTop && lastScrollTop <= scrollBottom) || fixed();
-      } else if (scrollTop < rootTop) {
-        (!force && lastScrollTop < rootTop) || top();
-      } else {
-        (!force && lastScrollTop > scrollBottom) || bottom();
-      }
-      lastScrollTop = scrollTop;
-    }
-    function init() {
-      if(!hasInit) {
-        var interval, timeout;
-        calc(true); setState();
-        // run calc every 1.5 seconds
-        interval = setInterval(function() {
-          calc();
-        }, 1500);
-        timeout = setTimeout(function() {
-          clearInterval(interval);
-        }, 50000);
-        window.pageLoad.then(function() {
-          clearInterval(interval);
-          clearTimeout(timeout);
-        });
-        $scrollTarget.on('scroll', function() {
-          disabled || setState();
-        });
-        $window.on('resize', window.throttle(function() {
-          disabled || (calc(true), setState(true));
-        }, 100));
-        hasInit = true;
-      }
-    }
-
-    function affix(options) {
-      $root = this;
-      setOptions(options);
-      if (!disabled) {
-        init();
-      }
-      $window.on('resize', window.throttle(function() {
-        init();
-      }, 200));
-      return {
-        setOptions: setOptions
-      };
-    }
-    $.fn.affix = affix;
-  });
-})();(function() {
-  var SOURCES = window.TEXT_VARIABLES.sources;
-  window.Lazyload.js(SOURCES.jquery, function() {
-    var $window = $(window), $root, $scrollTarget, $scroller, $tocUl = $('<ul class="toc"></ul>'), $tocLi, $headings, $activeLast, $activeCur;
-    var selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false;
-    var headingsPos, scrolling = false, rendered = false, hasInit = false;
-    function setOptions(options) {
-      var _options = options || {};
-      _options.selectors && (selectors = _options.selectors);
-      _options.container && (container = _options.container);
-      _options.scrollTarget && (scrollTarget = _options.scrollTarget);
-      _options.scroller && (scroller = _options.scroller);
-      _options.disabled !== undefined && (disabled = _options.disabled);
-      $headings = $(container).find(selectors);
-      $scrollTarget = $(scrollTarget);
-      $scroller = $(scroller);
-      calc();
-    }
-    function calc() {
-      headingsPos = [];
-      $headings.each(function() {
-        headingsPos.push(Math.floor($(this).position().top));
-      });
-    }
-    function setState(element, disabled) {
-      var scrollTop = $scroller.scrollTop(), i;
-      if (disabled || !headingsPos || headingsPos.length < 1) { return; }
-      if (element) {
-        $activeCur = element;
-      } else {
-        for (i = 0; i < headingsPos.length; i++) {
-          if (scrollTop >= headingsPos[i]) {
-            $activeCur = $tocLi.eq(i);
-          } else {
-            $activeCur || ($activeCur = $tocLi.eq(i));
-            break;
-          }
-        }
-      }
-      $activeLast && $activeLast.removeClass('active');
-      ($activeLast = $activeCur).addClass('active');
-    }
-    function render() {
-      if(!rendered) {
-        $root.append($tocUl);
-        $headings.each(function() {
-          var $this = $(this);
-          $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
-            .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
-        });
-        $tocLi = $tocUl.children('li');
-        $tocUl.on('click', 'a', function(e) {
-          e.preventDefault();
-          var $this = $(this);
-          scrolling = true;
-          setState($this.parent());
-          $scroller.scrollToAnchor($this.attr('href'), 400, function() {
-            scrolling = false;
-          });
-        });
-      }
-      rendered = true;
-    }
-    function init() {
-      var interval, timeout;
-      if(!hasInit) {
-        render(); calc(); setState(null, scrolling);
-        // run calc every 1.5 seconds
-        interval = setInterval(function() {
-          calc();
-        }, 1500);
-        timeout = setTimeout(function() {
-          clearInterval(interval);
-        }, 50000);
-        window.pageLoad.then(function() {
-          clearInterval(interval);
-          clearTimeout(timeout);
-        });
-        $scrollTarget.on('scroll', function() {
-          disabled || setState(null, scrolling);
-        });
-        $window.on('resize', window.throttle(function() {
-          if (!disabled) {
-            render(); calc(); setState(null, scrolling);
-          }
-        }, 100));
-      }
-      hasInit = true;
-    }
-    function toc(options) {
-      $root = this;
-      setOptions(options);
-      if (!disabled) {
-        init();
-      }
-      $window.on('resize', window.throttle(function() {
-        init();
-      }, 200));
-      return {
-        setOptions: setOptions
-      };
-    }
-    toc.setOptions = setOptions;
-    $.fn.toc = toc;
-  });
-})();/*(function () {
-
-})();*/</script>
-    </div>
-    <script>(function () {
-  var $root = document.getElementsByClassName('root')[0];
-  if (window.hasEvent('touchstart')) {
-    $root.dataset.isTouch = true;
-    document.addEventListener('touchstart', function(){}, false);
-  }
-})();</script>
-  </body>
 </html>

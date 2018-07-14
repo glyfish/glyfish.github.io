@@ -1,56 +1,35 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
-<div class="footer js-page-footer">
-  <div class="main">
+  <div class="wrapper">
 
-    {%- assign __author = site.author -%}
-    {%- if __author.type == 'organization' -%}
-      {%- assign _author_itemtype = 'http://schema.org/Organization' -%}
-    {%- else -%}
-      {%- assign _author_itemtype = 'http://schema.org/Person' -%}
-    {%- endif -%}
+    <h2 class="footer-heading">{{ site.title | escape }}</h2>
 
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">
+            {%- if site.author -%}
+              {{ site.author | escape }}
+            {%- else -%}
+              {{ site.title | escape }}
+            {%- endif -%}
+            </li>
+            {%- if site.email -%}
+            <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+            {%- endif -%}
+        </ul>
+      </div>
 
-      <ul>
-        {%- for _item in site.data.navigation.header -%}
-          {%- assign __path = _item.url -%}
-          {%- include snippets/get-nav-url.html -%}
-          {%- assign _nav_url = __return -%}
-          {%- assign __path = page.url -%}
-          {%- include snippets/get-nav-url.html -%}
-          {%- assign _page_url = __return -%}
-          {%- assign __locale = _item.titles -%}
-          {%- include snippets/locale-to-string.html -%}
-          {%- if _nav_url == _page_url -%}
-            <li class="active"><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
-          {%- else -%}
-            <li><a href="{{ _nav_url }}">{%- if _item.title -%}{{ _item.title }}{%- else -%}{{ __return }}{%- endif -%}</a></li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
-      <aside  itemscope itemtype="{{ _author_itemtype }}">
-      <meta itemprop="name" content="{{ __author.name }}">
-      {%- assign __path = __author.url | default: '/'-%}
-      {%- include snippets/get-nav-url.html -%}
-      {%- assign _author_url = __return -%}
-      <meta itemprop="url" content="{{ _author_url }}">
-      {%- if __author.bio -%}
-        <meta itemprop="description" content="{{ __author.bio }}">
-      {%- endif -%}
-    </aside>
-    <footer class="site-info">
-      {%- assign __path = site.paths.rss | default: site.data.variables.default.paths.rss -%}
-      {%- include snippets/get-nav-url.html -%}
-      {%- assign _href = __return -%}
-      {%- assign __locale = site.data.locale.NAV.RSS -%}
-      {%- include snippets/locale-to-string.html -%}
-      {%- assign _locale_nav_rss = __return -%}
-      <p>
-        <span class="site-info__copyright">© {{ site.title }} {{ site.data.locale.COPYRIGHT_DATES }}</span>
-        <a class="site-info__rss" type="application/rss+xml" href="{{ _href }}">{{ _locale_nav_rss }}</a>
-      </p>
-      <p>Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
-        title="TeXt is a succinct theme for blogging." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
-      </p>
-    </footer>
+      <div class="footer-col footer-col-2">
+        {%- include social.html -%}
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>{{- site.description | escape -}}</p>
+      </div>
+    </div>
+
   </div>
-</div>
+
+</footer>
