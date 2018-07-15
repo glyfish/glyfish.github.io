@@ -56,8 +56,8 @@ excerpt_type: html # text (default), html
 
 ## => Paginate
 ##############################
-paginate: 8
-paginate_path: /page:num # don't change this unless for special need
+paginate: 2
+paginate_path: "/page:num"
 
 katex:
   js_path: "{{ Gem::lib_path }}/assets/js"

@@ -3,29 +3,36 @@ layout: default
 ---
 
 <div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
 
-  {{ content }}
+  <ul class="post-list">
+    {% for post in paginator.posts %}
+    <li>
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      <img class="post-image" src="{{ post.image }}">
+      <span class="post-meta">{{ post.date | date: date_format }}</span>
+      <h1>
+        {{ post.title | escape }}
+      </h1>
+      {%- assign excerpt_character_count = post.excerpt | remove: '<p>' | remove: '</p>' | size -%}
+      {{ post.excerpt | truncate: excerpt_character_count }}
+      <a href="{{ post.url | relative_url }}">{{ site.data.variables.readmore }}</a>
+    </li>
+    {%- endfor -%}
+  </ul>
 
-  {%- if site.posts.size > 0 -%}
-    <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {{ post.excerpt }}
-      </li>
-      {%- endfor -%}
-    </ul>
-
-    <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
-  {%- endif -%}
+  {% if paginator.total_pages > 1 %}
+  <ul class="pager main-pager">
+    {% if paginator.previous_page %}
+    <li class="previous">
+      <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+    </li>
+    {% endif %}
+    {% if paginator.next_page %}
+    <li class="next">
+      <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+    </li>
+    {% endif %}
+  </ul>
+  {% endif %}
 
 </div>
