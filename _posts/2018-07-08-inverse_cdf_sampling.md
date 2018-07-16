@@ -2,6 +2,7 @@
 title: Inverse CDF Sampling
 key: 20180708
 image: /assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png
+author: Troy Stribling
 ---
 
 Inverse [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) sampling is a method for obtaining

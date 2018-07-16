@@ -2,7 +2,6 @@
  * Site header
  */
 .site-header {
-  border-bottom: 1px solid $grey-color-light;
   padding: $spacing-unit 0;
   min-height: $spacing-unit * 1.865;
 
@@ -106,7 +105,6 @@
  * Site footer
  */
 .site-footer {
-  border-top: 1px solid $grey-color-light;
   padding: $spacing-unit 0;
 }
 
@@ -258,47 +256,24 @@
  * Pager
  */
 
-.pager li a {
-  text-transform: uppercase;
-  border-radius: 0;
-}
-
-.pager li {
-  list-style: none;
-  display: inline;
-}
-
-@media only screen and (min-width: 768px) {
-  .pager li a {
-    padding: 15px 25px;
-  }
-}
-.pager li a:hover,
-.pager li a:focus {
-  color: #FFF;
-  border: 1px solid $grey-color;
-  background-color: $grey-color;
-}
-
 .pager {
-  margin: 10px 0 0;
-}
+  margin-left: 0px;
 
-.pager.blog-pager {
-  margin-top: 0;
-}
-
-@media only screen and (min-width: 768px) {
-  .pager.blog-pager  {
-    margin-top: 10px;
+  a {
+    color: $text-color;
+    line-height: $base-line-height;
   }
-}
 
-.pager .next > a,
-.pager .next > span {
-  float: right;
-}
-.pager .previous > a,
-.pager .previous > span {
-  float: left;
+  .next {
+    float: right;
+  }
+
+  .previous {
+    float: left;
+  }
+
+  li {
+    list-style: none;
+    display: inline;
+  }
 }
