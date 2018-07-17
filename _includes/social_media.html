@@ -1,19 +1,19 @@
-<div class="social">
-  <ul class="menu menu--nowrap menu--center">
+<div class="social-media-list">
+  <ul>
 
     {%- if _author.url -%}
       <link itemprop="url" href="{{ _author.url }}">
     {%- endif -%}
 
       <li title="Follow glyfish on Twitter">
-        <a class="button button--circle twitter-button" itemprop="sameAs" href="https://twitter.com/{{ _author.twitter }}" target="_blank">
-          <div class="icon">{%- include svg/icon/social/twitter.svg -%}</div>
+        <a class="button button--circle twitter-button" itemprop="sameAs" href="https://twitter.com/{{ site.twitter_username }}" target="_blank">
+          <div class="svg-icon">{%- include svg/social/twitter.svg -%}</div>
         </a>
       </li>
 
-      <li title="Follow glyfish on Github">
-        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/{{ _author.github }}" target="_blank">
-          <div class="icon">{%- include svg/social/github.svg -%}</div>
+      <li class="social-media-list" title="Follow glyfish on Github">
+        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/{{ site.github_username }}" target="_blank">
+          <div class="svg-icon">{%- include svg/social/github.svg -%}</div>
         </a>
       </li>
 
