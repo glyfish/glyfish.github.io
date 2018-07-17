@@ -15,8 +15,13 @@ distribution defined by the CDF.
 ## Discrete Distributions
 
 A discrete probability distribution consisting of a finite set of {% katex %}N{% endkatex %}
-probability values is defined by, {% katex %}\{p_i\}_N = \{p_1, p_2,\ldots,p_N\}{% endkatex %} with
-{% katex %}p_i \geq 0, \  \forall i{% endkatex %} and {% katex %}\sum_{i=1}^N{p_i} = 1{% endkatex %}.
+probability values is defined by,
+
+{% katex display %}
+\{p_1, p_2,\ldots,p_N\}\ \ \ \ \ (1),
+{% endkatex %}
+
+with {% katex %}p_i \geq 0, \  \forall i{% endkatex %} and {% katex %}\sum_{i=1}^N{p_i} = 1{% endkatex %}.
 The CDF specifies the probability that {% katex %}i \leq n{% endkatex %} and is given by,
 
 {% katex display %}
@@ -27,19 +32,19 @@ For a given CDF value, {% katex %}U{% endkatex %}, Equation {% katex %}P(n){% en
 be inverted by evaluating it for each {% katex %}n{% endkatex %} and
 searching for the value of {% katex %}n{% endkatex %} that satisfies, {% katex %}P(n) \geq U{% endkatex %}.
 It follows that generated samples of {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} will have distribution
-{% katex %}\{p_i\}_N{% endkatex %} since the intervals {% katex %}P(n)-P(n-1) = p_n{% endkatex %}
+{% katex %}(1){% endkatex %} since the intervals {% katex %}P(n)-P(n-1) = p_n{% endkatex %}
 are Uniformly sampled.
 
 Consider the distribution,
 
 {% katex display %}
-\left\{\frac{1}{12}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{12}, \frac{5}{12} \right\} \ \ \ \ \ (1)
+\left\{\frac{1}{12}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{12}, \frac{5}{12} \right\} \ \ \ \ \ (2)
 {% endkatex %}
 It is shown in the following plot with its CDF. Note that the CDF is a monotonically increasing function.
 
 <img class="post-image" src="/assets/posts/inverse_cdf_sampling/discrete_cdf.png"></div>
 
-A sampler using the Inverse CDF method on the distribution specified in {% katex %}(1){% endkatex %} implemented in
+A sampler using the Inverse CDF method on the distribution specified in {% katex %}(2){% endkatex %} implemented in
 Python is shown below.
 
 ```python
@@ -57,13 +62,13 @@ The program first stores the CDF computed from each of the sums
 {% katex %}U{% endkatex %}, the array containing {% katex %}P(n){% endkatex %} is scanned for
 the value of  {% katex %}n{% endkatex %} where {% katex %}P(n) \geq U{% endkatex %}. The resulting
 values of {% katex %}n{% endkatex %}
-will have the distribution {% katex %}(1){% endkatex %}.
+will have the distribution {% katex %}(2){% endkatex %}.
 
-The figure below favorably compares generated samples and (1),
+The figure below favorably compares generated samples and (2),
 
 <img class="post-image" src="/assets/posts/inverse_cdf_sampling/discrete_sampled_distribution.png">
 
-It is also possible to directly sample distribution {% katex %}(1){% endkatex %} using the `multinomial` sampler from `numpy`,
+It is also possible to directly sample distribution {% katex %}(2){% endkatex %} using the `multinomial` sampler from `numpy`,
 
 ```python
 import numpy
@@ -93,7 +98,7 @@ P(X \leq x) = F_X(x) = \int^{x} f_X(w) dw.
 To prove that Inverse CDF sampling works for continuous distributions it must be shown that,
 
 {% katex display %}
-P[F_X^{-1}(U) \leq x] = F_X(x) \ \ \ \ \ (2),
+P[F_X^{-1}(U) \leq x] = F_X(x) \ \ \ \ \ (3),
 {% endkatex %}
 
 where {% katex %}F_X^{-1}(x){% endkatex %} is the inverse of {% katex %}F_X(x){% endkatex %}
@@ -104,7 +109,7 @@ If {% katex %}Y=G(X){% endkatex %} is a monotonically increasing invertible func
 of {% katex %}X{% endkatex %} then,
 
 {% katex display %}
-P(X \leq x) = P(Y \leq y) = P[G(X) \leq G(x)]. \ \ \ \ \ (3)
+P(X \leq x) = P(Y \leq y) = P[G(X) \leq G(x)]. \ \ \ \ \ (4)
 {% endkatex %}
 
 To prove this note that {% katex %}G(x){% endkatex %} is monotonically increasing so the ordering of values is
@@ -134,8 +139,8 @@ where,
 f_Y(y) = f_X(G^{-1}(y)) \frac{dG^{-1}}{dy}
 {% endkatex %}
 
-The desired proof of equation (2) follows from equation (3) by noting that
-{% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} so {% katex %}f_U(u) = 1{% endkatex %},
+The desired proof of equation {% katex %}(3){% endkatex %} follows from equation {% katex %}(4){% endkatex %}
+by noting that {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} so {% katex %}f_U(u) = 1{% endkatex %},
 
 {% katex display %}
 \begin{aligned}

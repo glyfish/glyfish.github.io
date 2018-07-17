@@ -105,13 +105,19 @@
  * Site footer
  */
 .site-footer {
-  margin: 0 auto;
-  padding: 0 2rem;
+  text-align: center;
+  margin-bottom: $spacing-unit;
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .social-media-list {
   ul {
+    margin-left: 0;
     li {
+      margin-left: 5px;
+      margin-right: 5px;
       list-style: none;
       display: inline;
     }
@@ -147,6 +153,8 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: $spacing-unit;
+  margin-bottom: $spacing-unit;
   width: $base-image-size;
 }
 
