@@ -38,6 +38,7 @@
   .page-link {
     color: $text-color;
     line-height: $base-line-height;
+    @include relative-font-size(1.3);
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
@@ -119,10 +120,25 @@
       margin-left: 5px;
       margin-right: 5px;
       list-style: none;
-      display: inline;
+      display: inline-block;
+      .twitter-icon {
+        svg {
+          path {
+            fill: $twitter-color;
+          }
+        }
+      }
+      .github-icon {
+        svg {
+          path {
+            fill: $github-color;
+          }
+        }
+      }
     }
   }
 }
+
 
 /**
  * Page content

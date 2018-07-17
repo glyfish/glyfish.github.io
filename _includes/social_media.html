@@ -6,14 +6,14 @@
     {%- endif -%}
 
       <li title="Follow glyfish on Twitter">
-        <a class="button button--circle twitter-button" itemprop="sameAs" href="https://twitter.com/{{ site.twitter_username }}" target="_blank">
-          <div class="svg-icon">{%- include svg/social/twitter.svg -%}</div>
+        <a itemprop="social_media" href="https://twitter.com/{{ site.twitter_username }}" target="_blank">
+          <div class="twitter-icon">{%- include svg/social/twitter.svg -%}</div>
         </a>
       </li>
 
-      <li class="social-media-list" title="Follow glyfish on Github">
-        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/{{ site.github_username }}" target="_blank">
-          <div class="svg-icon">{%- include svg/social/github.svg -%}</div>
+      <li title="Follow glyfish on Github">
+        <a itemprop="social_media" href="https://github.com/{{ site.github_username }}" target="_blank">
+          <div class="github-icon">{%- include svg/social/github.svg -%}</div>
         </a>
       </li>
 
