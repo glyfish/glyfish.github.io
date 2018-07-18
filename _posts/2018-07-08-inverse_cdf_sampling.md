@@ -120,7 +120,7 @@ X \le x \implies G(X) \le G(x).
 {% endkatex %}
 
 Consequently, the order of the integration limits is maintained by the transformation.
-Further, since {% katex %}G(x){% endkatex %} is invertible,
+Further, since {% katex %}y=G(x){% endkatex %} is invertible,
 {% katex %}x = G^{-1}(y){% endkatex %} and {% katex %}dx = \frac{dG^{-1}}{dy} dy{% endkatex %}, so
 
 {% katex display %}
