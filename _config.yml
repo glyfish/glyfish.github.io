@@ -29,6 +29,7 @@ plugins:
   - jekyll-feed
   - jekyll-katex
   - jekyll-paginate
+  - github-pages
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -43,21 +44,19 @@ plugins:
 #   - vendor/ruby/
 
 ## => GitHub Repository (if the site is hosted by GitHub)
-##############################
 repository: glyfish/glyfish.github.io
 repository_tree: master
 
 ## => Post
-##############################
 ## excerpt
 excerpt_separator: <!--more-->
 excerpt_type: html # text (default), html
 
 ## => Paginate
-##############################
 paginate: 5
 paginate_path: "/page:num"
 
+## => Katex
 katex:
   js_path: "{{ Gem::lib_path }}/assets/js"
   rendering_options:
