@@ -42,7 +42,7 @@ Consider the distribution,
 {% endkatex %}
 It is shown in the following plot with its CDF. Note that the CDF is a monotonically increasing function.
 
-<img class="post-image" src="/assets/posts/inverse_cdf_sampling/discrete_cdf.png"></div>
+<img class="post-image" src="/assets/posts/inverse_cdf_sampling/discrete_cdf.png">
 
 A sampler using the Inverse CDF method on the distribution specified in {% katex %}(2){% endkatex %} implemented in
 Python is shown below.
@@ -231,7 +231,7 @@ and the second the convergence of {% katex %}\sigma{% endkatex %}. Within only 1
 analytic value.
 
 <img class="post-image" src="/assets/posts/inverse_cdf_sampling/weibull_sampled_mean_convergence.png">
-\
+
 <img class="post-image" src="/assets/posts/inverse_cdf_sampling/weibull_sampled_std_convergence.png">
 
 ### Performance

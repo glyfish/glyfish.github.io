@@ -62,3 +62,6 @@ katex:
   rendering_options:
     throw_error: false
     error_color: "#cc0000"
+
+# Google Analytics
+google_analytics: UA-122597052-1
