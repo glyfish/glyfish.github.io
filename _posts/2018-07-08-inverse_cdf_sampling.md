@@ -117,7 +117,7 @@ To prove this note that {% katex %}G(x){% endkatex %} is monotonically increasin
 preserved,
 
 {% katex display %}
-X \le x \implies G(X) \le G(x).
+X \leq x \implies G(X) \leq G(x).
 {% endkatex %}
 
 Consequently, the order of the integration limits is maintained by the transformation.
@@ -138,6 +138,26 @@ where,
 
 {% katex display %}
 f_Y(y) = f_X(G^{-1}(y)) \frac{dG^{-1}}{dy}
+{% endkatex %}
+
+For completeness consider the case where {% katex %}Y=G(X){% endkatex %} is a monotonically decreasing invertible function
+of {% katex %}X{% endkatex %} then,
+
+{% katex display %}
+X \leq x \implies G(X) \geq G(x),
+{% endkatex %}
+
+it follows that,
+
+{% katex display %}
+\begin{aligned}
+P(X \leq x) & = \int^{x} f_X(w) dw \\
+& = \int_{y} f_X(G^{-1}(z)) \frac{dG^{-1}}{dz} dz \\
+& = \int_{y} f_Y(z) dz \\
+& = P(Y \geq y) \\
+& = P[G(X) \geq G(x)] \\
+& = 1 - P[G(X) \leq G(x)]
+\end{aligned}
 {% endkatex %}
 
 The desired proof of equation {% katex %}(3){% endkatex %} follows from equation {% katex %}(4){% endkatex %}
