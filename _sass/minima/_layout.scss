@@ -265,12 +265,27 @@
 
   .row {
     display: flex;
+    align-items: center;
     margin-bottom: $spacing-unit / 2;
   }
 
   .column-left {
     flex: -webkit-calc(25% - (#{$spacing-unit} / 2));
     flex:         calc(25% - (#{$spacing-unit} / 2));
+    margin-right: $spacing-unit;
+
+    .image {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: $spacing-unit;
+    }
+
+    .name {
+      text-align: center;
+      font-style: italic;
+    }
+
   }
 
   .column-right {
@@ -292,9 +307,8 @@
 
   @include media-query($on-palm) {
     .row {
-      float: none;
-      width: -webkit-calc(100% - (#{$spacing-unit} / 2));
-      width:         calc(100% - (#{$spacing-unit} / 2));
+      flex: -webkit-calc(100% - (#{$spacing-unit} / 2));
+      flex:         calc(100% - (#{$spacing-unit} / 2));
     }
 }
 

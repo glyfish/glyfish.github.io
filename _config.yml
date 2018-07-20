@@ -65,3 +65,7 @@ katex:
 
 # Google Analytics
 google_analytics: UA-122597052-1
+
+# Disqus
+disqus:
+  shortname: gly-fish
