@@ -1,17 +1,9 @@
 ---
-layout: page
+title: About
+layout: about
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
-
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+Statistical analysis methods developed for the study of Thermodynamics, Statistical Mechanics and Quantum Mechanics in
+Physics are finding much broader applications in data analysis. Here discussions of Statistical Physics methods
+applied to data analysis are discussed. Topics include simulation methods, theory and applications.

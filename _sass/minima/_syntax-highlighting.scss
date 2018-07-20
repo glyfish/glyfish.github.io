@@ -38,17 +38,17 @@
   .m     { color: #099 } // Literal.Number
   .s     { color: #d14 } // Literal.String
   .n     { color: #003B6f } // Name.Attribute
-  .na    { color: #003B6f } // Name.Attribute
-  .nb    { color: #003B6f } // Name.Builtin
-  .nc    { color: #003B6f; font-weight: bold } // Name.Class
-  .no    { color: #003B6f } // Name.Constant
-  .ni    { color: #003B6f } // Name.Entity
-  .ne    { color: #003B6f; font-weight: bold } // Name.Exception
-  .nf    { color: #003B6f; font-weight: bold } // Name.Function
-  .nn    { color: #003B6f } // Name.Namespace
-  .nt    { color: #003B6f } // Name.Tag
-  .nv    { color: #003B6f } // Name.Variable
-  .ow    { color: #003B6f; font-weight: bold } // Operator.Word
+  .na    { color: #0067C4 } // Name.Attribute
+  .nb    { color: #0067C4 } // Name.Builtin
+  .nc    { color: #0067C4; font-weight: bold } // Name.Class
+  .no    { color: #0067C4 } // Name.Constant
+  .ni    { color: #0067C4 } // Name.Entity
+  .ne    { color: #0067C4; font-weight: bold } // Name.Exception
+  .nf    { color: #0067C4; font-weight: bold } // Name.Function
+  .nn    { color: #0067C4 } // Name.Namespace
+  .nt    { color: #0067C4 } // Name.Tag
+  .nv    { color: #0067C4 } // Name.Variable
+  .ow    { color: #0067C4; font-weight: bold } // Operator.Word
   .w     { color: #bbb } // Text.Whitespace
   .mf    { color: #FF9500; font-weight: bold } // Literal.Number.Float
   .mh    { color: #FF9500; font-weight: bold } // Literal.Number.Hex
