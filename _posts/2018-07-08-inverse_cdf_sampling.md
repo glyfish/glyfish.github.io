@@ -93,6 +93,10 @@ values are indistinguishable.
 
 <img class="post-image" src="/assets/posts/inverse_cdf_sampling/discrete_sampled_sigma_convergence.png">
 
+The number of operations required for generating samples using Inverse CDF sampling from a discrete
+distribution will scale {% katex %}O(N_{samples}N){% endkatex %} where {% katex %}N_{samples}{% endkatex %}
+is the desired number of samples and {% katex %}N{% endkatex %} is the number of terms in the discrete distribution.
+
 It is also possible to directly sample distribution {% katex %}(2){% endkatex %} using the `multinomial` sampler from `numpy`,
 
 ```python
@@ -102,11 +106,6 @@ n = 10000
 df = numpy.array([1/12, 1/12, 1/6, 1/6, 1/12, 5/12])
 samples = numpy.random.multinomial(n, df, size=1)/n
 ```
-
-The number of operations required for generating samples using Inverse CDF sampling from a discrete
-distribution will scale {% katex %}O(N_{samples}N){% endkatex %} where {% katex %}N_{samples}{% endkatex %}
-is the desired number of samples and {% katex %}N{% endkatex %} is the number of terms in the discrete distribution.
-
 
 ## Continuous Distributions
 
