@@ -50,7 +50,7 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 @media screen and (max-width: 800px) { .wrapper { max-width: -webkit-calc(800px - (30px)); max-width: calc(800px - (30px)); padding-right: 15px; padding-left: 15px; } }
 
 /** Clearfix */
-.wrapper:after { content: ""; display: table; clear: both; }
+.wrapper:after, .about .row:after { content: ""; display: table; clear: both; }
 
 /** Tables */
 table { margin-bottom: 30px; width: 100%; text-align: left; color: #3f3f3f; border-collapse: collapse; border: 1px solid #e8e8e8; }
@@ -126,14 +126,14 @@ table td { border: 1px solid #e8e8e8; }
 
 /** About
 */
-.about .row { display: flex; align-items: center; margin-bottom: 15px; }
-.about .column-left { flex: -webkit-calc(25% - (30px / 2)); flex: calc(25% - (30px / 2)); margin-right: 30px; }
-.about .column-left .image { display: block; margin-left: auto; margin-right: auto; margin-top: 30px; }
-.about .column-left .name { text-align: center; font-style: italic; }
-.about .column-right { flex: -webkit-calc(75% - (30px / 2)); flex: calc(75% - (30px / 2)); }
-@media screen and (max-width: 800px) { .about .column-left { flex: -webkit-calc(25% - (30px / 2)); flex: calc(25% - (30px / 2)); }
-  .about .column-right { flex: -webkit-calc(75% - (30px / 2)); flex: calc(75% - (30px / 2)); } }
-@media screen and (max-width: 600px) { .about .row { flex: -webkit-calc(100% - (30px / 2)); flex: calc(100% - (30px / 2)); } }
+.about .row { margin-left: -15px; margin-top: 60px; }
+.about .column { float: left; margin-bottom: 15px; }
+.about .column-1 { width: -webkit-calc(25% - (30px / 2)); width: calc(25% - (30px / 2)); margin-right: 15px; }
+.about .column-1 .image { display: block; margin-left: auto; margin-right: auto; }
+.about .column-1 .name { text-align: center; font-style: italic; }
+.about .column-2 { width: -webkit-calc(75% - (30px / 2)); width: calc(75% - (30px / 2)); }
+@media screen and (max-width: 800px) { .about .column-1, .about .column-2 { width: -webkit-calc(25% - (30px / 2)); width: calc(75% - (30px / 2)); margin-left: 15px; } }
+@media screen and (max-width: 600px) { .about .column { float: none; width: -webkit-calc(100% - (30px / 2)); width: calc(100% - (30px / 2)); } }
 
 /** Syntax highlighting styles */
 .highlight { background: #fff; }

@@ -8,14 +8,14 @@ comments: false
 
 Inverse [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) sampling is a method for obtaining
 samples from both discrete and continuous probability distributions that requires the CDF to be invertible.
-The method assumes values of the CDF are Uniform random variables on {% katex %}[0, 1]{% endkatex %}.
+The method assumes values of the CDF are Uniform random variables on {% katex %}[0, 1]{% endkatex %}.
 CDF values are generated and used as input into the inverted CDF to obtain samples with the
 distribution defined by the CDF.
 
 <!--more-->
 ## Discrete Distributions
 
-A discrete probability distribution consisting of a finite set of {% katex %}N{% endkatex %}
+A discrete probability distribution consisting of a finite set of {% katex %}N{% endkatex %}
 probability values is defined by,
 
 {% katex display %}
