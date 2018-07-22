@@ -135,6 +135,13 @@ table td { border: 1px solid #e8e8e8; }
   .about .row .column-1 { width: -webkit-calc(100%); width: calc(100%); margin-right: 0; }
   .about .row .column-2 { width: -webkit-calc(100%); width: calc(100%); } }
 
+/** Archive
+*/
+.archive-list { margin-left: 0; list-style: none; }
+.archive-list > li { margin-bottom: 15px; }
+
+.archive-list-heading { font-size: 28px; }
+
 /** Syntax highlighting styles */
 .highlight { background: #fff; }
 .highlighter-rouge .highlight { background: #fff; }
