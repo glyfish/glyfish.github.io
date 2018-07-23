@@ -16,7 +16,6 @@
 title: gly.fish
 email: me@troystribling.com
 description: >- # this means to ignore newlines until "baseurl:"
-  A study of random processes
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "gly.fish"
 twitter_username: glyfish

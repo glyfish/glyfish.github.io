@@ -4,17 +4,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>gly.fish | A study of random processes</title>
+<title>gly.fish</title>
 <meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="gly.fish" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A study of random processes" />
-<meta property="og:description" content="A study of random processes" />
 <link rel="canonical" href="http://localhost:4000/" />
 <meta property="og:url" content="http://localhost:4000/" />
 <meta property="og:site_name" content="gly.fish" />
 <script type="application/ld+json">
-{"name":"gly.fish","description":"A study of random processes","@type":"WebSite","url":"http://localhost:4000/","headline":"gly.fish","@context":"http://schema.org"}</script>
+{"name":"gly.fish","@type":"WebSite","url":"http://localhost:4000/","headline":"gly.fish","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -133,13 +131,16 @@
         Rejection Sampling
       </h1>
       <p class="post-meta">
-        <time class="dt-published" datetime="" itemprop="datePublished">Jul 21, 2018
+        <time class="dt-published" datetime="" itemprop="datePublished">Jul 22, 2018
         </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
               <span class="p-author h-card" itemprop="name">Troy Stribling</span>
             </span></p>
-      <img class="post-image" src="/assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png">
-
-      <a href="/2018/07/21/rejection_sampling.html">read more</a>
+      <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png"><p>Rejection Sampling is a method for obtaining samples for a known probability distribution
+with no available sampler using samples from some other distribution with an available sampler.
+It is a more general method than
+<a href="/2018/07/21/inverse_cdf_sampling.html">Inverse CDF Sampling</a> which requires
+distribution to have an invertible CDF but has a still simple but more complicated implementat...
+      <a href="/2018/07/22/rejection_sampling.html">read more</a>
     </li>
     <li><h1 class="post-title p-name" >
         Inverse CDF Sampling
@@ -149,8 +150,9 @@
         </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
               <span class="p-author h-card" itemprop="name">Troy Stribling</span>
             </span></p>
-      <img class="post-image" src="/assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png"><p>Inverse <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">CDF</a> sampling is a method for obtaining
-samples from both discrete and continuous probability distributions that requires the CDF to be invertible.
+      <img class="post-image" src="/assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png"><p>Inverse <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function">CDF</a> sampling is a method
+for obtaining samples from both discrete and continuous probability distributions that requires the
+CDF to be invertible.
 The method assumes values of the CDF are Uniform random variables on <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mclose">]</span></span></span></span>.
 CDF values are generated and used as input into the inverted CDF to obtain samples with the
 distribution defined by the ...
@@ -168,7 +170,7 @@ distribution defined by the ...
   <div class="wrapper">
     <div class="site-footer"><aside  itemscope itemtype="http://schema.org/Organization">
           <meta itemprop="name" content="gly.fish"><meta itemprop="url" content="http://localhost:4000">
-          <meta itemprop="description" content="A study of random processes">
+          <meta itemprop="description" content="">
         </aside><div class="social-media-list">
   <ul><li title="Follow glyfish on Twitter">
         <a itemprop="social_media" href="https://twitter.com/glyfish" target="_blank">
