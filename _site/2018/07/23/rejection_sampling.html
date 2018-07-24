@@ -9,16 +9,16 @@
 <meta property="og:title" content="Rejection Sampling" />
 <meta name="author" content="Troy Stribling" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Rejection Sampling is a method for obtaining samples for a known probability distribution with no available sampler using samples from some other distribution with an available sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0,1)\textbf{Uniform}(0, 1)Uniform(0,1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distribution into a desired target distribution." />
-<meta property="og:description" content="Rejection Sampling is a method for obtaining samples for a known probability distribution with no available sampler using samples from some other distribution with an available sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0,1)\textbf{Uniform}(0, 1)Uniform(0,1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distribution into a desired target distribution." />
+<meta name="description" content="Rejection Sampling is a method for obtaining samples for a known target probability distribution with no available sampler using samples from some other proposal distribution with an available sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0,1)\textbf{Uniform}(0, 1)Uniform(0,1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distributions into a desired target distribution." />
+<meta property="og:description" content="Rejection Sampling is a method for obtaining samples for a known target probability distribution with no available sampler using samples from some other proposal distribution with an available sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0,1)\textbf{Uniform}(0, 1)Uniform(0,1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distributions into a desired target distribution." />
 <link rel="canonical" href="http://localhost:4000/2018/07/23/rejection_sampling.html" />
 <meta property="og:url" content="http://localhost:4000/2018/07/23/rejection_sampling.html" />
 <meta property="og:site_name" content="gly.fish" />
 <meta property="og:image" content="http://localhost:4000/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2018-07-23T08:43:41-07:00" />
+<meta property="article:published_time" content="2018-07-23T10:21:36-07:00" />
 <script type="application/ld+json">
-{"description":"Rejection Sampling is a method for obtaining samples for a known probability distribution with no available sampler using samples from some other distribution with an available sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0,1)\\textbf{Uniform}(0, 1)Uniform(0,1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distribution into a desired target distribution.","author":{"@type":"Person","name":"Troy Stribling"},"@type":"BlogPosting","url":"http://localhost:4000/2018/07/23/rejection_sampling.html","image":"http://localhost:4000/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png","headline":"Rejection Sampling","dateModified":"2018-07-23T08:43:41-07:00","datePublished":"2018-07-23T08:43:41-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/07/23/rejection_sampling.html"},"@context":"http://schema.org"}</script>
+{"description":"Rejection Sampling is a method for obtaining samples for a known target probability distribution with no available sampler using samples from some other proposal distribution with an available sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0,1)\\textbf{Uniform}(0, 1)Uniform(0,1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distributions into a desired target distribution.","author":{"@type":"Person","name":"Troy Stribling"},"@type":"BlogPosting","url":"http://localhost:4000/2018/07/23/rejection_sampling.html","image":"http://localhost:4000/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png","headline":"Rejection Sampling","dateModified":"2018-07-23T10:21:36-07:00","datePublished":"2018-07-23T10:21:36-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/07/23/rejection_sampling.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -134,21 +134,21 @@
   <header class="post-header">
     <h1 class="post-title p-name" itemprop="name headline">Rejection Sampling</h1>
     <p class="post-meta">
-      <time class="dt-published" datetime="2018-07-23T08:43:41-07:00" itemprop="datePublished">Jul 23, 2018
+      <time class="dt-published" datetime="2018-07-23T10:21:36-07:00" itemprop="datePublished">Jul 23, 2018
       </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
             <span class="p-author h-card" itemprop="name">Troy Stribling</span>
           </span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>Rejection Sampling is a method for obtaining samples for a known probability distribution
-with no available sampler using samples from some other distribution with an available sampler.
+    <p>Rejection Sampling is a method for obtaining samples for a known target probability distribution
+with no available sampler using samples from some other proposal distribution with an available sampler.
 It is a more general method than
 <a href="/2018/07/21/inverse_cdf_sampling.html">Inverse CDF Sampling</a> which requires
 distribution to have an invertible CDF. Inverse CDF Sampling transforms a
 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>Uniform</mtext><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\textbf{Uniform}(0, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord text"><span class="mord mathbf">Uniform</span></span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> random variable into a random variable with
 a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling
-is a method for transformation of random variables from arbitrary proposal distribution into a desired target
+is a method for transformation of random variables from arbitrary proposal distributions into a desired target
 distribution.</p>
 
 <!--more-->
