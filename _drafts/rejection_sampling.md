@@ -18,7 +18,45 @@ distribution.
 
 <!--more-->
 
-The implementation of Rejection Sampling is more complicated than the implementation of Inverse CDF Sampling.
-In addition to the target distribution, {% katex %}f(x){% endkatex %}, a proposal distribution,
-{% katex %}g(x){% endkatex %}, must also be considered. Also, a criterion is defined for acceptance of
-a proposal random variable.
+The implementation of Rejection Sampling requires the consideration of a target distribution, {% katex %}f_X(X){% endkatex %}, a proposal distribution, {% katex %}f_Y(Y){% endkatex %} and a {% katex %}\textbf{Uniform}(0, 1){% endkatex %} acceptance probability {% katex %}U{% endkatex %} with distribution {% katex %}f_U(U)=1{% endkatex %}.
+A criterion is defined for acceptance
+of a sample, {% katex %}Y{% endkatex %}, generated from the proposal distribution, {% katex %}f_Y(Y){% endkatex %}, independent of the acceptance probability, {% katex %}U{% endkatex %}, namely,
+
+{% katex display %}
+U\ \leq\ h(Y) = \frac{f_X(Y)}{cf_Y(Y)}\ \ \ \ \ (1),
+{% endkatex %}
+
+where, {% katex %}c{% endkatex %} is chosen to satisfy
+{% katex %}0\ \leq\ h(Y)\ \leq\ 1, \ \ \forall\ Y{% endkatex %}. If equation
+{% katex %}(1){% endkatex %} is satisfied the proposed sample {% katex %}Y{% endkatex %} is accepted as a sample
+of {% katex %}f_X(X){% endkatex %} where {% katex %}X=Y{% endkatex %}. If equation {% katex %}(1){% endkatex %}
+is not satisfied {% katex %}Y{% endkatex %} is discarded.
+
+This procedure is summarized in the following steps that are repeated for the generation of each sample,
+
+1. Generate a sample {% katex %}Y \sim f_Y(Y){% endkatex %}.
+2. Generate a sample {% katex %}U\sim\textbf{Uniform}(0, 1){% endkatex %} independent of {% katex %}Y{% endkatex %}.
+3. If equation {% katex %}(1){% endkatex %} is satisfied then {% katex %}X=Y{% endkatex %} is accepted as a sample
+of {% katex %}f_X(X){% endkatex %}. If equation {% katex %}(1){% endkatex %} is not satisfied then {% katex %}Y{% endkatex %}
+is discarded.
+
+## Proof
+
+To prove that Rejection Sampling works it must be shown that,
+{% katex display %}
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right | Y\ \leq\ y]=F_X(y)\ \ \ \ \ (2).
+{% endkatex %}
+
+To prove equation {% katex %}(2){% endkatex %} a couple of intermediate steps are required. First,
+the probability of accepting a proposal sample, {% katex %}P\left[U\ \leq\ f_X(Y)/cf_Y(Y)\right]{% endkatex %},
+will be evaluated. Since the Rejection Sampling algorithm as described in the previous section assumes tha {% katex %}Y{% endkatex %} and {% katex %}U{% endkatex %} are independent random variables,
+{% katex%}
+f_{YU}(Y, U)\ =\ f_Y(Y)f_U(U)\ = f_Y(Y).
+{% endkatex %}
+
+It follows that,
+{% katex display %}
+\begin{aligned}
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \int_{0}^{1}\int^{\frac{f_X(Y)}{cf_Y(Y)}} f_{YU}(Y, U)
+\end{aligned}
+{% endkatex %}

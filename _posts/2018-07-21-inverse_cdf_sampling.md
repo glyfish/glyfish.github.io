@@ -145,7 +145,7 @@ X \leq x \implies G(X) \leq G(x).
 
 Consequently, the order of the integration limits is maintained by the transformation.
 Further, since {% katex %}y=G(x){% endkatex %} is invertible,
-{% katex %}x = G^{-1}(y){% endkatex %} and {% katex %}dx = \frac{dG^{-1}}{dy} dy{% endkatex %}, so
+{% katex %}x = G^{-1}(y){% endkatex %} and {% katex %}dx = (dG^{-1}/dy) dy{% endkatex %}, so
 
 {% katex display %}
 \begin{aligned}
