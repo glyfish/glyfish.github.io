@@ -7,7 +7,7 @@ comments: false
 ---
 
 Rejection Sampling is a method for obtaining samples for a known target probability distribution
-with no available sampler using samples from some other proposal distribution with an available sampler.
+with no sampler using samples from some other proposal distribution with a sampler.
 It is a more general method than
 [Inverse CDF Sampling]({{ site.baseurl }}{% link _posts/2018-07-21-inverse_cdf_sampling.md %}) which requires
 distribution to have an invertible CDF. Inverse CDF Sampling transforms a
@@ -47,11 +47,18 @@ To prove that Rejection Sampling works it must be shown that,
 P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right | Y\ \leq\ y]=F_X(y)\ \ \ \ \ (2).
 {% endkatex %}
 
-To prove equation {% katex %}(2){% endkatex %} a couple of intermediate steps are required. First,
-the probability of accepting a proposal sample will be shown to be,
+Where {% katex %}F_X(y){% endkatex %} is the CDF for {% katex %}f_X(y){% endkatex %},
 {% katex display %}
-P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] = \frac{1}{c}\ \ \ \ \ (3).
+F_X(y) = \int^y f_X(w)dw
 {% endkatex %}
+
+To prove equation {% katex %}(2){% endkatex %} a couple of intermediate steps are required. First,
+The joint distribution of {% katex %}U{% endkatex %} and {% katex %}Y{% endkatex %} will be evaluated,
+
+{% katex display %}
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y \leq y\right] = \frac{F_X(y)}{c}\ \ \ \ \ (3).
+{% endkatex %}
+
 Since the Rejection Sampling algorithm as described in the previous section assumes
 that {% katex %}Y{% endkatex %} and {% katex %}U{% endkatex %} are independent random variables,
 {% katex%}
@@ -60,14 +67,35 @@ f_{YU}(Y, U)\ =\ f_Y(Y)f_U(U)\ = f_Y(Y).
 
 {% katex display %}
 \begin{aligned}
-P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \int\int_{0}^{f_X(y)/cf_Y(y)} f_{YU}(y, u) du dy\\
-&= \int\int_{0}^{f_X(y)/cf_Y(y)} f_Y(y)f_U(u) du dy \\
-&= \int\int_{0}^{f_X(y)/cf_Y(y)} f_Y(y) du dy \\
-&= \int  f_Y(y) \int_{0}^{f_X(y)/cf_Y(y)} du dy \\
-&= \int  f_Y(y) \frac{f_X(y)}{cf_Y(y)} dy \\
-&= \frac{1}{c}\int f_X(y)dy \\
+P\left[U\ \frac{f_X(Y)}{cf_Y(Y)},\ Y\ \leq y\right] &= \int^y\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
+&= \int^y\int_{0}^{f_X(w)/cf_Y(w)} f_Y(w)f_U(u) du dw \\
+&= \int^y\int_{0}^{f_X(w)/cf_Y(w)} f_Y(w) du dw \\
+&= \int^y f_Y(w) \int_{0}^{f_X(w)/cf_Y(w)} du dw \\
+&= \int^y f_Y(w) \frac{f_X(w)}{cf_Y(w)} dw \\
+&= \frac{1}{c}\int^y f_X(w) dw \\
+&= \frac{F_X(y)}{c}, \\
+\end{aligned}
+{% endkatex %}
+
+Next it will be shown that the probability of accepting a sample is given by,
+{% katex display %}
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] = \frac{1}{c}\ \ \ \ \ (4).
+{% endkatex %}
+
+This result follows from equation {% katex %}(3){% endkatex %} by integrating of the entire range of
+{% katex %}Y{% endkatex %}, namely,
+{% katex display %}
+\begin{aligned}
+P\left[U\ \frac{f_X(Y)}{cf_Y(Y)}] &= \int\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
+&= \frac{1}{c}\int f_X(w) dw \\
 &= \frac{1}{c}, \\
 \end{aligned}
 {% endkatex %}
 
-where the last step follows from {% katex %}\int f_X(y)dy\ =\ 1{% endkatex %}.
+where the last step follows from {% katex %}\int\ f_X(y) dy = 1{% endkatex %}.
+
+Finally, returning to equation {% katex %}(2){% endkatex %} and using (Bayes' Theorem)[https://en.wikipedia.org/wiki/Bayes%27_theorem],
+
+{% katex display %}
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)} | Y\ \leq\ y\right]
+{% endkatex %}
