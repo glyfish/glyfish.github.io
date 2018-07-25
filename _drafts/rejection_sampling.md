@@ -48,15 +48,26 @@ P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right | Y\ \leq\ y]=F_X(y)\ \ \ \ \ (2).
 {% endkatex %}
 
 To prove equation {% katex %}(2){% endkatex %} a couple of intermediate steps are required. First,
-the probability of accepting a proposal sample, {% katex %}P\left[U\ \leq\ f_X(Y)/cf_Y(Y)\right]{% endkatex %},
-will be evaluated. Since the Rejection Sampling algorithm as described in the previous section assumes tha {% katex %}Y{% endkatex %} and {% katex %}U{% endkatex %} are independent random variables,
+the probability of accepting a proposal sample will be shown to be,
+{% katex display %}
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] = \frac{1}{c}\ \ \ \ \ (3).
+{% endkatex %}
+Since the Rejection Sampling algorithm as described in the previous section assumes
+that {% katex %}Y{% endkatex %} and {% katex %}U{% endkatex %} are independent random variables,
 {% katex%}
 f_{YU}(Y, U)\ =\ f_Y(Y)f_U(U)\ = f_Y(Y).
-{% endkatex %}
+{% endkatex %} It follows that,
 
-It follows that,
 {% katex display %}
 \begin{aligned}
-P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \int_{0}^{1}\int^{\frac{f_X(Y)}{cf_Y(Y)}} f_{YU}(Y, U)
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \int\int_{0}^{f_X(y)/cf_Y(y)} f_{YU}(y, u) du dy\\
+&= \int\int_{0}^{f_X(y)/cf_Y(y)} f_Y(y)f_U(u) du dy \\
+&= \int\int_{0}^{f_X(y)/cf_Y(y)} f_Y(y) du dy \\
+&= \int  f_Y(y) \int_{0}^{f_X(y)/cf_Y(y)} du dy \\
+&= \int  f_Y(y) \frac{f_X(y)}{cf_Y(y)} dy \\
+&= \frac{1}{c}\int f_X(y)dy \\
+&= \frac{1}{c}, \\
 \end{aligned}
 {% endkatex %}
+
+where the last step follows from {% katex %}\int f_X(y)dy\ =\ 1{% endkatex %}.
