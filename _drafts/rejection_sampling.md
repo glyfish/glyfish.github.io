@@ -82,13 +82,14 @@ Next, it will be shown that the probability of accepting a sample is given by,
 P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] = \frac{1}{c}\ \ \ \ \ (4).
 {% endkatex %}
 
-This result follows from equation {% katex %}(3){% endkatex %} by integrating of the entire range of
-{% katex %}Y{% endkatex %} and using {% katex %}\int_{-\infty}^{\infty}f_X(y) dy = 1{% endkatex %},
+This result follows from equation {% katex %}(3){% endkatex %} in the limit {% katex %}y\to\infty{% endkatex %}
+and noting that, {% katex %}\int_{-\infty}^{\infty} f_X(y) dy = 1{% endkatex %}.
+
 {% katex display %}
 \begin{aligned}
-P\left[U\ \frac{f_X(Y)}{cf_Y(Y)} \right] &= \int_{-\infty}^{\infty}\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \int_{-\infty}^{\infty}\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
 &= \frac{1}{c}\int_{-\infty}^{\infty} f_X(w) dw \\
-&= \frac{1}{c}, \\
+&= \frac{1}{c}
 \end{aligned}
 {% endkatex %}
 
