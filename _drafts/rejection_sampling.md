@@ -44,7 +44,7 @@ is discarded.
 
 To prove that Rejection Sampling works it must be shown that,
 {% katex display %}
-P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right | Y\ \leq\ y]=F_X(y)\ \ \ \ \ (2).
+P\left[Y\ \leq\ y | U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right]=F_X(y)\ \ \ \ \ (2).
 {% endkatex %}
 
 Where {% katex %}F_X(y){% endkatex %} is the CDF for {% katex %}f_X(y){% endkatex %},
@@ -53,7 +53,8 @@ F_X(y) = \int^y f_X(w)dw
 {% endkatex %}
 
 To prove equation {% katex %}(2){% endkatex %} a couple of intermediate steps are required. First,
-The joint distribution of {% katex %}U{% endkatex %} and {% katex %}Y{% endkatex %} will be evaluated,
+The joint distribution of {% katex %}U{% endkatex %} and {% katex %}Y{% endkatex %} containing the
+acceptance constraint will be evaluated,
 
 {% katex display %}
 P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y \leq y\right] = \frac{F_X(y)}{c}\ \ \ \ \ (3).
@@ -77,25 +78,29 @@ P\left[U\ \frac{f_X(Y)}{cf_Y(Y)},\ Y\ \leq y\right] &= \int^y\int_{0}^{f_X(w)/cf
 \end{aligned}
 {% endkatex %}
 
-Next it will be shown that the probability of accepting a sample is given by,
+Next, it will be shown that the probability of accepting a sample is given by,
 {% katex display %}
 P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] = \frac{1}{c}\ \ \ \ \ (4).
 {% endkatex %}
 
 This result follows from equation {% katex %}(3){% endkatex %} by integrating of the entire range of
-{% katex %}Y{% endkatex %}, namely,
+{% katex %}Y{% endkatex %} and using {% katex %}\int\ f_X(y) dy = 1{% endkatex %},
 {% katex display %}
 \begin{aligned}
-P\left[U\ \frac{f_X(Y)}{cf_Y(Y)}] &= \int\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
+P\left[U\ \frac{f_X(Y)}{cf_Y(Y)} \right] &= \int\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
 &= \frac{1}{c}\int f_X(w) dw \\
 &= \frac{1}{c}, \\
 \end{aligned}
 {% endkatex %}
 
-where the last step follows from {% katex %}\int\ f_X(y) dy = 1{% endkatex %}.
-
-Finally, returning to equation {% katex %}(2){% endkatex %} and using (Bayes' Theorem)[https://en.wikipedia.org/wiki/Bayes%27_theorem],
+Finally, equation {% katex %}(2){% endkatex %} can be proven, using the definition of [Conditional Probability](https://en.wikipedia.org/wiki/Conditional_probability),
+equation {% katex %}(3){% endkatex %} and equation {% katex %}(4){% endkatex %},
 
 {% katex display %}
-P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)} | Y\ \leq\ y\right]
+\begin{aligned}
+P\left[Y\ \leq\ y | U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \frac{P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y \leq y\right]}{P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right]}\\
+&=\frac{F_X(y)}{c}\frac{1}{1/c}\\
+&=\frac{cF_X(y)}{c}\\
+&=F_X(y)
+\end{aligned}
 {% endkatex %}
