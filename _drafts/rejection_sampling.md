@@ -44,12 +44,12 @@ is discarded.
 
 To prove that Rejection Sampling works it must be shown that,
 {% katex display %}
-P\left[Y\ \leq\ y | U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right]=F_X(y)\ \ \ \ \ (2).
+P\left[Y\ \leq\ y\ |\ U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right]=F_X(y)\ \ \ \ \ (2).
 {% endkatex %}
 
 Where {% katex %}F_X(y){% endkatex %} is the CDF for {% katex %}f_X(y){% endkatex %},
 {% katex display %}
-F_X(y) = \int^y f_X(w)dw
+F_X(y) = \int_{-\infty}^{y} f_X(w)dw.
 {% endkatex %}
 
 To prove equation {% katex %}(2){% endkatex %} a couple of intermediate steps are required. First,
@@ -57,7 +57,7 @@ The joint distribution of {% katex %}U{% endkatex %} and {% katex %}Y{% endkatex
 acceptance constraint will be evaluated,
 
 {% katex display %}
-P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y \leq y\right] = \frac{F_X(y)}{c}\ \ \ \ \ (3).
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y\ \leq\ y\right] = \frac{F_X(y)}{c}\ \ \ \ \ (3).
 {% endkatex %}
 
 Since the Rejection Sampling algorithm as described in the previous section assumes
@@ -68,12 +68,11 @@ f_{YU}(Y, U)\ =\ f_Y(Y)f_U(U)\ = f_Y(Y).
 
 {% katex display %}
 \begin{aligned}
-P\left[U\ \frac{f_X(Y)}{cf_Y(Y)},\ Y\ \leq y\right] &= \int^y\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
-&= \int^y\int_{0}^{f_X(w)/cf_Y(w)} f_Y(w)f_U(u) du dw \\
-&= \int^y\int_{0}^{f_X(w)/cf_Y(w)} f_Y(w) du dw \\
-&= \int^y f_Y(w) \int_{0}^{f_X(w)/cf_Y(w)} du dw \\
-&= \int^y f_Y(w) \frac{f_X(w)}{cf_Y(w)} dw \\
-&= \frac{1}{c}\int^y f_X(w) dw \\
+P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y\ \leq y\right] &= \int_{-\infty}^{y}\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
+&= \int_{-\infty}^{y}\int_{0}^{f_X(w)/cf_Y(w)} f_Y(w) du dw \\
+&= \int_{-\infty}^{y} f_Y(w) \int_{0}^{f_X(w)/cf_Y(w)} du dw \\
+&= \int_{-\infty}^{y} f_Y(w) \frac{f_X(w)}{cf_Y(w)} dw \\
+&= \frac{1}{c}\int_{-\infty}^y f_X(w) dw \\
 &= \frac{F_X(y)}{c}, \\
 \end{aligned}
 {% endkatex %}
@@ -84,11 +83,11 @@ P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] = \frac{1}{c}\ \ \ \ \ (4).
 {% endkatex %}
 
 This result follows from equation {% katex %}(3){% endkatex %} by integrating of the entire range of
-{% katex %}Y{% endkatex %} and using {% katex %}\int\ f_X(y) dy = 1{% endkatex %},
+{% katex %}Y{% endkatex %} and using {% katex %}\int_{-\infty}^{\infty}f_X(y) dy = 1{% endkatex %},
 {% katex display %}
 \begin{aligned}
-P\left[U\ \frac{f_X(Y)}{cf_Y(Y)} \right] &= \int\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
-&= \frac{1}{c}\int f_X(w) dw \\
+P\left[U\ \frac{f_X(Y)}{cf_Y(Y)} \right] &= \int_{-\infty}^{\infty}\int_{0}^{f_X(w)/cf_Y(w)} f_{YU}(w, u) du dw\\
+&= \frac{1}{c}\int_{-\infty}^{\infty} f_X(w) dw \\
 &= \frac{1}{c}, \\
 \end{aligned}
 {% endkatex %}
@@ -98,9 +97,12 @@ equation {% katex %}(3){% endkatex %} and equation {% katex %}(4){% endkatex %},
 
 {% katex display %}
 \begin{aligned}
-P\left[Y\ \leq\ y | U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \frac{P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y \leq y\right]}{P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right]}\\
+P\left[Y\ \leq\ y\ |\ U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \frac{P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y \leq y\right]}{P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right]}\\
 &=\frac{F_X(y)}{c}\frac{1}{1/c}\\
-&=\frac{cF_X(y)}{c}\\
 &=F_X(y)
 \end{aligned}
 {% endkatex %}
+
+## Implementation
+
+## Examples

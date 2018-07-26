@@ -24,16 +24,16 @@ probability values is defined by,
 \{p_1, p_2,\ldots,p_N\}\ \ \ \ \ (1),
 {% endkatex %}
 
-with {% katex %}p_i \geq 0, \  \forall i{% endkatex %} and {% katex %}\sum_{i=1}^N{p_i} = 1{% endkatex %}.
+with {% katex %}p_i\ \geq\ 0, \  \forall i{% endkatex %} and {% katex %}\sum_{i=1}^N{p_i} = 1{% endkatex %}.
 The CDF specifies the probability that {% katex %}i \leq n{% endkatex %} and is given by,
 
 {% katex display %}
-P(i \leq n)=P(n)=\sum_{i=1}^n{p_i},
+P(i\ \leq\ n)=P(n)=\sum_{i=1}^n{p_i},
 {% endkatex %}
 
 For a given CDF value, {% katex %}U{% endkatex %}, Equation {% katex %}P(n){% endkatex %} can always
 be inverted by evaluating it for each {% katex %}n{% endkatex %} and
-searching for the value of {% katex %}n{% endkatex %} that satisfies, {% katex %}P(n) \geq U{% endkatex %}.
+searching for the value of {% katex %}n{% endkatex %} that satisfies, {% katex %}P(n)\ \geq\ U{% endkatex %}.
 It follows that generated samples of {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} will have distribution
 {% katex %}(1){% endkatex %} since the intervals {% katex %}P(n)-P(n-1) = p_n{% endkatex %}
 are Uniformly sampled.
@@ -63,7 +63,7 @@ The program first stores the CDF computed from each of the sums
 {% katex %}P(n){% endkatex %} in an array. Next, CDF samples using
 {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} are generated. Finally, for each sampled CDF value,
 {% katex %}U{% endkatex %}, the array containing {% katex %}P(n){% endkatex %} is scanned for
-the value of {% katex %}n{% endkatex %} where {% katex %}P(n) \geq U{% endkatex %}. The resulting
+the value of {% katex %}n{% endkatex %} where {% katex %}P(n)\ \geq\ U{% endkatex %}. The resulting
 values of {% katex %}n{% endkatex %} will have the target distribution {% katex %}(2){% endkatex %}. This is
 shown in the figure below.
 
@@ -110,11 +110,11 @@ samples = numpy.random.multinomial(n, df, size=1)/n
 
 A continuous probability distribution is defined by the [PDF](https://en.wikipedia.org/wiki/Probability_density_function),
 {% katex %}f_X(x){% endkatex %}, where {% katex %}f_X(x) \geq 0, \forall x{% endkatex %} and
-{% katex %}\int f_X(x) dx = 1{% endkatex %}. The CDF is a monotonically increasing function
-that specifies the probability that {% katex %}X \leq x{% endkatex %}, namely,
+{% katex %}\int_{-\infty}^{\infty} f_X(x) dx = 1{% endkatex %}. The CDF is a monotonically increasing function
+that specifies the probability that {% katex %}X\ \leq\ x{% endkatex %}, namely,
 
 {% katex display %}
-P(X \leq x) = F_X(x) = \int^{x} f_X(w) dw.
+P(X \leq x) = F_X(x) = \int_{-\infty}^{x} f_X(w) dw.
 {% endkatex %}
 
 ### Proof
@@ -122,7 +122,7 @@ P(X \leq x) = F_X(x) = \int^{x} f_X(w) dw.
 To prove that Inverse CDF sampling works for continuous distributions it must be shown that,
 
 {% katex display %}
-P[F_X^{-1}(U) \leq x] = F_X(x) \ \ \ \ \ (3),
+P[F_X^{-1}(U)\ \leq\ x] = F_X(x) \ \ \ \ \ (3),
 {% endkatex %}
 
 where {% katex %}F_X^{-1}(x){% endkatex %} is the inverse of {% katex %}F_X(x){% endkatex %}
@@ -133,14 +133,14 @@ If {% katex %}Y=G(X){% endkatex %} is a monotonically increasing invertible func
 of {% katex %}X{% endkatex %} then,
 
 {% katex display %}
-P(X \leq x) = P(Y \leq y) = P[G(X) \leq G(x)]. \ \ \ \ \ (4)
+P(X\ \leq\ x) = P(Y\ \leq\ y) = P[G(X)\ \leq\ G(x)]. \ \ \ \ \ (4)
 {% endkatex %}
 
 To prove this note that {% katex %}G(x){% endkatex %} is monotonically increasing so the ordering of values is
 preserved for all {% katex %}x{% endkatex %},
 
 {% katex display %}
-X \leq x \implies G(X) \leq G(x).
+X\ \leq\ x \implies G(X)\ \leq\ G(x).
 {% endkatex %}
 
 Consequently, the order of the integration limits is maintained by the transformation.
@@ -149,11 +149,11 @@ Further, since {% katex %}y=G(x){% endkatex %} is invertible,
 
 {% katex display %}
 \begin{aligned}
-P(X \leq x) & = \int^{x} f_X(w) dw \\
-& = \int^{y} f_X(G^{-1}(z)) \frac{dG^{-1}}{dz} dz \\
-& = \int^{y} f_Y(z) dz \\
-& = P(Y \leq y) \\
-& = P[G(X) \leq G(x)],
+P(X\ \leq\ x) & = \int_{-\infty}^{x} f_X(w) dw \\
+& = \int_{-\infty}^{y} f_X(G^{-1}(z)) \frac{dG^{-1}}{dz} dz \\
+& = \int_{-\infty}^{y} f_Y(z) dz \\
+& = P(Y\ \leq\ y) \\
+& = P[G(X)\ \leq\ G(x)],
 \end{aligned}
 {% endkatex %}
 
@@ -167,19 +167,19 @@ For completeness consider the case where {% katex %}Y=G(X){% endkatex %} is a mo
 of {% katex %}X{% endkatex %} then,
 
 {% katex display %}
-X \leq x \implies G(X) \geq G(x),
+X\ \leq\ x \implies G(X)\ \geq\ G(x),
 {% endkatex %}
 
 it follows that,
 
 {% katex display %}
 \begin{aligned}
-P(X \leq x) & = \int^{x} f_X(w) dw \\
-& = \int_{y} f_X(G^{-1}(z)) \frac{dG^{-1}}{dz} dz \\
-& = \int_{y} f_Y(z) dz \\
-& = P(Y \geq y) \\
-& = P[G(X) \geq G(x)] \\
-& = 1 - P[G(X) \leq G(x)]
+P(X\ \leq x) & = \int_{-\infty}^{x} f_X(w) dw \\
+& = \int_{y}^{\infty} f_X(G^{-1}(z)) \frac{dG^{-1}}{dz} dz \\
+& = \int_{y}^{\infty} f_Y(z) dz \\
+& = P(Y\ \geq\ y) \\
+& = P[G(X)\ \geq\ G(x)] \\
+& = 1 - P[G(X)\ \leq\ G(x)]
 \end{aligned}
 {% endkatex %}
 
@@ -188,8 +188,8 @@ by noting that {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} so {% kate
 
 {% katex display %}
 \begin{aligned}
-P[F_X^{-1}(U) \leq x] & = P[F_X(F_X^{-1}(U)) \leq F_X(x)] \\
-& = P[U \leq F_X(x)] \\
+P[F_X^{-1}(U)\ \leq\ x] & = P[F_X(F_X^{-1}(U))\ \leq\ F_X(x)] \\
+& = P[U\ \leq\ F_X(x)] \\
 & = \int_{0}^{F_X(x)} f_U(w) dw \\
 & = \int_{0}^{F_X(x)} dw \\
 & = F_X(x).
@@ -204,7 +204,7 @@ given by,
 {% katex display %}
 f_X(x; k, \lambda) =
 \begin{cases}
-\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{\left(\frac{-x}{\lambda}\right)^k} & x \geq 0 \\
+\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{\left(\frac{-x}{\lambda}\right)^k} & x\ \geq\ 0 \\
 0 & x < 0,
 \end{cases} \ \ \ \ \ (5)
 {% endkatex %}
