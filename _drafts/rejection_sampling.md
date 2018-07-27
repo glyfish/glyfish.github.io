@@ -23,7 +23,7 @@ A criterion is defined for acceptance
 of a sample, {% katex %}Y{% endkatex %}, generated from the proposal distribution, {% katex %}f_Y(Y){% endkatex %}, independent of the acceptance probability, {% katex %}U{% endkatex %}, namely,
 
 {% katex display %}
-U\ \leq\ h(Y) = \frac{f_X(Y)}{cf_Y(Y)}\ \ \ \ \ (1),
+U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\ \ \ \ \ (1),
 {% endkatex %}
 
 where, {% katex %}c{% endkatex %} is chosen to satisfy
@@ -105,5 +105,22 @@ P\left[Y\ \leq\ y\ |\ U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \frac{P\left[U\ 
 {% endkatex %}
 
 ## Implementation
+
+An implementation in Python of the Rejection Sampling algorithm described in the introduction is listed below,
+
+```python
+def rejection_sample(h, y_samples, c, nsamples):
+    u = numpy.random.rand(nsamples)
+    accepted_mask = (u < h(y_samples) / c)
+    return y_samples[accepted_mask], u, accepted_mask
+```
+
+The function `rejection_sample(h, y, ymax, nsamples)` takes four arguments,
+
+|-- | --
+| _h_ | A function of the target and proposal distributions, {% katex %}f_X(y){% endkatex %} and
+{% katex %}f_Y(y){% endkatex %} respectively, is defined by {% katex %}h(y)=\frac{f_X(y)}{f_Y(y)}{% endkatex %}.
+| _y_samples_ | Random samples of {% katex %}Y{% endkatex %} with distribution {% katex %}f_Y(y){% endkatex %}.
+
 
 ## Examples

@@ -109,7 +109,7 @@ samples = numpy.random.multinomial(n, df, size=1)/n
 ## Continuous Distributions
 
 A continuous probability distribution is defined by the [PDF](https://en.wikipedia.org/wiki/Probability_density_function),
-{% katex %}f_X(x){% endkatex %}, where {% katex %}f_X(x) \geq 0, \forall x{% endkatex %} and
+{% katex %}f_X(x){% endkatex %}, where {% katex %}f_X(x) \geq 0,\ \forall x{% endkatex %} and
 {% katex %}\int_{-\infty}^{\infty} f_X(x) dx = 1{% endkatex %}. The CDF is a monotonically increasing function
 that specifies the probability that {% katex %}X\ \leq\ x{% endkatex %}, namely,
 
