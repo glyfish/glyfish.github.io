@@ -251,18 +251,14 @@ the proposal and target distributions will be equivalent.
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_1_sampled_distribution.png">
 
-<img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_1_mean_convergence.png">
-
-<img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_1_sigma_convergence.png">
+<img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_1_efficiency.png">
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_sampled_functions.png">
 
-<img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_1_efficiency.png">
+<img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png">
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_sampled_distribution.png">
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_mean_convergence.png">
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_sigma_convergence.png">
-
-<img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png">
