@@ -209,7 +209,7 @@ f_X(x; k, \lambda) =
 \end{cases} \ \ \ \ \ (5)
 {% endkatex %}
 
-where {% katex %}k>0{% endkatex %} is the shape parameter and {%katex %}\lambda>0{% endkatex %} the scale parameter.
+where {% katex %}k\ >\ 0{% endkatex %} is the shape parameter and {%katex %}\lambda\ >\ 0{% endkatex %} the scale parameter.
 The CDF is given by,
 
 {% katex display %}
