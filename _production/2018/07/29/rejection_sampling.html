@@ -11,14 +11,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Rejection Sampling is a method for obtaining samples for a known target probability distribution with no sampler using samples from some other proposal distribution with a sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0, 1)\textbf{Uniform}(0,\ 1)Uniform(0, 1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distributions into a desired target distribution." />
 <meta property="og:description" content="Rejection Sampling is a method for obtaining samples for a known target probability distribution with no sampler using samples from some other proposal distribution with a sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0, 1)\textbf{Uniform}(0,\ 1)Uniform(0, 1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distributions into a desired target distribution." />
-<link rel="canonical" href="http://localhost:4000/2018/07/29/rejection_sampling.html" />
-<meta property="og:url" content="http://localhost:4000/2018/07/29/rejection_sampling.html" />
+<link rel="canonical" href="gly.fish/2018/07/29/rejection_sampling.html" />
+<meta property="og:url" content="gly.fish/2018/07/29/rejection_sampling.html" />
 <meta property="og:site_name" content="gly.fish" />
-<meta property="og:image" content="http://localhost:4000/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png" />
+<meta property="og:image" content="gly.fish/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-07-29T00:00:00-07:00" />
 <script type="application/ld+json">
-{"description":"Rejection Sampling is a method for obtaining samples for a known target probability distribution with no sampler using samples from some other proposal distribution with a sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0, 1)\\textbf{Uniform}(0,\\ 1)Uniform(0, 1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distributions into a desired target distribution.","author":{"@type":"Person","name":"Troy Stribling"},"@type":"BlogPosting","url":"http://localhost:4000/2018/07/29/rejection_sampling.html","image":"http://localhost:4000/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png","headline":"Rejection Sampling","dateModified":"2018-07-29T00:00:00-07:00","datePublished":"2018-07-29T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/07/29/rejection_sampling.html"},"@context":"http://schema.org"}</script>
+{"description":"Rejection Sampling is a method for obtaining samples for a known target probability distribution with no sampler using samples from some other proposal distribution with a sampler. It is a more general method than Inverse CDF Sampling which requires distribution to have an invertible CDF. Inverse CDF Sampling transforms a Uniform(0, 1)\\textbf{Uniform}(0,\\ 1)Uniform(0, 1) random variable into a random variable with a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling is a method for transformation of random variables from arbitrary proposal distributions into a desired target distribution.","author":{"@type":"Person","name":"Troy Stribling"},"@type":"BlogPosting","url":"gly.fish/2018/07/29/rejection_sampling.html","image":"gly.fish/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png","headline":"Rejection Sampling","dateModified":"2018-07-29T00:00:00-07:00","datePublished":"2018-07-29T00:00:00-07:00","mainEntityOfPage":{"@type":"WebPage","@id":"gly.fish/2018/07/29/rejection_sampling.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -27,7 +27,18 @@
   <link rel="manifest" href="/assets/favicon/site.webmanifest">
   <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#000000">
   <meta name="msapplication-TileColor" content="#329EFF">
-  <meta name="theme-color" content="#329EFF"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="gly.fish" /></head>
+  <meta name="theme-color" content="#329EFF"><link type="application/atom+xml" rel="alternate" href="gly.fish/feed.xml" title="gly.fish" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-122597052-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+</head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a rel="author" href="/"><?xml version="1.0" encoding="UTF-8"?>
@@ -497,7 +508,7 @@ Some choices can produce inferior results. Analysis of the the acceptance functi
 
   <div class="wrapper">
     <div class="site-footer"><aside  itemscope itemtype="http://schema.org/Organization">
-          <meta itemprop="name" content="gly.fish"><meta itemprop="url" content="http://localhost:4000">
+          <meta itemprop="name" content="gly.fish"><meta itemprop="url" content="gly.fish">
           <meta itemprop="description" content="">
         </aside><div class="social-media-list">
   <ul><li title="Follow glyfish on Twitter">

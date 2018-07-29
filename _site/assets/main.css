@@ -144,7 +144,7 @@ table td { border: 1px solid #e8e8e8; }
 .highlighter-rouge .highlight { background: #fff; }
 .highlight .c { color: #998; font-style: italic; }
 .highlight .err { color: #003B6f; background-color: #fff; }
-.highlight .k { color: #0067C4; font-weight: bold; }
+.highlight .k { color: #329EFF; font-weight: bold; }
 .highlight .o { font-weight: bold; }
 .highlight .cm { color: #fff; font-style: italic; }
 .highlight .cp { color: #fff; font-weight: bold; }
@@ -170,14 +170,14 @@ table td { border: 1px solid #e8e8e8; }
 .highlight .kt { color: #458; font-weight: bold; }
 .highlight .m { color: #099; }
 .highlight .s { color: #d14; }
-.highlight .n { color: #003B6f; }
+.highlight .n { color: #000000; }
 .highlight .na { color: #0067C4; }
-.highlight .nb { color: #0067C4; }
+.highlight .nb { color: #0067C4; font-weight: bold; }
 .highlight .nc { color: #0067C4; font-weight: bold; }
 .highlight .no { color: #0067C4; }
 .highlight .ni { color: #0067C4; }
 .highlight .ne { color: #0067C4; font-weight: bold; }
-.highlight .nf { color: #0067C4; font-weight: bold; }
+.highlight .nf { color: #FFA322; font-weight: bold; }
 .highlight .nn { color: #0067C4; }
 .highlight .nt { color: #0067C4; }
 .highlight .nv { color: #0067C4; }
