@@ -18,9 +18,10 @@ distribution.
 
 <!--more-->
 
-The implementation of Rejection Sampling requires the consideration of a target distribution, {% katex %}f_X(X){% endkatex %}, a proposal distribution, {% katex %}f_Y(Y){% endkatex %} and a {% katex %}\textbf{Uniform}(0,\ 1){% endkatex %} acceptance probability {% katex %}U{% endkatex %} with distribution {% katex %}f_U(U)=1{% endkatex %}.
-A criterion is defined for acceptance
-of a sample, {% katex %}Y{% endkatex %}, generated from the proposal distribution, {% katex %}f_Y(Y){% endkatex %}, independent of the acceptance probability, {% katex %}U{% endkatex %}, namely,
+The implementation of Rejection Sampling requires the consideration of a target distribution,
+{% katex %}f_X(X){% endkatex %}, a proposal distribution, {% katex %}f_Y(Y){% endkatex %} and a {% katex %}\textbf{Uniform}(0,\ 1){% endkatex %} acceptance probability {% katex %}U{% endkatex %} with distribution {% katex %}f_U(U)=1{% endkatex %}. A proposal sample, {% katex %}Y{% endkatex %}, is generated using {% katex %}f_Y(Y){% endkatex %} and independently a uniform acceptance sample, {% katex %}U{% endkatex %}, is generated.
+A criterion is defined for acceptance of a sample, {% katex %}X{% endkatex %}, to be considered a
+sample of {% katex %}f_X(X){% endkatex %},
 
 {% katex display %}
 U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\ \ \ \ \ (1),
