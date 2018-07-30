@@ -1,6 +1,6 @@
 ---
 title: Rejection Sampling
-key: 20180721
+key: 20180729
 image: /assets/posts/rejection_sampling/weibull_normal_3_efficiency.png
 author: Troy Stribling
 comments: false
