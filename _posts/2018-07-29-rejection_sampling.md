@@ -19,7 +19,8 @@ distribution.
 <!--more-->
 
 The implementation of Rejection Sampling requires the consideration of a target distribution,
-{% katex %}f_X(X){% endkatex %}, a proposal distribution, {% katex %}f_Y(Y){% endkatex %} and a {% katex %}\textbf{Uniform}(0,\ 1){% endkatex %} acceptance probability {% katex %}U{% endkatex %} with distribution {% katex %}f_U(U)=1{% endkatex %}. A proposal sample, {% katex %}Y{% endkatex %}, is generated using {% katex %}f_Y(Y){% endkatex %} and independently a uniform acceptance sample, {% katex %}U{% endkatex %}, is generated.
+{% katex %}f_X(X){% endkatex %}, a proposal distribution, {% katex %}f_Y(Y){% endkatex %}, and a {% katex %}\textbf{Uniform}(0,\ 1){% endkatex %} acceptance probability, {% katex %}U{% endkatex %}, with distribution {% katex %}f_U(U)=1{% endkatex %}. A proposal sample, {% katex %}Y{% endkatex %}, is generated using, {% katex %}f_Y(Y){% endkatex %}, and independently a uniform acceptance sample, {% katex %}U{% endkatex %}, is generated
+using {% katex %}f_U(U){% endkatex %}.
 A criterion is defined for acceptance of a sample, {% katex %}X{% endkatex %}, to be considered a
 sample of {% katex %}f_X(X){% endkatex %},
 
@@ -27,7 +28,7 @@ sample of {% katex %}f_X(X){% endkatex %},
 U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\ \ \ \ \ (1),
 {% endkatex %}
 
-where, {% katex %}c{% endkatex %} is chosen to satisfy
+where, {% katex %}c{% endkatex %}, is chosen to satisfy
 {% katex %}0\ \leq\ f_X(Y)/cf_Y(Y)\ \leq\ 1, \ \ \forall\ Y{% endkatex %}. If equation
 {% katex %}(1){% endkatex %} is satisfied the proposed sample {% katex %}Y{% endkatex %} is
 accepted as a sample of {% katex %}f_X(X){% endkatex %} where {% katex %}X=Y{% endkatex %}.
@@ -257,11 +258,11 @@ If no proposal samples are rejected the proposal and target distributions will b
 ### Normal Proposal Distribution
 
 In this section a sampler using a {% katex %}\textbf{Normal}(\mu,\ \sigma){% endkatex %} proposal
-distribution and target Weibull distribution is discussed. A normal proposal distribution has advantages over
+distribution and target Weibull distribution is discussed. A Normal proposal distribution has advantages over
 the {% katex %}\textbf{Uniform}(0,\ m){% endkatex %} distribution discussed in the previous
 section. First, it can provide unbounded samples, while a uniform proposal requires specifying bounds
 on the samples. Second, it is a closer approximation to the target distribution so it should provide samples
-that are accepted with greater frequency. A disadvantage of the normal proposal distribution is that it requires specification of {% katex %}\mu{% endkatex %} and {% katex %}\sigma{% endkatex %}.
+that are accepted with greater frequency. A disadvantage of the Normal proposal distribution is that it requires specification of {% katex %}\mu{% endkatex %} and {% katex %}\sigma{% endkatex %}.
 If these parameters are the slightest off the performance of the
 sampler will be severely degraded. To learn this lesson the first attempt will assume values for
 both the parameters that closely match the target distribution. The following plot compares the {% katex %}f_X(y){% endkatex %}, the proposal distribution {% katex %}f_Y(y){% endkatex %} and the acceptance function
@@ -334,6 +335,6 @@ examples discussed here and convergence of the sampled {% katex %}\mu{% endkatex
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_sigma_convergence.png">
 
 Sampling the Weibull distribution with a Normal proposal distribution can produce a better result than a
-uniform distribution but care must be exercised in selection the Normal distribution parameters.
+uniform distribution but care must be exercised in selecting the Normal distribution parameters.
 Some choices can produce inferior results. Analysis of the the acceptance function
 {% katex %}(2){% endkatex %} can provide guidance in parameter selectiion.
