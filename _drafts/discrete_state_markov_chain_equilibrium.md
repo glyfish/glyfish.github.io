@@ -46,7 +46,7 @@ row represents the Markov Chain transition probability from that state at
 time {% katex %}t{% endkatex %} and the columns the values at {% katex %}t+1{% endkatex %}. It follows that,
 {% katex display %}
 \begin{aligned}
-\sum_{j=1}^{N}P_{ij} &= 1
+\sum_{j=1}^{N}P_{ij} &= 1\\
 P_{ij}\ &\geq\ 0
 \end{aligned} \ \ \ \ \ (1),
 {% endkatex %}
@@ -79,7 +79,7 @@ satisfy,
 \begin{aligned}
 \sum_{j=1}^{N} {(P^{\tau})}_{ij}\ &=\ 1 \\
 {(P^{\tau})}_{ij}\ &\geq\ 0
-\end{aligned}
+\end{aligned} \ \ \ \ \ (3).
 {% endkatex %}
 
 To determine the equilibrium solution of the probability distribution of the Markov Chain states,
@@ -101,8 +101,15 @@ P(X_0=x_2) \\
 P(X_0=x_N)
 \end{pmatrix},
 {% endkatex %}
-where {% katex %}\pi_i{% endkatex %} must satisfy {% katex %}\sum_{i=1}^{N} \pi_i\ =\ 1{% endkatex %} and
-{% katex %}\pi_i\ \geq \ 0{% endkatex %}.
+
+where {% katex %}\pi_i{% endkatex %} must satisfy,
+{% katex display %}
+\begin{aligned}
+\sum_{i=1}^{N} \pi_i\ &=\ 1\\
+\pi_i\ &\geq \ 0
+\end{aligned} \ \ \ \ \ (4).
+{% endkatex %}
+
 The distribution of states after the first step is given by,
 {% katex display %}
 \begin{aligned}
@@ -127,13 +134,43 @@ P(X_2=x_j) &= \sum_{i=1}^{N} P(X_2=x_j|X_1=x_i)P(X_1=x_i) \\
 {% endkatex %}
 
 A pattern is clearly developing. Mathematical Induction can be used to prove the distribution
-of states at an arbitrary time {% katex %}t{% endkatex %},
+of states at an arbitrary time {% katex %}t{% endkatex %} is given by,
 {% katex display %}
-\begin{aligned}
-P(X_t=x_j) &= {(\pi^{T}P^t)}_{j} \\
-\pi_{t}^{T} &= (\pi^{T}P^t)
-\end{aligned}\ \ \ \ \ (3),
+P(X_t=x_j) = {(\pi^{T}P^t)}_{j}
 {% endkatex %}
 
-Where {% katex %}\pi_t^T{% endkatex %} is the transpose of the chain state distribution after
-{% katex %}t{% endkatex %} steps.
+or as a column vector,
+
+{% katex display %}
+\pi_{t}^{T} = \pi^{T}P^t\ \ \ \ \ (5).
+{% endkatex %}
+
+Where {% katex %}\pi{% endkatex %} and {% katex %}\pi_t^T{% endkatex %} are the transpose of the chain state distribution
+initially and after {% katex %}t{% endkatex %} steps respectively.
+
+## Equilibrium Distribution of States
+
+The equilibrium distribution of states is defined by looking for a solution to equation (4) that is
+independent of time.
+
+{% katex display %}
+\pi^{T} = \pi^{T}P^t\ \ \ \ \ (6).
+{% endkatex %}
+
+It is easy to show that,
+{% katex display %}
+\pi^{T} = \pi^{T}P\ \ \ \ \ (7),
+{% endkatex %}
+
+is a solution by substituting equation it into equation {% katex %}(6){% endkatex %}.
+{% katex display %}
+\begin{aligned}
+\pi^{T} &= \pi^{T}P^t \\
+&= (\pi^{T}P)P^{t-1} \\
+&= \pi^{T}P^{t-1} \\
+&= \pi^{T}P^{t-2} \\
+&\vdots \\
+&= \pi^{T}P \\
+&= \pi^{T}
+\end{aligned}
+{% endkatex %}
