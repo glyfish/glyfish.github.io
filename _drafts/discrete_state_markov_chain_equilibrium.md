@@ -10,10 +10,10 @@ A [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) is a sequence of st
 where transitions between states occur in time with
 the probability of a transition depending only on the previous state. Here the
 states will be assumed a discrete finite set and time a discrete unbounded set. If the
-set of states is given {% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %} the probability
+set of states is given by {% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %} the probability
 that process will be in state {% katex %}x_i{% endkatex %} at time {% katex %}t{% endkatex %}
 is denoted by {% katex %}P(X_t=x_i){% endkatex %}. Markov Chain equilibrium is defined by
-{% katex %}\lim_{t\to\infty}P(X_t=x_i)<\infty{% endkatex %}, that is, as time advances  
+{% katex %}\lim_{t\to\infty}P(X_t=x_i)\ <\ \infty{% endkatex %}, that is, as time advances  
 {% katex %}P(X_t=x_i){% endkatex %} becomes independent of time. Here a solution
 for this limit is discussed and illustrated with examples.
 
@@ -48,10 +48,10 @@ time {% katex %}t{% endkatex %} and the columns the values at {% katex %}t+1{% e
 \begin{aligned}
 \sum_{j=1}^{N}P_{ij} &= 1\\
 P_{ij}\ &\geq\ 0
-\end{aligned} \ \ \ \ \ (1),
+\end{aligned} \ \ \ \ \ (1).
 {% endkatex %}
 
-where {% katex %}{% endkatex %}.
+Equation {% katex %}(1){% endkatex %} is the definition of a [Stochastic Matrix](https://en.wikipedia.org/wiki/Stochastic_matrix).
 
 The transition probability across two time steps can be obtained with use of the
 [Law of Total Probability](https://en.wikipedia.org/wiki/Law_of_total_probability),
@@ -159,18 +159,36 @@ independent of time.
 
 It is easy to show that,
 {% katex display %}
-\pi^{T} = \pi^{T}P\ \ \ \ \ (7),
+\pi_{E}^{T} = \pi_{E}^{T}P\ \ \ \ \ (7),
 {% endkatex %}
 
 is a solution by substituting equation it into equation {% katex %}(6){% endkatex %}.
 {% katex display %}
 \begin{aligned}
-\pi^{T} &= \pi^{T}P^t \\
-&= (\pi^{T}P)P^{t-1} \\
-&= \pi^{T}P^{t-1} \\
-&= \pi^{T}P^{t-2} \\
+\pi_{E}^{T} &= \pi_{E}^{T}P^t \\
+&= (\pi_{E}^{T}P)P^{t-1} \\
+&= \pi_{E}^{T}P^{t-1} \\
+&= \pi_{E}^{T}P^{t-2} \\
 &\vdots \\
-&= \pi^{T}P \\
-&= \pi^{T}
+&= \pi_{E}^{T}P \\
+&= \pi_{E}^{T}
 \end{aligned}
 {% endkatex %}
+
+## Equilibrium Transition Matrix
+
+The probability of transitioning between two states {% katex %}x_i{% endkatex %} and
+{% katex %}x_j{% endkatex %} in {% katex %}t{% endkatex %} time steps was previously shown to be
+{% katex %}P^t{% endkatex %} with equation {% katex %}(3){% endkatex %} defining the stochastic
+matrix conditions. The limit,
+{% katex display %}
+\lim_{t\to\infty}P^{t}\ \ \ \ \ (8),
+{% endkatex %}
+of the can be evaluated using [Diagonalizing](https://en.wikipedia.org/wiki/Diagonalizable_matrix).
+Matrix Diagonalization requires evaluation of the eigenvalues and eigenvectors, which are defined
+by the solutions to the equation,
+{% katex display %}
+Pv = \lambda v,
+{% endkatex %}
+where {% katex %}v{% endkatex %} is the eigenvector and {% katex %}\lambda{% endkatex %} eigenvalue.
+From equation {% katex %}(8){% endkatex %} it follows that,

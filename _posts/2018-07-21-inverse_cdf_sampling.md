@@ -21,7 +21,7 @@ A discrete probability distribution consisting of a finite set of {% katex %}N{%
 probability values is defined by,
 
 {% katex display %}
-\{p_1, p_2,\ldots,p_N\}\ \ \ \ \ (1),
+\{p_1,\ p_2,\ \ldots,\ p_N\}\ \ \ \ \ (1),
 {% endkatex %}
 
 with {% katex %}p_i\ \geq\ 0, \  \forall i{% endkatex %} and {% katex %}\sum_{i=1}^N{p_i} = 1{% endkatex %}.
@@ -41,7 +41,7 @@ are Uniformly sampled.
 Consider the distribution,
 
 {% katex display %}
-\left\{\frac{1}{12}, \frac{1}{12}, \frac{1}{6}, \frac{1}{6}, \frac{1}{12}, \frac{5}{12} \right\} \ \ \ \ \ (2)
+\left\{\frac{1}{12},\ \frac{1}{12},\ \frac{1}{6},\ \frac{1}{6},\ \frac{1}{12},\ \frac{5}{12} \right\} \ \ \ \ \ (2)
 {% endkatex %}
 It is shown in the following plot with its CDF. Note that the CDF is a monotonically increasing function.
 
