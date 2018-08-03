@@ -201,5 +201,25 @@ P^{t}v &= P^{t-1}(Pv)\\
 &\vdots\\
 &=(Pv)\lambda^{t-1}\\
 &=\lambda^{t}v
-\end{aligned}
+\end{aligned}.
 {% endkatex %}
+
+Since {% katex %}P^t{% endkatex %} is a stochastic matrix it satisfies equation {% katex %}(3){% endkatex %}.
+As a result of these constraints the limit {% katex %}t\to\infty{% endkatex %} requires that,
+{% katex display %}
+\lim_{t\to\infty}P^{t}=\lim_{t\to\infty}\lambda^{t}v\ \leq \infty.
+{% endkatex %}
+
+To satisfy this constraint it is requited that {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
+it will be shown that {% katex %}\lambda=1{% endkatex %} and that a column vector of
+{% katex %}1's{% endkatex %},
+{% katex display %}
+v =
+\begin{pmatrix}
+1 \\
+1 \\
+\vdots \\
+1
+\end{pmatrix},
+{% endkatex %}
+are eigenvalue and eigenvector solutions of equation {% katex %}(8).{% endkatex %}
