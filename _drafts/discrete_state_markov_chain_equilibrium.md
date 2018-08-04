@@ -45,10 +45,10 @@ where the size {% katex %}N{% endkatex %} is determined by the number of possibl
 row represents the Markov Chain transition probability from that state at
 time {% katex %}t{% endkatex %} and the columns the values at {% katex %}t+1{% endkatex %}. It follows that,
 {% katex display %}
-\begin{aligned}
-\sum_{j=1}^{N}P_{ij} &= 1\\
-P_{ij}\ &\geq\ 0
-\end{aligned} \ \ \ \ \ (1).
+\begin{gathered}
+\sum_{j=1}^{N}P_{ij} = 1\\
+P_{ij}\ \geq\ 0
+\end{gathered} \ \ \ \ \ (1).
 {% endkatex %}
 
 Equation {% katex %}(1){% endkatex %} is the definition of a [Stochastic Matrix](https://en.wikipedia.org/wiki/Stochastic_matrix).
@@ -76,10 +76,10 @@ It should be noted that since {% katex %}{(P^{\tau})}_{ij}{% endkatex %} is a tr
 satisfy,
 
 {% katex display %}
-\begin{aligned}
-\sum_{j=1}^{N} {(P^{\tau})}_{ij}\ &=\ 1 \\
-{(P^{\tau})}_{ij}\ &\geq\ 0
-\end{aligned} \ \ \ \ \ (3).
+\begin{gathered}
+\sum_{j=1}^{N} {(P^{\tau})}_{ij}\ =\ 1 \\
+{(P^{\tau})}_{ij}\ \geq\ 0
+\end{gathered} \ \ \ \ \ (3).
 {% endkatex %}
 
 To determine the equilibrium solution of the probability distribution of the Markov Chain states,
@@ -104,10 +104,10 @@ P(X_0=x_N)
 
 where {% katex %}\pi_i{% endkatex %} must satisfy,
 {% katex display %}
-\begin{aligned}
-\sum_{i=1}^{N} \pi_i\ &=\ 1\\
-\pi_i\ &\geq \ 0
-\end{aligned} \ \ \ \ \ (4).
+\begin{gathered}
+\sum_{i=1}^{N} \pi_i\ =\ 1\\
+\pi_i\ \geq \ 0
+\end{gathered} \ \ \ \ \ (4).
 {% endkatex %}
 
 The distribution of states after the first step is given by,
@@ -179,8 +179,8 @@ is a solution by substituting equation it into equation {% katex %}(6){% endkate
 
 The probability of transitioning between two states {% katex %}x_i{% endkatex %} and
 {% katex %}x_j{% endkatex %} in {% katex %}t{% endkatex %} time steps was previously shown to be
-{% katex %}P^t{% endkatex %} with equation {% katex %}(3){% endkatex %} defining the stochastic
-matrix conditions. The limit,
+stochastic matrix {% katex %}P^t{% endkatex %} constrained by {% katex %}(3){% endkatex %} defining.
+The limit,
 {% katex display %}
 \lim_{t\to\infty}P^{t},
 {% endkatex %}
@@ -210,16 +210,126 @@ As a result of these constraints the limit {% katex %}t\to\infty{% endkatex %} r
 \lim_{t\to\infty}P^{t}=\lim_{t\to\infty}\lambda^{t}v\ \leq \infty.
 {% endkatex %}
 
-To satisfy this constraint it is requited that {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
-it will be shown that {% katex %}\lambda=1{% endkatex %} and that a column vector of
-{% katex %}1's{% endkatex %},
+To satisfy this constraint it is required that {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
+it will be shown that {% katex %}\lambda_1=1{% endkatex %} and that a column vector of
+{% katex %}1's{% endkatex %} with {% katex %}N{% endkatex %} rows,
 {% katex display %}
-v =
+v_1 =
 \begin{pmatrix}
 1 \\
 1 \\
 \vdots \\
 1
-\end{pmatrix},
+\end{pmatrix}\ \ \ \ \ (9),
 {% endkatex %}
 are eigenvalue and eigenvector solutions of equation {% katex %}(8).{% endkatex %}
+{% katex display %}
+\begin{pmatrix}
+P_{11} & P_{12} & \cdots & P_{1N} \\
+P_{21} & P_{22} & \cdots & P_{2N} \\
+\vdots & \vdots & \ddots & \vdots \\
+P_{N1} & P_{N2} & \cdots & P_{NN}
+\end{pmatrix}
+\begin{pmatrix}
+1 \\
+1 \\
+\vdots \\
+1
+\end{pmatrix}
+=
+\begin{pmatrix}
+\sum_{j=1}^{N}P_{1j} \\
+\sum_{j=1}^{N}P_{2j} \\
+\vdots \\
+\sum_{j=1}^{N}P_{Nj}
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 \\
+1 \\
+\vdots \\
+1
+\end{pmatrix}
+=\lambda_1 v_1,
+{% endkatex %}
+
+where use was made of the stochastic matrix condition from equation {% katex %}(1){% endkatex %},
+{% katex %}\sum_{j=1}^{N}P_{ij}=1{% endkatex %}.
+
+To go further a result from the [Perron-Frobenius Theorem](https://en.wikipedia.org/wiki/Perron–Frobenius_theorem) is needed.
+This theorem states that a stochastic matrix will have a largest eigenvalue with multiplicity 1. Here all eigenvalues will satisfy
+{% katex %}\lambda_1=1 \ >\ \mid{\lambda_i}\mid,\ \forall\ 1\ <\ i\ \leq\ N{% endkatex %}.
+
+Denote the eigenvector {% katex %}v_j{% endkatex %} by the column vector,
+{% katex display %}
+v_j =
+\begin{pmatrix}
+v_{1j} \\
+v_{2j} \\
+\vdots \\
+v_{Nj},
+\end{pmatrix}
+{% endkatex %}
+
+and let {% katex %}V{% endkatex %} be the matrix with columns that are the eigenvectors of {% katex %}P{% endkatex %}
+with {% katex %}v_1{% endkatex %} from equation {% katex %}(9){% endkatex %} in the first column,
+{% katex display %}
+V=
+\begin{pmatrix}
+1 & v_{12} & \cdots & v_{1N} \\
+1 & v_{22} & \cdots & v_{2N} \\
+\vdots & \vdots & \ddots & \vdots \\
+1 & v_{N2} & \cdots & v_{NN}
+\end{pmatrix}.
+{% endkatex %}
+
+If it is assumed that {% katex %}V{% endkatex %} is invertible then {% katex %}P{% endkatex %} is
+[diagonalizable](https://en.wikipedia.org/wiki/Diagonalizable_matrix),
+{% katex display %}
+P = V\Lambda V^{-1},
+{% endkatex %}
+
+where {% katex %}V^{-1}{% endkatex %} is the inverse of {% katex %}V{% endkatex %} and {% katex %}\Lambda{% endkatex %}
+is the diagonal matrix constructed from the eigenvalues of {% katex %}P{% endkatex %} with {% katex %}\lambda_1=1{% endkatex %}
+the component in the first row and column,
+{% katex display %}
+\Lambda =
+\begin{pmatrix}
+1 & 0 & \cdots & 0 \\
+0 & \lambda_2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_N
+\end{pmatrix}.
+{% endkatex %}
+
+Now using the diagonalization of {% katex %}P{% endkatex %},
+{% katex display %}
+\begin{aligned}
+P^{t} &= P^{t-1}V\Lambda V^{-1} \\
+&= P^{t-2}V\Lambda V^{-1}V\Lambda V^{-1} \\
+&= P^{t-2}V\Lambda^2 V^{-1}\\
+&\vdots \\
+&= PV\Lambda^{t-1} V^{-1} \\
+&= V\Lambda^{t}V^{-1}
+\end{aligned}
+{% endkatex %}
+
+Since {% katex %}\mid{\lambda_i}\mid\ <\ 1,\ \forall\ i\ >\ 1{% endkatex %} in the limit
+{% katex %}t\to\infty{% endkatex %},
+{% katex display %}
+\lim_{t\to\infty} \Lambda^t =
+\lim_{t\to\infty}
+\begin{pmatrix}
+1 & 0 & \cdots & 0 \\
+0 & \lambda_2^t & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \lambda_N^t
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 0 & \cdots & 0 \\
+0 & 0 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & 0
+\end{pmatrix}
+{% endkatex %}
