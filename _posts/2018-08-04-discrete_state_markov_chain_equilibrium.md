@@ -289,8 +289,9 @@ Let {% katex %}\Lambda{% endkatex %} be a diagonal matrix constructed from the e
 \end{pmatrix}.
 {% endkatex %}
 
-A general solution of the transition matrix eigenvalues and eigenvectors has been
-obtained. The following section will work through the equilibrium limit using the using these results
+Sufficient information about the eigenvalues and eigenvectors has obtained to prove some very
+general results for Markov Chains.
+The following section will work through the equilibrium limit using the using these results
 to construct a diagonalized representation of the matrix.
 
 ### Diagonalization of Transition Matrix
@@ -514,4 +515,98 @@ v^{-1}_{1N}
 \end{pmatrix}.
 {% endkatex %}
 
-#E Examples
+### Solution of Equilibrium Equation
+
+An equation for the equilibrium distribution of states, {% katex %}\pi_{E}{% endkatex %}, can
+be obtained from equation {% katex %}(11){% endkatex %},
+{% katex display %}
+\pi^{T}_E\left(P - I\right) = 0\ \ \ \ \ (12),
+{% endkatex %}
+where {% katex %}I{% endkatex %} is the identity matrix. Equation {% katex %}(12){% endkatex %} alone
+is insufficient to obtain a unique solution since the system of linear equations if defines is
+[Linearly Dependent](https://en.wikipedia.org/wiki/Linear_independence). In a linearly dependent
+system of equations some equations are the result of linear operations on the other equations.
+It is straight forward to show that one of the equations defined by {% katex %}(12){% endkatex %} can
+be eliminated by summing the other equations and multiplying by {% katex %}-1{% endkatex %}.
+If the equations were
+linearly independent the only solution would be the trivial zero solution,
+{% katex %}{\left( \pi^{T}_E \right)}_{i}\ =\ 0\ \forall\ i{% endkatex %}. A unique solution to
+{% katex %}(12){% endkatex %} is obtained by including the normalization constraint,
+{% katex display %}
+\sum_{j=1}^{N} {\left( \pi_{E}^{T} \right)}_{j} = 1\ \ \ \ \ (13).
+{% endkatex %}
+
+## Example
+
+Consider the Markov Chain defined by the transition matrix,
+{% katex display %}
+P =
+\begin{pmatrix}
+0.0 & 0.9 & 0.1 & 0.0 \\
+0.8 & 0.1 & 0.0 & 0.1 \\
+0.0 & 0.5 & 0.3 & 0.2 \\
+0.1 & 0.0 & 0.0 & 0.9
+\end{pmatrix}.
+{% endkatex %}
+The state transition diagram below provides a graphical representation of {% katex %}P{% endkatex %}.
+<div style="text-align:center;">
+  <img src="/assets/posts/discrete_state_markov_chain_equilibrium/transition_diagram.png">
+</div>
+
+### Convergence to Equilibrium
+
+Relaxation of both the transition matrix and distribution of states to their equilibrium values
+is easily demonstrated with the few lines of Python shown below.
+
+```shell
+In [1]: import numpy
+In [2]: t = [[0.0, 0.9, 0.1, 0.0],
+   ...:      [0.8, 0.1, 0.0, 0.1],
+   ...:      [0.0, 0.5, 0.3, 0.2],
+   ...:      [0.1, 0.0, 0.0, 0.9]]
+In [3]: p = numpy.matrix(t)
+In [4]: p**100
+Out[4]:
+matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097],
+        [0.27876106, 0.30088496, 0.03982301, 0.38053097],
+        [0.27876106, 0.30088496, 0.03982301, 0.38053097],
+        [0.27876106, 0.30088495, 0.03982301, 0.38053098]])
+```
+
+Here the transition matrix from the initial state to states {% katex %}100{% endkatex %} time steps
+in the future is computed using equation {% katex %}(2){% endkatex %}. The result obtained is a matrix
+with all rows equal. This agrees with the result obtained in the previously for the limit
+{% katex %}t\to\infty{% endkatex %} in equation {% katex %}(9){% endkatex %}.
+For an initial distribution of states the distribution after {% katex %}100{% endkatex %}
+steps is given by,
+
+```shell
+In [5]: c = [[0.1],
+   ...:      [0.5],
+   ...:      [0.35],
+   ...:      [0.05]]
+In [6]: π = numpy.matrix(c)
+In [8]: π.T*p**100
+Out[8]: matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097]])
+```
+
+An initial distribution of states is constructed that satisfies
+{% katex %}\sum_{i=0}^3 \pi_i = 1{% endkatex %}. Then equation {% katex %}(5){% endkatex %} is used
+to compute the future distribution. The result is as expected from the previous analysis for
+sufficiently long times, namely, the limiting distribution is the repeated row of the limiting
+transition matrix.
+
+The plot below illustrates the convergence of the distribution of states from the previous example.
+In the plot the components of {% katex %}\pi_t{% endkatex %} from equation {% katex %}(5){% endkatex %}
+are plotted for each time step. The convergence to the limiting value occurs rapidly. Within only
+{% katex %}20{% endkatex %} steps {% katex %}\pi_t{% endkatex %} has reached limiting distribution.
+
+<div style="text-align:center;">
+  <img src="/assets/posts/discrete_state_markov_chain_equilibrium/distribution_relaxation_1.png">
+</div>
+
+### Equilibrium Transition Matrix
+
+### Equilibrium Distribution of States
+
+### Simulation
