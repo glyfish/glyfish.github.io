@@ -628,13 +628,13 @@ algebra library. It is seen that {% katex %}\lambda\ =\ 1{% endkatex %} is indee
 as previously proven, and that other eigenvalues have magnitudes less than {% katex %}(1){% endkatex %}.
 This is in agreement with Perron-Frobenius Theorem. The `numpy` linear algebra library normalizes the
 eigenvectors and uses the same order for eigenvalues and eigenvector columns. The eigenvector
-corresponding to {% katex %}\lambda\ =\ 1{% endkatex %} is has components that are all
+corresponding to {% katex %}\lambda\ =\ 1{% endkatex %} is third column and has all components equal.
 {% katex %}1{% endkatex %}.
 
 ```shell
 In [12]: Λ = numpy.diag(λ)
 In [13]: V = numpy.matrix(v)
-In [14]: V_inv = numpy.linalg.inv(V)
+In [14]: Vinv = numpy.linalg.inv(V)
 In [15]: Λ_t = Λ**100
 In [16]: Λ_t
 Out[16]:
@@ -642,19 +642,23 @@ array([[7.61022278e-12, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
        [0.00000000e+00, 2.65714622e-62, 0.00000000e+00, 0.00000000e+00],
        [0.00000000e+00, 0.00000000e+00, 1.00000000e+00, 0.00000000e+00],
        [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 1.01542303e-08]])
-In [17]: V * Λ_t * V_inv
+In [17]: V * Λ_t * Vinv
 Out[17]:
 matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097],
         [0.27876106, 0.30088496, 0.03982301, 0.38053097],
         [0.27876106, 0.30088496, 0.03982301, 0.38053097],
         [0.27876106, 0.30088495, 0.03982301, 0.38053098]])
-In [18]: V_inv
+In [18]: Vinv
 Out[18]:
 matrix([[-0.77088207,  0.75264519,  0.07176803, -0.05353116],
         [ 0.56603541,  0.13674745, -0.97996209,  0.27717923],
         [ 0.55752212,  0.60176991,  0.07964602,  0.76106195],
         [-0.33452515, -0.45432908, -0.06289354,  0.85174777]])
 ```
+Next the matrix {% katex %}\Lambda{% endkatex %} is constructed with the eigenvalues on the diagonal
+while maintaining the order from {% katex %}\lambda{% endkatex %} and the matrix {% katex %}V{% endkatex %} is constructed with eigenvectors as columns while also maintaining the order of {% katex %}v{% endkatex %}.
+{% katex %}Vinv{% endkatex %} is computed next. It will just be assumed that
+{% katex %}t{% endkatex %} is large for the remainder of the calculation.
 
 ### Equilibrium Distribution of States
 
@@ -675,3 +679,35 @@ Out[22]: array([0.27876106, 0.30088496, 0.03982301, 0.38053097])
 ```
 
 ### Simulation
+
+```python
+import numpy
+
+def sample_chain(t, x0, nsample):
+    xt = numpy.zeros(nsample, dtype=int)
+    xt[0] = x0
+    up = numpy.random.rand(nsample)
+    cdf = [numpy.cumsum(t[i]) for i in range(4)]
+    for t in range(nsample - 1):
+        xt[t] = numpy.flatnonzero(cdf[xt[t-1]] >= up[t])[0]
+    return xt
+
+πsamples = 1000
+nsamples = 10000
+c = [[0.25],
+     [0.25],
+     [0.25],
+     [0.25]]
+
+π = numpy.matrix(c)
+πcdf = numpy.cumsum(c)
+π_samples = [numpy.flatnonzero(πcdf >= u)[0] for u in numpy.random.rand(πsamples)]
+
+chain_samples = numpy.array([])
+for x0 in π_samples:
+  chain_samples = numpy.append(chain_samples, sample_chain(t, x0, nsamples))
+```
+
+<div style="text-align:center;">
+  <img src="/assets/posts/discrete_state_markov_chain_equilibrium/distribution_comparison.png">
+</div>
