@@ -556,7 +556,7 @@ The state transition diagram below provides a graphical representation of {% kat
 ### Convergence to Equilibrium
 
 Relaxation of both the transition matrix and distribution of states to their equilibrium values
-is easily demonstrated with the few lines of Python shown below.
+is easily demonstrated with the few lines of Python executed within `ipython`.
 
 ```shell
 In [1]: import numpy
@@ -607,6 +607,71 @@ are plotted for each time step. The convergence to the limiting value occurs rap
 
 ### Equilibrium Transition Matrix
 
+In this section the equilibrium limit of the transition matrix is determined for the example Markov Chain.
+It was previously shown that this limit is given by equation {% katex %}(9){% endkatex %}. To evaluate
+equation {% katex %}(9){% endkatex %} for the example transition matrix it must be diagonalized.
+
+```shell
+In [9]: λ, v = numpy.linalg.eig(p)
+In [10]: λ
+Out[10]: array([-0.77413013,  0.24223905,  1.        ,  0.83189108])
+In [11]: v
+Out[11]:
+matrix([[-0.70411894,  0.02102317,  0.5       , -0.4978592 ],
+        [ 0.63959501,  0.11599428,  0.5       , -0.44431454],
+        [-0.30555819, -0.99302222,  0.5       , -0.14281543],
+        [ 0.04205879, -0.00319617,  0.5       ,  0.73097508]])
+```
+
+First, the transition matrix eigenvalues and eigenvectors are computed using the `numpy` linear
+algebra library. It is seen that {% katex %}\lambda\ =\ 1{% endkatex %} is indeed an eigenvalue,
+as previously proven, and that other eigenvalues have magnitudes less than {% katex %}(1){% endkatex %}.
+This is in agreement with Perron-Frobenius Theorem. The `numpy` linear algebra library normalizes the
+eigenvectors and uses the same order for eigenvalues and eigenvector columns. The eigenvector
+corresponding to {% katex %}\lambda\ =\ 1{% endkatex %} is has components that are all
+{% katex %}1{% endkatex %}.
+
+```shell
+In [12]: Λ = numpy.diag(λ)
+In [13]: V = numpy.matrix(v)
+In [14]: V_inv = numpy.linalg.inv(V)
+In [15]: Λ_t = Λ**100
+In [16]: Λ_t
+Out[16]:
+array([[7.61022278e-12, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00],
+       [0.00000000e+00, 2.65714622e-62, 0.00000000e+00, 0.00000000e+00],
+       [0.00000000e+00, 0.00000000e+00, 1.00000000e+00, 0.00000000e+00],
+       [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 1.01542303e-08]])
+In [17]: V * Λ_t * V_inv
+Out[17]:
+matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097],
+        [0.27876106, 0.30088496, 0.03982301, 0.38053097],
+        [0.27876106, 0.30088496, 0.03982301, 0.38053097],
+        [0.27876106, 0.30088495, 0.03982301, 0.38053098]])
+In [18]: V_inv
+Out[18]:
+matrix([[-0.77088207,  0.75264519,  0.07176803, -0.05353116],
+        [ 0.56603541,  0.13674745, -0.97996209,  0.27717923],
+        [ 0.55752212,  0.60176991,  0.07964602,  0.76106195],
+        [-0.33452515, -0.45432908, -0.06289354,  0.85174777]])
+```
+
 ### Equilibrium Distribution of States
+
+```shell
+In [19]: E = numpy.concatenate((p.T - numpy.eye(4), [numpy.ones(4)]))
+In [20]: E
+Out[20]:
+matrix([[-1. ,  0.8,  0. ,  0.1],
+        [ 0.9, -0.9,  0.5,  0. ],
+        [ 0.1,  0. , -0.7,  0. ],
+        [ 0. ,  0.1,  0.2, -0.1],
+        [ 1. ,  1. ,  1. ,  1. ]])
+In [21]: πe, _, _, _ = numpy.linalg.lstsq(E, numpy.array([0.0, 0.0, 0.0, 0.0, 1.0]), rcond=None)
+
+In [22]: πe
+Out[22]: array([0.27876106, 0.30088496, 0.03982301, 0.38053097])
+
+```
 
 ### Simulation
