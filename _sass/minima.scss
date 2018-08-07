@@ -31,6 +31,9 @@ $on-laptop:        800px !default;
 $twitter-color:    #1da1f2;
 $github-color:     #000;
 
+$syntax-highlight-dark: #666;
+$syntax-highlight-light: #999;
+
 @mixin media-query($device) {
   @media screen and (max-width: $device) {
     @content;

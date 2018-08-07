@@ -155,12 +155,12 @@ The probability of transitioning between two states {% katex %}x_i{% endkatex %}
 stochastic matrix {% katex %}P^t{% endkatex %} constrained by equation {% katex %}(3){% endkatex %}.
 The equilibrium transition matrix is defined by,
 {% katex display %}
-P_{E} = \lim_{t\to\infty}P^{t}.
+P^{E} = \lim_{t\to\infty}P^{t}.
 {% endkatex %}
 This limit can be determined using
 [Matrix Diagonalization](https://en.wikipedia.org/wiki/Diagonalizable_matrix).
 The following sections will use this method to construct a form of
-{% katex %}P_E{% endkatex %} that will easily allow evaluation equilibrium limit.
+{% katex %}P^{E}{% endkatex %} that will easily allow evaluation equilibrium limit.
 
 ### Eigenvectors and Eigenvalues of the Transition Matrix
 
@@ -331,7 +331,7 @@ Evaluation of {% katex %}\Lambda^{t}{% endkatex %} is straight forward,
 Since {% katex %}\mid{\lambda_i}\mid\ <\ 1,\ \forall\ 1\ <\ i\ \leq\ N{% endkatex %} in the limit
 {% katex %}t\to\infty{% endkatex %} it is seen that,
 {% katex display %}
-\Lambda^{\infty} =
+\Lambda^{E} =
 \lim_{t\to\infty} \Lambda^t =
 \lim_{t\to\infty}
 \begin{pmatrix}
@@ -351,13 +351,13 @@ Since {% katex %}\mid{\lambda_i}\mid\ <\ 1,\ \forall\ 1\ <\ i\ \leq\ N{% endkate
 
 so,
 {% katex display %}
-\lim_{t\to\infty} P^{t} = \lim_{t\to\infty} V\Lambda^{t} V^{-1} = V\Lambda^{\infty}V^{-1}.
+P^{E} = \lim_{t\to\infty} P^{t} = \lim_{t\to\infty} V\Lambda^{t} V^{-1} = V\Lambda^{E}V^{-1}.
 {% endkatex %}
 
 Evaluation of each of the first two terms on the righthand side gives,
 
 {% katex display %}
-V\Lambda^{\infty} =
+V\Lambda^{E} =
 \begin{pmatrix}
 1 & v_{12} & \cdots & v_{1N} \\
 1 & v_{22} & \cdots & v_{2N} \\
@@ -381,7 +381,7 @@ V\Lambda^{\infty} =
 
 It follows that the entire expression on the righthand size is given by,
 {% katex display %}
-V\Lambda^{\infty} V^{-1} =
+V\Lambda^{E} V^{-1} =
 \begin{pmatrix}
 1 & 0 & \cdots & 0 \\
 1 & 0 & \cdots & 0 \\
@@ -405,7 +405,7 @@ v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N}
 
 Finally, the equilibrium transition matrix is given by,
 {% katex display %}
-P_{E} = V\Lambda^{\infty} V^{-1} =
+P^{E} = V\Lambda^{E} V^{-1} =
 \begin{pmatrix}
 v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N} \\
 v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N} \\
@@ -414,9 +414,9 @@ v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N}
 \end{pmatrix}\ \ \ \ \ (9).
 {% endkatex %}
 
-The rows of {% katex %}P_{E}{% endkatex %} are identical and given by the
+The rows of {% katex %}P^{E}{% endkatex %} are identical and given by the
 first row of the inverse of the matrix of eigenvectors, {% katex %}V^{-1}{% endkatex %}
-from equation {% katex %}(8){% endkatex %}. Since {% katex %}P^{\infty}{% endkatex %} is a transition
+from equation {% katex %}(8){% endkatex %}. Since {% katex %}P^{E}{% endkatex %} is a transition
 matrix it must satisfy,
 
 {% katex display %}
@@ -456,7 +456,7 @@ by substituting it into equation {% katex %}(10){% endkatex %}.
 
 ### Relationship Between Distribution of States and Transition Matrix
 
-The relationship between {% katex %}\pi_E{% endkatex %} and {% katex %}P_E{% endkatex %}
+The relationship between {% katex %}\pi_E{% endkatex %} and {% katex %}P^{E}{% endkatex %}
 will be determined in this section. Begin, by considering an arbitrary initial distribution states
 with {% katex %}N{% endkatex %} elements,
 {% katex display %}
@@ -472,7 +472,7 @@ with {% katex %}N{% endkatex %} elements,
 The distribution when the Markov Chain has had sufficient time to reach equilibrium will be given by,
 {% katex display %}
 \begin{aligned}
-\pi^{T}P_{E} &=
+\pi^{T}P^{E} &=
 \begin{pmatrix}
 \pi_{1} & \pi_{2} & \cdots & \pi_{N}
 \end{pmatrix}
@@ -495,7 +495,7 @@ v^{-1}_{1N}\sum_{j=1}^{N} \pi_{j}
 recall that {% katex %}\sum_{j=1}^{N} \pi_{j} = 1{% endkatex %}, so
 
 {% katex display %}
-\pi^{T}P_{E} =
+\pi^{T}P^{E} =
 \begin{pmatrix}
 v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N}
 \end{pmatrix}.
@@ -525,15 +525,29 @@ be obtained from equation {% katex %}(11){% endkatex %},
 where {% katex %}I{% endkatex %} is the identity matrix. Equation {% katex %}(12){% endkatex %} alone
 is insufficient to obtain a unique solution since the system of linear equations if defines is
 [Linearly Dependent](https://en.wikipedia.org/wiki/Linear_independence). In a linearly dependent
-system of equations some equations are the result of linear operations on the other equations.
+system of equations some equations are the result of linear operations on the others.
 It is straight forward to show that one of the equations defined by {% katex %}(12){% endkatex %} can
 be eliminated by summing the other equations and multiplying by {% katex %}-1{% endkatex %}.
 If the equations were
 linearly independent the only solution would be the trivial zero solution,
-{% katex %}{\left( \pi^{T}_E \right)}_{i}\ =\ 0\ \forall\ i{% endkatex %}. A unique solution to
+{% katex %}{\left( \pi^{T}_E \right)}_{i}\ =\ 0,\ \forall\ i{% endkatex %}. A unique solution to
 {% katex %}(12){% endkatex %} is obtained by including the normalization constraint,
 {% katex display %}
-\sum_{j=1}^{N} {\left( \pi_{E}^{T} \right)}_{j} = 1\ \ \ \ \ (13).
+\sum_{j=1}^{N} {\left( \pi_{E}^{T} \right)}_{j} = 1.
+{% endkatex %}
+The resulting system of equations that must be solved is given by,
+{% katex display %}
+\pi_{E}^{T}
+\begin{pmatrix}
+{P_{11} - 1} & P_{12} & \cdots & P_{1N} & 1 \\
+P_{21} & {P_{22} -1} & \cdots & P_{2N} & 1 \\
+\vdots & \vdots & \ddots & \vdots & \vdots\\
+P_{N1} & P_{N2} & \cdots & {P_{NN} - 1} & 1 \\
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 & 0 & 0 & 0 & 1
+\end{pmatrix}\ \ \ \ \ (13).
 {% endkatex %}
 
 ## Example
@@ -574,11 +588,21 @@ matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097],
 ```
 
 Here the transition matrix from the initial state to states {% katex %}100{% endkatex %} time steps
-in the future is computed using equation {% katex %}(2){% endkatex %}. The result obtained is a matrix
-with all rows equal. This agrees with the result obtained in the previously for the limit
-{% katex %}t\to\infty{% endkatex %} in equation {% katex %}(9){% endkatex %}.
-For an initial distribution of states the distribution after {% katex %}100{% endkatex %}
-steps is given by,
+in the future is computed using equation {% katex %}(2){% endkatex %}. The result obtained
+has identical rows as obtained in the equilibrium limit of equation {% katex %}(9){% endkatex %},
+with all rows equal.
+{% katex display %}
+P^{100} =
+\begin{pmatrix}
+0.27876106 & 0.30088496 & 0.03982301 & 0.38053097 \\
+0.27876106 & 0.30088496 & 0.03982301 & 0.38053097 \\
+0.27876106 & 0.30088496 & 0.03982301 & 0.38053097 \\
+0.27876106 & 0.30088495 & 0.03982301 & 0.38053098
+\end{pmatrix}.
+{% endkatex %}
+
+For an initial distribution of states {% katex %}\pi{% endkatex %} the distribution after {% katex %}100{% endkatex %}
+is evaluated using,
 
 ```shell
 In [5]: c = [[0.1],
@@ -590,11 +614,22 @@ In [8]: π.T*p**100
 Out[8]: matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097]])
 ```
 
-An initial distribution of states is constructed that satisfies
+Here an initial distribution of states is constructed that satisfies
 {% katex %}\sum_{i=0}^3 \pi_i = 1{% endkatex %}. Then equation {% katex %}(5){% endkatex %} is used
-to compute the future distribution. The result is as expected from the previous analysis for
-sufficiently long times, namely, the limiting distribution is the repeated row of the limiting
-transition matrix.
+to compute the distribution after {% katex %}100{% endkatex %} time steps.
+The result is that expected from the previous analysis.
+In the equilibrium limit the distribution of states is the repeated row of the equilibrium transition matrix,
+namely,
+
+{% katex display %}
+\pi_{100} =
+\begin{pmatrix}
+0.27876106 \\
+0.30088496 \\
+0.03982301 \\
+0.38053097
+\end{pmatrix}.
+{% endkatex %}
 
 The plot below illustrates the convergence of the distribution of states from the previous example.
 In the plot the components of {% katex %}\pi_t{% endkatex %} from equation {% katex %}(5){% endkatex %}
@@ -609,7 +644,9 @@ are plotted for each time step. The convergence to the limiting value occurs rap
 
 In this section the equilibrium limit of the transition matrix is determined for the example Markov Chain.
 It was previously shown that this limit is given by equation {% katex %}(9){% endkatex %}. To evaluate
-equation {% katex %}(9){% endkatex %} for the example transition matrix it must be diagonalized.
+this equation for the example transition matrix it must be diagonalized.
+First, the transition matrix eigenvalues and eigenvectors are computed using the `numpy` linear
+algebra library.
 
 ```shell
 In [9]: λ, v = numpy.linalg.eig(p)
@@ -623,13 +660,15 @@ matrix([[-0.70411894,  0.02102317,  0.5       , -0.4978592 ],
         [ 0.04205879, -0.00319617,  0.5       ,  0.73097508]])
 ```
 
-First, the transition matrix eigenvalues and eigenvectors are computed using the `numpy` linear
-algebra library. It is seen that {% katex %}\lambda\ =\ 1{% endkatex %} is indeed an eigenvalue,
-as previously proven, and that other eigenvalues have magnitudes less than {% katex %}(1){% endkatex %}.
+It is seen that {% katex %}\lambda\ =\ 1{% endkatex %} is indeed an eigenvalue,
+as previously proven and that other eigenvalues have magnitudes less than {% katex %}(1){% endkatex %}.
 This is in agreement with Perron-Frobenius Theorem. The `numpy` linear algebra library normalizes the
 eigenvectors and uses the same order for eigenvalues and eigenvector columns. The eigenvector
 corresponding to {% katex %}\lambda\ =\ 1{% endkatex %} is third column and has all components equal.
-{% katex %}1{% endkatex %}.
+Eigenvectors are only known to an arbitrary scalar, so the vector of {% katex %}1's{% endkatex %} used
+in the previous analysis can be obtained by multiplying the third column by {% katex %}2{% endkatex %}.
+After obtaining the eigenvalues and eigenvectors the transition matrix after {% katex %}100{% endkatex %}
+time steps is computed.
 
 ```shell
 In [12]: Λ = numpy.diag(λ)
@@ -648,33 +687,46 @@ matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097],
         [0.27876106, 0.30088496, 0.03982301, 0.38053097],
         [0.27876106, 0.30088496, 0.03982301, 0.38053097],
         [0.27876106, 0.30088495, 0.03982301, 0.38053098]])
-In [18]: Vinv
-Out[18]:
-matrix([[-0.77088207,  0.75264519,  0.07176803, -0.05353116],
-        [ 0.56603541,  0.13674745, -0.97996209,  0.27717923],
-        [ 0.55752212,  0.60176991,  0.07964602,  0.76106195],
-        [-0.33452515, -0.45432908, -0.06289354,  0.85174777]])
 ```
-Next the matrix {% katex %}\Lambda{% endkatex %} is constructed with the eigenvalues on the diagonal
-while maintaining the order from {% katex %}\lambda{% endkatex %} and the matrix {% katex %}V{% endkatex %} is constructed with eigenvectors as columns while also maintaining the order of {% katex %}v{% endkatex %}.
-{% katex %}Vinv{% endkatex %} is computed next. It will just be assumed that
-{% katex %}t{% endkatex %} is large for the remainder of the calculation.
+The diagonal matrix of eigenvalues, {% katex %}\Lambda{% endkatex %}, is created maintaining the order of
+{% katex %}\lambda{% endkatex %}. Next the matrix {% katex %}V{% endkatex %} is constructed with eigenvectors as columns while also maintaining the order of vectors in {% katex %}v{% endkatex %}.
+The inverse of {% katex %}V{% endkatex %} is computed next. Now, {% katex %}\Lambda^{t}{% endkatex %} is
+computed for {% katex %}100{% endkatex %} time steps. A result in agreement with the previous effort where
+the limit {% katex %}t\to\infty{% endkatex %} was evaluated giving a matrix that contained a
+{% katex %}(1){% endkatex %} in the {% katex %}(1,1){% endkatex %} corresponding to the position
+of the {% katex %}\lambda=1{% endkatex %} component and zeros for all others.
+Here the eigenvectors are ordered differently but the only nonzero component is the
+{% katex %}\lambda=1{% endkatex %} eigenvalue.
 
 ### Equilibrium Distribution of States
 
+{% katex display %}
+\pi_{E}^{T}
+\begin{pmatrix}
+-1.0 & 0.9 & 0.1 & 0.0 & 1.0 \\
+0.8 & -0.9 & 0.0 & 0.1 & 1.0 \\
+0.0 & 0.5 & -0.7 & 0.2 & 1.0 \\
+0.1 & 0.0 & 0.0 & -0.1 & 1.0
+\end{pmatrix}
+=
+\begin{pmatrix}
+0.0 & 0.0 & 0.0 & 0.0 & 1.0
+\end{pmatrix}
+{% endkatex %}
+
 ```shell
-In [19]: E = numpy.concatenate((p.T - numpy.eye(4), [numpy.ones(4)]))
-In [20]: E
-Out[20]:
+In [18]: E = numpy.concatenate((p.T - numpy.eye(4), [numpy.ones(4)]))
+In [19]: E
+Out[19]:
 matrix([[-1. ,  0.8,  0. ,  0.1],
         [ 0.9, -0.9,  0.5,  0. ],
         [ 0.1,  0. , -0.7,  0. ],
         [ 0. ,  0.1,  0.2, -0.1],
         [ 1. ,  1. ,  1. ,  1. ]])
-In [21]: πe, _, _, _ = numpy.linalg.lstsq(E, numpy.array([0.0, 0.0, 0.0, 0.0, 1.0]), rcond=None)
+In [20]: πe, _, _, _ = numpy.linalg.lstsq(E, numpy.array([0.0, 0.0, 0.0, 0.0, 1.0]), rcond=None)
 
-In [22]: πe
-Out[22]: array([0.27876106, 0.30088496, 0.03982301, 0.38053097])
+In [21]: πe
+Out[21]: array([0.27876106, 0.30088496, 0.03982301, 0.38053097])
 
 ```
 
