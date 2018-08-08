@@ -564,7 +564,7 @@ P =
 0.8 & 0.1 & 0.0 & 0.1 \\
 0.0 & 0.5 & 0.3 & 0.2 \\
 0.1 & 0.0 & 0.0 & 0.9
-\end{pmatrix}.
+\end{pmatrix}\ \ \ \ \ (14).
 {% endkatex %}
 The state transition diagram below provides a graphical representation of {% katex %}P{% endkatex %}.
 <div style="text-align:center;">
@@ -602,7 +602,7 @@ P^{100} =
 0.27876106 & 0.30088496 & 0.03982301 & 0.38053097 \\
 0.27876106 & 0.30088496 & 0.03982301 & 0.38053097 \\
 0.27876106 & 0.30088495 & 0.03982301 & 0.38053098
-\end{pmatrix}.
+\end{pmatrix}\ \ \ \ \ (15).
 {% endkatex %}
 
 For an initial distribution {% katex %}\pi{% endkatex %} the distribution after {% katex %}100{% endkatex %}
@@ -632,7 +632,7 @@ namely,
 0.30088496 \\
 0.03982301 \\
 0.38053097
-\end{pmatrix}.
+\end{pmatrix}\ \ \ \ \ (16).
 {% endkatex %}
 
 The plot below illustrates the convergence of the distribution from the previous example.
@@ -646,9 +646,10 @@ are plotted for each time step. The convergence to the limiting value occurs rap
 
 ### Equilibrium Transition Matrix
 
-In this section the equilibrium limit of the transition matrix is determined for the example Markov Chain.
+In this section the equilibrium limit of the transition matrix is determined for the example Markov Chain
+shown in equation {% katex %}(14){% endkatex %}.
 It was previously shown that this limit is given by equation {% katex %}(9){% endkatex %}. To evaluate
-this equation for the example transition matrix it must be diagonalized.
+this equation the example transition matrix must be diagonalized.
 First, the transition matrix eigenvalues and eigenvectors are computed using the `numpy` linear
 algebra library.
 
@@ -668,11 +669,11 @@ It is seen that {% katex %}\lambda\ =\ 1{% endkatex %} is indeed an eigenvalue,
 as previously proven and that other eigenvalues have magnitudes less than {% katex %}(1){% endkatex %}.
 This is in agreement with Perron-Frobenius Theorem. The `numpy` linear algebra library normalizes the
 eigenvectors and uses the same order for eigenvalues and eigenvector columns. The eigenvector
-corresponding to {% katex %}\lambda\ =\ 1{% endkatex %} is third column and has all components equal.
+corresponding to {% katex %}\lambda\ =\ 1{% endkatex %} is in the third column and has all components equal.
 Eigenvectors are only known to an arbitrary scalar, so the vector of {% katex %}1's{% endkatex %} used
 in the previous analysis can be obtained by multiplying the third column by {% katex %}2{% endkatex %}.
 After obtaining the eigenvalues and eigenvectors the transition matrix after {% katex %}100{% endkatex %}
-time steps is computed.
+time steps is computed and equation {% katex %}(9){% endkatex %} is evaluated.
 
 ```shell
 In [12]: Λ = numpy.diag(λ)
@@ -692,17 +693,25 @@ matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097],
         [0.27876106, 0.30088496, 0.03982301, 0.38053097],
         [0.27876106, 0.30088495, 0.03982301, 0.38053098]])
 ```
-The diagonal matrix of eigenvalues, {% katex %}\Lambda{% endkatex %}, is created maintaining the order of
-{% katex %}\lambda{% endkatex %}. Next the matrix {% katex %}V{% endkatex %} is constructed with eigenvectors as columns while also maintaining the order of vectors in {% katex %}v{% endkatex %}.
-The inverse of {% katex %}V{% endkatex %} is computed next. Now, {% katex %}\Lambda^{t}{% endkatex %} is
-computed for {% katex %}100{% endkatex %} time steps. A result in agreement with the previous effort where
-the limit {% katex %}t\to\infty{% endkatex %} was evaluated giving a matrix that contained a
-{% katex %}(1){% endkatex %} in the {% katex %}(1,1){% endkatex %} corresponding to the position
-of the {% katex %}\lambda=1{% endkatex %} component and zeros for all others.
-Here the eigenvectors are ordered differently but the only nonzero component is the
-{% katex %}\lambda=1{% endkatex %} eigenvalue.
 
-### Equilibrium Distribution of States
+First, the diagonal matrix of eigenvalues, {% katex %}\Lambda{% endkatex %}, is created maintaining
+the order of {% katex %}\lambda{% endkatex %}. Next, the matrix {% katex %}V{% endkatex %} is constructed with eigenvectors as columns while also maintaining the order of vectors in {% katex %}v{% endkatex %}.
+The inverse of {% katex %}V{% endkatex %} is then computed. {% katex %}\Lambda^{t}{% endkatex %} can now be
+computed for {% katex %}100{% endkatex %} time steps. The result is in agreement with the past effort where
+the limit {% katex %}t\to\infty{% endkatex %} was evaluated giving a matrix that contained a
+{% katex %}1{% endkatex %} in the {% katex %}(1,1){% endkatex %} component corresponding to the position
+of the {% katex %}\lambda=1{% endkatex %} component and zeros for all others.
+Here the eigenvectors are ordered differently but the only nonzero component has the
+{% katex %}\lambda=1{% endkatex %} eigenvalue. Finally, equation {% katex %}(9){% endkatex %} is evaluated and
+all rows are identical and equal to {% katex %}\pi_t{% endkatex %} evaluated at
+{% katex %}t=100{% endkatex %}, in agreement with the equilibrium limit determined previously and calculation
+performed in the last section shown in equation {% katex %}(15){% endkatex %}.
+
+### Equilibrium Distribution
+
+The equilibrium distribution will now be calculated using the system of linear
+equations defined by equation {% katex %}(9){% endkatex %}. Below the resulting system of equations
+for the example distribution, equation {% katex %}(14){% endkatex %}, is shown.
 
 {% katex display %}
 \pi_{E}^{T}
@@ -717,6 +726,10 @@ Here the eigenvectors are ordered differently but the only nonzero component is 
 0.0 & 0.0 & 0.0 & 0.0 & 1.0
 \end{pmatrix}
 {% endkatex %}
+
+This system of equations is solved using the least squares method provided by the `numpy` linear
+algebra library. This library requires the use of the transpose of the above equation.
+The first line below computes this transpose using equation {% katex %}(14){% endkatex %}.
 
 ```shell
 In [18]: E = numpy.concatenate((p.T - numpy.eye(4), [numpy.ones(4)]))
@@ -734,7 +747,13 @@ Out[21]: array([0.27876106, 0.30088496, 0.03982301, 0.38053097])
 
 ```
 
+Next, the equilibrium distribution is evaluated using the least squares method. The result obtained is
+consistent with previous results shown in equation {% katex %}(16){% endkatex %}.
+
 ### Simulation
+
+This section will use a direct simulation of equation {% katex %}(14){% endkatex %} to calculate the
+equilibrium distribution and compare the result to those previously obtained.
 
 ```python
 import numpy
