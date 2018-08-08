@@ -12,8 +12,9 @@ the probability of a transition depending only on the previous state. Here the
 states will be assumed a discrete finite set and time a discrete unbounded set. If the
 set of states is given by {% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %} the probability
 that the process will be in state {% katex %}x_i{% endkatex %} at time {% katex %}t{% endkatex %}
-is denoted by {% katex %}P(X_t=x_i){% endkatex %}. Markov Chain equilibrium is defined by
-{% katex %}\lim_{t\to\infty}P(X_t=x_i)\ <\ \infty{% endkatex %}, that is, as time advances  
+is denoted by {% katex %}P(X_t=x_i){% endkatex %}, referred to as the distribution.
+Markov Chain equilibrium is defined by {% katex %}\lim_{t\to\infty}P(X_t=x_i)\ <\ \infty{% endkatex %},
+that is, as time advances  
 {% katex %}P(X_t=x_i){% endkatex %} becomes independent of time. Here a solution
 for this limit is discussed and illustrated with examples.
 
@@ -32,7 +33,7 @@ At the next time step {% katex %}t=2{% endkatex %} the process state will be
 P(X_2=x_k|X_0=x_i, X_1=x_j)=P(X_2=x_k|X_1=x_j),
 {% endkatex %}
 since the probability of state transition depends only upon the state at the previous time step.
-For an arbitrary time the transition to a state at the next time will occur with probability,
+For an arbitrary time the transition to a state at the next step will occur with probability,
 {% katex %}P(X_{t+1}=x_j|X_t=x_i){% endkatex %}. Transition probabilities have the form of
 a matrix,
 
@@ -40,10 +41,11 @@ a matrix,
 P_{ij} = P(X_{t+1}=x_j|X_t=x_i).
 {% endkatex %}
 
-{% katex %}P{% endkatex %} will be a square {% katex %}N\times N{% endkatex %} matrix
-where the size {% katex %}N{% endkatex %} is determined by the number of possible states. Each
+{% katex %}P{% endkatex %} will be an {% katex %}N\times N{% endkatex %} matrix
+where {% katex %}N{% endkatex %} is determined by the number of possible states. Each
 row represents the Markov Chain transition probability from that state at
-time {% katex %}t{% endkatex %} and the columns the values at {% katex %}t+1{% endkatex %}. It follows that,
+time {% katex %}t{% endkatex %} and the columns the values at {% katex %}t+1{% endkatex %}.
+It follows that,
 {% katex display %}
 \begin{gathered}
 \sum_{j=1}^{N}P_{ij} = 1\\
@@ -82,10 +84,10 @@ satisfy,
 \end{gathered} \ \ \ \ \ (3).
 {% endkatex %}
 
-To determine the equilibrium solution of the probability distribution of the Markov Chain states,
-{% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %} its time variability must be determined.
-Begin by considering the distribution of states at {% katex %}t=0{% endkatex %}.
-This distribution can be written as a column vector,
+To determine the equilibrium solution of the distribution of Markov Chain states,
+{% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %}, its time variability must be determined.
+Begin by considering the distribution at {% katex %}t=0{% endkatex %}, which can be written as a
+column vector,
 {% katex display %}
 \pi =
 \begin{pmatrix}
@@ -110,7 +112,7 @@ since it is a probability distribution {% katex %}\pi_i{% endkatex %} must satis
 \end{gathered} \ \ \ \ \ (4).
 {% endkatex %}
 
-The distribution of states after the first step is given by,
+The distribution after the first step is given by,
 {% katex display %}
 \begin{aligned}
 P(X_1=x_j) &= \sum_{i=1}^{N} P(X_1=x_j|X_0=x_i)P(X_0=x_i) \\
@@ -120,7 +122,7 @@ P(X_1=x_j) &= \sum_{i=1}^{N} P(X_1=x_j|X_0=x_i)P(X_0=x_i) \\
 \end{aligned}
 {% endkatex %}
 
-where {% katex %}\pi^T{% endkatex %} is the transpose of {% katex %}\pi{% endkatex %}. Similarly, the distribution of states after the second step is,
+where {% katex %}\pi^T{% endkatex %} is the transpose of {% katex %}\pi{% endkatex %}. Similarly, the distribution after the second step is,
 {% katex display %}
 \begin{aligned}
 P(X_2=x_j) &= \sum_{i=1}^{N} P(X_2=x_j|X_1=x_i)P(X_1=x_i) \\
@@ -134,7 +136,7 @@ P(X_2=x_j) &= \sum_{i=1}^{N} P(X_2=x_j|X_1=x_i)P(X_1=x_i) \\
 {% endkatex %}
 
 A pattern is clearly developing. Mathematical Induction can be used to prove the distribution
-of states at an arbitrary time {% katex %}t{% endkatex %} is given by,
+at an arbitrary time {% katex %}t{% endkatex %} is given by,
 {% katex display %}
 P(X_t=x_j) = {(\pi^{T}P^t)}_{j}
 {% endkatex %}
@@ -145,7 +147,7 @@ or as a column vector,
 \pi_{t}^{T} = \pi^{T}P^t\ \ \ \ \ (5).
 {% endkatex %}
 
-Where {% katex %}\pi{% endkatex %} and {% katex %}\pi_t{% endkatex %} are the initial state distribution
+Where {% katex %}\pi{% endkatex %} and {% katex %}\pi_t{% endkatex %} are the initial distribution
 and the distribution after {% katex %}t{% endkatex %} steps respectively.
 
 ## Equilibrium Transition Matrix
@@ -159,18 +161,18 @@ P^{E} = \lim_{t\to\infty}P^{t}.
 {% endkatex %}
 This limit can be determined using
 [Matrix Diagonalization](https://en.wikipedia.org/wiki/Diagonalizable_matrix).
-The following sections will use this method to construct a form of
-{% katex %}P^{E}{% endkatex %} that will easily allow evaluation equilibrium limit.
+The following sections will use diagonalization to construct a form of
+{% katex %}P^{t}{% endkatex %} that will easily allow evaluation equilibrium limit.
 
 ### Eigenvectors and Eigenvalues of the Transition Matrix
 
-Matrix Diagonalization requires evaluation of the eigenvalues and eigenvectors, which are defined
+Matrix Diagonalization requires evaluation of eigenvalues and eigenvectors, which are defined
 by the solutions to the equation,
 {% katex display %}
 Pv = \lambda v\ \ \ \ \ (6),
 {% endkatex %}
 where {% katex %}v{% endkatex %} is the eigenvector and {% katex %}\lambda{% endkatex %} eigenvalue.
-From equation {% katex %}(6){% endkatex %} it follows that,
+From equation {% katex %}(6){% endkatex %} it follows,
 {% katex display %}
 \begin{aligned}
 P^{t}v &= P^{t-1}(Pv)\\
@@ -184,12 +186,12 @@ P^{t}v &= P^{t-1}(Pv)\\
 {% endkatex %}
 
 Since {% katex %}P^t{% endkatex %} is a stochastic matrix it satisfies equation {% katex %}(3){% endkatex %}.
-As a result of these constraints the limit {% katex %}t\to\infty{% endkatex %} requires that,
+As a result of these constraints the limit {% katex %}t\to\infty{% endkatex %} requires,
 {% katex display %}
 \lim_{t\to\infty}P^{t}=\lim_{t\to\infty}\lambda^{t}v\ \leq\ \infty.
 {% endkatex %}
 
-To satisfy this constraint it is required that {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
+To satisfy this constraint it must be that {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
 it will be shown that {% katex %}\lambda_1=1{% endkatex %} and that a column vector of
 {% katex %}1's{% endkatex %} with {% katex %}N{% endkatex %} rows,
 {% katex display %}
@@ -229,7 +231,7 @@ P_{N1} & P_{N2} & \cdots & P_{NN}
 \vdots \\
 1
 \end{pmatrix}
-=\lambda_1 v_1,
+=\lambda_1 V_1,
 {% endkatex %}
 
 where use was made of the stochastic matrix condition from equation {% katex %}(1){% endkatex %}, namely,
@@ -379,7 +381,7 @@ V\Lambda^{E} =
 \end{pmatrix}.
 {% endkatex %}
 
-It follows that the entire expression on the righthand size is given by,
+It follows that,
 {% katex display %}
 V\Lambda^{E} V^{-1} =
 \begin{pmatrix}
@@ -415,9 +417,11 @@ v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N}
 {% endkatex %}
 
 The rows of {% katex %}P^{E}{% endkatex %} are identical and given by the
-first row of the inverse of the matrix of eigenvectors, {% katex %}V^{-1}{% endkatex %}
-from equation {% katex %}(8){% endkatex %}. Since {% katex %}P^{E}{% endkatex %} is a transition
-matrix it must satisfy,
+first row of the inverse of the matrix of eigenvectors, {% katex %}V^{-1}{% endkatex %},
+of equation {% katex %}(8){% endkatex %}. This row is a consequence of the location of the
+{% katex %}\lambda=1{% endkatex %} eigenvalue in {% katex %}\Lambda{% endkatex %}.
+Since {% katex %}P^{E}{% endkatex %} is a transition
+matrix it must be that,
 
 {% katex display %}
 \begin{gathered}
@@ -426,9 +430,9 @@ v_{ij}^{-1}\ \geq \ 0.
 \end{gathered}
 {% endkatex %}
 
-## Equilibrium Distribution of States
+## Equilibrium Distribution
 
-The equilibrium distribution of states is defined by a solution to equation {% katex %}(5){% endkatex %}
+The equilibrium distribution is defined by a solution to equation {% katex %}(5){% endkatex %}
 that is independent of time.
 
 {% katex display %}
@@ -454,10 +458,10 @@ by substituting it into equation {% katex %}(10){% endkatex %}.
 \end{aligned}
 {% endkatex %}
 
-### Relationship Between Distribution of States and Transition Matrix
+### Relationship Between Equilibrium Distribution and Transition Matrix
 
-The relationship between {% katex %}\pi_E{% endkatex %} and {% katex %}P^{E}{% endkatex %}
-will be determined in this section. Begin, by considering an arbitrary initial distribution states
+To determine the relationship between {% katex %}\pi_E{% endkatex %} and {% katex %}P^{E}{% endkatex %},
+begin by considering an arbitrary initial distribution states
 with {% katex %}N{% endkatex %} elements,
 {% katex display %}
 \pi =
@@ -492,7 +496,7 @@ v^{-1}_{1N}\sum_{j=1}^{N} \pi_{j}
 \end{aligned}
 {% endkatex %}
 
-recall that {% katex %}\sum_{j=1}^{N} \pi_{j} = 1{% endkatex %}, so
+recall equation {% katex %}(4){% endkatex %}, {% katex %}\sum_{j=1}^{N} \pi_{j} = 1{% endkatex %}, so
 
 {% katex display %}
 \pi^{T}P^{E} =
@@ -501,9 +505,9 @@ v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N}
 \end{pmatrix}.
 {% endkatex %}
 
-Thus any initial distribution of states {% katex %}\pi{% endkatex %} will after
+Thus any initial distribution {% katex %}\pi{% endkatex %} will after
 sufficient time approach the distribution above. It follows that it will be the solution
-of equation {% katex %}(11){% endkatex %} which defines the equilibrium distribution of states,
+of equation {% katex %}(11){% endkatex %} which defines the equilibrium distribution,
 
 {% katex display %}
 \pi_E =
@@ -517,13 +521,13 @@ v^{-1}_{1N}
 
 ### Solution of Equilibrium Equation
 
-An equation for the equilibrium distribution of states, {% katex %}\pi_{E}{% endkatex %}, can
+An equation for the equilibrium distribution, {% katex %}\pi_{E}{% endkatex %}, can
 be obtained from equation {% katex %}(11){% endkatex %},
 {% katex display %}
 \pi^{T}_E\left(P - I\right) = 0\ \ \ \ \ (12),
 {% endkatex %}
 where {% katex %}I{% endkatex %} is the identity matrix. Equation {% katex %}(12){% endkatex %} alone
-is insufficient to obtain a unique solution since the system of linear equations if defines is
+is insufficient to obtain a unique solution since the system of linear equations it defines is
 [Linearly Dependent](https://en.wikipedia.org/wiki/Linear_independence). In a linearly dependent
 system of equations some equations are the result of linear operations on the others.
 It is straight forward to show that one of the equations defined by {% katex %}(12){% endkatex %} can
@@ -535,7 +539,7 @@ linearly independent the only solution would be the trivial zero solution,
 {% katex display %}
 \sum_{j=1}^{N} {\left( \pi_{E}^{T} \right)}_{j} = 1.
 {% endkatex %}
-The resulting system of equations that must be solved is given by,
+The resulting system of equations to be solved is given by,
 {% katex display %}
 \pi_{E}^{T}
 \begin{pmatrix}
@@ -569,7 +573,7 @@ The state transition diagram below provides a graphical representation of {% kat
 
 ### Convergence to Equilibrium
 
-Relaxation of both the transition matrix and distribution of states to their equilibrium values
+Relaxation of both the transition matrix and distribution to their equilibrium values
 is easily demonstrated with the few lines of Python executed within `ipython`.
 
 ```shell
@@ -601,7 +605,7 @@ P^{100} =
 \end{pmatrix}.
 {% endkatex %}
 
-For an initial distribution of states {% katex %}\pi{% endkatex %} the distribution after {% katex %}100{% endkatex %}
+For an initial distribution {% katex %}\pi{% endkatex %} the distribution after {% katex %}100{% endkatex %}
 is evaluated using,
 
 ```shell
@@ -614,11 +618,11 @@ In [8]: π.T*p**100
 Out[8]: matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097]])
 ```
 
-Here an initial distribution of states is constructed that satisfies
+Here an initial distribution is constructed that satisfies
 {% katex %}\sum_{i=0}^3 \pi_i = 1{% endkatex %}. Then equation {% katex %}(5){% endkatex %} is used
 to compute the distribution after {% katex %}100{% endkatex %} time steps.
 The result is that expected from the previous analysis.
-In the equilibrium limit the distribution of states is the repeated row of the equilibrium transition matrix,
+In the equilibrium limit the distribution is the repeated row of the equilibrium transition matrix,
 namely,
 
 {% katex display %}
@@ -631,7 +635,7 @@ namely,
 \end{pmatrix}.
 {% endkatex %}
 
-The plot below illustrates the convergence of the distribution of states from the previous example.
+The plot below illustrates the convergence of the distribution from the previous example.
 In the plot the components of {% katex %}\pi_t{% endkatex %} from equation {% katex %}(5){% endkatex %}
 are plotted for each time step. The convergence to the limiting value occurs rapidly. Within only
 {% katex %}20{% endkatex %} steps {% katex %}\pi_t{% endkatex %} has reached limiting distribution.
