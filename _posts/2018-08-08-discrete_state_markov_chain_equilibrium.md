@@ -6,6 +6,7 @@ author: Troy Stribling
 permlink: /discrete_state_markov_chain_equilibrium.html
 comments: false
 ---
+
 A [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) is a sequence of states
 where transitions between states occur in time with
 the probability of a transition depending only on the previous state. Here the
