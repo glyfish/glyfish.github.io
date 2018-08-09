@@ -33,6 +33,7 @@ $github-color:     #000;
 
 $syntax-highlight-dark: #666;
 $syntax-highlight-light: #999;
+$syntax-highlight-comments: #0067C4;
 
 @mixin media-query($device) {
   @media screen and (max-width: $device) {

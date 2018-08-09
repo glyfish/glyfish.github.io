@@ -9,7 +9,7 @@
     background: #fff;
   }
 
-  .c     { color: $syntax-highlight-dark; font-style: italic } // Comment
+  .c     { color: $syntax-highlight-comments; font-style: italic } // Comment
   .err   { color: $syntax-highlight-dark; background-color: #fff } // Error
   .k     { color: $syntax-highlight-dark; font-weight: bold } // Keyword
   .o     { color: $syntax-highlight-dark; font-weight: bold } // Operator

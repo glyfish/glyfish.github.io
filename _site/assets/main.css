@@ -142,7 +142,7 @@ table td { border: 1px solid #e8e8e8; }
 /** Syntax highlighting styles */
 .highlight { background: #fff; }
 .highlighter-rouge .highlight { background: #fff; }
-.highlight .c { color: #666; font-style: italic; }
+.highlight .c { color: #0067C4; font-style: italic; }
 .highlight .err { color: #666; background-color: #fff; }
 .highlight .k { color: #666; font-weight: bold; }
 .highlight .o { color: #666; font-weight: bold; }

@@ -470,7 +470,16 @@ with {% katex %}N{% endkatex %} elements,
 \pi_{2} \\
 \vdots \\
 \pi_{N}
-\end{pmatrix}.
+\end{pmatrix},
+{% endkatex %}
+
+where,
+
+{% katex display %}
+\begin{gathered}
+\sum_{j=1}^{N}\pi_{j} = 1\\
+\pi_{j}\ \geq\ 0
+\end{gathered}.
 {% endkatex %}
 
 The distribution when the Markov Chain has had sufficient time to reach equilibrium will be given by,
@@ -496,7 +505,7 @@ v^{-1}_{1N}\sum_{j=1}^{N} \pi_{j}
 \end{aligned}
 {% endkatex %}
 
-recall equation {% katex %}(4){% endkatex %}, {% katex %}\sum_{j=1}^{N} \pi_{j} = 1{% endkatex %}, so
+since, {% katex %}\sum_{j=1}^{N} \pi_{j} = 1{% endkatex %}, so
 
 {% katex display %}
 \pi^{T}P^{E} =
@@ -593,8 +602,7 @@ matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097],
 
 Here the transition matrix from the initial state to states {% katex %}100{% endkatex %} time steps
 in the future is computed using equation {% katex %}(2){% endkatex %}. The result obtained
-has identical rows as obtained in the equilibrium limit of equation {% katex %}(9){% endkatex %},
-with all rows equal.
+has identical rows as obtained in equation {% katex %}(9){% endkatex %}.
 {% katex display %}
 P^{100} =
 \begin{pmatrix}
@@ -606,7 +614,7 @@ P^{100} =
 {% endkatex %}
 
 For an initial distribution {% katex %}\pi{% endkatex %} the distribution after {% katex %}100{% endkatex %}
-is evaluated using,
+time steps is evaluated using,
 
 ```shell
 In [5]: c = [[0.1],
@@ -666,14 +674,14 @@ matrix([[-0.70411894,  0.02102317,  0.5       , -0.4978592 ],
 ```
 
 It is seen that {% katex %}\lambda\ =\ 1{% endkatex %} is indeed an eigenvalue,
-as previously proven and that other eigenvalues have magnitudes less than {% katex %}(1){% endkatex %}.
+as previously proven and that other eigenvalues have magnitudes less than {% katex %}1{% endkatex %}.
 This is in agreement with Perron-Frobenius Theorem. The `numpy` linear algebra library normalizes the
 eigenvectors and uses the same order for eigenvalues and eigenvector columns. The eigenvector
 corresponding to {% katex %}\lambda\ =\ 1{% endkatex %} is in the third column and has all components equal.
 Eigenvectors are only known to an arbitrary scalar, so the vector of {% katex %}1's{% endkatex %} used
 in the previous analysis can be obtained by multiplying the third column by {% katex %}2{% endkatex %}.
-After obtaining the eigenvalues and eigenvectors the transition matrix after {% katex %}100{% endkatex %}
-time steps is computed and equation {% katex %}(9){% endkatex %} is evaluated.
+After obtaining the eigenvalues and eigenvectors equation {% katex %}(9){% endkatex %} is evaluated
+{% katex %}100{% endkatex %} after time steps and compared with the equilibrium limit.
 
 ```shell
 In [12]: Λ = numpy.diag(λ)
@@ -695,7 +703,8 @@ matrix([[0.27876106, 0.30088496, 0.03982301, 0.38053097],
 ```
 
 First, the diagonal matrix of eigenvalues, {% katex %}\Lambda{% endkatex %}, is created maintaining
-the order of {% katex %}\lambda{% endkatex %}. Next, the matrix {% katex %}V{% endkatex %} is constructed with eigenvectors as columns while also maintaining the order of vectors in {% katex %}v{% endkatex %}.
+the order of {% katex %}\lambda{% endkatex %}. Next, the matrix {% katex %}V{% endkatex %} is constructed
+with eigenvectors as columns while also maintaining the order of vectors in {% katex %}v{% endkatex %}.
 The inverse of {% katex %}V{% endkatex %} is then computed. {% katex %}\Lambda^{t}{% endkatex %} can now be
 computed for {% katex %}100{% endkatex %} time steps. The result is in agreement with the past effort where
 the limit {% katex %}t\to\infty{% endkatex %} was evaluated giving a matrix that contained a
@@ -705,13 +714,13 @@ Here the eigenvectors are ordered differently but the only nonzero component has
 {% katex %}\lambda=1{% endkatex %} eigenvalue. Finally, equation {% katex %}(9){% endkatex %} is evaluated and
 all rows are identical and equal to {% katex %}\pi_t{% endkatex %} evaluated at
 {% katex %}t=100{% endkatex %}, in agreement with the equilibrium limit determined previously and calculation
-performed in the last section shown in equation {% katex %}(15){% endkatex %}.
+performed in the last section shown in equations {% katex %}(15){% endkatex %} and {% katex %}(16){% endkatex %}.
 
 ### Equilibrium Distribution
 
 The equilibrium distribution will now be calculated using the system of linear
 equations defined by equation {% katex %}(9){% endkatex %}. Below the resulting system of equations
-for the example distribution, equation {% katex %}(14){% endkatex %}, is shown.
+for the example distribution in equation {% katex %}(14){% endkatex %} is shown.
 
 {% katex display %}
 \pi_{E}^{T}
@@ -753,7 +762,8 @@ consistent with previous results shown in equation {% katex %}(16){% endkatex %}
 ### Simulation
 
 This section will use a direct simulation of equation {% katex %}(14){% endkatex %} to calculate the
-equilibrium distribution and compare the result to those previously obtained.
+equilibrium distribution and compare the result to those previously obtained. Below a Python
+implementation of the calculation is shown.
 
 ```python
 import numpy
@@ -767,22 +777,51 @@ def sample_chain(t, x0, nsample):
         xt[t] = numpy.flatnonzero(cdf[xt[t-1]] >= up[t])[0]
     return xt
 
-πsamples = 1000
+# Simulation parameters
+π_nsamples = 1000
 nsamples = 10000
 c = [[0.25],
      [0.25],
      [0.25],
      [0.25]]
 
+# Generate π_nsamples initial state samples
 π = numpy.matrix(c)
-πcdf = numpy.cumsum(c)
-π_samples = [numpy.flatnonzero(πcdf >= u)[0] for u in numpy.random.rand(πsamples)]
+π_cdf = numpy.cumsum(c)
+π_samples = [numpy.flatnonzero(π_cdf >= u)[0] for u in numpy.random.rand(π_nsamples)]
 
+# Run sample_chain for nsamples for each of the initial state samples
 chain_samples = numpy.array([])
 for x0 in π_samples:
   chain_samples = numpy.append(chain_samples, sample_chain(t, x0, nsamples))
 ```
 
+The function `sample_chain` performs the simulation. It uses
+[Inverse CDF Sampling]({{ site.baseurl }}{% link _posts/2018-07-21-inverse_cdf_sampling.md %}) on the
+discrete distribution obtained from the transition matrix defined by equation {% katex %}(14){% endkatex %}
+for the state at step {% katex %}t{% endkatex %} to determine the state for the next time step,
+{% katex %}t+1{% endkatex %}. The following code uses `sample_chain` to generate and ensemble of
+simulations with the initial state also sampled from an assumed initial distribution.
+First, simulation parameters are defined and the initial distribution is assumed to be uniform.
+Second, `π_nsamples` of the initial state are generated using Inverse CDF sampling with the
+initial distribution. Finally, simulations of length `nsamples` are performed for each initial state.
+The ensemble of samples are collected in the variable `chain_samples` and plotted below. A comparison
+is made with the two other calculations performed. The first is {% katex %}\pi_t{% endkatex %} for
+{% katex %}t=100{% endkatex %} shown in equation {% katex %}(16){% endkatex %} and the second
+the previous solution to equation {% katex %}(9){% endkatex %}. The different
+calculations are indistinguishable.
+
 <div style="text-align:center;">
   <img src="/assets/posts/discrete_state_markov_chain_equilibrium/distribution_comparison.png">
 </div>
+
+## Conclusions
+
+An overview of the properties of Markov Chain equilibrium has been given. It is shown that equilibrium
+is a consequence of assuming the transition matrix and distribution vector are stochastic matrices.
+The equilibrium solutions for the transition matrix and distribution were obtained analytically by
+evaluating the limit {% katex %}t\to\infty{% endkatex %}. These results were compared
+favorably to numerical calculations of the dynamical equations and ensemble simulations. The
+theory of discrete state Markov Chain equilibrium is intellectually satisfying in simplicity
+and generality. Unfortunately this is not the case for continuous state Markov Chains which
+will be the subject of a future post.
