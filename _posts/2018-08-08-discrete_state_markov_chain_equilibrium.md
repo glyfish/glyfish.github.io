@@ -9,7 +9,7 @@ comments: false
 
 A [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) is a sequence of states
 where transitions between states occur ordered in time with
-the probability of a transition depending only on the previous state. Here the
+the probability of transition depending only on the previous state. Here the
 states will be assumed a discrete finite set and time a discrete unbounded set. If the
 set of states is given by {% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %} the probability
 that the process will be in state {% katex %}x_i{% endkatex %} at time {% katex %}t{% endkatex %}
@@ -24,16 +24,17 @@ for this limit is discussed and illustrated with examples.
 ## Model
 
 The Markov Chain model is constructed from the set of states
-{% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %} in time.
+{% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %} ordered in time.
 The process starts at time {% katex %}t=0{% endkatex %} with state {% katex %}X_0=x_i{% endkatex %}.
 At the next step, {% katex %}t=1{% endkatex %}, the process will assume a state
-{% katex %}X_1=x_j{% endkatex %} with probability {% katex %}P(X_1=x_j|X_0=x_i){% endkatex %}.
+{% katex %}X_1=x_j{% endkatex %} with probability {% katex %}P(X_1=x_j|X_0=x_i){% endkatex %} since
+the it will depend on the state at {% katex %}t=0{% endkatex %} by the definition of a Markov Process.
 At the next time step {% katex %}t=2{% endkatex %} the process state will be
 {% katex %}X_2=x_k{% endkatex %} with probability,
 {% katex display %}
 P(X_2=x_k|X_0=x_i, X_1=x_j)=P(X_2=x_k|X_1=x_j),
 {% endkatex %}
-since the probability of state transition depends only upon the state at the previous time step.
+since by definition the probability of state transition depends only upon the state at the previous time step.
 For an arbitrary time the transition to a state at the next step will occur with probability,
 {% katex %}P(X_{t+1}=x_j|X_t=x_i){% endkatex %}. Transition probabilities have the form of
 a matrix,
