@@ -8,7 +8,7 @@ comments: false
 ---
 
 A [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) is a sequence of states
-where transitions between states occur in time with
+where transitions between states occur ordered in time with
 the probability of a transition depending only on the previous state. Here the
 states will be assumed a discrete finite set and time a discrete unbounded set. If the
 set of states is given by {% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %} the probability
