@@ -36,10 +36,9 @@ P(X_2=x_k|X_0=x_i, X_1=x_j)=P(X_2=x_k|X_1=x_j),
 {% endkatex %}
 since by definition the probability of state transition depends only upon the state at the previous time step.
 For an arbitrary time the transition from a state {% katex %}X_{t}=x_j{% endkatex %} to a state
-{% katex %}X_{t+1}=x_j{% endkatex %} at the next step will
-occur with probability,
-{% katex %}P(X_{t+1}=x_j|X_t=x_i){% endkatex %}. Transition probabilities have the form of
-a matrix,
+{% katex %}X_{t+1}=x_j{% endkatex %} will occur with probability, {% katex %}P(X_{t+1}=x_j|X_t=x_i){% endkatex %}
+that is independent of {% katex %}t{% endkatex %}.
+Transition probabilities have the form of a matrix,
 
 {% katex display %}
 P_{ij} = P(X_{t+1}=x_j|X_t=x_i).
@@ -73,8 +72,7 @@ P(X_{t+2}=x_j|X_t=x_i) &= \sum_{k=1}^{N} P(X_{t+2}=x_j | X_{t}=x_i, X_{t+1}=x_k)
 {% endkatex %}
 
 where the last step follows from the definition of matrix multiplication. It is straight forward but
-tedious to use [Mathematical Induction](https://en.wikipedia.org/wiki/Mathematical_induction) to extend the previous result
-to the case of an arbitrary time difference, {% katex %}\tau{% endkatex %},
+tedious to use [Mathematical Induction](https://en.wikipedia.org/wiki/Mathematical_induction) to extend the previous result to the case of an arbitrary time difference, {% katex %}\tau{% endkatex %},
 {% katex display %}
 P(X_{t+\tau}=x_j|X_t=x_i) = {(P^{\tau})}_{ij}\ \ \ \ \ (2).
 {% endkatex %}
@@ -91,7 +89,7 @@ satisfy,
 
 To determine the equilibrium solution of the distribution of Markov Chain states,
 {% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %}, its time variability must be determined.
-Begin by considering the distribution at {% katex %}t=0{% endkatex %}, which can be written as a
+Begin by considering an arbitrary distribution at {% katex %}t=0{% endkatex %}, which can be written as a
 column vector,
 {% katex display %}
 \pi =
