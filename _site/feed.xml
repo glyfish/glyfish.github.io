@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-11T14:39:57-07:00</updated><id>http://localhost:4000/</id><title type="html">gly.fish</title><subtitle></subtitle><entry><title type="html">Discrete State Markov Chain Equilibrium</title><link href="http://localhost:4000/2018/08/08/discrete_state_markov_chain_equilibrium.html" rel="alternate" type="text/html" title="Discrete State Markov Chain Equilibrium" /><published>2018-08-08T00:00:00-07:00</published><updated>2018-08-08T00:00:00-07:00</updated><id>http://localhost:4000/2018/08/08/discrete_state_markov_chain_equilibrium</id><content type="html" xml:base="http://localhost:4000/2018/08/08/discrete_state_markov_chain_equilibrium.html">A [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) is a sequence of states
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-11T17:33:38-07:00</updated><id>http://localhost:4000/</id><title type="html">gly.fish</title><subtitle></subtitle><entry><title type="html">Discrete State Markov Chain Equilibrium</title><link href="http://localhost:4000/2018/08/08/discrete_state_markov_chain_equilibrium.html" rel="alternate" type="text/html" title="Discrete State Markov Chain Equilibrium" /><published>2018-08-08T00:00:00-07:00</published><updated>2018-08-08T00:00:00-07:00</updated><id>http://localhost:4000/2018/08/08/discrete_state_markov_chain_equilibrium</id><content type="html" xml:base="http://localhost:4000/2018/08/08/discrete_state_markov_chain_equilibrium.html">A [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) is a sequence of states
 where transitions between states occur ordered in time with
 the probability of transition depending only on the previous state. Here the
 states will be assumed a discrete finite set and time a discrete unbounded set. If the
@@ -26,7 +26,9 @@ At the next time step {% katex %}t=2{% endkatex %} the process state will be
 P(X_2=x_k|X_0=x_i, X_1=x_j)=P(X_2=x_k|X_1=x_j),
 {% endkatex %}
 since by definition the probability of state transition depends only upon the state at the previous time step.
-For an arbitrary time the transition to a state at the next step will occur with probability,
+For an arbitrary time the transition from a state {% katex %}X_{t}=x_j{% endkatex %} to a state
+{% katex %}X_{t+1}=x_j{% endkatex %} at the next step will
+occur with probability,
 {% katex %}P(X_{t+1}=x_j|X_t=x_i){% endkatex %}. Transition probabilities have the form of
 a matrix,
 
@@ -48,6 +50,7 @@ P_{ij}\ \geq\ 0
 
 Equation {% katex %}(1){% endkatex %} is the definition of a [Stochastic Matrix](https://en.wikipedia.org/wiki/Stochastic_matrix).
 
+The transition probability for a single step in the Markov Process is defined by {% katex %}P{% endkatex %}.
 The transition probability across two time steps can be obtained with use of the
 [Law of Total Probability](https://en.wikipedia.org/wiki/Law_of_total_probability),
 {% katex display %}

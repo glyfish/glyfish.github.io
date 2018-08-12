@@ -35,7 +35,9 @@ At the next time step {% katex %}t=2{% endkatex %} the process state will be
 P(X_2=x_k|X_0=x_i, X_1=x_j)=P(X_2=x_k|X_1=x_j),
 {% endkatex %}
 since by definition the probability of state transition depends only upon the state at the previous time step.
-For an arbitrary time the transition to a state at the next step will occur with probability,
+For an arbitrary time the transition from a state {% katex %}X_{t}=x_j{% endkatex %} to a state
+{% katex %}X_{t+1}=x_j{% endkatex %} at the next step will
+occur with probability,
 {% katex %}P(X_{t+1}=x_j|X_t=x_i){% endkatex %}. Transition probabilities have the form of
 a matrix,
 
@@ -57,6 +59,7 @@ P_{ij}\ \geq\ 0
 
 Equation {% katex %}(1){% endkatex %} is the definition of a [Stochastic Matrix](https://en.wikipedia.org/wiki/Stochastic_matrix).
 
+The transition probability for a single step in the Markov Process is defined by {% katex %}P{% endkatex %}.
 The transition probability across two time steps can be obtained with use of the
 [Law of Total Probability](https://en.wikipedia.org/wiki/Law_of_total_probability),
 {% katex display %}

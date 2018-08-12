@@ -35,7 +35,8 @@ At the next time step {% katex %}t=2{% endkatex %} the process state will be
 P(X_2=z|X_0=x, X_1=y) = P(X_2=z|X_1=y),
 {% endkatex %}
 since by definition the probability of state transition depends only upon the state at the previous time step.
-For an arbitrary time the transition to a state at the next step will occur with probability,
+For an arbitrary time the transition from a state {% katex %}X_{t}=x{% endkatex %} to a state
+{% katex %}X_{t+1}=y{% endkatex %} at the next step will occur with probability,
 {% katex %}P(X_{t+1}=y|X_t=x){% endkatex %}. The [Transition Kernel](https://en.wikipedia.org/wiki/Markov_kernel),
 defined by,
 {% katex display %}
@@ -46,7 +47,7 @@ plays the same role as the transition matrix plays in the theory of
 here it is assumed that it has a density function representation.
 This leads to the interpretation that for a known value of {% katex %}x{% endkatex %} {% katex %}p(x, y){% endkatex %} can be interpreted as a conditional probability density for a transition to state {% katex %}y{% endkatex %} given that the process is in state {% katex %}x{% endkatex %}, namely,
 {% katex display %}
-p(x, y) = f_Y(y|x)
+p(x, y) = f(y|x)
 {% endkatex %}
 Consequently, {% katex %}p(x,y){% endkatex %} is a family of conditional probability distributions each
 representing conditioning on a possible state of the chain at time step {% katex %}t{% endkatex %}.
@@ -60,5 +61,28 @@ p(x,y)\ \geq 0\ \forall\ x,\ y
 \end{gathered}
 {% endkatex %}
 
-The transition probability for a single step in the Markov Process is defined by {% katex %}p(x,y){% endkatex %}. Then
-transition probability across two time steps is computed as follows.
+The transition probability for a single step in the Markov Process is defined by {% katex %}p(x,y){% endkatex %}. The
+transition probability across two time steps is computed as follows. Begin by denoting the process state at time
+{% katex %}t{% endkatex %} by {% katex %}X_t=x_{t}{% endkatex %}, then the probability of transitioning to a state
+{% katex %}X_{t+2} = x_{t+2}{% endkatex %} from {% katex %}X_{t}=x_{t}{% endkatex %} in two time steps is,
+{% katex display %}
+\begin{aligned}
+p(x_{t}, x_{t+2}) &= f(x_{t+2}|x_{t}) \\
+&= \int_{-\infty}^{\infty} f(x_{t+2}|x_{t}, x_{t+1})f(x_{t+1}|x_{t}) dx_{t+1} \\
+&= \int_{-\infty}^{\infty} f(x_{t+2}|x_{t+1})f(x_{t+1}|x_{t}) dx_{t+1} \\
+&= \int_{-\infty}^{\infty} p(x_{t+1}, x_{t+2})p(x_{t}, x_{t+1}) dx_{t+1} \\
+&= \int_{-\infty}^{\infty} p(x_{t}, x_{t+1})p(x_{t+1}, x_{t+2}) dx_{t+1}
+\end{aligned}
+{% endkatex %}
+
+where use was made of the [Law of Total Probability](https://en.wikipedia.org/wiki/Law_of_total_probability), in the
+first step and second step used the Markov Chain property
+{% katex %}f(x_{t+2}|x_{t}, x_{t+1})=f(x_{t+2}|x_{t+1}){% endkatex %}. Now, the result obtained for the two
+step transition probability is the continuous version of matrix multiplication of the single step transitions
+probabilities. A notation inspired by matrix multiplication would be helpful. Make the definition,
+{% katex display %}
+\begin{aligned}
+p^2(x, y) &= p(x,y) \star p(x,y) \\
+&= \int_{-\infty}^{\infty} p(x, z)p(z, y) dz
+\end{aligned}
+{% endkatex %}
