@@ -215,8 +215,7 @@ The CDF is given by,
 {% katex display %}
 F_X(x; k, \lambda) =
 \begin{cases}
-1-e^{\left(\frac{-x}{\lambda}\right)^k
-} & x \geq 0 \\
+1-e^{\left(\frac{-x}{\lambda}\right)^k} & x \geq 0 \\
 0 & x < 0.
 \end{cases}
 {% endkatex %}

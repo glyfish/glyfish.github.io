@@ -212,7 +212,7 @@ An example of a first order autoregressive process, [AR(1)](https://en.wikipedia
 is defined by the difference equation,
 
 {% katex display %}
-x_{t} = \alpha x_{t-1} + \varepsilon_{t}\ \ \ \ \ (5),
+X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (5),
 {% endkatex %}
 
 where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon{t}{% endkatex %} are identically
@@ -226,30 +226,143 @@ The transition kernel for AR(1) can be derived from equation {% katex %}(5){% en
 {% katex %}\varepsilon_{t} = y - \alpha x{% endkatex %}. The result is,
 
 {% katex display %}
-p(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{\frac{(y-\alpha x)^2}{2\sigma^2}}\ \ \ \ \ \ (6)
+p(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{(y-\alpha x)^2/2\sigma^2}\ \ \ \ \ \ (6)
 {% endkatex %}
 
 Now, consider a few steps,
 
 {% katex display %}
 \begin{aligned}
-x_1 &= \alpha x_0 + \varepsilon_1 \\
-x_2 &= \alpha x_1 + \varepsilon_2 \\
-x_3 &= \alpha x_2 + \varepsilon_3,
+X_1 &= \alpha X_0 + \varepsilon_1 \\
+X_2 &= \alpha X_1 + \varepsilon_2 \\
+X_3 &= \alpha X_2 + \varepsilon_3,
 \end{aligned}
 {% endkatex %}
 
 substituting the first equation into the second equation and that result into the third equation gives,
 
 {% katex display %}
-x_3 = \alpha^3 x_0 + \alpha^2\varepsilon_1 + \alpha\varepsilon_2 + \varepsilon_3
+X_3 = \alpha^3 X_0 + \alpha^2\varepsilon_1 + \alpha\varepsilon_2 + \varepsilon_3
 {% endkatex %}
 
 If this process is continued for {% katex %}t{% endkatex %} steps the following result is
 obtained,
 
 {% katex display %}
-x_{t} = \alpha^t + \sum_{i=1}^{t} \alpha^{t-i} \varepsilon_{i}\ \ \ \ \ (7).
+X_t = \alpha^t X_0 + \sum_{i=1}^{t} \alpha^{t-i} \varepsilon_{i}\ \ \ \ \ (7).
 {% endkatex %}
 
 ## AR(1) Equilibrium Solution
+
+In this section equation {% katex %}(7){% endkatex %} is used to evaluate the the mean and variance of
+the AR(1) process in the equilibrium limit {% katex %}t\to\infty{% endkatex %}. The mean and variance
+obtained are then used to construct {% katex %}\pi_E(x){% endkatex %} that is shown to be a solution
+to equation {% katex %}(4){% endkatex %}.
+
+The equilibrium mean is given by,
+
+{% katex display %}
+  \mu_{E} = \lim_{t\to\infty} E(X_t).
+{% endkatex %}
+
+From equation {% katex %}(7){% endkatex %} it is seen that,
+
+{% katex display %}
+\begin{aligned}
+E(X_t) &= E\left[ \alpha^t X_0 + \sum_{i=1}^{t} \alpha^{t-i} \varepsilon_{i} \right] \\
+&= \alpha^t x_0 + \sum_{i=1}^t E(\varepsilon_i) \\
+&= \alpha^t x_0,
+\end{aligned}
+{% endkatex %}
+
+where the last step follows from {% katex %}E(\varepsilon_i)=0{% endkatex %}. Now,
+
+{% katex display %}
+\begin{aligned}
+\mu_E &= \lim_{t\to\infty} E(X_t) \\
+&= \lim_{t\to\infty} \alpha^t X_0,
+\end{aligned}
+{% endkatex %}
+
+this limit exists for {% katex %}\mid\alpha\mid\ \leq\ 1{% endkatex %},
+
+{% katex display %}
+\mu_E =
+\begin{cases}
+X_0 & \mid\alpha\mid=1 \\
+0 & \mid\alpha\mid\ \leq\ 1
+\end{cases}\ \ \ \ \ (8).
+{% endkatex %}
+
+The equilibrium variance is given by,
+
+{% katex display %}
+\sigma^2_E = \lim_{t\to\infty} E(X^2_t) - \left[E(X_t)\right]^2.
+{% endkatex %}
+
+To evaluate this expression and equation for {% katex %}X^2_t{% endkatex %} is needed. From equation
+{% katex %}(7){% endkatex %} it follows that,
+
+{% katex display %}
+\begin{aligned}
+X_t^2 &= \left[ \alpha^t X_0 + \sum_{i=1}^{t} \alpha^{t-i} \varepsilon_i \right]^2 \\
+&= \alpha^{2t}X_0^2 + 2\alpha^t X_0\sum_{i=1}^t \alpha^{t-1} \varepsilon_i + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}\varepsilon_i \varepsilon_j.
+\end{aligned}
+{% endkatex %}
+
+It follows that,
+
+{% katex display %}
+\begin{aligned}
+E(X_t^2) &= E\left[\alpha^{2t}X_0^2 + 2\alpha^t X_0\sum_{i=1}^t \alpha^{t-1} \varepsilon_i + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}\varepsilon_i \varepsilon_j \right] \\
+&= \alpha^{2t} X_0^2 +  2\alpha^t X_0\sum_{i=1}^t \alpha^{t-1} E[\varepsilon_i] + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}E[\varepsilon_i \varepsilon_j] \\
+&= \alpha^{2t} X_0^2 + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}E[\varepsilon_i \varepsilon_j],
+\end{aligned}
+{% endkatex %}
+
+where the last step follows from {% katex %}E(\varepsilon_i)=0{% endkatex %}. Since the
+{% katex %}\varepsilon_t{% endkatex %} are independent,
+
+{% katex display %}
+E(\varepsilon_i \varepsilon_j) = \sigma^2 \delta_{ij},
+{% endkatex %}
+
+where {% katex %}\delta_{ij}{% endkatex %} is the [Kronecker Delta](https://en.wikipedia.org/wiki/Kronecker_delta),
+{% katex display %}
+\delta_{ij} =
+\begin{cases}
+0 & i \neq j \\
+1 & i=j
+\end{cases}.
+{% endkatex %}
+
+Using these results gives,
+
+{% katex display %}
+\begin{aligned}
+E(X_t^2) &= \alpha^{2t} X_0^2 + \sigma^2\sum_{i=1}^t \sum_{j=1}^t \alpha^{2t-i-j}\delta_{ij} \\
+&= \alpha^{2t} X_0^2 + \sigma^2\sum_{i=1}^t \alpha^{2(t-i)} \\
+&= \alpha^{2t} X_0^2 + \sigma^2\sum_{i=1}^t \left(\alpha^2\right)^{t-i} \\
+&= \alpha^{2t} X_0^2 + \frac{\sigma^2\left[1 - (\alpha^2)^{t-1}\right]}{1 - \alpha^2},
+\end{aligned}
+{% endkatex %}
+
+The last step follows from summation of a geometric series,
+
+{% katex display %}
+\begin{aligned}
+\sum_{i=1}^{t} (\alpha^2)^{t-1} &= \sum_{k=0}^{t-1}(\alpha^2)^k \\
+&= \frac{1=(\alpha^2)^{t-1}}{1-\alpha^2}.
+\end{aligned}
+{% endkatex %}
+
+This term only converges for {% katex %}\mid\alpha\min\ <\ 1{% endkatex %}. Finally,
+{% katex %}\sigma^2_E{% endkatex %} can be evaluated using {% katex %}\mu_E=0{% endkatex %},
+
+{% katex display %}
+\begin{aligned}
+\sigma^2_E &= \lim_{t\to\infty} E(X_t^2) - \left[E(X_t)\right]^2 \\
+&= \lim_{t\to\infty} \alpha^{2t}X_0^2 + \frac{\sigma^2\left[1 - (\alpha^2)^{t-1}\right]}{1 - \alpha^2} \\
+&= \frac{\sigma^2}{1 - \alpha^2}
+\end{aligned}\ \ \ \ \ (9)
+{% endkatex %}
