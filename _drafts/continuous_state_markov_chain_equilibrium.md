@@ -221,7 +221,7 @@ random variables with zero mean and variance, {% katex %}\sigma^2{% endkatex %}.
 subscript on {% katex %}\varepsilon{% endkatex %} indicates that it is generated at time step
 {% katex %}t{% endkatex %}.
 The transition kernel for AR(1) can be derived from equation {% katex %}(5){% endkatex %} by using,
-{% katex %}\varepsilon_{t} \sim \textbf{Normal}(0,\ \sigma){% endkatex %} and letting
+{% katex %}\varepsilon_{t} \sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} and letting
 {% katex %}x=x_{t-1}{% endkatex %} and {% katex %}y=x_{t}{% endkatex %} so that
 {% katex %}\varepsilon_{t} = y - \alpha x{% endkatex %}. The result is,
 
@@ -315,8 +315,8 @@ It follows that,
 {% katex display %}
 \begin{aligned}
 E(X_t^2) &= E\left[\alpha^{2t}X_0^2 + 2\alpha^t X_0\sum_{i=1}^t \alpha^{t-1} \varepsilon_i + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}\varepsilon_i \varepsilon_j \right] \\
-&= \alpha^{2t} X_0^2 +  2\alpha^t X_0\sum_{i=1}^t \alpha^{t-1} E[\varepsilon_i] + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}E[\varepsilon_i \varepsilon_j] \\
-&= \alpha^{2t} X_0^2 + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}E[\varepsilon_i \varepsilon_j],
+&= \alpha^{2t} X_0^2 +  2\alpha^t X_0\sum_{i=1}^t \alpha^{t-1} E(\varepsilon_i) + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}E(\varepsilon_i \varepsilon_j) \\
+&= \alpha^{2t} X_0^2 + \sum_{i=1}^t \sum_{j=1}^t \alpha^{t-i}\alpha^{t-j}E(\varepsilon_i \varepsilon_j),
 \end{aligned}
 {% endkatex %}
 
@@ -352,17 +352,41 @@ The last step follows from summation of a geometric series,
 {% katex display %}
 \begin{aligned}
 \sum_{i=1}^{t} (\alpha^2)^{t-1} &= \sum_{k=0}^{t-1}(\alpha^2)^k \\
-&= \frac{1=(\alpha^2)^{t-1}}{1-\alpha^2}.
+&= \frac{1-(\alpha^2)^{t-1}}{1-\alpha^2}.
 \end{aligned}
 {% endkatex %}
 
-This term only converges for {% katex %}\mid\alpha\min\ <\ 1{% endkatex %}. Finally,
-{% katex %}\sigma^2_E{% endkatex %} can be evaluated using {% katex %}\mu_E=0{% endkatex %},
+In the limit {% katex %}t\to\infty {% endkatex %} {% katex %}E(X_t^2){% endkatex %} only converges for {% katex %}\mid\alpha\mid\ <\ 1{% endkatex %}. If {% katex %}\alpha=1{% endkatex %} the denominator of the second term in
+of {% katex %}E(X_t^2){% endkatex %} is {% katex %}0{% endkatex %} {% katex %}E(X_t^2){% endkatex %} is
+undefined. {% katex %}\sigma^2_E{% endkatex %}
+is evaluated assuming {% katex %}\mid\alpha\mid\ <\ 1{% endkatex %} if this is the case
+{% katex %}(8){% endkatex %} gives {% katex %}\mu_E=0{% endkatex %}, so,
 
 {% katex display %}
 \begin{aligned}
-\sigma^2_E &= \lim_{t\to\infty} E(X_t^2) - \left[E(X_t)\right]^2 \\
+\sigma^2_E &= \lim_{t\to\infty} E(X_t^2) - \left[\mu_E\right]^2 \\
 &= \lim_{t\to\infty} \alpha^{2t}X_0^2 + \frac{\sigma^2\left[1 - (\alpha^2)^{t-1}\right]}{1 - \alpha^2} \\
-&= \frac{\sigma^2}{1 - \alpha^2}
+&= \frac{\sigma^2}{1 - \alpha^2}.
 \end{aligned}\ \ \ \ \ (9)
+{% endkatex %}
+
+The equilibrium distribution, {% katex %}\pi_E{% endkatex %}, is found by substituting the results
+from equation {% katex %}(8){% endkatex %} and {% katex %}(9){% endkatex %} into a
+{% katex %}\textbf{Normal}(\mu_E,\ \sigma^2_E){% endkatex %} distribution to obtain,
+
+{% katex display %}
+\pi_E(y) = \frac{1}{\sqrt{2\pi}}e^{-y^2/2\sigma_E^2}\ \ \ \ \ (10)
+{% endkatex %}
+
+If can be shown that {% katex %}\pi_E(y) defined by {% endkatex %}equation{% katex %}(10){% endkatex %}
+is the equilibrium distribution by verifying that it is a solution to equation {% katex %}(4){% endkatex %},
+with use of equation {% katex %}(6){% endkatex %},
+
+{% katex display %}
+\begin{aligned}
+\pi_E(y) &= P\pi_E(y) \\
+&= \int_{-\infty}^{\infty} p(x, y) \pi_E(x) dx
+&= \int_{-\infty}^{\infty} \left{\left[\frac{1}{\sqrt{2\pi\sigma^2}} e^{(y-\alpha x)^2/2\sigma^2}\right] \frac{1}{\sqrt{2\pi}}e^{-y^2/2\sigma_E^2}\right} dx \\
+&= \frac{1}{\sqrt{2\pi\sigma^2}}\frac{1}{\sqrt{2\pi\sigma_E^2}} \int_{-\infty}^{\infty} e^{-\frac{1}{2}\left[(y-\alpha x)^2/\sigma^2+x^2/\sigma_E^2 \right]} dx
+\end{aligned}
 {% endkatex %}
