@@ -202,12 +202,15 @@ To go further a particular form for the transition kernel must be specified. Unl
 [discrete state model]({{ site.baseurl }}{% link _posts/2018-08-08-discrete_state_markov_chain_equilibrium.md %})
 a general solution cannot be obtained since convergence of the limit {% katex %}t\to\infty{% endkatex %} will
 depend on the assumed transition kernel. The following section will describe a solution to equation
-{% katex %}(4){% endkatex %} arising from the simplest of stochastic processes.
+{% katex %}(4){% endkatex %} arising from a simple stochastic processes.
 
 ## AR(1) Stochastic Process
 
-An example of a first order autoregressive process, [AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model),
-is defined by the difference equation,
+[AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model) is a first order autoregressive model providing
+an example of a continuous state Markov Chain. In following sections its equilibrium distribution is determined
+and the results of simulations are discussed.
+
+AR(1) is defined by the difference equation,
 
 {% katex display %}
 X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (5),
@@ -377,8 +380,8 @@ from equation {% katex %}(8){% endkatex %} and {% katex %}(9){% endkatex %} into
 {% endkatex %}
 
 It can be shown that equation {% katex %}(10){% endkatex %} is the equilibrium distribution by verifying that it is a solution to
-equation {% katex %}(4){% endkatex %}. Inserting equations {% katex %}(6){% endkatex %} and {% katex %}(10){% endkatex %} into
-equation {% katex %}(4){% endkatex %} yields,
+equation {% katex %}(4){% endkatex %}. Inserting equations {% katex %}(6){% endkatex %} and
+{% katex %}(10){% endkatex %} into equation {% katex %}(4){% endkatex %} yields,
 
 {% katex display %}
 \begin{aligned}
@@ -393,3 +396,33 @@ P\pi_E(y) &= \int_{-\infty}^{\infty} p(x, y) \pi_E(x) dx \\
 {% endkatex %}
 
 ## AR(1) Simulation
+
+An AR(1) simulator can be implemented using either the difference equation definition, equation
+{% katex %}(5){% endkatex %} or the stochastic kernel, equation {% katex %}(6){% endkatex %}.
+
+```python
+def ar_1_difference_series(α, σ, x0, nsamples=100):
+    samples = numpy.zeros(nsamples)
+    ε = numpy.random.normal(0.0, σ, nsamples)
+    samples[0] = x0
+    for i in range(1, nsamples):
+        samples[i] = α * samples[i-1] + ε[i]
+    return samples
+```
+
+```python
+def ar1_kernel_series(α, σ, x0, nsamples=100):
+    samples = numpy.zeros(nsamples)
+    samples[0] = x0
+    for i in range(1, nsamples):
+        samples[i] = numpy.random.normal(α * samples[i-1], σ)
+    return samples
+```
+
+<div style="text-align:center;">
+  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_alpha_sample_comparison.png">
+</div>
+
+<div style="text-align:center;">
+  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_alpha_larger_than_1.png">
+</div>
