@@ -1,7 +1,7 @@
 ---
 title: Continuous State Markov Chain Equilibrium
 key: 20180804
-image: /assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_2.png
+image: /assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_1.png
 author: Troy Stribling
 permlink: /continuous_state_markov_chain_equilibrium.html
 comments: false
@@ -204,11 +204,12 @@ a general solution cannot be obtained since convergence of the limit {% katex %}
 depend on the assumed transition kernel. The following section will describe a solution to equation
 {% katex %}(4){% endkatex %} arising from a simple stochastic processes.
 
-## AR(1) Stochastic Process
+## Example
 
-[AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model) is a first order autoregressive model providing
-an example of a continuous state Markov Chain. In following sections its equilibrium distribution is determined
-and the results of simulations are discussed.
+To evaluate the equilibrium distribution a form for the transition kernel must be assumed. Here the
+[AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model) stochastic process is considered.
+AR(1) is a simple first order autoregressive model providing an example of a continuous state Markov Chain.
+In following sections its equilibrium distribution is determined and the results of simulations are discussed.
 
 AR(1) is defined by the difference equation,
 
@@ -253,7 +254,7 @@ obtained,
 X_t = \alpha^t X_0 + \sum_{i=1}^{t} \alpha^{t-i} \varepsilon_{i}\ \ \ \ \ (7).
 {% endkatex %}
 
-## AR(1) Equilibrium Solution
+## Equilibrium Solution
 
 In this section equation {% katex %}(7){% endkatex %} is used to evaluate the the mean and variance of
 the AR(1) process in the equilibrium limit {% katex %}t\to\infty{% endkatex %}. The mean and variance
@@ -395,7 +396,7 @@ P\pi_E(y) &= \int_{-\infty}^{\infty} p(x, y) \pi_E(x) dx \\
 \end{aligned}
 {% endkatex %}
 
-## AR(1) Simulation
+## Simulation
 
 An AR(1) simulator can be implemented using either the difference equation definition, equation
 {% katex %}(5){% endkatex %} or the stochastic kernel, equation {% katex %}(6){% endkatex %}.
@@ -425,4 +426,43 @@ def ar1_kernel_series(α, σ, x0, nsamples=100):
 
 <div style="text-align:center;">
   <img src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_alpha_larger_than_1.png">
+</div>
+
+## Relaxation to Equilibrium
+
+<div style="text-align:center;">
+  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/mean_convergence.png">
+</div>
+
+<div style="text-align:center;">
+  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/sigma_convergence.png">
+</div>
+
+<div style="text-align:center;">
+  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison_samples.png">
+</div>
+
+```python
+def ar_1_kernel(α, σ, x, y):
+    p = numpy.zeros(len(y))
+    for i in range(0, len(y)):
+        ε  = ((y[i] -  α * x)**2) / (2.0 * σ**2)
+        p[i] = numpy.exp(-ε) / numpy.sqrt(2 * numpy.pi * σ**2)
+    return p
+
+def ar_1_equilibrium_distributions(α, σ, x0, y, nsample=100):
+    py = [ar_1_kernel(α, σ, x, y) for x in ar_1_difference_series(α, σ, x0, nsample)]
+    pavg = [py[0]]
+    for i in range(1, len(py)):
+        pavg_next = (py[i] + i * pavg[i-1]) / (i + 1)
+        pavg.append(pavg_next)
+    return pavg
+```
+
+<div style="text-align:center;">
+  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison.png">
+</div>
+
+<div style="text-align:center;">
+  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_1.png">
 </div>
