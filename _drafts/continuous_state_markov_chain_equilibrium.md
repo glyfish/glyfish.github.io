@@ -13,9 +13,9 @@ the probability of transition depending only on the previous state. Here the
 states will be assumed a continuous unbounded set and time a discrete unbounded set. If the
 set of states is given by, {% katex %}x\in\mathbb{R}{% endkatex %}, the probability that the process
 will be in state {% katex %}x{% endkatex %} at time {% katex %}t{% endkatex %}, denoted by
-{% katex %}\pi_t (x){% endkatex %}, is referred to as the distribution. Markov Chain equilibrium is
-defined by {% katex %}\lim_{t\to\infty}\pi_t (x)\ <\ \infty{% endkatex %}, that is, as time advances
-{% katex %}P(X_t=x_i){% endkatex %} becomes independent of time. Here a solution
+{% katex %}\pi_t (y){% endkatex %}, is referred to as the distribution. Markov Chain equilibrium is
+defined by {% katex %}\lim_{t\to\infty}\pi_t (y)\ <\ \infty{% endkatex %}, that is, as time advances
+{% katex %}\pi_t (y){% endkatex %} becomes independent of time. Here a solution
 for this limit is discussed and illustrated with examples.
 
 <!--more-->
@@ -108,10 +108,8 @@ where the second step substitutes the two step transition kernel and the remaini
 kernel between two states in an arbitrary number of steps, {% katex %}t{% endkatex %}, is given by,
 
 {% katex display %}
-P^t(x,y) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} p(x,z_1)p(z_1,z_2)\ldots p(z_{t-1},y) dz_1 dz_2\ldots dz_{t-1},
+P^t(x,y) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} p(x,z_1)p(z_1,z_2)\ldots p(z_{t-1},y) dz_1 dz_2\ldots dz_{t-1}.
 {% endkatex %}
-
-which is a very unwieldy expression.
 
 The distribution of Markov Chain states {% katex %}\pi (x){% endkatex %} is defined by,
 
@@ -364,7 +362,7 @@ is evaluated assuming {% katex %}\mid\alpha\mid\ <\ 1{% endkatex %} if this is t
 
 {% katex display %}
 \begin{aligned}
-\sigma^2_E &= \lim_{t\to\infty} E(X_t^2) - \left[\mu_E\right]^2 \\
+\sigma^2_E &= \lim_{t\to\infty} E(X_t^2) - \left(\mu_E\right)^2 \\
 &= \lim_{t\to\infty} \alpha^{2t}X_0^2 + \frac{\sigma^2\left[1 - (\alpha^2)^{t-1}\right]}{1 - \alpha^2} \\
 &= \frac{\sigma^2}{1 - \alpha^2}.
 \end{aligned}\ \ \ \ \ (9)
@@ -375,18 +373,23 @@ from equation {% katex %}(8){% endkatex %} and {% katex %}(9){% endkatex %} into
 {% katex %}\textbf{Normal}(\mu_E,\ \sigma^2_E){% endkatex %} distribution to obtain,
 
 {% katex display %}
-\pi_E(y) = \frac{1}{\sqrt{2\pi}}e^{-y^2/2\sigma_E^2}\ \ \ \ \ (10)
+\pi_E(y) = \frac{1}{\sqrt{2\pi\sigma_E^2}}e^{-y^2/2\sigma_E^2}\ \ \ \ \ (10)
 {% endkatex %}
 
-If can be shown that {% katex %}\pi_E(y) defined by {% endkatex %}equation{% katex %}(10){% endkatex %}
-is the equilibrium distribution by verifying that it is a solution to equation {% katex %}(4){% endkatex %},
-with use of equation {% katex %}(6){% endkatex %},
+It can be shown that equation {% katex %}(10){% endkatex %} is the equilibrium distribution by verifying that it is a solution to
+equation {% katex %}(4){% endkatex %}. Inserting equations {% katex %}(6){% endkatex %} and {% katex %}(10){% endkatex %} into
+equation {% katex %}(4){% endkatex %} yields,
 
 {% katex display %}
 \begin{aligned}
-\pi_E(y) &= P\pi_E(y) \\
-&= \int_{-\infty}^{\infty} p(x, y) \pi_E(x) dx
-&= \int_{-\infty}^{\infty} \left{\left[\frac{1}{\sqrt{2\pi\sigma^2}} e^{(y-\alpha x)^2/2\sigma^2}\right] \frac{1}{\sqrt{2\pi}}e^{-y^2/2\sigma_E^2}\right} dx \\
-&= \frac{1}{\sqrt{2\pi\sigma^2}}\frac{1}{\sqrt{2\pi\sigma_E^2}} \int_{-\infty}^{\infty} e^{-\frac{1}{2}\left[(y-\alpha x)^2/\sigma^2+x^2/\sigma_E^2 \right]} dx
+P\pi_E(y) &= \int_{-\infty}^{\infty} p(x, y) \pi_E(x) dx \\
+&= \int_{-\infty}^{\infty} \left[\frac{1}{\sqrt{2\pi\sigma^2}} e^{(y-\alpha x)^2/2\sigma^2}\right]\left[\frac{1}{\sqrt{2\pi\sigma_E^2}}e^{-y^2/2\sigma_E^2}\right] dx \\
+&= \frac{1}{\sqrt{2\pi\sigma^2}}\frac{1}{\sqrt{2\pi\sigma_E^2}} \int_{-\infty}^{\infty} e^{-\frac{1}{2}\left[(y-\alpha x)^2/\sigma^2+x^2/\sigma_E^2 \right]} dx \\
+&= \frac{1}{\sqrt{2\pi\sigma^2}}\frac{1}{\sqrt{2\pi\sigma_E^2}} \int_{-\infty}^{\infty} e^{-\frac{1}{2}\left[y^2/\sigma_E^2+(x-\alpha y)^2/\sigma^2 \right]} dx \\
+&= \frac{1}{\sqrt{2\pi\sigma_E^2}} e^{-y^2/2\sigma_E^2}\frac{1}{\sqrt{2\pi\sigma^2}}\int_{-\infty}^{\infty} e^{-(x-\alpha y)^2/2\sigma^2} dx \\
+&= \frac{1}{\sqrt{2\pi\sigma_E^2}} e^{-y^2/2\sigma_E^2} \\
+&= \pi_E(y)
 \end{aligned}
 {% endkatex %}
+
+## AR(1) Simulation
