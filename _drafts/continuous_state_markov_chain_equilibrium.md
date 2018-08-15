@@ -399,7 +399,9 @@ P\pi_E(y) &= \int_{-\infty}^{\infty} p(x, y) \pi_E(x) dx \\
 ## Simulation
 
 An AR(1) simulator can be implemented using either the difference equation definition, equation
-{% katex %}(5){% endkatex %} or the stochastic kernel, equation {% katex %}(6){% endkatex %}.
+{% katex %}(5){% endkatex %} or the transition kernel, equation {% katex %}(6){% endkatex %}.
+The result produced by either are statistically identical, An example implementation in Python using
+equation {% katex %}(5){% endkatex %} is shown below.
 
 ```python
 def ar_1_difference_series(α, σ, x0, nsamples=100):
@@ -411,6 +413,11 @@ def ar_1_difference_series(α, σ, x0, nsamples=100):
     return samples
 ```
 
+The function `ar_1_difference_series` begins by allocation of storage for the sample output followed by generation of
+`nsamples` values of {% katex %}\varepsilon_t\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} with the requested standard deviation,
+{% katex %}\sigma{% endkatex %}. The samples are then created using the AR(1) difference equation. A second
+implementation using the transition kernel, equation {% katex %}(6){% endkatex %} is shown below.
+
 ```python
 def ar1_kernel_series(α, σ, x0, nsamples=100):
     samples = numpy.zeros(nsamples)
@@ -419,27 +426,44 @@ def ar1_kernel_series(α, σ, x0, nsamples=100):
         samples[i] = numpy.random.normal(α * samples[i-1], σ)
     return samples
 ```
+The function `ar1_kernel_series` begins by allocating storage for the sample output and then generates `nsamples`
+using the transition kernel. The generated samples gave the distribution
+{% katex %}\textbf{Normal}(α * samples[i-1],\ \sigma^2){% endkatex %}, which has a mean that depends
+on the value generated at the previous step, {% katex %}\alpha samples[-1]{% endkatex %}, that changes with time.
+
+The plots below show examples of time series generated using `ar_1_difference_series` with {% katex %}\sigma=1{% endkatex %} for
+a range of values of {% katex %}\alpha\ <\ 1{% endkatex %}. It is seen that for smaller {% katex %}\alpha{% endkatex %} values
+the series more frequently changes direction and have smaller variance. This is expected from
+equation {% katex %}(9){% endkatex %}, where {% katex %}\sigma_E=1/1-\alpha^2{% endkatex %}.
 
 <div style="text-align:center;">
-  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_alpha_sample_comparison.png">
+  <img class="post-image" src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_alpha_sample_comparison.png">
 </div>
 
+The following plot illustrates the consequence of a value of {% katex %}\alpha{% endkatex %} just slightly
+larger than {% katex %}1{% endkatex %}.
+
 <div style="text-align:center;">
-  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_alpha_larger_than_1.png">
+  <img class="post-image" src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_alpha_larger_than_1.png">
 </div>
+
+While for {% katex %}\alpha\ <\ 1{% endkatex %} the generated
+samples are constrained to wonder about the mean value, {% katex %}\mu_E=0{% endkatex %}, since {% katex %}\sigma_E{% endkatex %}
+is bounded, but for {% katex %}\alpha\ \geq\ 1{% endkatex %} the samples very quickly develop very large persistent deviations
+from equilibrium mean value, {% katex %}\mu_E=0{% endkatex %} because {% katex %}\sigma_E{% endkatex %} is unbounded.
 
 ## Relaxation to Equilibrium
 
 <div style="text-align:center;">
-  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/mean_convergence.png">
+  <img class="post-image"  src="/assets/posts/continuous_state_markov_chain_equilibrium/mean_convergence.png">
 </div>
 
 <div style="text-align:center;">
-  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/sigma_convergence.png">
+  <img class="post-image"  src="/assets/posts/continuous_state_markov_chain_equilibrium/sigma_convergence.png">
 </div>
 
 <div style="text-align:center;">
-  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison_samples.png">
+  <img class="post-image"  src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison_samples.png">
 </div>
 
 ```python
@@ -454,15 +478,14 @@ def ar_1_equilibrium_distributions(α, σ, x0, y, nsample=100):
     py = [ar_1_kernel(α, σ, x, y) for x in ar_1_difference_series(α, σ, x0, nsample)]
     pavg = [py[0]]
     for i in range(1, len(py)):
-        pavg_next = (py[i] + i * pavg[i-1]) / (i + 1)
-        pavg.append(pavg_next)
+        pavg.append((py[i] + i * pavg[i-1]) / (i + 1))
     return pavg
 ```
 
 <div style="text-align:center;">
-  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison.png">
+  <img class="post-image"  src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison.png">
 </div>
 
 <div style="text-align:center;">
-  <img src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_1.png">
+  <img class="post-image" src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_2.png">
 </div>

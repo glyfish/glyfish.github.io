@@ -580,7 +580,7 @@ P =
 {% endkatex %}
 The state transition diagram below provides a graphical representation of {% katex %}P{% endkatex %}.
 <div style="text-align:center;">
-  <img src="/assets/posts/discrete_state_markov_chain_equilibrium/transition_diagram.png">
+  <img class="post-image"  src="/assets/posts/discrete_state_markov_chain_equilibrium/transition_diagram.png">
 </div>
 
 ### Convergence to Equilibrium
@@ -652,7 +652,7 @@ are plotted for each time step. The convergence to the limiting value occurs rap
 {% katex %}20{% endkatex %} steps {% katex %}\pi_t{% endkatex %} has reached limiting distribution.
 
 <div style="text-align:center;">
-  <img src="/assets/posts/discrete_state_markov_chain_equilibrium/distribution_relaxation_1.png">
+  <img class="post-image"  src="/assets/posts/discrete_state_markov_chain_equilibrium/distribution_relaxation_1.png">
 </div>
 
 ### Equilibrium Transition Matrix
@@ -815,7 +815,7 @@ the previous solution to equation {% katex %}(9){% endkatex %}. The different
 calculations are indistinguishable.
 
 <div style="text-align:center;">
-  <img src="/assets/posts/discrete_state_markov_chain_equilibrium/distribution_comparison.png">
+  <img  class="post-image" src="/assets/posts/discrete_state_markov_chain_equilibrium/distribution_comparison.png">
 </div>
 
 ## Conclusions
