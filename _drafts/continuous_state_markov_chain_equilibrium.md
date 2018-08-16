@@ -413,7 +413,7 @@ def ar_1_difference_series(α, σ, x0, nsamples=100):
     return samples
 ```
 
-The function `ar_1_difference_series` begins by allocating storage for the sample output followed by generation of
+The function `ar_1_difference_series(α, σ, x0, nsamples)` begins by allocating storage for the sample output followed by generation of
 `nsamples` values of {% katex %}\varepsilon_t\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} with the requested standard deviation, {% katex %}\sigma{% endkatex %}. The samples are then created using the AR(1)
 difference equation. A second implementation using the transition kernel, equation
 {% katex %}(6){% endkatex %} is shown below.
@@ -427,7 +427,7 @@ def ar1_kernel_series(α, σ, x0, nsamples=100):
     return samples
 ```
 
-The function `ar1_kernel_series` also begins by allocating storage for the sample output and then generates
+The function `ar1_kernel_seriesar1_kernel_series(α, σ, x0, nsamples)` also begins by allocating storage for the sample output and then generates
 samples using the transition kernel with distribution
 {% katex %}\textbf{Normal}(α * samples[i-1],\ \sigma^2){% endkatex %}.
 
@@ -486,11 +486,27 @@ indistinguishable form {% katex %}\sigma_E{% endkatex %} by {% katex %}10^3{% en
   <img class="post-image"  src="/assets/posts/continuous_state_markov_chain_equilibrium/sigma_convergence.png">
 </div>
 
-The plot below shows results of a simulation of {% katex %}10^6{% endkatex %} samples 
+The plot below favorably compares the histogram produced from results of a simulation of {% katex %}10^6{% endkatex %}
+samples and the equilibrium distribution, {% katex %}\pi_E(y){% endkatex %}, from equation {% katex %}(10){% endkatex %}.
 
 <div style="text-align:center;">
   <img class="post-image"  src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison_samples.png">
 </div>
+
+A more efficient method of estimating {% katex %}\pi_E(y){% endkatex %} is obtained from equation
+{% katex %}(4){% endkatex %} by noting that for sufficiently large number of samples equation
+{% katex %}(4){% endkatex %} can be approximated by the expectation of the transition kernel, namely,
+
+{% katex display %}
+\begin{aligned}
+\pi_E(y) &= P\pi_E(y) \\
+&= \int_{-\infty}^{\infty} p(x, y) \pi_E(x) dx \\
+&\approx \frac{1}{N} \sum_{i=0}^{N-1} p(x_i, y).
+\end{aligned}\ \ \ \ \ (11)
+{% endkatex %}
+
+A Python implementation of the solution to equation {% katex %}(11){% endkatex %} for the average transition kernel
+is listed below where two functions are defined.
 
 ```python
 def ar_1_kernel(α, σ, x, y):
@@ -508,9 +524,26 @@ def ar_1_equilibrium_distributions(α, σ, x0, y, nsample=100):
     return pavg
 ```
 
+The first function `ar_1_kernel(α, σ, x, y)` computes the transition kernel for a range of values and takes four arguments as
+input: `α` and `σ` from equation {% katex %}(5){% endkatex %} and the value of `x` and an array of `y` values where
+the transition kernel is evaluated. The second function `ar_1_equilibrium_distributions(α, σ, x0, y, nsample)` has five arguments as input:  
+`α` and `σ`, the initial value of {% katex %}x{% endkatex %}, `x0`, the array of `y` values used to evaluate the transition kernel and
+the number of desired samples `nsample`. `ar_1_equilibrium_distributions` begins by calling `ar_1_difference_series` to generate
+`nsample` samples of `x`. These values and the needed inputs are then passed to `ar_1_kernel` providing `nsample` evaluations of
+the transition kernel. The cumulative average of the transition kernel is then evaluated and returned.
+
+In practice this method gives reasonable results for as few as {% katex %}10^2{% endkatex %} samples. This is illustrated
+in the following plot where the transition kernel mean value computed with just {% katex %}50{% endkatex %} samples
+using `ar_1_equilibrium_distributions` is compared {% katex %}\pi_E(y){% endkatex %} from equation {% katex %}(10){% endkatex %}.
+
 <div style="text-align:center;">
   <img class="post-image"  src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison.png">
 </div>
+
+The following plot shows intermediate values the calculation in the range of {% katex %}1{% endkatex %} to
+{% katex %}50{0% endkatex %} samples. This illustrates the changes in the estimated equilibrium distribution
+as the calculation progresses. By {% katex %}500{% endkatex %} samples a distribution near the equilibrium distribution
+is obtained.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_2.png">
