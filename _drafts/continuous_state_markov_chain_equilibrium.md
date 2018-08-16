@@ -404,32 +404,34 @@ The result produced by either are statistically identical, An example implementa
 equation {% katex %}(5){% endkatex %} is shown below.
 
 ```python
-def ar_1_difference_series(α, σ, x0, nsamples=100):
-    samples = numpy.zeros(nsamples)
-    ε = numpy.random.normal(0.0, σ, nsamples)
+def ar_1_difference_series(α, σ, x0, nsample=100):
+    samples = numpy.zeros(nsample)
+    ε = numpy.random.normal(0.0, σ, nsample)
     samples[0] = x0
-    for i in range(1, nsamples):
+    for i in range(1, nsample):
         samples[i] = α * samples[i-1] + ε[i]
     return samples
 ```
 
-The function `ar_1_difference_series(α, σ, x0, nsamples)` begins by allocating storage for the sample output followed by generation of
-`nsamples` values of {% katex %}\varepsilon_t\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} with the requested standard deviation, {% katex %}\sigma{% endkatex %}. The samples are then created using the AR(1)
-difference equation. A second implementation using the transition kernel, equation
-{% katex %}(6){% endkatex %} is shown below.
+The function `ar_1_difference_series(α, σ, x0, nsamples)` takes four arguments: `α` and `σ`, the initial value
+of {% katex %}x{% endkatex %}, `x0` and the number of desired samples `nsample`. It begins by allocating storage
+for the sample output followed by generation of `nsample` values of {% katex %}\varepsilon_t\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} with the requested standard deviation, {% katex %}\sigma{% endkatex %}.
+The samples are then created using the AR(1) difference equation. A second implementation using the
+transition kernel, equation {% katex %}(6){% endkatex %} is shown below.
 
 ```python
-def ar1_kernel_series(α, σ, x0, nsamples=100):
-    samples = numpy.zeros(nsamples)
+def ar1_kernel_series(α, σ, x0, nsample=100):
+    samples = numpy.zeros(nsample)
     samples[0] = x0
-    for i in range(1, nsamples):
+    for i in range(1, nsample):
         samples[i] = numpy.random.normal(α * samples[i-1], σ)
     return samples
 ```
 
-The function `ar1_kernel_seriesar1_kernel_series(α, σ, x0, nsamples)` also begins by allocating storage for the sample output and then generates
-samples using the transition kernel with distribution
-{% katex %}\textbf{Normal}(α * samples[i-1],\ \sigma^2){% endkatex %}.
+The function `ar1_kernel_seriesar1_kernel_series(α, σ, x0, nsamples)` also  takes four arguments: `α` and `σ`,
+the initial value of {% katex %}x{% endkatex %}, `x0` and the number of desired samples `nsample`.
+It begins by allocating storage for the sample output and then generates samples using the transition kernel
+with distribution {% katex %}\textbf{Normal}(α * samples[i-1],\ \sigma^2){% endkatex %}.
 
 The plots below show examples of time series generated
 using `ar_1_difference_series` with {% katex %}\sigma=1{% endkatex %} for values of
@@ -451,7 +453,7 @@ can increase rapidly as illustrated in the plot below.
 For {% katex %}\alpha\ <\ 1{% endkatex %} {% katex %}\sigma_E{% endkatex %} is bounded and the generated
 samples are constrained about the equilibrium mean value, {% katex %}\mu_E=0{% endkatex %}, but for
 {% katex %}\alpha\ \geq\ 1{% endkatex %} {% katex %}\sigma_E{% endkatex %} is unbounded
-and the samples very quickly develop very large deviations from {% katex %}\sigma_E{% endkatex %}.
+and the samples very quickly develop very large deviations from {% katex %}\mu_E{% endkatex %}.
 
 ### Convergence to Equilibrium
 
@@ -479,7 +481,7 @@ with varying {% katex %}\alpha{% endkatex %} are shown. The rate of convergence 
 {% katex %}\sigma_E{% endkatex %} is slightly slower than the rate seem for {% katex %}\mu{% endkatex %}. For
 smaller {% katex %}\alpha{% endkatex %} simulation {% katex %}\sigma{% endkatex %} computations are
 indistinguishable form {% katex %}\sigma_E{% endkatex %} by {% katex %}10^3{% endkatex %} samples. For larger
-{% katex %}\alpha{% endkatex %} after {% katex %}10^4{% endkatex %} samples oscillations about the
+{% katex %}\alpha{% endkatex %} after {% katex %}10^4{% endkatex %} sample deviations about the
 {% katex %}\sigma_E{% endkatex %} are still visible.
 
 <div style="text-align:center;">
@@ -534,18 +536,18 @@ the transition kernel. The cumulative average of the transition kernel is then e
 
 In practice this method gives reasonable results for as few as {% katex %}10^2{% endkatex %} samples. This is illustrated
 in the following plot where the transition kernel mean value computed with just {% katex %}50{% endkatex %} samples
-using `ar_1_equilibrium_distributions` is compared {% katex %}\pi_E(y){% endkatex %} from equation {% katex %}(10){% endkatex %}.
+using `ar_1_equilibrium_distributions` is compared {% katex %}\pi_E(y){% endkatex %} from equation
+{% katex %}(10){% endkatex %}.
 
 <div style="text-align:center;">
   <img class="post-image"  src="/assets/posts/continuous_state_markov_chain_equilibrium/equilibrium_pdf_comparison.png">
 </div>
 
 The following plot shows intermediate values the calculation in the range of {% katex %}1{% endkatex %} to
-{% katex %}50{0% endkatex %} samples. This illustrates the changes in the estimated equilibrium distribution
+{% katex %}50{% endkatex %} samples. This illustrates the changes in the estimated equilibrium distribution
 as the calculation progresses. By {% katex %}500{% endkatex %} samples a distribution near the equilibrium distribution
 is obtained.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_2.png">
 </div>
-{% katex %}{% endkatex %}
