@@ -499,7 +499,16 @@ examples discussed here and convergence of the sampled <span class="katex"><span
 <p>Sampling the Weibull distribution with a Normal proposal distribution can produce a better result than a
 uniform distribution but care must be exercised in selecting the Normal distribution parameters.
 Some choices can produce inferior results. Analysis of the the acceptance function
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathrm">2</span><span class="mclose">)</span></span></span></span> can provide guidance in parameter selectiion.</p>
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathrm">2</span><span class="mclose">)</span></span></span></span> can provide guidance in parameter selection.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>An overview of the rejection sampling algorithm has been given. It was analytically proven that if proposal samples
+are accepted with a probability defined by equation <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> the accepted samples have
+the desired target distribution. An algorithm implementation was discussed and used in examples where
+its performance in producing samples with a desired target distribution for several different proposal distributions
+was investigated. A criteria for evaluating the expected performance of a proposal distribution using the
+acceptance function defined by equation <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mn>2</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">(2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">(</span><span class="mord mathrm">2</span><span class="mclose">)</span></span></span></span> was suggested.</p>
 
   </div><a class="u-url" href="/2018/07/29/rejection_sampling.html" hidden></a>
 </article>

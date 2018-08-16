@@ -1,7 +1,7 @@
 ---
 title: Continuous State Markov Chain Equilibrium
 key: 20180804
-image: /assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_1.png
+image: /assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_2.png
 author: Troy Stribling
 permlink: /continuous_state_markov_chain_equilibrium.html
 comments: false
@@ -551,3 +551,10 @@ is obtained.
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/continuous_state_markov_chain_equilibrium/ar1_relaxation_to_equilibrium_2.png">
 </div>
+
+## Conclusions
+
+An overview of the properties of Markov Chain equilibrium for continuous state processes has ben given.
+Equations defining the equilibrium transition kernel and distribution were derived. These equations
+were solved for the AR(1) stochastic processes in the limit {% katex %}{t\to\infty}{% endkatex %}. The
+analytic results were shown to agree with simulations.

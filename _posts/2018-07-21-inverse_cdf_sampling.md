@@ -285,6 +285,15 @@ by the discrete distribution, {% katex %}\left\{f_X(x_i)\Delta x_i \right\}_N{% 
 {% katex %}x_i = x_{min}+(i-1)\Delta x_i{% endkatex %}. This method has disadvantages compared to using
 Inverse CDF sampling on the continuous distribution. First, a bounded range for the samples must
 be assumed when in general the range of the samples can be unbounded.
-The Inverse CDF method can sample an unbounded range. Second, the performance for
+The Inverse CDF method can sample an unbounded range. Second, the number of operations required for
 sampling a discrete distribution scales {% katex %}O(N_{samples}N){% endkatex %} while sampling the
 continuous distribution is {% katex %}O(N_{samples}){% endkatex %}.
+
+## Conclusions
+
+An overview of the properties of the Inverse CDF Sampling has been given. Algorithms for both
+the discrete and continuous cases that required a distribution CDF be invertible were developed
+and shown analytically to produce samples with distributions defined by the CDF. Example algorithm implementations
+for both discrete and continuous distributions were developed. Samples produced by the algorithms for example
+target distributions were favorably compared. It was also shown that the continuous sampling algorithm was more performant than the discrete version. The discrete version required {% katex %}O(N_{samples}N){% endkatex %}
+operations while the continuous version required {% katex %}O(N_{samples}){% endkatex %} operations.

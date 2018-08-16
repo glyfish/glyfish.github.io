@@ -820,7 +820,8 @@ calculations are indistinguishable.
 
 ## Conclusions
 
-An overview of the properties of Markov Chain equilibrium has been given. It is shown that equilibrium
+An overview of the properties of Markov Chain equilibrium for discrete state processes has been given.
+It has been shown that equilibrium
 is a consequence of assuming the transition matrix and distribution vector are both stochastic.
 The equilibrium solutions for the transition matrix and distribution were obtained analytically by
 evaluating the limit {% katex %}t\to\infty{% endkatex %}. These results were compared
