@@ -28,7 +28,7 @@ The Markov Chain model is constructed from the set of states
 The process starts at time {% katex %}t=0{% endkatex %} with state {% katex %}X_0=x_i{% endkatex %}.
 At the next step, {% katex %}t=1{% endkatex %}, the process will assume a state
 {% katex %}X_1=x_j{% endkatex %} with probability {% katex %}P(X_1=x_j|X_0=x_i){% endkatex %} since
-the it will depend on the state at {% katex %}t=0{% endkatex %} by the definition of a Markov Process.
+it will depend on the previous state {% katex %}x_0{% endkatex %} by the definition of a Markov Process.
 At the next time step {% katex %}t=2{% endkatex %} the process state will be
 {% katex %}X_2=x_k{% endkatex %} with probability,
 {% katex display %}
@@ -88,7 +88,7 @@ satisfy,
 {% endkatex %}
 
 To determine the equilibrium solution of the distribution of Markov Chain states,
-{% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %}, its time variability must be determined.
+{% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %}, the distribution time variability must be determined.
 Begin by considering an arbitrary distribution at {% katex %}t=0{% endkatex %}, which can be written as a
 column vector,
 {% katex display %}
