@@ -31,12 +31,13 @@ The CDF specifies the probability that {% katex %}i \leq n{% endkatex %} and is 
 P(i\ \leq\ n)=P(n)=\sum_{i=1}^n{p_i},
 {% endkatex %}
 
-For a given CDF value, {% katex %}U{% endkatex %}, Equation {% katex %}P(n){% endkatex %} can always
+For a given CDF value, {% katex %}U{% endkatex %}, The equation for {% katex %}P(n){% endkatex %} can always
 be inverted by evaluating it for each {% katex %}n{% endkatex %} and
-searching for the value of {% katex %}n{% endkatex %} that satisfies, {% katex %}P(n)\ \geq\ U{% endkatex %}.
-It follows that generated samples of {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} will have distribution
-{% katex %}(1){% endkatex %} since the intervals {% katex %}P(n)-P(n-1) = p_n{% endkatex %}
-are Uniformly sampled.
+searching for the smallest value of {% katex %}n{% endkatex %} that satisfies,
+{% katex %}P(n)\ \geq\ U{% endkatex %}.
+It follows that generated samples determined from {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %}
+will have distribution {% katex %}(1){% endkatex %} since the intervals {% katex %}P(n)-P(n-1) = p_n{% endkatex %}
+are uniformly sampled.
 
 Consider the distribution,
 
@@ -59,11 +60,11 @@ cdf = numpy.cumsum(df)
 
 samples = [numpy.flatnonzero(cdf >= u)[0] for u in numpy.random.rand(n)]
 ```
-The program first stores the CDF computed from each of the sums
+The program first stores the CDF computed from the partial sums
 {% katex %}P(n){% endkatex %} in an array. Next, CDF samples using
 {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %} are generated. Finally, for each sampled CDF value,
 {% katex %}U{% endkatex %}, the array containing {% katex %}P(n){% endkatex %} is scanned for
-the value of {% katex %}n{% endkatex %} where {% katex %}P(n)\ \geq\ U{% endkatex %}. The resulting
+the smallest value of {% katex %}n{% endkatex %} where {% katex %}P(n)\ \geq\ U{% endkatex %}. The resulting
 values of {% katex %}n{% endkatex %} will have the target distribution {% katex %}(2){% endkatex %}. This is
 shown in the figure below.
 
@@ -81,8 +82,8 @@ In general for a discrete distribution the first and second moments are given by
 {% endkatex %}
 
 In the following two plots the cumulative values of {% katex %}\mu{% endkatex %} and
-{% katex %}\sigma{% endkatex %} computed from the samples generated using Inverse CDF Sampling
-are compared with the target values using the equations above.
+{% katex %}\sigma{% endkatex %} computed from the samples generated are compared with the target values
+using the equations above.
 The first shows the convergence of {% katex %}\mu{% endkatex %} and the second the convergence of
 {% katex %}\sigma{% endkatex %}. Within only {% katex %}10^3{% endkatex %} samples both
 {% katex %}\mu{% endkatex %} and {% katex %}\sigma{% endkatex %} computed from samples is comparable to the
@@ -130,7 +131,7 @@ and {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %}.
 
 A more general result needed to complete this proof is obtained using a change of variable on a CDF.
 If {% katex %}Y=G(X){% endkatex %} is a monotonically increasing invertible function
-of {% katex %}X{% endkatex %} then,
+of {% katex %}X{% endkatex %} it will be shown that,
 
 {% katex display %}
 P(X\ \leq\ x) = P(Y\ \leq\ y) = P[G(X)\ \leq\ G(x)]. \ \ \ \ \ (4)
@@ -140,7 +141,7 @@ To prove this note that {% katex %}G(x){% endkatex %} is monotonically increasin
 preserved for all {% katex %}x{% endkatex %},
 
 {% katex display %}
-X\ \leq\ x \implies G(X)\ \leq\ G(x).
+X\ \leq\ x\ \implies\ G(X)\ \leq\ G(x).
 {% endkatex %}
 
 Consequently, the order of the integration limits is maintained by the transformation.
@@ -167,7 +168,7 @@ For completeness consider the case where {% katex %}Y=G(X){% endkatex %} is a mo
 of {% katex %}X{% endkatex %} then,
 
 {% katex display %}
-X\ \leq\ x \implies G(X)\ \geq\ G(x),
+X\ \leq\ x\ \implies\ G(X)\ \geq\ G(x),
 {% endkatex %}
 
 it follows that,
@@ -205,7 +206,7 @@ given by,
 f_X(x; k, \lambda) =
 \begin{cases}
 \frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{\left(\frac{-x}{\lambda}\right)^k} & x\ \geq\ 0 \\
-0 & x < 0,
+0 & x\ <\ 0,
 \end{cases} \ \ \ \ \ (5)
 {% endkatex %}
 
@@ -215,8 +216,8 @@ The CDF is given by,
 {% katex display %}
 F_X(x; k, \lambda) =
 \begin{cases}
-1-e^{\left(\frac{-x}{\lambda}\right)^k} & x \geq 0 \\
-0 & x < 0.
+1-e^{\left(\frac{-x}{\lambda}\right)^k} & x\ \geq\ 0 \\
+0 & x\ <\ 0.
 \end{cases}
 {% endkatex %}
 
@@ -225,8 +226,8 @@ The CDF can be inverted to yield,
 {% katex display %}
 F_X^{-1}(u; k, \lambda) =
 \begin{cases}
-\lambda\ln\left(\frac{1}{1-u}\right)^{\frac{1}{k}} & 0 \leq u \leq 1 \\
-0 & u < 0 \text{ or } u > 1.
+\lambda\ln\left(\frac{1}{1-u}\right)^{\frac{1}{k}} & 0\ \leq\ u\ \leq 1 \\
+0 & u\ <\ 0 \text{ or } u\ >\ 1.
 \end{cases}
 {% endkatex %}
 
@@ -238,7 +239,7 @@ In the example described here it will be assumed that {% katex %}k=5.0{% endkate
 The sampler implementation for the continuous case is simpler than for the discrete case.
 Just as in the discrete case CDF samples with distribution {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %}
 are generated. The desired samples with the target Weibull distribution are then computed using the CDF inverse.
-Below an implementation of the sampler in Python is listed.
+Below an implementation of the sampler for the Weibull distribution in Python is listed.
 
 ```python
 import numpy
@@ -291,9 +292,9 @@ continuous distribution is {% katex %}O(N_{samples}){% endkatex %}.
 
 ## Conclusions
 
-An overview of the properties of the Inverse CDF Sampling has been given. Algorithms for both
+An overview of Inverse CDF Sampling has been given. Algorithms for both
 the discrete and continuous cases that required a distribution CDF be invertible were developed
-and shown analytically to produce samples with distributions defined by the CDF. Example algorithm implementations
-for both discrete and continuous distributions were developed. Samples produced by the algorithms for example
+and shown analytically to produce samples with distributions defined by the CDF. Example implementations of the algorithms for both discrete and continuous distributions were developed. Samples produced by the algorithms
+for example
 target distributions were favorably compared. It was also shown that the continuous sampling algorithm was more performant than the discrete version. The discrete version required {% katex %}O(N_{samples}N){% endkatex %}
 operations while the continuous version required {% katex %}O(N_{samples}){% endkatex %} operations.
