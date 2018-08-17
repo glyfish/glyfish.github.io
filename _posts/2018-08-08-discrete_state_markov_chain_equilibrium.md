@@ -194,7 +194,7 @@ As a result of these constraints the limit {% katex %}t\to\infty{% endkatex %} r
 \lim_{t\to\infty}P^{t}=\lim_{t\to\infty}\lambda^{t}v\ \leq\ \infty.
 {% endkatex %}
 
-To satisfy this constraint it must be that {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
+To satisfy this constraint {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
 it will be shown that {% katex %}\lambda_1=1{% endkatex %} and that a column vector of
 {% katex %}1's{% endkatex %} with {% katex %}N{% endkatex %} rows,
 {% katex display %}
