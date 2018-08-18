@@ -53,7 +53,7 @@ The Rejection Sampling algorithm can be summarized in the following steps that a
 of {% katex %}f_X(X){% endkatex %}. If equation {% katex %}(1){% endkatex %} is not satisfied then {% katex %}Y{% endkatex %}
 is discarded.
 
-## Proof
+## Theory
 
 To prove that Rejection Sampling works it must be shown that,
 {% katex display %}

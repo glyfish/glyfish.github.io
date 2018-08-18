@@ -118,7 +118,7 @@ that specifies the probability that {% katex %}X\ \leq\ x{% endkatex %}, namely,
 P(X \leq x) = F_X(x) = \int_{-\infty}^{x} f_X(w) dw.
 {% endkatex %}
 
-### Proof
+### Theory
 
 To prove that Inverse CDF sampling works for continuous distributions it must be shown that,
 
@@ -280,7 +280,7 @@ samples are comparable to the target values and by {% katex %}10^4{% endkatex %}
 
 ### Performance
 
-Any continuous distribution can be sampled by assuming that, {% katex %}f_X(x){% endkatex %}, can be approximated
+Any continuous distribution can be sampled by assuming that {% katex %}f_X(x){% endkatex %} can be approximated
 by the discrete distribution, {% katex %}\left\{f_X(x_i)\Delta x_i \right\}_N{% endkatex %} for
 {% katex %}i=1,2,3,\ldots,N{% endkatex %}, where {% katex %}\Delta x_i=(x_{max}-x_{min})/(N-1){% endkatex %} and
 {% katex %}x_i = x_{min}+(i-1)\Delta x_i{% endkatex %}. This method has disadvantages compared to using
