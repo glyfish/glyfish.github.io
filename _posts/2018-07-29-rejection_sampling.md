@@ -42,9 +42,8 @@ h(Y) = \frac{f_X(Y)}{f_Y(Y)}\ \ \ \ \ (2).
 {% endkatex %}
 
 It can be insightful to compare {% katex %}h(y){% endkatex %} to {% katex %}f_X(y){% endkatex %}
-when choosing a proposal distribution. If {% katex %}h(y){% endkatex %} does not have a peak that
-can enclose the peak in {% katex %}f_X(Y){% endkatex %} then the choice of
-{% katex %}f_Y(Y){% endkatex %} should be reconsidered.
+when choosing a proposal distribution. If {% katex %}h(y){% endkatex %} does not share sufficient mass with
+{% katex %}f_X(Y){% endkatex %} then the choice of {% katex %}f_Y(Y){% endkatex %} should be reconsidered.
 
 The Rejection Sampling algorithm can be summarized in the following steps that are repeated for the generation of each sample,
 
@@ -68,7 +67,7 @@ F_X(y) = \int_{-\infty}^{y} f_X(w)dw.
 
 To prove equation {% katex %}(2){% endkatex %} a couple of intermediate steps are required. First,
 The joint distribution of {% katex %}U{% endkatex %} and {% katex %}Y{% endkatex %} containing the
-acceptance constraint will be evaluated,
+acceptance constraint will be shown to be,
 
 {% katex display %}
 P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y\ \leq\ y\right] = \frac{F_X(y)}{c}\ \ \ \ \ (4).
@@ -121,7 +120,7 @@ P\left[Y\ \leq\ y\ |\ U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] &= \frac{P\left[U\ 
 
 ## Implementation
 
-An implementation in Python of the Rejection Sampling algorithm,
+An implementation in Python of the Rejection Sampling algorithm is listed below,
 
 ```python
 def rejection_sample(h, y_samples, c):
@@ -178,12 +177,13 @@ The first and second moments are,
 {% endkatex %}
 
 In the examples described here it will be assumed that {% katex %}k=5.0{% endkatex %} and
-{% katex %}\lambda=1.0{% endkatex %}. The following plot shows the PDF and CDF using these values.
+{% katex %}\lambda=1.0{% endkatex %}. The plot below shows the PDF and CDF using these values.
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_pdf.png">
 
-The following sections will compare the performance of generating Weibull samples using {% katex %}\textbf{Uniform}(0,\ m){% endkatex %} and
-{% katex %}\textbf{Normal}(\mu,\ \sigma){% endkatex %} proposal distributions.
+The following sections will compare the performance of generating Weibull samples using both
+{% katex %}\textbf{Uniform}(0,\ m){% endkatex %} and {% katex %}\textbf{Normal}(\mu,\ \sigma){% endkatex %}
+proposal distributions.
 
 ### Uniform Proposal Distribution
 
@@ -218,7 +218,7 @@ samples = rejection_sample(weibull_pdf, y_samples, ymax)
 ```
 
 The following plot compares the histogram computed form the generated samples with the target
-distribution {% katex %}(4){% endkatex %}. The fit is a little ragged along the peak of the distribution but acceptable.
+distribution {% katex %}(4){% endkatex %}. The fit is acceptable.
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_uniform_sampled_distribution.png">
 
@@ -228,9 +228,10 @@ computed from the samples to target distribution values computed
 from equation {% katex %}(5){% endkatex %}. The convergence of the sampled
 {% katex %}\mu{% endkatex %} is quite rapid. Within only {% katex %}10^2{% endkatex %}
 samples {% katex %}\mu{% endkatex %} computed form the samples is very close the the target value
-and by {% katex %}10^3{% endkatex %} samples the two values are indistinguishable. The convergence of the sampled {% katex %}\sigma{% endkatex %} to the target value is not as
+and by {% katex %}10^4{% endkatex %} samples the two values are indistinguishable.
+The convergence of the sampled {% katex %}\sigma{% endkatex %} to the target value is not as
 rapid as the convergence of the sampled {% katex %}\mu{% endkatex %} but is still quick. By
-{% katex %}10^3{% endkatex %} samples the two values are near indistinguishable.
+{% katex %}10^4{% endkatex %} samples the two values are near indistinguishable.
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_uniform_mean_convergence.png">
 
@@ -242,17 +243,17 @@ acceptance probability {% katex %}U{% endkatex %} and sample proposal {% katex %
 plotted with {% katex %}U{% endkatex %} on the vertical axis and {% katex %}Y{% endkatex %} on
 the horizontal axis. Also, shown is the scaled acceptance function {% katex %}h(Y)/c{% endkatex %}.
 If {% katex %}U\ >\ h(Y)/c{% endkatex %} the sample is rejected and colored orange in the plot and
-if {% katex %}U\ \leq\ h(Y)/c{% endkatex %} the sample is accepted, {% katex %}X=Y{% endkatex %} and colored blue. Only {% katex %}31\%{% endkatex %} of the generated samples were accepted.
+if {% katex %}U\ \leq\ h(Y)/c{% endkatex %} the sample is accepted, {% katex %}X=Y{% endkatex %} and colored blue.
+Only {% katex %}31\%{% endkatex %} of the generated samples were accepted.
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_uniform_efficiency.png">
 
 To improve the acceptance percentage of proposed samples a different proposal distribution must be
-considered. In the plot above it is seen that the {% katex %}\textbf{Uniform}(0,\ 1.6){% endkatex %} proposal distribution uniformly samples the space enclosed by the rectangle it defines without consideration
-for the shape of
+considered. In the plot above it is seen that the {% katex %}\textbf{Uniform}(0,\ 1.6){% endkatex %}
+proposal distribution uniformly samples the space enclosed by the rectangle it defines without consideration for the shape of
 the target distribution. The acceptance percentage will be determined by the ratio of the target
 distribution area enclosed by the proposal distribution and the proposal distribution area.
-As the target distribution becomes sharp
-the acceptance percentage will decrease. A proposal distribution that samples the area under
+As the target distribution becomes sharp the acceptance percentage will decrease. A proposal distribution that samples the area under
 {% katex %}h(Y)/c{% endkatex %} efficiently will have a higher acceptance percentage. It should be kept in mind that rejection of proposal samples is required for the algorithm to work.
 If no proposal samples are rejected the proposal and target distributions will be equivalent.
 
@@ -347,4 +348,5 @@ are accepted with a probability defined by equation {% katex %}(1){% endkatex %}
 the desired target distribution. An algorithm implementation was discussed and used in examples where
 its performance in producing samples with a desired target distribution for several different proposal distributions
 was investigated. A criteria for evaluating the expected performance of a proposal distribution using the
-acceptance function defined by equation {% katex %}(2){% endkatex %} was suggested.
+acceptance function, defined by equation {% katex %}(2){% endkatex %}, where its overlap with the proposal
+distribution was suggested.

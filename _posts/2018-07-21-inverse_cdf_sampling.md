@@ -239,7 +239,7 @@ In the example described here it will be assumed that {% katex %}k=5.0{% endkate
 The sampler implementation for the continuous case is simpler than for the discrete case.
 Just as in the discrete case CDF samples with distribution {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %}
 are generated. The desired samples with the target Weibull distribution are then computed using the CDF inverse.
-Below an implementation of the sampler for the Weibull distribution in Python is listed.
+Below an implementation of this procedure in Python is given.
 
 ```python
 import numpy
@@ -269,7 +269,7 @@ The first and second moments for the Weibull distribution are given by,
 where {% katex %}\Gamma(x){% endkatex %} is the [Gamma function](https://en.wikipedia.org/wiki/Gamma_function).
 
 The following two plots compare the cumulative values of {% katex %}\mu{% endkatex %} and {% katex %}\sigma{% endkatex %}
-computed from sampling of target distribution {% katex %}(5){% endkatex %} with the values from the equations above.
+computed from sampling of the target distribution {% katex %}(5){% endkatex %} with the values from the equations above.
 The first shows the convergence of {% katex %}\mu{% endkatex %} and the second the convergence of {% katex %}\sigma{% endkatex %}.
 Within only {% katex %}10^3{% endkatex %} samples both {% katex %}\mu{% endkatex %} and {% katex %}\sigma{% endkatex %} computed from
 samples are comparable to the target values and by {% katex %}10^4{% endkatex %} the values are indistinguishable.
@@ -285,16 +285,18 @@ by the discrete distribution, {% katex %}\left\{f_X(x_i)\Delta x_i \right\}_N{% 
 {% katex %}i=1,2,3,\ldots,N{% endkatex %}, where {% katex %}\Delta x_i=(x_{max}-x_{min})/(N-1){% endkatex %} and
 {% katex %}x_i = x_{min}+(i-1)\Delta x_i{% endkatex %}. This method has disadvantages compared to using
 Inverse CDF sampling on the continuous distribution. First, a bounded range for the samples must
-be assumed when in general the range of the samples can be unbounded.
-The Inverse CDF method can sample an unbounded range. Second, the number of operations required for
-sampling a discrete distribution scales {% katex %}O(N_{samples}N){% endkatex %} while sampling the
+be assumed when in general the range of the samples can be unbounded while the Inverse CDF method can sample an unbounded range.
+Second, the number of operations required for
+sampling a discrete distribution scales {% katex %}O(N_{samples}N){% endkatex %} but sampling the
 continuous distribution is {% katex %}O(N_{samples}){% endkatex %}.
 
 ## Conclusions
 
 An overview of Inverse CDF Sampling has been given. Algorithms for both
 the discrete and continuous cases that required a distribution CDF be invertible were developed
-and shown analytically to produce samples with distributions defined by the CDF. Example implementations of the algorithms for both discrete and continuous distributions were developed. Samples produced by the algorithms
-for example
-target distributions were favorably compared. It was also shown that the continuous sampling algorithm was more performant than the discrete version. The discrete version required {% katex %}O(N_{samples}N){% endkatex %}
+and shown analytically to produce samples with distributions defined by the CDF.
+Example implementations of the algorithms for both distribution cases were developed.
+Samples produced by the algorithms for example target distributions were favorably compared.
+It was also shown that the continuous sampling algorithm was more performant than the discrete version.
+The discrete version required {% katex %}O(N_{samples}N){% endkatex %}
 operations while the continuous version required {% katex %}O(N_{samples}){% endkatex %} operations.
