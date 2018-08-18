@@ -28,7 +28,7 @@ The Markov Chain model is constructed from the set of states
 The process starts at time {% katex %}t=0{% endkatex %} with state {% katex %}X_0=x_i{% endkatex %}.
 At the next step, {% katex %}t=1{% endkatex %}, the process will assume a state
 {% katex %}X_1=x_j{% endkatex %} with probability {% katex %}P(X_1=x_j|X_0=x_i){% endkatex %} since
-it will depend on the previous state {% katex %}x_0{% endkatex %} by the definition of a Markov Process.
+it will depend on the previous state {% katex %}x_0{% endkatex %} as defined for a Markov Process.
 At the next time step {% katex %}t=2{% endkatex %} the process state will be
 {% katex %}X_2=x_k{% endkatex %} with probability,
 {% katex display %}
@@ -87,7 +87,7 @@ satisfy,
 \end{gathered} \ \ \ \ \ (3).
 {% endkatex %}
 
-To determine the equilibrium solution of the distribution of Markov Chain states,
+To determine the equilibrium solution of the distribution of states,
 {% katex %}\{x_1,\ x_2,\ldots,\ x_N\}{% endkatex %}, the distribution time variability must be determined.
 Begin by considering an arbitrary distribution at {% katex %}t=0{% endkatex %}, which can be written as a
 column vector,
@@ -194,7 +194,7 @@ As a result of these constraints the limit {% katex %}t\to\infty{% endkatex %} r
 \lim_{t\to\infty}P^{t}=\lim_{t\to\infty}\lambda^{t}v\ \leq\ \infty.
 {% endkatex %}
 
-To satisfy this constraint {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
+It follows that {% katex %}\lambda\ \leq\ 1 {% endkatex %}. Next,
 it will be shown that {% katex %}\lambda_1=1{% endkatex %} and that a column vector of
 {% katex %}1's{% endkatex %} with {% katex %}N{% endkatex %} rows,
 {% katex display %}
@@ -206,7 +206,7 @@ V_1 =
 1
 \end{pmatrix}\ \ \ \ \ (7),
 {% endkatex %}
-are eigenvalue and eigenvector solutions of equation {% katex %}(6).{% endkatex %}
+are eigenvalue and eigenvector solutions of equation {% katex %}(6){% endkatex %},
 {% katex display %}
 \begin{pmatrix}
 P_{11} & P_{12} & \cdots & P_{1N} \\
@@ -294,14 +294,14 @@ Let {% katex %}\Lambda{% endkatex %} be a diagonal matrix constructed from the e
 \end{pmatrix}.
 {% endkatex %}
 
-Sufficient information about the eigenvalues and eigenvectors has obtained to prove some very
+Sufficient information about the eigenvalues and eigenvectors has been obtained to prove some very
 general results for Markov Chains.
 The following section will work through the equilibrium limit using the using these results
 to construct a diagonalized representation of the matrix.
 
 ### Diagonalization of Transition Matrix
 
-Using the results obtained in the previous section {% katex %}P{% endkatex %} the diagonalized
+Using the results obtained in the previous section the diagonalized
 form of the transition matrix is given by,
 
 {% katex display %}
@@ -359,7 +359,7 @@ so,
 P^{E} = \lim_{t\to\infty} P^{t} = \lim_{t\to\infty} V\Lambda^{t} V^{-1} = V\Lambda^{E}V^{-1}.
 {% endkatex %}
 
-Evaluation of each of the first two terms on the righthand side gives,
+Evaluation of the first two terms on the righthand side gives,
 
 {% katex display %}
 V\Lambda^{E} =
@@ -421,10 +421,9 @@ v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N}
 
 The rows of {% katex %}P^{E}{% endkatex %} are identical and given by the
 first row of the inverse of the matrix of eigenvectors, {% katex %}V^{-1}{% endkatex %},
-of equation {% katex %}(8){% endkatex %}. This row is a consequence of the location of the
-{% katex %}\lambda=1{% endkatex %} eigenvalue in {% katex %}\Lambda{% endkatex %}.
-Since {% katex %}P^{E}{% endkatex %} is a transition
-matrix it must be that,
+from equation {% katex %}(8){% endkatex %}. This row is a consequence of the location of the
+{% katex %}\lambda=1{% endkatex %} eigenvalue and eigenvector in {% katex %}\Lambda{% endkatex %} and {% katex %}V{% endkatex %} respectively. 
+Since {% katex %}P^{E}{% endkatex %} is a transition matrix,
 
 {% katex display %}
 \begin{gathered}
@@ -447,7 +446,7 @@ Consider a distribution {% katex %}\pi_{E}{% endkatex %} that satisfies,
 \pi_{E}^{T} = \pi_{E}^{T}P\ \ \ \ \ (11).
 {% endkatex %}
 
-It is easy to show that {% katex %}\pi_{E}{% endkatex %} is the equilibrium solution
+It is easy to show that {% katex %}\pi_{E}{% endkatex %} is an equilibrium solution
 by substituting it into equation {% katex %}(10){% endkatex %}.
 {% katex display %}
 \begin{aligned}
@@ -508,7 +507,7 @@ v^{-1}_{1N}\sum_{j=1}^{N} \pi_{j}
 \end{aligned}
 {% endkatex %}
 
-since, {% katex %}\sum_{j=1}^{N} \pi_{j} = 1{% endkatex %}, so
+since, {% katex %}\sum_{j=1}^{N} \pi_{j} = 1{% endkatex %},
 
 {% katex display %}
 \pi^{T}P^{E} =
@@ -716,7 +715,7 @@ of the {% katex %}\lambda=1{% endkatex %} component and zeros for all others.
 Here the eigenvectors are ordered differently but the only nonzero component has the
 {% katex %}\lambda=1{% endkatex %} eigenvalue. Finally, equation {% katex %}(9){% endkatex %} is evaluated and
 all rows are identical and equal to {% katex %}\pi_t{% endkatex %} evaluated at
-{% katex %}t=100{% endkatex %}, in agreement with the equilibrium limit determined previously and calculation
+{% katex %}t=100{% endkatex %}, in agreement with the equilibrium limit determined previously and calculations
 performed in the last section shown in equations {% katex %}(15){% endkatex %} and {% katex %}(16){% endkatex %}.
 
 ### Equilibrium Distribution
