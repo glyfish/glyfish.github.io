@@ -26,7 +26,7 @@ and illustrative examples are solved.
 
 <!--more-->
 
-## Properties of Cross Correlation
+## Cross Correlation
 
 Cross Correlation can be understood by considering the [Covariance](https://en.wikipedia.org/wiki/Covariance) of
 two random variables, {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %}, which is the
@@ -57,7 +57,7 @@ These two results are combined in the definition of the
 [Correlation Coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient),
 
 {% katex display %}
-\rho = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}.
+\rho_{XY} = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}.
 {% endkatex %}
 
 The correlation coefficient has a geometric interpretation leading to the conclusion that
@@ -73,7 +73,7 @@ of {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %} of equal length are
 {% katex display %}
 \begin{aligned}
 E[XY]& \approx \frac{1}{N^2}\sum_{n=0}^{N-1}x_n y_n \\
-&\propto \psi_{0},
+&\propto\ \psi_{0},
 \end{aligned}
 {% endkatex %}
 
@@ -94,12 +94,36 @@ or *similarity* of the past and future of a time series. For a time lag of {% ka
 r_0\ \propto\ E\left[X^2\right].
 {% endkatex %}
 
-This leads to the normalization,
+## Discrete Fourier Transform
+
+This section will discuss properties of the Discrete Fourier Transform that are used in following discussions.
+The [Discrete Fourier Transform](https://en.wikipedia.org/wiki/Discrete_Fourier_transform) for a discrete periodic
+time series {% katex %}\{f_0,\ f_1,\ f_2,\ldots,\ f_{N-1}\}{% endkatex %} is defined by,
 
 {% katex display %}
-\gamma_t = \frac{r_t}{r_0}\ \ \ \ \ (4),
+\begin{gathered}
+f_{n} = \frac{1}{N}\sum_{k=0}^{N-1}F_{k}e^{2\pi i (k/N)n} \\
+F_{k} = \sum_{n=0}^{N-1}f_{n}e^{-2\pi i (n/N)k}.
+\end{gathered}\ \ \ \ \ (4)
 {% endkatex %}
 
-where {% katex %}-1\ \leq \gamma_t\ \leq\ 1{% endkatex %}.
+The first of the equations above is referred to the inverse transform and the second the forward transform. Three
+properties of the transform will be discussed here. They are linearity, periodicity and the consequence of assuming
+that {% katex %}f_{n}{% endkatex %} is real.
 
-## Discrete Fourier Transform
+Both the forward and inverse transforms are [Linear Operators](http://mathworld.wolfram.com/LinearOperator.html).
+An operator is linear if the operation on a sum is the sum of the operations. To show this for the forward
+transform consider {% katex %}h_{n}=f_{n}+g_{n}{% endkatex %}, then,
+
+{% katex display %}
+\begin{aligned}
+H_{k} &= \sum_{n=0}^{N-1}h_{n}e^{-2\pi i (n/N)k} \\
+&= \sum_{n=0}^{N-1}\left(f_{n}+g_{n}\right)e^{-2\pi i (n/N)k} \\
+&= \sum_{n=0}^{N-1}f_{n} e^{-2\pi i (n/N)k} + \sum_{n=0}^{N-1} g_{n}e^{-2\pi i (n/N)k} \\
+&= F_{k} + G_{k}.
+\end{aligned}
+{% endkatex %}
+
+Similarly it can be shown that the inverse transform is linear.
+
+Periodicity of the forward transform is implies that, {% katex %}F_{k+mN}=F_{k}{% endkatex %}
