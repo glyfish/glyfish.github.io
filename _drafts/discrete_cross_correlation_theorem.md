@@ -9,11 +9,11 @@ comments: false
 
 The [Cross Correlation Theorem](https://en.wikipedia.org/wiki/Cross-correlation) is similar to the more
 widely known [Convolution Theorem](https://en.wikipedia.org/wiki/Convolution_theorem). The cross correlation
-of two discrete time series is {% katex %}\{x_0,\ x_1,\ x_2,\ldots\,\ x_{N-1}\}{% endkatex %} and
-{% katex %}\{y_0,\ y_1,\ y_2,\ldots\,\ y_{N-1}\}{% endkatex %} is defined by,
+of two discrete time series is {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{N-1}\}{% endkatex %} and
+{% katex %}\{g_0,\ g_1,\ g_2,\ldots\,\ g_{N-1}\}{% endkatex %} is defined by,
 
 {% katex display %}
-\psi_t = \sum_{n=0}^{N-1} x_{n} y_{n+t}\ \ \ \ \ (1),
+\psi_t = \sum_{n=0}^{N-1} f_{n} g_{n+t}\ \ \ \ \ (1),
 {% endkatex %}
 
 where {% katex %}t{% endkatex %} is called the *time lag*. Cross correlation provides a measure of the similarity of two time series when displaced by the time lag. A direct calculation of the cross correlation using the
@@ -98,22 +98,29 @@ r_0\ \propto\ E\left[X^2\right].
 
 This section will discuss properties of the Discrete Fourier Transform that are used in following discussions.
 The [Discrete Fourier Transform](https://en.wikipedia.org/wiki/Discrete_Fourier_transform) for a discrete periodic
-time series {% katex %}\{f_0,\ f_1,\ f_2,\ldots,\ f_{N-1}\}{% endkatex %} is defined by,
+time series of length {% katex %}N{% endkatex %}, {% katex %}\{f_0,\ f_1,\ f_2,\ldots,\ f_{N-1}\}{% endkatex %},
+is defined by,
 
 {% katex display %}
 \begin{gathered}
 f_{n} = \frac{1}{N}\sum_{k=0}^{N-1}F_{k}e^{2\pi i (k/N)n} \\
-F_{k} = \sum_{n=0}^{N-1}f_{n}e^{-2\pi i (n/N)k}.
+F_{k} = \sum_{n=0}^{N-1}f_{n}e^{-2\pi i (n/N)k},
 \end{gathered}\ \ \ \ \ (4)
 {% endkatex %}
 
-The first of the equations above is referred to the inverse transform and the second the forward transform. Three
-properties of the transform will be discussed here. They are linearity, periodicity and the consequence of assuming
-that {% katex %}f_{n}{% endkatex %} is real.
+where the expression for {% katex %}f_{n}{% endkatex %} is referred to the inverse transform and the one for
+{% katex %}F_{k}{% endkatex %} the forward transform. Several properties of the transform are discussed in the following sections.
+
+### Linearity
 
 Both the forward and inverse transforms are [Linear Operators](http://mathworld.wolfram.com/LinearOperator.html).
-An operator is linear if the operation on a sum is the sum of the operations. To show this for the forward
-transform consider {% katex %}h_{n}=f_{n}+g_{n}{% endkatex %}, then,
+An operator, {% katex %}\mathfrak{F}{% endkatex %}, is linear if the operation on a sum is equal the sum of the operations,
+
+{% katex display %}
+\mathfrak{F}(a+b) = \mathfrak{F}(a)+\mathfrak{F}(b)\ \ \ \ \ (5)
+{% endkatex %}
+
+To show this for the forward transform consider {% katex %}h_{n}=f_{n}+g_{n}{% endkatex %}, then,
 
 {% katex display %}
 \begin{aligned}
@@ -126,4 +133,181 @@ H_{k} &= \sum_{n=0}^{N-1}h_{n}e^{-2\pi i (n/N)k} \\
 
 Similarly it can be shown that the inverse transform is linear.
 
-Periodicity of the forward transform is implies that, {% katex %}F_{k+mN}=F_{k}{% endkatex %}
+### Periodicity
+
+Periodicity of the forward transform implies that,
+{% katex display %}
+F_{k+mN}=F_{k}\ \ \ \ \ (6),
+{% endkatex %}
+where {% katex %}m=\{\ldots,-2,\ -1,\ 0,\ 1,\ 2,\ldots\}{% endkatex %}.
+To show that this is true first consider the case
+{% katex %}m=1{% endkatex %},
+
+{% katex display %}
+\begin{aligned}
+F_{k+N} &= \sum_{n=0}^{N} f_{n}e^{-2\pi i (n/N)(k+N)} \\
+&= \sum_{n=0}^{N} f_{n} e^{-2\pi i(n/N)k}e^{-2\pi i n} \\
+&= \sum_{n=0}^{N} f_{n} e^{-2\pi i(n/N)k} \\
+&= F_{k},
+\end{aligned}
+{% endkatex %}
+
+where the second step follows from,
+
+{% katex display %}
+e^{2\pi i n} = 1,\ \forall\ n
+{% endkatex %}
+
+For and arbitrary value of {% katex %}m{% endkatex %},
+{% katex display %}
+\begin{aligned}
+F_{k+mN} &= \sum_{n=0}^{N} f_{n}e^{-2\pi i (n/N)(k+mN)} \\
+&= \sum_{n=0}^{N} f_{n} e^{-2\pi i(n/N)k}e^{-2\pi i nm} \\
+&= \sum_{n=0}^{N} f_{n} e^{-2\pi i(n/N)k} \\
+&= F_{k},
+\end{aligned}
+{% endkatex %}
+
+since,
+
+{% katex display %}
+e^{2\pi i mn} = 1,\ \forall\ m,\ n
+{% endkatex %}
+
+### Consequence Real {% katex %}f_{n}{% endkatex %}
+
+If {% katex %}f_{n}{% endkatex %} is real then {% katex %}f_{n}=f_{n}^{\ast}{% endkatex %}, where
+{% katex %}\ast{% endkatex %} denotes the [Complex Conjugate](https://en.wikipedia.org/wiki/Complex_conjugate).
+It follows that,
+
+{% katex display %}
+\begin{aligned}
+f_{n} &= f_{n}^{\ast} \\
+&= \left\{ \frac{1}{N}\sum_{k=0}^{N-1}F_{k}e^{2\pi i (k/N)n} \right\}^{\ast} \\
+&= \frac{1}{N}\sum_{k=0}^{N-1}F_{k}^{\ast}e^{-2\pi i (k/N)n}
+\end{aligned}\ \ \ \ \ (7)
+{% endkatex %}
+
+Another interesting and related result is that,
+
+{% katex display %}
+F_{-k} = F_{k}^{\ast}\ \ \ \ \ (8).
+{% endkatex %}
+
+which follows from,
+
+{% katex display %}
+\begin{aligned}
+F_{-k} &= \sum_{n=0}^{N-1} f_{n}e^{2\pi i (n/N)k} \\
+&= \sum_{n=0}^{N-1} f_{n}^{\ast}e^{2\pi i (n/N)k} \\
+&= \left\{ \sum_{n=0}^{N-1} f_{n}e^{-2\pi i (n/N)k}\right\}^{\ast} \\
+&=F_{k}^{\ast}.
+\end{aligned}
+{% endkatex %}
+
+## Orthogonality of Fourier Basis
+
+The Discrete Fourier Basis is the collection of functions,
+
+{% katex display %}
+e^{2\pi i(k/N)n}.
+{% endkatex %}
+
+This collection of functions is an [Orthogonal Basis](https://en.wikipedia.org/wiki/Orthogonal_basis) since,
+
+{% katex display %}
+\frac{1}{N} \sum_{n=0}^{N-1} e^{2\pi \left[ (m-k)/N\right] n}\ =\ \delta_{mk} =
+\begin{cases}
+1 & \text{if}\ m\ =\ k \\
+0 & \text{if}\ m\ \ne\  k
+\end{cases}\ \ \ \ \ (9),
+{% endkatex %}
+
+where {% katex %}\delta_{mk}{% endkatex %} is the [Kronecker Delta](https://en.wikipedia.org/wiki/Kronecker_delta).
+This result can be proven by noting that the sum in equation {% katex %}(9){% endkatex %}
+is a [Geometric Series](https://en.wikipedia.org/wiki/Geometric_series),
+
+{% katex display %}
+\frac{1}{N} \sum_{n=0}^{N-1} e^{2\pi i \left[(m-k)/N \right] n} = \frac{1}{N} \frac{1-e^{2\pi i (m-k)}}{1-e^{2\pi i (m-k)/N}}.
+{% endkatex %}
+
+First assume that {% katex %}m\ \ne\ k{% endkatex %}. Since {% katex %}2\pi i(m-k){% endkatex %} is
+always a multiple of {% katex %}2\pi{% endkatex %} it follows that the numerator is zero,
+
+{% katex display %}
+1-e^{2\pi i (m-k)} = 1-1 = 0.
+{% endkatex %}
+
+The denominator is zero only if {% katex %}m-k=lN{% endkatex %} where {% katex %}l{% endkatex %} is
+an integer. This cannot happen since {% katex %}-(N-1)\ \leq m-k\ \leq N-1{% endkatex %}, so,
+
+{% katex display %}
+\sum_{n=0}^{N-1} e^{2\pi \left[ (m-k)/N\right] n}\ =\ 0
+{% endkatex %}
+
+If {% katex %}m=k{% endkatex %} then,
+
+{% katex display %}
+\sum_{n=0}^{N-1} e^{2\pi i \left[(m-k)/N \right] n} = \sum_{n=0}^{N-1} 1 = N,
+{% endkatex %}
+
+this proves that equation {% katex %}(9){% endkatex %} is true.
+
+## The Cross Correlation Theorem
+
+The Cross Correlation Theorem is relationship between the Fourier Transform of the cross correlation,
+{% katex %}\psi_{t}{% endkatex %} defined by equation {% katex %}(1){% endkatex %} and the
+Fourier Transforms of the two time series used in the cross correlation calculation, namely,
+
+{% katex display %}
+\Psi_{k} = F_{k}^{\ast}G_{k}\ \ \ \ \ (10),
+{% endkatex %}
+
+where,
+
+{% katex display %}
+\begin{aligned}
+\Psi_{k} &= \sum_{n=0}^{N-1}\psi_{n}e^{-2\pi i (n/N)k} \\
+F_{k}^{\ast} &= \sum_{n=0}^{N-1}f_{n}e^{2\pi i (n/N)k} \\
+G_{k} &= \sum_{n=0}^{N-1}g_{n}e^{-2\pi i (n/N)k}.
+\end{aligned}
+{% endkatex %}
+
+Now to derive equation {% katex %}(10){% endkatex %} consider the Inverse Fourier Transform of the time
+series {% katex %}f_{n}{% endkatex %} and {% katex %}g_{n+t}{% endkatex %},
+
+{% katex display %}
+\begin{gathered}
+f_{n} = \frac{1}{N}\sum_{k=0}^{N-1}F_{k}^{\ast}e^{-2\pi i (k/N)n} \\
+g_{n+t} = \frac{1}{N}\sum_{k=0}^{N-1}G_{k}e^{2\pi i (k/N)(n+t)},
+\end{gathered}
+{% endkatex %}
+
+where use was made of equation {% katex %}(7){% endkatex %} when writing the inverse transform for
+{% katex %}f_{n}{% endkatex %}.
+
+Substituting these expressions into equation {% katex %}(1){% endkatex %} gives,
+
+{% katex display %}
+\begin{aligned}
+\psi_t &= \sum_{n=0}^{N-1} f_{n} g_{n+t} \\
+&= \sum_{n=0}^{N-1} \left\{   \frac{1}{N}\sum_{k=0}^{N-1}F_{k}^{\ast}e^{-2\pi i (k/N)n} \right\} \left\{ \frac{1}{N}\sum_{m=0}^{N-1}G_{m}e^{2\pi i (m/N)(n+t)} \right\} \\
+&= \frac{1}{N}\sum_{k=0}^{N-1}\sum_{m=0}^{N-1} F_{k}^{\ast}G_{m} e^{2\pi i (t/N)m} \frac{1}{N} \sum_{n=0}^{N-1} e^{2\pi i \left[(m-k)/N \right] n} \\
+&= \frac{1}{N}\sum_{k=0}^{N-1}\sum_{m=0}^{N-1} F_{k}^{\ast}G_{m} e^{2\pi i (t/N)m} \delta_{mk} \\
+&= \frac{1}{N}\sum_{k=0}^{N-1} F_{k}^{\ast}G_{k} e^{2\pi i (t/N)k}.
+\end{aligned}
+{% endkatex %}
+
+Equation {% katex %}(10){% endkatex %} follows by taking the Fourier Transform of the previous result,
+
+{% katex display %}
+\begin{aligned}
+\Psi_{k} &= \sum_{t=0}^{N-1}\psi_{t}e^{-2\pi i (t/N)k} \\
+&= \sum_{t=0}^{N-1} \left\{ \frac{1}{N}\sum_{k=0}^{N-1} F_{k}^{\ast}G_{k} e^{2\pi i (t/N)m} \right\}e^{-2\pi i (t/N)k} \\
+&= \sum_{m=0}^{N-1} F_{m}^{\ast}G_{m} \frac{1}{N} \sum_{t=0}^{N-1} e^{2\pi i \left[(m-k)/N)\right]t} \\
+&= \sum_{m=0}^{N-1} F_{m}^{\ast}G_{m} \delta_{mk} \\
+&= F_{k}^{\ast}G_{k},
+\end{aligned}
+{% endkatex %}
+
+which proves the Cross Correlation Theorem as specified by equation {% katex %}(10){% endkatex %}.
