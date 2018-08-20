@@ -312,16 +312,18 @@ Equation {% katex %}(10){% endkatex %} follows by taking the Fourier Transform o
 
 which proves the Cross Correlation Theorem defined by equation {% katex %}(10){% endkatex %}.
 
-## Cross Correlation Theorem Example
+## Discrete Fourier Transform Example
 
-This section will work through an example calculation of cross correlation which can be worked out by hand.
-The manual calculations will be compared with calculations performed using the FFT library from `numpy`.
+This section will work through an example calculation of a discrete Fourier Transform which can be worked
+out by hand. The manual calculations will be compared with calculations performed using the FFT library
+from `scipy`.
 
-Discrete Fourier Transform of a time series, represented by the column vector {% katex %}f{% endkatex %}, into
-a column vector of Fourier coefficients, {% katex %}F{% endkatex %}, can be represented by the linear equation,
+The Discrete Fourier Transform of a time series, given by the column vector {% katex %}f{% endkatex %},
+into a column vector of Fourier coefficients, {% katex %}\overline{f}{% endkatex %}, can be represented by the linear
+equation,
 
 {% katex display %}
-F = Tf
+\overline{f} = Tf
 {% endkatex %}
 
 Where {% katex %}T{% endkatex %} is the transform matrix computed from the Fourier basis functions.
@@ -343,5 +345,87 @@ T=
 1 & -i & -1 & i \\
 1 & -1 & 1 & -1 \\
 1 & i & -1 & -i
+\end{pmatrix} \ \ \ \ \ (11)
+{% endkatex %}
+
+Assume that example time series is given buy,
+
+{% katex display %}
+f =
+\begin{pmatrix}
+8 \\
+4 \\
+8 \\
+0
+\end{pmatrix}.
+{% endkatex %}
+
+It follows that,
+
+{% katex display %}
+\begin{aligned}
+\begin{pmatrix}
+\overline{f_1} \\
+\overline{f_2} \\
+\overline{f_3} \\
+\overline{f_4}
 \end{pmatrix}
+&=
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+1 & -i & -1 & i \\
+1 & -1 & 1 & -1 \\
+1 & i & -1 & -i
+\end{pmatrix}
+\begin{pmatrix}
+8 \\
+4 \\
+8 \\
+0
+\end{pmatrix} \\
+&=
+\begin{pmatrix}
+20 \\
+-4i \\
+12 \\
+4i
+\end{pmatrix}
+\end{aligned}\ \ \ \ \ (12)
+{% endkatex %}
+
+The Python code listing below uses `fftpack` from `scipy` to confirm the calculation of
+equation {% katex %}(12){% endkatex %}. It first defines the time series example data
+{% katex %}f{% endkatex %}. The Fourier Transform provided by `fftpack` is then used to compute
+{% katex %}\overline{f}{% endkatex %} followed by calculation of the inverse Fourier Transform
+using {% katex %}\overline{f}{% endkatex %}
+
+```python
+In [1]: import numpy
+In [2]: from scipy import fftpack
+
+In [3]: f = numpy.array([8, 4, 8, 0])
+In [4]: f_bar = fftpack.fft(f)
+
+In [5]: f_bar
+Out[5]: array([20.+0.j,  0.-4.j, 12.+0.j,  0.+4.j])
+
+In [6]: fftpack.ifft(f_bar)
+Out[6]: array([8.+0.j, 4.+0.j, 8.+0.j, 0.+0.j])
+```
+
+## Cross Correlation Theorem Example
+
+This section will work through an example calculation of cross correlation using the Cross Correlation Theorem
+with the goal of verifying an implementation of the algorithm in Python. Here use will be made of the
+time series vector {% katex %}f{% endkatex %} and the transform matrix {% katex %}T{% endkatex %}, but another
+time series vector also needs to be considered, let,
+
+{% katex display %}
+g =
+\begin{pmatrix}
+6 \\
+3 \\
+9 \\
+3
+\end{pmatrix}.
 {% endkatex %}
