@@ -251,7 +251,7 @@ If {% katex %}m=k{% endkatex %} then,
 \sum_{n=0}^{N-1} e^{2\pi i \left[(m-k)/N \right] n} = \sum_{n=0}^{N-1} 1 = N,
 {% endkatex %}
 
-this proves that equation {% katex %}(9){% endkatex %} is true.
+this proves that equation {% katex %}(9){% endkatex %}.
 
 ## The Cross Correlation Theorem
 
@@ -310,4 +310,38 @@ Equation {% katex %}(10){% endkatex %} follows by taking the Fourier Transform o
 \end{aligned}
 {% endkatex %}
 
-which proves the Cross Correlation Theorem as specified by equation {% katex %}(10){% endkatex %}.
+which proves the Cross Correlation Theorem defined by equation {% katex %}(10){% endkatex %}.
+
+## Cross Correlation Theorem Example
+
+This section will work through an example calculation of cross correlation which can be worked out by hand.
+The manual calculations will be compared with calculations performed using the FFT library from `numpy`.
+
+Discrete Fourier Transform of a time series, represented by the column vector {% katex %}f{% endkatex %}, into
+a column vector of Fourier coefficients, {% katex %}F{% endkatex %}, can be represented by the linear equation,
+
+{% katex display %}
+F = Tf
+{% endkatex %}
+
+Where {% katex %}T{% endkatex %} is the transform matrix computed from the Fourier basis functions.
+Each row the matrix will be the value of the basis functions used for calculation a Fourier coefficient.
+It is assumed that the time series contains only {% katex %}4{% endkatex %} points so that
+{% katex %}T{% endkatex %} will be a {% katex %}4\times 4{% endkatex %} matrix. The transform
+matrix only depends on the number of elements in the time series vector and is given by,
+
+{% katex display %}
+T=
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+1 & e^{-i\pi/2} & e^{-i\pi} & e^{-i3\pi/2} \\
+1 & e^{-i\pi} & e^{-i2\pi} & e^{-i3\pi} \\
+1 & e^{-i3\pi/2} & e^{-i3\pi} & e^{-i9\pi/2}
+\end{pmatrix} =
+\begin{pmatrix}
+1 & 1 & 1 & 1 \\
+1 & -i & -1 & i \\
+1 & -1 & 1 & -1 \\
+1 & i & -1 & -i
+\end{pmatrix}
+{% endkatex %}
