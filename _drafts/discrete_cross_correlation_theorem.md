@@ -429,3 +429,28 @@ g =
 3
 \end{pmatrix}.
 {% endkatex %}
+
+| {% katex %}n{% endkatex %}      |   |   |   |  0  |  1  |  2 |  3 |
+| :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---:  |
+| {% katex %}f_{n}{% endkatex %}  |   |   |   |  8  |  4  |  8  |  0  |
+| {% katex %}g_{n}{% endkatex %}  |   |   |   |  6  |  3  |  9  |  3  |
+| {% katex %}g_{n+1}{% endkatex %}|   |   | 6 |  3  |  9  |  3  |     |
+| {% katex %}g_{n+2}{% endkatex %}|   | 6 | 3 |  9  |  3  |     |     |
+| {% katex %}g_{n+3}{% endkatex %}| 6 | 3 | 9 |  3  |     |     |     |
+
+{% katex display %}
+\psi =
+\begin{pmatrix}
+8\cdot 6 + 4\cdot 3 + 8\cdot 9 + 3\cdot 0 \\
+8\cdot 3 + 4\cdot 9 + 8\cdot 3 \\
+8\cdot 9 + 4\cdot 3 \\
+8\cdot 3
+\end{pmatrix}
+=
+\begin{pmatrix}
+132 \\
+84 \\
+84 \\
+24
+\end{pmatrix}
+{% endkatex %}
