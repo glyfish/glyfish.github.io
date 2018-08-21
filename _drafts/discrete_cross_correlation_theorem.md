@@ -409,8 +409,8 @@ Out[3]: array([20.+0.j,  0.-4.j, 12.+0.j,  0.+4.j])
 
 This section will work through an example calculation of cross correlation using the Cross Correlation Theorem
 with the goal of verifying an implementation of the algorithm in Python. Here use will be made of the
-time series vector {% katex %}f{% endkatex %} and the transform matrix {% katex %}T{% endkatex %}, but another
-time series vector also needs to be considered, let,
+time series vector {% katex %}f{% endkatex %} and the transform matrix {% katex %}T{% endkatex %}
+discussed in the previous section, but time series vector also needs to be considered, let,
 
 {% katex display %}
 g =
@@ -422,6 +422,19 @@ g =
 \end{pmatrix}.
 {% endkatex %}
 
+First, consider a direct calculation of the cross correlation defined by equation {% katex %}(1){% endkatex %}.
+namely, {% katex %}\psi_t = \sum_{n=0}^{N-1} f_{n} g_{n+t}{% endkatex %}.
+A convenient method of organizing the the calculation is shown in table below. The rows are constructed
+from the all elements of {% katex %}f_{n}{% endkatex %} and the time lagged elements of
+{% katex %}g_{n+t}{% endkatex %} for each value {% katex %}t{% endkatex %}. The column is
+indexed by the element number {% katex %}n{% endkatex %}.
+The time lag shift performed on the vector {% katex %}g_{n+t}{% endkatex %} results in the shown translation of
+the components to the right that increases for each row as the time lag increases. Since the number of elements in
+{% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} is finite the time lag shift will lead to some
+elements not participating in {% katex %}\psi_{t}{% endkatex %} for some time lag values. If there is no element
+in the table at a position the value of {% katex %}f{% endkatex %} or {% katex %}g{% endkatex %} at that position
+is assumed to be {% katex %}0{% endkatex %}.
+
 | {% katex %}n{% endkatex %}      |     |     |     |  0  |  1  |  2  |  3 |
 | :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: |
 | {% katex %}f_{n}{% endkatex %}  |     |     |     |  8  |  4  |  8  |  0  |
@@ -429,6 +442,12 @@ g =
 | {% katex %}g_{n+1}{% endkatex %}|     |     |  6  |  3  |  9  |  3  |     |
 | {% katex %}g_{n+2}{% endkatex %}|     |  6  |  3  |  9  |  3  |     |     |
 | {% katex %}g_{n+3}{% endkatex %}|  6  |  3  |  9  |  3  |     |     |     |
+
+To compute the cross correlation, {% katex %}\psi_t{% endkatex %}, for a value of the time lag,
+{% katex %}t{% endkatex %}, for each value of {% katex %}n{% endkatex %} multiply the value of
+{% katex %}f_{n}{% endkatex %} and {% katex %}g_{n+t}{% endkatex %} summing the results.
+The outcome of performing this calculation is shown as the column vector
+{% katex %}\psi{% endkatex %} where each row corresponds to a different time lag value.
 
 {% katex display %}
 \psi =
@@ -444,7 +463,7 @@ g =
 84 \\
 84 \\
 24
-\end{pmatrix}
+\end{pmatrix}\ \ \ \ \ \ (13)
 {% endkatex %}
 
 | {% katex %}n{% endkatex %}      |  0  |  1  |  2  |  3  |
@@ -528,3 +547,5 @@ array([1.3200000e+02+0.j, 8.4000000e+01+0.j, 8.4000000e+01+0.j,
        2.4000000e+01+0.j, 4.0602442e-15+0.j, 4.8000000e+01+0.j,
        4.8000000e+01+0.j])
 ```
+
+## Autocorrelation
