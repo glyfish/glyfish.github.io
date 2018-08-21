@@ -393,7 +393,7 @@ It follows that,
 \end{aligned}\ \ \ \ \ (12)
 {% endkatex %}
 
-The Python code listing below uses `fftpack` from `scipy` to confirm the calculation of
+The Python code listing below uses the FFT implementation from `numpy` to confirm the calculation of
 equation {% katex %}(12){% endkatex %}. It first defines the time series example data
 {% katex %}f{% endkatex %}. The Fourier Transform provided by `fftpack` is then used to compute
 {% katex %}\overline{f}{% endkatex %} followed by calculation of the inverse Fourier Transform
@@ -401,18 +401,10 @@ using {% katex %}\overline{f}{% endkatex %}
 
 ```python
 In [1]: import numpy
-In [2]: from scipy import fftpack
-
-In [3]: f = numpy.array([8, 4, 8, 0])
-In [4]: f_bar = fftpack.fft(f)
-
-In [5]: f_bar
-Out[5]: array([20.+0.j,  0.-4.j, 12.+0.j,  0.+4.j])
-
-In [6]: fftpack.ifft(f_bar)
-Out[6]: array([8.+0.j, 4.+0.j, 8.+0.j, 0.+0.j])
+In [2]: f = numpy.array([8, 4, 8, 0])
+In [3]: numpy.fft.fft(f)
+Out[3]: array([20.+0.j,  0.-4.j, 12.+0.j,  0.+4.j])
 ```
-
 ## Cross Correlation Theorem Example
 
 This section will work through an example calculation of cross correlation using the Cross Correlation Theorem
@@ -430,18 +422,18 @@ g =
 \end{pmatrix}.
 {% endkatex %}
 
-| {% katex %}n{% endkatex %}      |   |   |   |  0  |  1  |  2 |  3 |
-| :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---:  |
-| {% katex %}f_{n}{% endkatex %}  |   |   |   |  8  |  4  |  8  |  0  |
-| {% katex %}g_{n}{% endkatex %}  |   |   |   |  6  |  3  |  9  |  3  |
-| {% katex %}g_{n+1}{% endkatex %}|   |   | 6 |  3  |  9  |  3  |     |
-| {% katex %}g_{n+2}{% endkatex %}|   | 6 | 3 |  9  |  3  |     |     |
-| {% katex %}g_{n+3}{% endkatex %}| 6 | 3 | 9 |  3  |     |     |     |
+| {% katex %}n{% endkatex %}      |     |     |     |  0  |  1  |  2  |  3 |
+| :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: |
+| {% katex %}f_{n}{% endkatex %}  |     |     |     |  8  |  4  |  8  |  0  |
+| {% katex %}g_{n}{% endkatex %}  |     |     |     |  6  |  3  |  9  |  3  |
+| {% katex %}g_{n+1}{% endkatex %}|     |     |  6  |  3  |  9  |  3  |     |
+| {% katex %}g_{n+2}{% endkatex %}|     |  6  |  3  |  9  |  3  |     |     |
+| {% katex %}g_{n+3}{% endkatex %}|  6  |  3  |  9  |  3  |     |     |     |
 
 {% katex display %}
 \psi =
 \begin{pmatrix}
-8\cdot 6 + 4\cdot 3 + 8\cdot 9 + 3\cdot 0 \\
+8\cdot 6 + 4\cdot 3 + 8\cdot 9 + 0\cdot 3 \\
 8\cdot 3 + 4\cdot 9 + 8\cdot 3 \\
 8\cdot 9 + 4\cdot 3 \\
 8\cdot 3
@@ -454,3 +446,85 @@ g =
 24
 \end{pmatrix}
 {% endkatex %}
+
+| {% katex %}n{% endkatex %}      |  0  |  1  |  2  |  3  |
+| :---: | :---:  | :---:  | :---: | :---: |
+| {% katex %}f_{n}{% endkatex %}  |  8  |  4  |  8  |  0  |
+| {% katex %}g_{n}{% endkatex %}  |  6  |  3  |  9  |  3  |
+| {% katex %}g_{n+1}{% endkatex %}|  3  |  9  |  3  |  6  |
+| {% katex %}g_{n+2}{% endkatex %}|  9  |  3  |  6  |  3  |
+| {% katex %}g_{n+3}{% endkatex %}|  3  |  6  |  3  |  9  |
+
+{% katex display %}
+\psi =
+\begin{pmatrix}
+8\cdot 6 + 4\cdot 3 + 8\cdot 9 + 0\cdot 3 \\
+8\cdot 3 + 4\cdot 9 + 8\cdot 3 + 0\cdot 6 \\
+8\cdot 9 + 4\cdot 3 + 8\cdot 6 + 0\cdot 3 \\
+8\cdot 3 + 4\cdot 6 + 8\cdot 3 + 0\cdot 9
+\end{pmatrix}
+=
+\begin{pmatrix}
+132 \\
+84 \\
+132 \\
+72
+\end{pmatrix}
+{% endkatex %}
+
+```python
+In [1]: import numpy
+In [2]: f = numpy.array([8, 4, 8, 0])
+In [3]: g = numpy.array([6, 3, 9, 3])
+In [4]: f_bar = numpy.fft.fft(f)
+In [5]: g_bar = numpy.fft.fft(g)
+In [6]: numpy.fft.ifft(f_bar * g_bar)
+Out[6]: array([132.+0.j,  72.+0.j, 132.+0.j,  84.+0.j])
+```
+
+| {% katex %}n{% endkatex %}      |     |     |     |  0  |  1  |  2  |  3  |
+| :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: |
+| {% katex %}f_{n}{% endkatex %}  |  0  |  0  |  0  |  8  |  4  |  8  |  0  |
+| {% katex %}g_{n}{% endkatex %}  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |
+| {% katex %}g_{n+1}{% endkatex %}|  0  |  0  |  6  |  3  |  9  |  3  |  0  |
+| {% katex %}g_{n+2}{% endkatex %}|  0  |  6  |  3  |  9  |  3  |  0  |  0  |
+| {% katex %}g_{n+3}{% endkatex %}|  6  |  3  |  9  |  3  |  0  |  0  |  0  |
+| {% katex %}g_{n+4}{% endkatex %}|  3  |  9  |  3  |  0  |  0  |  0  |  6  |
+| {% katex %}g_{n+5}{% endkatex %}|  9  |  3  |  0  |  0  |  0  |  6  |  3  |
+| {% katex %}g_{n+6}{% endkatex %}|  3  |  0  |  0  |  0  |  6  |  3  |  9  |
+
+{% katex display %}
+\psi =
+\begin{pmatrix}
+8\cdot 6 + 4\cdot 3 + 8\cdot 9 + 3\cdot 0 \\
+8\cdot 3 + 4\cdot 9 + 8\cdot 3 + 0\cdot 0 \\
+8\cdot 9 + 4\cdot 3 + 8\cdot 0 + 0\cdot 0 \\
+8\cdot 3 + 4\cdot 0 + 8\cdot 0 + 0\cdot 0 \\
+8\cdot 0 + 4\cdot 0 + 8\cdot 0 + 0\cdot 3 \\
+8\cdot 0 + 4\cdot 0 + 8\cdot 6 + 0\cdot 3 \\
+8\cdot 0 + 4\cdot 6 + 8\cdot 3 + 0\cdot 9
+\end{pmatrix}
+=
+\begin{pmatrix}
+132 \\
+84 \\
+84 \\
+24 \\
+0 \\
+48 \\
+48
+\end{pmatrix}
+{% endkatex %}
+
+```python
+In [1]: import numpy
+In [2]: f = numpy.array([8, 4, 8, 0])
+In [3]: g = numpy.array([6, 3, 9, 3])
+In [4]: f_bar = numpy.fft.fft(numpy.concatenate((f, numpy.zeros(len(f)-1))))
+In [5]: g_bar = numpy.fft.fft(numpy.concatenate((g, numpy.zeros(len(g)-1))))
+In [6]: numpy.fft.ifft(numpy.conj(f_bar) * g_bar)
+Out[7]:
+array([1.3200000e+02+0.j, 8.4000000e+01+0.j, 8.4000000e+01+0.j,
+       2.4000000e+01+0.j, 4.0602442e-15+0.j, 4.8000000e+01+0.j,
+       4.8000000e+01+0.j])
+```
