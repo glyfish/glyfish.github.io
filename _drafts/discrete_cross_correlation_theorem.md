@@ -16,7 +16,8 @@ of two discrete time series is {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{N-1}\}{
 \psi_t = \sum_{n=0}^{N-1} f_{n} g_{n+t}\ \ \ \ \ (1),
 {% endkatex %}
 
-where {% katex %}t{% endkatex %} is called the *time lag*. Cross correlation provides a measure of the similarity of two time series when displaced by the time lag. A direct calculation of the cross correlation using the
+where {% katex %}t{% endkatex %} is called the *time lag*. Cross correlation provides a measure of the similarity
+of two time series when displaced by the time lag. A direct calculation of the cross correlation using the
 equation above requires {% katex %}O(N^2){% endkatex %} operations. The Cross Correlation Theorem
 provides a method for calculating cross correlation requiring {% katex %}O(NlogN){% endkatex %}
 operations by use of the
@@ -210,10 +211,10 @@ F_{-k} &= \sum_{n=0}^{N-1} f_{n}e^{2\pi i (n/N)k} \\
 The Discrete Fourier Basis is the collection of functions,
 
 {% katex display %}
-e^{2\pi i(k/N)n}.
+\left\{e^{2\pi i(k/N)n}\right\}\,
 {% endkatex %}
 
-This collection of functions is an [Orthogonal Basis](https://en.wikipedia.org/wiki/Orthogonal_basis) since,
+ where {% katex %}n = 0,\ 1,\ 2,\ldots,N-1{% endkatex %}. It forms an [Orthogonal Basis](https://en.wikipedia.org/wiki/Orthogonal_basis) since,
 
 {% katex display %}
 \frac{1}{N} \sum_{n=0}^{N-1} e^{2\pi \left[ (m-k)/N\right] n}\ =\ \delta_{mk} =
@@ -422,20 +423,43 @@ g =
 \end{pmatrix}.
 {% endkatex %}
 
-First, consider a direct calculation of the cross correlation defined by equation {% katex %}(1){% endkatex %}.
-namely, {% katex %}\psi_t = \sum_{n=0}^{N-1} f_{n} g_{n+t}{% endkatex %}.
-A convenient method of organizing the the calculation is shown in table below. The rows are constructed
-from the all elements of {% katex %}f_{n}{% endkatex %} and the time lagged elements of
-{% katex %}g_{n+t}{% endkatex %} for each value {% katex %}t{% endkatex %}. The column is
-indexed by the element number {% katex %}n{% endkatex %}.
-The time lag shift performed on the vector {% katex %}g_{n+t}{% endkatex %} results in the shown translation of
-the components to the right that increases for each row as the time lag increases. Since the number of elements in
+First, consider a direct calculation of the cross correlation defined by equation {% katex %}(1){% endkatex %},
+{% katex %}\psi_t = \sum_{n=0}^{N-1} f_{n} g_{n+t}{% endkatex %}. The following python function
+`cross_correlate_sum(x, y)` implements the required summation.
+
+```python
+In [1]: import numpy
+In [2]: def cross_correlate_sum(x, y):
+   ...:     n = len(x)
+   ...:     correlation = numpy.zeros(len(x))
+   ...:     for t in range(n):
+   ...:         for k in range(0, n - t):
+   ...:             correlation[t] += x[k] * y[k + t]
+   ...:     return correlation
+   ...:
+
+In [3]: f = numpy.array([8, 4, 8, 0])
+In [4]: g = numpy.array([6, 3, 9, 3])
+In [5]: cross_correlate_sum(f, g)
+Out[5]: array([132.,  84.,  84.,  24.])
+```
+
+`cross_correlate_sum(x, y)` takes two vectors, `x` and `y`, as arguments. It assumes that `x` and `y` are equal length and
+after allocating storage for the result performs the double summation required to compute the cross correlation for all possible time
+lags, returning the result. It is also seen that {% katex %}O(N^2){% endkatex %} operations are required to perform the calculation, where
+{% katex %}N{% endkatex %} is the length of the input vectors.
+
+To verify following results a manual evaluation is helpful. A method of organizing the calculation to facilitate  
+this is shown in table below. The table rows are constructed from the all elements of {% katex %}f_{n}{% endkatex %} and the time lagged
+elements of {% katex %}g_{n+t}{% endkatex %} for each value {% katex %}t{% endkatex %}. The column is indexed by the element number
+{% katex %}n{% endkatex %}. The time lag shift performed on the vector {% katex %}g_{n+t}{% endkatex %} results
+in the translation of the components to the left that increases for each row as the time lag increases. Since the number of elements in
 {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} is finite the time lag shift will lead to some
 elements not participating in {% katex %}\psi_{t}{% endkatex %} for some time lag values. If there is no element
 in the table at a position the value of {% katex %}f{% endkatex %} or {% katex %}g{% endkatex %} at that position
 is assumed to be {% katex %}0{% endkatex %}.
 
-| {% katex %}n{% endkatex %}      |     |     |     |  0  |  1  |  2  |  3 |
+| {% katex %}n{% endkatex %}      | -3  | -2  | -1  |  0  |  1  |  2  |  3 |
 | :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: |
 | {% katex %}f_{n}{% endkatex %}  |     |     |     |  8  |  4  |  8  |  0  |
 | {% katex %}g_{n}{% endkatex %}  |     |     |     |  6  |  3  |  9  |  3  |
@@ -443,11 +467,11 @@ is assumed to be {% katex %}0{% endkatex %}.
 | {% katex %}g_{n+2}{% endkatex %}|     |  6  |  3  |  9  |  3  |     |     |
 | {% katex %}g_{n+3}{% endkatex %}|  6  |  3  |  9  |  3  |     |     |     |
 
-To compute the cross correlation, {% katex %}\psi_t{% endkatex %}, for a value of the time lag,
-{% katex %}t{% endkatex %}, for each value of {% katex %}n{% endkatex %} multiply the value of
-{% katex %}f_{n}{% endkatex %} and {% katex %}g_{n+t}{% endkatex %} summing the results.
-The outcome of performing this calculation is shown as the column vector
-{% katex %}\psi{% endkatex %} where each row corresponds to a different time lag value.
+The cross correlation, {% katex %}\psi_t{% endkatex %}, for a value of the time lag,
+{% katex %}t{% endkatex %}, is computed for each value of {% katex %}n{% endkatex %} by multiplication
+of each value of {% katex %}f_{n}{% endkatex %} and {% katex %}g_{n+t}{% endkatex %} and summing the results.
+The outcome of this calculation is shown as the column vector
+{% katex %}\psi{% endkatex %} below where each row corresponds to a different time lag value.
 
 {% katex display %}
 \psi =
@@ -466,6 +490,15 @@ The outcome of performing this calculation is shown as the column vector
 \end{pmatrix}\ \ \ \ \ \ (13)
 {% endkatex %}
 
+The result is the same as determined by `cross_correlate_sum`.
+
+Now that an expectation of a result is established it can be compared with the
+a calculation using using the Cross Correlation Theorem from equation {% katex %}10{% endkatex %}
+where {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} are represented by Discrete Fourier
+Series. It was previously shown that the Fourier representation are simplicity periodic, see
+equation {% katex %}(10){% endkatex %}. It follows that the time lag shifts of
+{% katex %}g_{n+t}{% endkatex %} will by cyclic as shown in the calculation table below.
+
 | {% katex %}n{% endkatex %}      |  0  |  1  |  2  |  3  |
 | :---: | :---:  | :---:  | :---: | :---: |
 | {% katex %}f_{n}{% endkatex %}  |  8  |  4  |  8  |  0  |
@@ -473,6 +506,8 @@ The outcome of performing this calculation is shown as the column vector
 | {% katex %}g_{n+1}{% endkatex %}|  3  |  9  |  3  |  6  |
 | {% katex %}g_{n+2}{% endkatex %}|  9  |  3  |  6  |  3  |
 | {% katex %}g_{n+3}{% endkatex %}|  3  |  6  |  3  |  9  |
+
+Performing the calculation following the steps previously described has the following outcome,
 
 {% katex display %}
 \psi =
@@ -488,8 +523,13 @@ The outcome of performing this calculation is shown as the column vector
 84 \\
 132 \\
 72
-\end{pmatrix}
+\end{pmatrix}.
 {% endkatex %}
+
+This is different from what was obtained from a direct evaluation of the cross correlation sum. Even though
+the result is different the calculation could be correct since periodicity of {% katex %}f{% endkatex %}
+and {% katex %}g{% endkatex %} was not assumed when the sum was evaluated. Below a calculation
+using the Cross Correlation Theorem implemented in Python is shown.
 
 ```python
 In [1]: import numpy
@@ -501,7 +541,15 @@ In [6]: numpy.fft.ifft(f_bar * g_bar)
 Out[6]: array([132.+0.j,  72.+0.j, 132.+0.j,  84.+0.j])
 ```
 
-| {% katex %}n{% endkatex %}      |     |     |     |  0  |  1  |  2  |  3  |
+In the calculation {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} are defined and their Fourier Transforms
+are computed. The Cross Correlation Theorem is then used to compute the Fourier Transform of the cross correlation,
+{% katex %}\psi_t{% endkatex %}, which is then inverted. The result obtained is the same as obtained in the
+manual calculation verifying the results. Since the calculations seem to be correct the problem must be that
+periodicity of the Fourier representations {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} was
+not handled properly. This analysis *artifact* is called [Aliasing](https://en.wikipedia.org/wiki/Aliasing) .
+The following example attempts to correct for this issue.
+
+| {% katex %}n{% endkatex %}      | -3  | -2  | -1  |  0  |  1  |  2  |  3  |
 | :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: |
 | {% katex %}f_{n}{% endkatex %}  |  0  |  0  |  0  |  8  |  4  |  8  |  0  |
 | {% katex %}g_{n}{% endkatex %}  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |
@@ -546,6 +594,18 @@ Out[7]:
 array([1.3200000e+02+0.j, 8.4000000e+01+0.j, 8.4000000e+01+0.j,
        2.4000000e+01+0.j, 4.0602442e-15+0.j, 4.8000000e+01+0.j,
        4.8000000e+01+0.j])
+```
+
+```python
+def cross_correlate(x, y):
+    n = len(x)
+    x_padded = numpy.concatenate((x, numpy.zeros(n-1)))
+    y_padded = numpy.concatenate((y, numpy.zeros(n-1)))
+    x_fft = numpy.fft.fft(x_padded)
+    y_fft = numpy.fft.fft(y_padded)
+    h_fft = numpy.conj(x_fft) * y_fft
+    cc = numpy.fft.ifft(h_fft)
+    return cc[0:n]
 ```
 
 ## Autocorrelation
