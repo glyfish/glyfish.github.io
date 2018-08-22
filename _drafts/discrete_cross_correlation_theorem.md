@@ -459,7 +459,7 @@ elements not participating in {% katex %}\psi_{t}{% endkatex %} for some time la
 in the table at a position the value of {% katex %}f{% endkatex %} or {% katex %}g{% endkatex %} at that position
 is assumed to be {% katex %}0{% endkatex %}.
 
-| {% katex %}n{% endkatex %}      | -3  | -2  | -1  |  0  |  1  |  2  |  3 |
+| {% katex %}n{% endkatex %}      |     |     |     |  0  |  1  |  2  |  3 |
 | :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: |
 | {% katex %}f_{n}{% endkatex %}  |     |     |     |  8  |  4  |  8  |  0  |
 | {% katex %}g_{n}{% endkatex %}  |     |     |     |  6  |  3  |  9  |  3  |
@@ -546,19 +546,27 @@ are computed. The Cross Correlation Theorem is then used to compute the Fourier 
 {% katex %}\psi_t{% endkatex %}, which is then inverted. The result obtained is the same as obtained in the
 manual calculation verifying the results. Since the calculations seem to be correct the problem must be that
 periodicity of the Fourier representations {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} was
-not handled properly. This analysis *artifact* is called [Aliasing](https://en.wikipedia.org/wiki/Aliasing) .
-The following example attempts to correct for this issue.
+not handled properly. This analysis *artifact* is called [Aliasing](https://en.wikipedia.org/wiki/Aliasing).
+The following example attempts to correct for this problem.
 
-| {% katex %}n{% endkatex %}      | -3  | -2  | -1  |  0  |  1  |  2  |  3  |
-| :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: |
-| {% katex %}f_{n}{% endkatex %}  |  0  |  0  |  0  |  8  |  4  |  8  |  0  |
-| {% katex %}g_{n}{% endkatex %}  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |
-| {% katex %}g_{n+1}{% endkatex %}|  0  |  0  |  6  |  3  |  9  |  3  |  0  |
-| {% katex %}g_{n+2}{% endkatex %}|  0  |  6  |  3  |  9  |  3  |  0  |  0  |
-| {% katex %}g_{n+3}{% endkatex %}|  6  |  3  |  9  |  3  |  0  |  0  |  0  |
-| {% katex %}g_{n+4}{% endkatex %}|  3  |  9  |  3  |  0  |  0  |  0  |  6  |
-| {% katex %}g_{n+5}{% endkatex %}|  9  |  3  |  0  |  0  |  0  |  6  |  3  |
-| {% katex %}g_{n+6}{% endkatex %}|  3  |  0  |  0  |  0  |  6  |  3  |  9  |
+The cross correlation calculation table for periodic {% katex %}f{% endkatex %} and
+{% katex %}g{% endkatex %} can be made to resemble the table for the nonperiodic case by
+padding the end of the vectors with {% katex %}N-1{% endkatex %} zeros, where {% katex %}N{% endkatex %} is
+the vector length, creating a new periodic vector of length {% katex %}2N-1{% endkatex %}. This
+new construction is shown below.
+
+| {% katex %}n{% endkatex %}      |     |     |     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
+| :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: | :---: | :---: | :---: | :---: |
+| {% katex %}f_{n}{% endkatex %}  |     |     |     |  8  |  4  |  8  |  0  |  0  |  0  |  0  |
+| {% katex %}g_{n}{% endkatex %}  |     |     |     |  6  |  3  |  9  |  3  |  0  |  0  |  0  |
+| {% katex %}g_{n+1}{% endkatex %}|     |     |  6  |  3  |  9  |  3  |  0  |  0  |  0  |  6  |
+| {% katex %}g_{n+2}{% endkatex %}|     |  6  |  3  |  9  |  3  |  0  |  0  |  0  |  6  |  3  |
+| {% katex %}g_{n+3}{% endkatex %}|  6  |  3  |  9  |  3  |  0  |  0  |  0  |  6  |  3  |  9  |
+| {% katex %}g_{n+4}{% endkatex %}|  3  |  9  |  3  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |
+| {% katex %}g_{n+5}{% endkatex %}|  9  |  3  |     |  0  |  0  |  6  |  3  |  9  |  3  |  0  |
+| {% katex %}g_{n+6}{% endkatex %}|  3  |     |     |  0  |  6  |  3  |  9  |  3  |  0  |  0  |
+
+The manual calculation of {% katex %}\psi_{t}{% endkatex %} follows,
 
 {% katex display %}
 \psi =
@@ -583,6 +591,11 @@ The following example attempts to correct for this issue.
 \end{pmatrix}
 {% endkatex %}
 
+The first {% katex %}N{% endkatex %} elements of this result are the same as obtained calculating the sum
+directly. The same result is achieved by discarding the last {% katex %}N-1{% endkatex %} elements.
+Verification is shown below where the previous example is extended by padding the tail of both
+{% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} with three zeros.
+
 ```python
 In [1]: import numpy
 In [2]: f = numpy.array([8, 4, 8, 0])
@@ -595,6 +608,7 @@ array([1.3200000e+02+0.j, 8.4000000e+01+0.j, 8.4000000e+01+0.j,
        2.4000000e+01+0.j, 4.0602442e-15+0.j, 4.8000000e+01+0.j,
        4.8000000e+01+0.j])
 ```
+The following function, `cross_correlate(x, y)`, generalizes the calculation to vectors of arbitrary but equal lengths.
 
 ```python
 def cross_correlate(x, y):
