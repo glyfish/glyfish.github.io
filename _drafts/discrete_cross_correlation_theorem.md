@@ -9,7 +9,7 @@ comments: false
 
 The [Cross Correlation Theorem](https://en.wikipedia.org/wiki/Cross-correlation) is similar to the more
 widely known [Convolution Theorem](https://en.wikipedia.org/wiki/Convolution_theorem). The cross correlation
-of two discrete time series is {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{N-1}\}{% endkatex %} and
+of two discrete finite time series is {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{N-1}\}{% endkatex %} and
 {% katex %}\{g_0,\ g_1,\ g_2,\ldots\,\ g_{N-1}\}{% endkatex %} is defined by,
 
 {% katex display %}
@@ -557,14 +557,14 @@ new construction is shown below.
 
 | {% katex %}n{% endkatex %}      |     |     |     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |
 | :---: | :---:  | :---:  | :---: | :---:  | :---:  | :---: | :---: | :---: | :---: | :---: | :---: |
-| {% katex %}f_{n}{% endkatex %}  |     |     |     |  8  |  4  |  8  |  0  |  0  |  0  |  0  |
+| {% katex %}f_{n}{% endkatex %}  |     |     |     |  8  |  4  |  8  |  0  |     |     |     |
 | {% katex %}g_{n}{% endkatex %}  |     |     |     |  6  |  3  |  9  |  3  |  0  |  0  |  0  |
 | {% katex %}g_{n+1}{% endkatex %}|     |     |  6  |  3  |  9  |  3  |  0  |  0  |  0  |  6  |
 | {% katex %}g_{n+2}{% endkatex %}|     |  6  |  3  |  9  |  3  |  0  |  0  |  0  |  6  |  3  |
 | {% katex %}g_{n+3}{% endkatex %}|  6  |  3  |  9  |  3  |  0  |  0  |  0  |  6  |  3  |  9  |
 | {% katex %}g_{n+4}{% endkatex %}|  3  |  9  |  3  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |
-| {% katex %}g_{n+5}{% endkatex %}|  9  |  3  |     |  0  |  0  |  6  |  3  |  9  |  3  |  0  |
-| {% katex %}g_{n+6}{% endkatex %}|  3  |     |     |  0  |  6  |  3  |  9  |  3  |  0  |  0  |
+| {% katex %}g_{n+5}{% endkatex %}|  9  |  3  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |  0  |
+| {% katex %}g_{n+6}{% endkatex %}|  3  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |  0  |  0  |
 
 The manual calculation of {% katex %}\psi_{t}{% endkatex %} follows,
 
@@ -623,3 +623,15 @@ def cross_correlate(x, y):
 ```
 
 ## Autocorrelation
+
+The autocorrelation, defined by equation {% katex %}(3){% endkatex %}, is the special case of the
+cross correlation of a time series with itself, that provides a measure of the *dependence* or
+*similarity* of its past and future. The analog of the Cross Correlation Theorem for autocorrelation is
+given by,
+
+{% katex display %}
+R_{k} = F^{*}_{k}F_{k} = {\mid F_{k} \mid}^{2}.
+{% endkatex %}
+
+{% katex %}R_{k}{% endkatex %} is the *weight* of each of the coefficients in the Fourier Series
+representation of the time series known as the [Power Spectrum](https://en.wikipedia.org/wiki/Spectral_density).
