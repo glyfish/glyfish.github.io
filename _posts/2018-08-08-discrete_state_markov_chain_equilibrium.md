@@ -739,8 +739,8 @@ for the example distribution in equation {% katex %}(14){% endkatex %} is shown.
 {% endkatex %}
 
 This system of equations is solved using the least squares method provided by the `numpy` linear
-algebra library. This library requires the use of the transpose of the above equation.
-The first line below computes this transpose using equation {% katex %}(14){% endkatex %}.
+algebra library, which requires the use of the transpose of the above equation.
+The first line below computes it using equation {% katex %}(14){% endkatex %}.
 
 ```shell
 In [18]: E = numpy.concatenate((p.T - numpy.eye(4), [numpy.ones(4)]))
@@ -798,11 +798,11 @@ for x0 in π_samples:
   chain_samples = numpy.append(chain_samples, sample_chain(t, x0, nsamples))
 ```
 
-The function `sample_chain` performs the simulation. It uses
+The function `sample_chain` performs the simulation and uses
 [Inverse CDF Sampling]({{ site.baseurl }}{% link _posts/2018-07-21-inverse_cdf_sampling.md %}) on the
-discrete distribution obtained from the transition matrix defined by equation {% katex %}(14){% endkatex %}
-for the state at step {% katex %}t{% endkatex %} to determine the state for the next time step,
-{% katex %}t+1{% endkatex %}. The following code uses `sample_chain` to generate and ensemble of
+discrete distribution obtained from the transition matrix defined by equation {% katex %}(14){% endkatex %}. 
+The transition matrix determines state at step {% katex %}t+1{% endkatex %} from the state at step 
+{% katex %}t{% endkatex %}. The following code uses `sample_chain` to generate and ensemble of
 simulations with the initial state also sampled from an assumed initial distribution.
 First, simulation parameters are defined and the initial distribution is assumed to be uniform.
 Second, `π_nsamples` of the initial state are generated using Inverse CDF sampling with the
@@ -810,7 +810,7 @@ initial distribution. Finally, simulations of length `nsamples` are performed fo
 The ensemble of samples are collected in the variable `chain_samples` and plotted below. A comparison
 is made with the two other calculations performed. The first is {% katex %}\pi_t{% endkatex %} for
 {% katex %}t=100{% endkatex %} shown in equation {% katex %}(16){% endkatex %} and the second
-the previous solution to equation {% katex %}(9){% endkatex %}. The different
+the solution to equation {% katex %}(9){% endkatex %}. The different
 calculations are indistinguishable.
 
 <div style="text-align:center;">
