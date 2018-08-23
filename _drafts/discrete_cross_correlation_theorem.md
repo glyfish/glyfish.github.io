@@ -628,7 +628,8 @@ R_{k} = F^{\ast}_{k}F_{k} = {\mid F_{k} \mid}^{2}\ \ \ \ \ (14).
 {% katex %}R_{k}{% endkatex %} is the *weight* of each of the coefficients in the Fourier Series
 representation of the time series and is known as the [Power Spectrum](https://en.wikipedia.org/wiki/Spectral_density).
 
-When discussing the autocorrelation of a time series {% katex %}f{% endkatex %} the Autocorrelation Coefficient is usually used, namely,
+When discussing the autocorrelation of a time series {% katex %}f{% endkatex %} the Autocorrelation Coefficient is
+useful,
 
 {% katex display %}
 \begin{aligned}
@@ -637,7 +638,8 @@ When discussing the autocorrelation of a time series {% katex %}f{% endkatex %} 
 {% endkatex %}
 
 where {% katex %}\mu_{f}{% endkatex %} and {% katex %}\sigma_{f}{% endkatex %} are the time series mean and
-standard deviation respectively. Below a Python implementation of the autocorrelation coefficient is given.
+standard deviation respectively. Below a Python implementation calculating the autocorrelation coefficient
+is given.
 
 ```python
 def autocorrelate(x):
@@ -649,15 +651,46 @@ def autocorrelate(x):
     ac = numpy.fft.ifft(r_fft)
     return ac[0:n]/ac[0]
 ```
-`autocorrelate(x)` takes a single argument, `x` that is the time series used in the calculation. The function first shifts
+
+`autocorrelate(x)` takes a single argument, `x`, that is the time series used in the calculation.
+The function first shifts
 `x` by its mean, then adds padding to remove aliasing and computes its FFT. Equation {% katex %}(14){% endkatex %} is
 next used to compute the Discrete Fourier Transform of the autocorrelation which is inverted. The final result is
 normalized by the zero lag autocorrelation which equals {% katex %}\sigma_f{% endkatex %}.
 
-The following sections will discuss calculation of the
-[equilibrium]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) autocorrelation for the
-autoregressive process [AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model) and compare the result with simulations.
-
 ### AR(1) Equilibrium Autocorrelation
 
+The equilibrium properties of AR(1) are discussed in some detail in the post,
+[Continuous State Markov Chain Equilibrium]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) The process is defined by the difference equation,
+
+{% katex display %}
+X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (15),
+{% endkatex %}
+
+where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon{t}{% endkatex %} are identically
+distributed independent {% katex %}\textbf{Normal}{% endkatex %} random variables with zero mean and variance, {% katex %}\sigma^2{% endkatex %}. [It can be shown]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) that for an arbitrary value of
+{% katex %}t{% endkatex %}
+
+{% katex display %}
+X_t = \alpha^t X_0 + \sum_{i=1}^{t} \alpha^{t-i} \varepsilon_{i}\ \ \ \ \ (16).
+{% endkatex %}
+
 ### AR(1) Simulations
+
+```python
+def ar_1_series(α, σ, x0=0.0, nsamples=100):
+    samples = numpy.zeros(nsamples)
+    ε = numpy.random.normal(0.0, σ, nsamples)
+    samples[0] = x0
+    for i in range(1, nsamples):
+        samples[i] = α * samples[i-1] + ε[i]
+    return samples
+```
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/discrete_cross_correlation_theorem/ar1_alpha_sample_comparison.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/discrete_cross_correlation_theorem/ar1_alpha_equilibrium_autocorrelation_comparison.png">
+</div>
