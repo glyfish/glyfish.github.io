@@ -153,11 +153,7 @@ F_{k+N} &= \sum_{n=0}^{N} f_{n}e^{-2\pi i (n/N)(k+N)} \\
 \end{aligned}
 {% endkatex %}
 
-where the second step follows from,
-
-{% katex display %}
-e^{2\pi i n} = 1,\ \forall\ n
-{% endkatex %}
+where the second step follows from, {% katex %}e^{2\pi i n} = 1,\ \forall\ n{% endkatex %}.
 
 For and arbitrary value of {% katex %}m{% endkatex %},
 {% katex display %}
@@ -169,11 +165,7 @@ F_{k+mN} &= \sum_{n=0}^{N} f_{n}e^{-2\pi i (n/N)(k+mN)} \\
 \end{aligned}
 {% endkatex %}
 
-since,
-
-{% katex display %}
-e^{2\pi i mn} = 1,\ \forall\ m,\ n
-{% endkatex %}
+since, {% katex %}e^{2\pi i mn} = 1,\ \forall\ m,\ n{% endkatex %}.
 
 ### Consequence Real {% katex %}f_{n}{% endkatex %}
 
@@ -625,13 +617,47 @@ def cross_correlate(x, y):
 ## Autocorrelation
 
 The autocorrelation, defined by equation {% katex %}(3){% endkatex %}, is the special case of the
-cross correlation of a time series with itself, that provides a measure of the *dependence* or
+cross correlation of a time series with itself. It provides a measure of the *dependence* or
 *similarity* of its past and future. The analog of the Cross Correlation Theorem for autocorrelation is
 given by,
 
 {% katex display %}
-R_{k} = F^{*}_{k}F_{k} = {\mid F_{k} \mid}^{2}.
+R_{k} = F^{\ast}_{k}F_{k} = {\mid F_{k} \mid}^{2}\ \ \ \ \ (14).
 {% endkatex %}
 
 {% katex %}R_{k}{% endkatex %} is the *weight* of each of the coefficients in the Fourier Series
-representation of the time series known as the [Power Spectrum](https://en.wikipedia.org/wiki/Spectral_density).
+representation of the time series and is known as the [Power Spectrum](https://en.wikipedia.org/wiki/Spectral_density).
+
+When discussing the autocorrelation of a time series {% katex %}f{% endkatex %} the Autocorrelation Coefficient is usually used, namely,
+
+{% katex display %}
+\begin{aligned}
+\gamma_{t} &= \frac{1}{\sigma_{f}^2}\sum_{n=0}^{N-1} \left(f_{n} - \mu_f \right) \left(f_{n+t} - \mu_f\right),
+  \end{aligned}
+{% endkatex %}
+
+where {% katex %}\mu_{f}{% endkatex %} and {% katex %}\sigma_{f}{% endkatex %} are the time series mean and
+standard deviation respectively. Below a Python implementation of the autocorrelation coefficient is given.
+
+```python
+def autocorrelate(x):
+    n = len(x)
+    x_shifted = x - x.mean()
+    x_padded = numpy.concatenate((x_shifted, numpy.zeros(n-1)))
+    x_fft = numpy.fft.fft(x_padded)
+    r_fft = numpy.conj(x_fft) * x_fft
+    ac = numpy.fft.ifft(r_fft)
+    return ac[0:n]/ac[0]
+```
+`autocorrelate(x)` takes a single argument, `x` that is the time series used in the calculation. The function first shifts
+`x` by its mean, then adds padding to remove aliasing and computes its FFT. Equation {% katex %}(14){% endkatex %} is
+next used to compute the Discrete Fourier Transform of the autocorrelation which is inverted. The final result is
+normalized by the zero lag autocorrelation which equals {% katex %}\sigma_f{% endkatex %}.
+
+The following sections will discuss calculation of the
+[equilibrium]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) autocorrelation for the
+autoregressive process [AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model) and compare the result with simulations.
+
+### AR(1) Equilibrium Autocorrelation
+
+### AR(1) Simulations
