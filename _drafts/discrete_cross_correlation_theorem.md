@@ -660,19 +660,65 @@ normalized by the zero lag autocorrelation which equals {% katex %}\sigma_f{% en
 
 ### AR(1) Equilibrium Autocorrelation
 
-The equilibrium properties of AR(1) are discussed in some detail in the post,
-[Continuous State Markov Chain Equilibrium]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) The process is defined by the difference equation,
+The equilibrium properties of the AR(1) random process are discussed in some detail in
+[Continuous State Markov Chain Equilibrium]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}).
+It is defined by the difference equation,
 
 {% katex display %}
 X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (15),
 {% endkatex %}
 
 where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon{t}{% endkatex %} are identically
-distributed independent {% katex %}\textbf{Normal}{% endkatex %} random variables with zero mean and variance, {% katex %}\sigma^2{% endkatex %}. [It can be shown]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) that for an arbitrary value of
-{% katex %}t{% endkatex %}
+distributed independent {% katex %}\textbf{Normal}{% endkatex %} random variables with zero mean and variance, {% katex %}\sigma^2{% endkatex %}.
 
 {% katex display %}
 X_t = \alpha^t X_0 + \sum_{i=1}^{t} \alpha^{t-i} \varepsilon_{i}\ \ \ \ \ (16).
+{% endkatex %}
+
+In a [previous post]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) it was shown that the
+equilibrium mean and standard deviation, {% katex %}\mu_E{% endkatex %} and {% katex %}\sigma_E{% endkatex %} are given by,
+
+{% katex display %}
+\begin{gathered}
+\mu_{E} = 0 \\
+\sigma_{E} = \frac{\sigma^2}{1 - \alpha^2}.
+\end{gathered}
+{% endkatex %}
+
+The equilibrium autocorrelation with time lag {% katex %}\tau{% endkatex %} is defined by,
+
+{% katex display %}
+r_{\tau}^{E} = \lim_{t\to\infty} E\left[X_t X_{t+\tau} \right]
+{% endkatex %}
+
+If {% katex %}(16){% endkatex %} is used to evaluate a few steps beyond an arbitrary time {% katex %}t{% endkatex %}
+it is seen that,
+
+{% katex display %}
+\begin{aligned}
+X_{t+1} &= \alpha X_t + \varepsilon_{t+1} \\
+X_{t+2} &= \alpha X_{t+1} + \varepsilon_{t+2} \\
+X_{t+3} &= \alpha X_{t+2} + \varepsilon_{t+3}.
+\end{aligned}
+{% endkatex %}
+
+Substituting the equation for {% katex %}t+1{% endkatex %} into the equation for {% katex %}t+2{% endkatex %} and that
+result into the equation for {% katex %}t+3{% endkatex %} gives,
+
+{% katex display %}
+X_{t+3} = \alpha^{3} X_t + \sum_{n=1}^{3}\alpha^{n-1} \varepsilon_{t+n}.
+{% endkatex %}
+
+If this procedure is continued for {% katex %}\tau{% endkatex %} steps the following is obtained,
+{% katex display %}
+X_{t+\tau} = \alpha^{\tau} X_t + \sum_{n=1}^{\tau}\alpha^{n-1} \varepsilon_{t+n}.
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+r_{\tau} &= E\left[X_t X_{t+\tau} \right] \\
+&=
+\end{aligned}
 {% endkatex %}
 
 ### AR(1) Simulations
