@@ -714,10 +714,31 @@ If this procedure is continued for {% katex %}\tau{% endkatex %} steps the follo
 X_{t+\tau} = \alpha^{\tau} X_t + \sum_{n=1}^{\tau}\alpha^{n-1} \varepsilon_{t+n}.
 {% endkatex %}
 
+It follows that the autocorrelation is given by,
+
 {% katex display %}
 \begin{aligned}
 r_{\tau} &= E\left[X_t X_{t+\tau} \right] \\
-&=
+&=E\left[ X_{t}\left( \alpha^{\tau} X_t + \sum_{n=1}^{\tau}\alpha^{n-1} \varepsilon_{t+n} \right) \right] \\
+&= E\left[ \alpha^{\tau} X_t^2 + \sum_{n=1}^{\tau}\alpha^{n-1} X_t \varepsilon_{t+n}\right] \\
+&= E\left[X_t^2\right] + \sum_{n=1}^{\tau}\alpha^{n-1} E\left[ X_t \varepsilon_{t+n}\right].
+\end{aligned}
+{% endkatex %}
+
+To go further the summation in the last step needs to be evaluated. In a
+[previous post]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) it was
+shown that,
+
+{% katex display %}
+X_t = \alpha^t X_{0} + \sum_{i=1}^t \alpha^{t-i} \varepsilon_{i}.
+{% endkatex %}
+
+Using this result the summation term becomes,
+
+{% katex display %}
+\begin{aligned}
+E\left[ X_t \varepsilon_{t+n}\right] &= E\left[ \alpha^t X_{0}\varepsilon_{t+n} + \sum_{i=1}^t \alpha^{t-i} \varepsilon_{i}\varepsilon_{t+n} \right] \\
+&= \alpha^{t} X_0 E\left \varepsilon_{t+n} \right] + \sum_{i=1}^{\tau} \alpha^{t-i} E\left[ \varepsilon_{i} \varepsilon_{t+n} \right]
 \end{aligned}
 {% endkatex %}
 
