@@ -415,9 +415,8 @@ def ar_1_difference_series(α, σ, x0, nsample=100):
 
 The function `ar_1_difference_series(α, σ, x0, nsamples)` takes four arguments: `α` and `σ`, the initial value
 of {% katex %}x{% endkatex %}, `x0` and the number of desired samples `nsample`. It begins by allocating storage
-for the sample output followed by generation of `nsample` values of {% katex %}\varepsilon_t\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} with the requested standard deviation, {% katex %}\sigma{% endkatex %}.
-The samples are then created using the AR(1) difference equation. A second implementation using the
-transition kernel, equation {% katex %}(6){% endkatex %} is shown below.
+for the sample output followed by generation of `nsample` values of {% katex %}\varepsilon_\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} with the requested standard deviation, {% katex %}\sigma{% endkatex %}. The samples are then created using the AR(1 ) difference equation, equation {% katex %}(5){% endkatex %}.
+A second implementation using the transition kernel, equation {% katex %}(6){% endkatex %} is shown below.
 
 ```python
 def ar1_kernel_series(α, σ, x0, nsample=100):
@@ -428,15 +427,16 @@ def ar1_kernel_series(α, σ, x0, nsample=100):
     return samples
 ```
 
-The function `ar1_kernel_seriesar1_kernel_series(α, σ, x0, nsamples)` also  takes four arguments: `α` and `σ`,
-the initial value of {% katex %}x{% endkatex %}, `x0` and the number of desired samples `nsample`.
+The function `ar1_kernel_series(α, σ, x0, nsamples)` also  takes four arguments: `α` and `σ`
+from equation {% katex %}(6){% endkatex %},
+the initial value of {% katex %}x{% endkatex %}, `x0` and the number of desired samples, `nsample`.
 It begins by allocating storage for the sample output and then generates samples using the transition kernel
 with distribution {% katex %}\textbf{Normal}(α * samples[i-1],\ \sigma^2){% endkatex %}.
 
 The plots below show examples of time series generated
-using `ar_1_difference_series` with {% katex %}\sigma=1{% endkatex %} for values of
-{% katex %}\alpha\ <\ 1{% endkatex %}. It is seen that for smaller {% katex %}\alpha{% endkatex %} values
-the series more frequently changes direction and have smaller variance. This is expected from
+using `ar_1_difference_series` with {% katex %}\sigma=1{% endkatex %} and values of {% katex %}\aplha{% endkatex %}
+satisfying {% katex %}\alpha\ <\ 1{% endkatex %}. It is seen that for smaller {% katex %}\alpha{% endkatex %} values of
+the series more frequently change direction and have smaller variance. This is expected from
 equation {% katex %}(9){% endkatex %}, where {% katex %}\sigma_E=1/1-\alpha^2{% endkatex %}.
 
 <div style="text-align:center;">

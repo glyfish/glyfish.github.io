@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-24T08:35:26-07:00</updated><id>http://localhost:4000/</id><title type="html">gly.fish</title><subtitle></subtitle><entry><title type="html">Continuous State Markov Chain Equilibrium</title><link href="http://localhost:4000/2018/08/16/continuous_state_markov_chain_equilibrium.html" rel="alternate" type="text/html" title="Continuous State Markov Chain Equilibrium" /><published>2018-08-16T00:00:00-07:00</published><updated>2018-08-16T00:00:00-07:00</updated><id>http://localhost:4000/2018/08/16/continuous_state_markov_chain_equilibrium</id><content type="html" xml:base="http://localhost:4000/2018/08/16/continuous_state_markov_chain_equilibrium.html">A [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) is a sequence of states
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-08-24T18:12:40-07:00</updated><id>http://localhost:4000/</id><title type="html">gly.fish</title><subtitle></subtitle><entry><title type="html">Continuous State Markov Chain Equilibrium</title><link href="http://localhost:4000/2018/08/16/continuous_state_markov_chain_equilibrium.html" rel="alternate" type="text/html" title="Continuous State Markov Chain Equilibrium" /><published>2018-08-16T00:00:00-07:00</published><updated>2018-08-16T00:00:00-07:00</updated><id>http://localhost:4000/2018/08/16/continuous_state_markov_chain_equilibrium</id><content type="html" xml:base="http://localhost:4000/2018/08/16/continuous_state_markov_chain_equilibrium.html">A [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) is a sequence of states
 where transitions between states occur ordered in time with
 the probability of transition depending only on the previous state. Here the
 states will be assumed a continuous unbounded set and time a discrete unbounded set. If the
@@ -406,9 +406,8 @@ def ar_1_difference_series(α, σ, x0, nsample=100):
 
 The function `ar_1_difference_series(α, σ, x0, nsamples)` takes four arguments: `α` and `σ`, the initial value
 of {% katex %}x{% endkatex %}, `x0` and the number of desired samples `nsample`. It begins by allocating storage
-for the sample output followed by generation of `nsample` values of {% katex %}\varepsilon_t\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} with the requested standard deviation, {% katex %}\sigma{% endkatex %}.
-The samples are then created using the AR(1) difference equation. A second implementation using the
-transition kernel, equation {% katex %}(6){% endkatex %} is shown below.
+for the sample output followed by generation of `nsample` values of {% katex %}\varepsilon_\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %} with the requested standard deviation, {% katex %}\sigma{% endkatex %}. The samples are then created using the AR(1 ) difference equation, equation {% katex %}(5){% endkatex %}.
+A second implementation using the transition kernel, equation {% katex %}(6){% endkatex %} is shown below.
 
 ```python
 def ar1_kernel_series(α, σ, x0, nsample=100):
@@ -419,15 +418,16 @@ def ar1_kernel_series(α, σ, x0, nsample=100):
     return samples
 ```
 
-The function `ar1_kernel_seriesar1_kernel_series(α, σ, x0, nsamples)` also  takes four arguments: `α` and `σ`,
-the initial value of {% katex %}x{% endkatex %}, `x0` and the number of desired samples `nsample`.
+The function `ar1_kernel_series(α, σ, x0, nsamples)` also  takes four arguments: `α` and `σ`
+from equation {% katex %}(6){% endkatex %},
+the initial value of {% katex %}x{% endkatex %}, `x0` and the number of desired samples, `nsample`.
 It begins by allocating storage for the sample output and then generates samples using the transition kernel
 with distribution {% katex %}\textbf{Normal}(α * samples[i-1],\ \sigma^2){% endkatex %}.
 
 The plots below show examples of time series generated
-using `ar_1_difference_series` with {% katex %}\sigma=1{% endkatex %} for values of
-{% katex %}\alpha\ &lt;\ 1{% endkatex %}. It is seen that for smaller {% katex %}\alpha{% endkatex %} values
-the series more frequently changes direction and have smaller variance. This is expected from
+using `ar_1_difference_series` with {% katex %}\sigma=1{% endkatex %} and values of {% katex %}\aplha{% endkatex %}
+satisfying {% katex %}\alpha\ &lt;\ 1{% endkatex %}. It is seen that for smaller {% katex %}\alpha{% endkatex %} values of
+the series more frequently change direction and have smaller variance. This is expected from
 equation {% katex %}(9){% endkatex %}, where {% katex %}\sigma_E=1/1-\alpha^2{% endkatex %}.
 
 &lt;div style=&quot;text-align:center;&quot;&gt;

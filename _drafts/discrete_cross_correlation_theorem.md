@@ -628,13 +628,11 @@ R_{k} = F^{\ast}_{k}F_{k} = {\mid F_{k} \mid}^{2}\ \ \ \ \ (14).
 {% katex %}R_{k}{% endkatex %} is the *weight* of each of the coefficients in the Fourier Series
 representation of the time series and is known as the [Power Spectrum](https://en.wikipedia.org/wiki/Spectral_density).
 
-When discussing the autocorrelation of a time series {% katex %}f{% endkatex %} the Autocorrelation Coefficient is
+When discussing the autocorrelation of a time series, {% katex %}f{% endkatex %}, the autocorrelation coefficient is
 useful,
 
 {% katex display %}
-\begin{aligned}
-\gamma_{t} &= \frac{1}{\sigma_{f}^2}\sum_{n=0}^{N-1} \left(f_{n} - \mu_f \right) \left(f_{n+t} - \mu_f\right),
-  \end{aligned}
+\gamma_{\tau} = \frac{1}{\sigma_{f}^2}\sum_{n=0}^{t} \left(f_{n} - \mu_f \right) \left(f_{n+\tau} - \mu_f\right)\ \ \ \ \ (15),
 {% endkatex %}
 
 where {% katex %}\mu_{f}{% endkatex %} and {% katex %}\sigma_{f}{% endkatex %} are the time series mean and
@@ -665,15 +663,12 @@ The equilibrium properties of the AR(1) random process are discussed in some det
 It is defined by the difference equation,
 
 {% katex display %}
-X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (15),
+X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (16),
 {% endkatex %}
 
 where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon{t}{% endkatex %} are identically
-distributed independent {% katex %}\textbf{Normal}{% endkatex %} random variables with zero mean and variance, {% katex %}\sigma^2{% endkatex %}.
-
-{% katex display %}
-X_t = \alpha^t X_0 + \sum_{i=1}^{t} \alpha^{t-i} \varepsilon_{i}\ \ \ \ \ (16).
-{% endkatex %}
+distributed independent {% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %} random variables with zero mean and variance,
+{% katex %}\sigma^2{% endkatex %}.
 
 In a [previous post]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) it was shown that the
 equilibrium mean and standard deviation, {% katex %}\mu_E{% endkatex %} and {% katex %}\sigma_E{% endkatex %} are given by,
@@ -682,7 +677,7 @@ equilibrium mean and standard deviation, {% katex %}\mu_E{% endkatex %} and {% k
 \begin{gathered}
 \mu_{E} = 0 \\
 \sigma_{E} = \frac{\sigma^2}{1 - \alpha^2}.
-\end{gathered}
+\end{gathered}\ \ \ \ \ (17)
 {% endkatex %}
 
 The equilibrium autocorrelation with time lag {% katex %}\tau{% endkatex %} is defined by,
@@ -721,7 +716,7 @@ It follows that the autocorrelation is given by,
 r_{\tau} &= E\left[X_t X_{t+\tau} \right] \\
 &=E\left[ X_{t}\left( \alpha^{\tau} X_t + \sum_{n=1}^{\tau}\alpha^{n-1} \varepsilon_{t+n} \right) \right] \\
 &= E\left[ \alpha^{\tau} X_t^2 + \sum_{n=1}^{\tau}\alpha^{n-1} X_t \varepsilon_{t+n}\right] \\
-&= E\left[X_t^2\right] + \sum_{n=1}^{\tau}\alpha^{n-1} E\left[ X_t \varepsilon_{t+n}\right].
+&= \alpha^{\tau} E\left[X_t^2\right] + \sum_{n=1}^{\tau}\alpha^{n-1} E\left[ X_t \varepsilon_{t+n}\right].
 \end{aligned}
 {% endkatex %}
 
@@ -738,11 +733,46 @@ Using this result the summation term becomes,
 {% katex display %}
 \begin{aligned}
 E\left[ X_t \varepsilon_{t+n}\right] &= E\left[ \alpha^t X_{0}\varepsilon_{t+n} + \sum_{i=1}^t \alpha^{t-i} \varepsilon_{i}\varepsilon_{t+n} \right] \\
-&= \alpha^{t} X_0 E\left \varepsilon_{t+n} \right] + \sum_{i=1}^{\tau} \alpha^{t-i} E\left[ \varepsilon_{i} \varepsilon_{t+n} \right]
+&= \alpha^{t} X_0 E\left[ \varepsilon_{t+n} \right] + \sum_{i=1}^{t} \alpha^{t-i} E\left[ \varepsilon_{i} \varepsilon_{t+n} \right] \\
+&= 0,
 \end{aligned}
 {% endkatex %}
 
+since the {% katex %}\varepsilon_{t}{% endkatex %} are independent and identically distributed random variables with distribution
+{% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %}. It follows that,
+
+{% katex display %}
+\begin{aligned}
+r_{\tau} &= E\left[X_t X_{t+\tau} \right] \\
+&= \alpha^{\tau} E\left[X_t^2\right]
+\end{aligned}
+{% endkatex %}
+
+Evaluation of the equilibrium limit gives,
+
+{% katex display %}
+\begin{aligned}
+r_{\tau}^{E} &= \lim_{t\to\infty} E\left[X_t X_{t+\tau} \right] \\
+&= \lim_{t\to\infty} \alpha^{\tau} E\left[X_t^2\right] \\
+&= \alpha^{\tau} \sigma_{E}^{2}.
+\end{aligned}
+{% endkatex %}
+
+The last step results from {% katex %}(17){% endkatex %} where {% katex %}\mu_{E} = 0{% endkatex %} and leads
+a very simple form equilibrium limit of the autocorrelation coefficient, equation {% katex %}(15){% endkatex %},
+
+{% katex display %}
+\begin{aligned}
+\gamma_{\tau}^{E} &= \frac{r_{\tau}}{\sigma^2_E} \\
+&= \alpha^{\tau}
+\end{aligned}\ \ \ \ \ (17).
+{% endkatex %}
+
 ### AR(1) Simulations
+
+In this section the results obtained for AR(1) equilibrium autocorrelation in the previous section will be compared with
+simulations. Below an implementation in Python of an AR(1) simulator based on the difference equation representation from
+equation {% katex %}(16){% endkatex %} is listed.
 
 ```python
 def ar_1_series(α, σ, x0=0.0, nsamples=100):
@@ -754,10 +784,29 @@ def ar_1_series(α, σ, x0=0.0, nsamples=100):
     return samples
 ```
 
+The function `ar_1_series(α, σ, x0, nsamples)` takes four arguments: `α` and `σ` from equation {% katex %}(16){% endkatex %},
+the initial value of {% katex %}x{% endkatex %}, `x0` and the number of desired samples, `nsamples`. It begins by allocating storage
+for the sample output followed by generation of `nsamples` values of {% katex %}\varepsilon_\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %}
+with the requested standard deviation, {% katex %}\sigma{% endkatex %}.
+The samples are then created using the AR(1 ) difference equation, equation {% katex %}(5){% endkatex %}.
+
+The plots below show examples of simulated time series with {% katex %}\sigma=1{% endkatex %} and values of
+{% katex %}\alpha{% endkatex %} satisfying {% katex %}\alpha\ <\ 1{% endkatex %}.
+It is seen that for smaller {% katex %}\alpha{% endkatex %} values of the series more frequently change direction
+and have smaller variance. This is expected from equation {% katex %}(17){% endkatex %},
+where {% katex %}\sigma_E=1/1-\alpha^2{% endkatex %}.
+
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/discrete_cross_correlation_theorem/ar1_alpha_sample_comparison.png">
 </div>
 
+The next series of plots compare the autocorrelation coefficient from equation {% katex %}(17){% endkatex %}, obtained in
+the equilibrium limit, with an autocorrelation coefficient calculation using the previously discussed `autocorrelate(x)` function on
+the generated sample data. Recall that `autocorrelate(x)` performs a calculation using the Cross Correlation Theorem.
+Equation {% katex %}(17){% endkatex %} does a good job of capturing the time scale for the series to become uncorrelated.
+
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/discrete_cross_correlation_theorem/ar1_alpha_equilibrium_autocorrelation_comparison.png">
 </div>
+
+## Conclusions
