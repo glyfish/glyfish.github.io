@@ -292,11 +292,13 @@ continuous distribution is {% katex %}O(N_{samples}){% endkatex %}.
 
 ## Conclusions
 
-An overview of Inverse CDF Sampling has been given. Algorithms for both
-the discrete and continuous cases that required a distribution CDF be invertible were developed
-and shown analytically to produce samples with distributions defined by the CDF.
+Inverse CDF Sampling provides a method for obtaining samples from a known target distribution using
+a sampler with a {% katex %}\textbf{Uniform}(0, 1){% endkatex %} distribution that requires the
+target distribution be invertible. Algorithms for both the discrete and continuous cases were
+analytically proven to produce samples with distributions defined by the CDF.
 Example implementations of the algorithms for both distribution cases were developed.
-Samples produced by the algorithms for example target distributions were favorably compared.
-It was also shown that the continuous sampling algorithm was more performant than the discrete version.
+Samples produced by the algorithms for example target distributions were favorably compared. Mean and standard deviations computed from generated samples converged to the target distribution values
+in {% katex %}O(10^3){% endkatex %} samples.
+The continuous sampling algorithm was shown to be more performant than the discrete version.
 The discrete version required {% katex %}O(N_{samples}N){% endkatex %}
 operations while the continuous version required {% katex %}O(N_{samples}){% endkatex %} operations.

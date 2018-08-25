@@ -343,10 +343,15 @@ Some choices can produce inferior results. Analysis of the the acceptance functi
 
 ## Conclusions
 
-An overview of the rejection sampling algorithm has been given. It was analytically proven that if proposal samples
+Rejection Sampling provides a general method for generation of samples for a know
+target distribution by rejecting or accepting samples from a known proposal distribution sampler.
+It was analytically proven that if proposal samples
 are accepted with a probability defined by equation {% katex %}(1){% endkatex %} the accepted samples have
 the desired target distribution. An algorithm implementation was discussed and used in examples where
-its performance in producing samples with a desired target distribution for several different proposal distributions
-was investigated. A criteria for evaluating the expected performance of a proposal distribution using the
-acceptance function, defined by equation {% katex %}(2){% endkatex %}, where its overlap with the proposal
-distribution was suggested.
+its performance in producing samples with a desired target distribution for several different proposal
+distributions was investigated. Mean and standard deviations
+computed from generated samples converged to the target distribution values in
+{% katex %}O(10^3){% endkatex %} samples.for both the discrete and continuous cases. It was shown that the performance of the algorithm can vary significantly with chosen parameter values for the proposal distribution.
+A criteria for evaluating the expected performance of a proposal distribution using the acceptance function,
+defined by equation {% katex %}(2){% endkatex %}, was suggested. Performance was shown to improve if the
+acceptance function has significant overlap with the proposal distribution.

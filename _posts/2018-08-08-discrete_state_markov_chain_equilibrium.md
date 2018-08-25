@@ -422,7 +422,7 @@ v^{-1}_{11} & v^{-1}_{12} & \cdots & v^{-1}_{1N}
 The rows of {% katex %}P^{E}{% endkatex %} are identical and given by the
 first row of the inverse of the matrix of eigenvectors, {% katex %}V^{-1}{% endkatex %},
 from equation {% katex %}(8){% endkatex %}. This row is a consequence of the location of the
-{% katex %}\lambda=1{% endkatex %} eigenvalue and eigenvector in {% katex %}\Lambda{% endkatex %} and {% katex %}V{% endkatex %} respectively. 
+{% katex %}\lambda=1{% endkatex %} eigenvalue and eigenvector in {% katex %}\Lambda{% endkatex %} and {% katex %}V{% endkatex %} respectively.
 Since {% katex %}P^{E}{% endkatex %} is a transition matrix,
 
 {% katex display %}
@@ -800,8 +800,8 @@ for x0 in π_samples:
 
 The function `sample_chain` performs the simulation and uses
 [Inverse CDF Sampling]({{ site.baseurl }}{% link _posts/2018-07-21-inverse_cdf_sampling.md %}) on the
-discrete distribution obtained from the transition matrix defined by equation {% katex %}(14){% endkatex %}. 
-The transition matrix determines state at step {% katex %}t+1{% endkatex %} from the state at step 
+discrete distribution obtained from the transition matrix defined by equation {% katex %}(14){% endkatex %}.
+The transition matrix determines state at step {% katex %}t+1{% endkatex %} from the state at step
 {% katex %}t{% endkatex %}. The following code uses `sample_chain` to generate and ensemble of
 simulations with the initial state also sampled from an assumed initial distribution.
 First, simulation parameters are defined and the initial distribution is assumed to be uniform.
@@ -819,9 +819,13 @@ calculations are indistinguishable.
 
 ## Conclusions
 
-An overview of the properties of Markov Chain equilibrium for discrete state processes has been given.
-It has been shown that equilibrium
+Markov Chain equilibrium for discrete state processes is a general theory of the time evolution
+of transition probabilities and state distributions. It has been shown that equilibrium
 is a consequence of assuming the transition matrix and distribution vector are both stochastic.
-The equilibrium solutions for the transition matrix and distribution were obtained analytically by
-evaluating the limit {% katex %}t\to\infty{% endkatex %}. These results were compared
-favorably to numerical calculations of the dynamical equations and ensemble simulations.
+Expressions were derived for the time evolution of any transition matrix and distribution and
+the equilibrium solutions were then obtained analytically by evaluating the limit
+{% katex %}t\to\infty{% endkatex %}. A calculation was performed using the obtained
+equations for the equilibrium solutions and the `numpy` linear algebra libraries
+using an example transition matrix. These results were compared to ensemble simulations.
+The time to relax from an arbitrary state to the equilibrium distributions was shown to occur
+within {% katex %}O(10){% endkatex %} time steps.

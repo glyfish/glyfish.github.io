@@ -434,7 +434,7 @@ It begins by allocating storage for the sample output and then generates samples
 with distribution {% katex %}\textbf{Normal}(α * samples[i-1],\ \sigma^2){% endkatex %}.
 
 The plots below show examples of time series generated
-using `ar_1_difference_series` with {% katex %}\sigma=1{% endkatex %} and values of {% katex %}\aplha{% endkatex %}
+using `ar_1_difference_series` with {% katex %}\sigma=1{% endkatex %} and values of {% katex %}\alpha{% endkatex %}
 satisfying {% katex %}\alpha\ <\ 1{% endkatex %}. It is seen that for smaller {% katex %}\alpha{% endkatex %} values of
 the series more frequently change direction and have smaller variance. This is expected from
 equation {% katex %}(9){% endkatex %}, where {% katex %}\sigma_E=1/1-\alpha^2{% endkatex %}.
@@ -554,7 +554,19 @@ is obtained.
 
 ## Conclusions
 
-An overview of the properties of Markov Chain equilibrium for continuous state processes has ben given.
-Equations defining the equilibrium transition kernel and distribution were derived. These equations
-were solved for the AR(1) stochastic processes in the limit {% katex %}{t\to\infty}{% endkatex %}. The
-analytic results were shown to agree with simulations.
+Markov Chain equilibrium for continuous state processes provides a general theory of the time evolution
+of stochastic kernels and distributions. Unlike the case for the [discrete state model]({{ site.baseurl }}{% link _posts/2018-08-08-discrete_state_markov_chain_equilibrium.md %}) general solutions cannot be obtained
+since evaluation of the obtained equations depends of the form of the stochastic kernel. Kernels will
+exist which do not have equilibrium solutions. A continuous state process that has an equilibrium
+distribution that can be analytically evaluated is AR(1). The stochastic kernel for AR(1) is derived
+from its difference equation representation and the first and second moments are evaluated in
+the equilibrium limit, {% katex %}{t\to\infty}{% endkatex %}. It is shown that finite values exists only
+for values of the AR(1) parameter that satisfy {% katex %}\mid\alpha\mid\ < \ 1{% endkatex %}.
+A distribution is then constructed using these moments and shown to be the equilibrium distribution.
+Simulations are performed using the difference equation
+representation of the process and compared with the equilibrium calculations. The rate of convergence
+of simulations to the equilibrium is shown to depend on {% katex %}\alpha{% endkatex %}. For values
+not near {% katex %}1{% endkatex %} convergence of the mean occurs with {% katex %}O(10^3){% endkatex %}
+time steps and convergence of the standard deviation with {% katex %}O(10^4){% endkatex %} time steps.
+For values of {% katex %}\alpha{% endkatex %} closer to {% katex %}1{% endkatex %} convergence has
+not occurred by {% katex %}10^4{% endkatex %} time steps.

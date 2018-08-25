@@ -768,6 +768,8 @@ a very simple form equilibrium limit of the autocorrelation coefficient, equatio
 \end{aligned}\ \ \ \ \ (17).
 {% endkatex %}
 
+{% katex %}\gamma_{\tau}^{E}{% endkatex %} is finite only for {% katex %}\mid\alpha\mid\ \leq\ 1{% endkatex %}.
+
 ### AR(1) Simulations
 
 In this section the results obtained for AR(1) equilibrium autocorrelation in the previous section will be compared with
@@ -810,3 +812,24 @@ Equation {% katex %}(17){% endkatex %} does a good job of capturing the time sca
 </div>
 
 ## Conclusions
+
+The Discrete Cross Correlation Theorem provides a more efficient method of calculating time series
+correlations that a directly evaluating the sums. For a time series of length N it decreases the cost
+of the calculation from {% katex %}O(N^2){% endkatex %} to {% katex %}O(NlogN){% endkatex %} by
+use of the Fast Fourier Transform.
+An interpretation of the cross correlation as the time lagged covariance of two random variables was presented
+first and followed a discussion of the properties of Discrete Fourier Transforms needed to prove the
+Cross Correlation Theorem. After building sufficient tools the theorem was derived by application of the
+Discrete Fourier Transforms to equation {% katex %}(1){% endkatex %}, which defines cross correlation.
+An example manual calculation of a Discrete Fourier Transform was performed and compared with a calculation
+using the FFT library form `numpy`. Next, manual calculations of cross correlation using a tabular method
+to represent the summations were presented and followed by a calculation using the Discrete
+Cross Correlation Theorem which illustrated the problem of aliasing. The next example calculation eliminated
+aliasing and recovered a result equal to the direct calculation of the summations.
+A *dealiased* implementation using `numpy` FFT libraries was then presented. Finally,
+the Discrete Cross Correlation Theorem for the special case of the autocorrelation was
+discussed and a `numpy` FFT implementation was provided and followed by an example calculation using the AR(1)
+random process. In conclusion the autocorrelation coefficient in the equilibrium limit for AR(1) was evaluated
+and shown to be finite only values of the AR(1) parameter that satisfy
+{% katex %}\mid\alpha\mid\ < \ 1{% endkatex %}. This result is compared to direct simulations and shown to
+provide a good estimate of the decorrelation time of the process.
