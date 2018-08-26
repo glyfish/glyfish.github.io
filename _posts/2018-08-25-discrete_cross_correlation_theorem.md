@@ -16,23 +16,24 @@ of two discrete finite time series is {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{
 \psi_t = \sum_{n=0}^{N-1} f_{n} g_{n+t}\ \ \ \ \ (1),
 {% endkatex %}
 
-where {% katex %}t{% endkatex %} is called the *time lag*. Cross correlation provides a measure of the similarity
-of two time series when displaced by the time lag. A direct calculation of the cross correlation using the
+where {% katex %}t{% endkatex %} is called the *time lag*. Cross correlation provides a measure of the similitude
+of two time series when shifted by the time lag. A direct calculation of the cross correlation using the
 equation above requires {% katex %}O(N^2){% endkatex %} operations. The Cross Correlation Theorem
-provides a method for calculating cross correlation requiring {% katex %}O(NlogN){% endkatex %}
+provides a method for calculating cross correlation in {% katex %}O(NlogN){% endkatex %}
 operations by use of the
 [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform). Here the theoretical
-background required to understand cross correlation calculations using the Cross Correlation Theorem is discussed
-and illustrative examples are solved.
+background required to understand cross correlation calculations using the Cross Correlation Theorem is discussed.
+Example calculations are performed and different implementations using the FFT libraries in `numpy` compared.
+The important special case of the cross correlation called [Autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation) is addressed in the final section.
 
 <!--more-->
 
 ## Cross Correlation
 
 Cross Correlation can be understood by considering the [Covariance](https://en.wikipedia.org/wiki/Covariance) of
-two random variables, {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %}, which is the
+two random variables, {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %}. Covariance is the
 [Expectation](https://en.wikipedia.org/wiki/Expected_value) of the product of the deviations of the random variables
-from their respective means, namely,
+from their respective means,
 
 {% katex display %}
 \begin{aligned}
@@ -62,13 +63,13 @@ These two results are combined in the definition of the
 {% endkatex %}
 
 The correlation coefficient has a geometric interpretation leading to the conclusion that
-{% katex %}-1\ \leq \rho\ \leq 1{% endkatex %}. At the extreme values {% katex %}\rho{% endkatex %}
+{% katex %}-1\ \leq \rho_{XY}\ \leq 1{% endkatex %}. At the extreme values
 {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %} are either the same or differ by a
-multiple of {% katex %}-1{% endkatex %} and the at the midpoint value of {% katex %}0{% endkatex %}
+multiple of {% katex %}-1{% endkatex %}. At the midpoint value of, {% katex %}0{% endkatex %},
 {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %} are independent random variables. If follows that
 {% katex %}\rho{% endkatex %} provides a measure of possible *dependence* or *similarity* of two random variables.
 
-Now, consider the first term in equation {% katex %}(2){% endkatex %} when a time series of samples
+Consider the first term in equation {% katex %}(2){% endkatex %} when a time series of samples
 of {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %} of equal length are available,
 
 {% katex display %}
@@ -81,14 +82,14 @@ E[XY]& \approx \frac{1}{N^2}\sum_{n=0}^{N-1}x_n y_n \\
 if {% katex %}N{% endkatex %} is sufficiently large. Generalizing this result to arbitrary time shifts leads to
 equation {% katex %}(1){% endkatex %}.
 
-An important special case of the Cross Correlation is the [Autocorrelation](https://en.wikipedia.org/wiki/Autocorrelation) which is defined a the Cross
-Correlation of a time series with itself, namely,
+An important special case of the cross correlation is the autocorrelation which is defined a the cross
+correlation of a time series with itself,
 
 {% katex display %}
 r_t = \sum_{n=0}^{N-1} x_{n} x_{n+t}\ \ \ \ \ (3).
 {% endkatex %}
 
-Building on the interpretation of Cross Correlation the Autocorrelation is viewed as a measure of *dependence*
+Building on the interpretation of cross correlation the autocorrelation is viewed as a measure of *dependence*
 or *similarity* of the past and future of a time series. For a time lag of {% katex %}t=0{% endkatex %},
 
 {% katex display %}
@@ -97,7 +98,7 @@ r_0\ \propto\ E\left[X^2\right].
 
 ## Discrete Fourier Transform
 
-This section will discuss properties of the Discrete Fourier Transform that are used in following discussions.
+This section will discuss properties of the Discrete Fourier Transform that are used in following sections.
 The [Discrete Fourier Transform](https://en.wikipedia.org/wiki/Discrete_Fourier_transform) for a discrete periodic
 time series of length {% katex %}N{% endkatex %}, {% katex %}\{f_0,\ f_1,\ f_2,\ldots,\ f_{N-1}\}{% endkatex %},
 is defined by,
@@ -110,7 +111,7 @@ F_{k} = \sum_{n=0}^{N-1}f_{n}e^{-2\pi i (n/N)k},
 {% endkatex %}
 
 where the expression for {% katex %}f_{n}{% endkatex %} is referred to the inverse transform and the one for
-{% katex %}F_{k}{% endkatex %} the forward transform. Several properties of the transform are discussed in the following sections.
+{% katex %}F_{k}{% endkatex %} the forward transform.
 
 ### Linearity
 
@@ -155,7 +156,7 @@ F_{k+N} &= \sum_{n=0}^{N} f_{n}e^{-2\pi i (n/N)(k+N)} \\
 
 where the second step follows from, {% katex %}e^{2\pi i n} = 1,\ \forall\ n{% endkatex %}.
 
-For and arbitrary value of {% katex %}m{% endkatex %},
+For an arbitrary value of {% katex %}m{% endkatex %},
 {% katex display %}
 \begin{aligned}
 F_{k+mN} &= \sum_{n=0}^{N} f_{n}e^{-2\pi i (n/N)(k+mN)} \\
@@ -181,7 +182,7 @@ f_{n} &= f_{n}^{\ast} \\
 \end{aligned}\ \ \ \ \ (7)
 {% endkatex %}
 
-Another interesting and related result is that,
+Another interesting and related result is,
 
 {% katex display %}
 F_{-k} = F_{k}^{\ast}\ \ \ \ \ (8).
@@ -203,7 +204,7 @@ F_{-k} &= \sum_{n=0}^{N-1} f_{n}e^{2\pi i (n/N)k} \\
 The Discrete Fourier Basis is the collection of functions,
 
 {% katex display %}
-\left\{e^{2\pi i(k/N)n}\right\}\,
+\left\{e^{2\pi i(k/N)n}\right\},
 {% endkatex %}
 
  where {% katex %}n = 0,\ 1,\ 2,\ldots,N-1{% endkatex %}. It forms an [Orthogonal Basis](https://en.wikipedia.org/wiki/Orthogonal_basis) since,
@@ -217,14 +218,14 @@ The Discrete Fourier Basis is the collection of functions,
 {% endkatex %}
 
 where {% katex %}\delta_{mk}{% endkatex %} is the [Kronecker Delta](https://en.wikipedia.org/wiki/Kronecker_delta).
-This result can be proven by noting that the sum in equation {% katex %}(9){% endkatex %}
-is a [Geometric Series](https://en.wikipedia.org/wiki/Geometric_series),
+This result can be proven for {% katex %}m\ \ne\ k{% endkatex %} by noting that the sum in
+equation {% katex %}(9){% endkatex %} is a [Geometric Series](https://en.wikipedia.org/wiki/Geometric_series),
 
 {% katex display %}
 \frac{1}{N} \sum_{n=0}^{N-1} e^{2\pi i \left[(m-k)/N \right] n} = \frac{1}{N} \frac{1-e^{2\pi i (m-k)}}{1-e^{2\pi i (m-k)/N}}.
 {% endkatex %}
 
-First assume that {% katex %}m\ \ne\ k{% endkatex %}. Since {% katex %}2\pi i(m-k){% endkatex %} is
+Since {% katex %}2\pi i(m-k){% endkatex %} is
 always a multiple of {% katex %}2\pi{% endkatex %} it follows that the numerator is zero,
 
 {% katex display %}
@@ -248,9 +249,9 @@ this proves that equation {% katex %}(9){% endkatex %}.
 
 ## The Cross Correlation Theorem
 
-The Cross Correlation Theorem is relationship between the Fourier Transform of the cross correlation,
+The Cross Correlation Theorem is a relationship between the Fourier Transform of the cross correlation,
 {% katex %}\psi_{t}{% endkatex %} defined by equation {% katex %}(1){% endkatex %} and the
-Fourier Transforms of the two time series used in the cross correlation calculation, namely,
+Fourier Transforms of the two time series used in the cross correlation calculation,
 
 {% katex display %}
 \Psi_{k} = F_{k}^{\ast}G_{k}\ \ \ \ \ (10),
@@ -266,7 +267,7 @@ G_{k} &= \sum_{n=0}^{N-1}g_{n}e^{-2\pi i (n/N)k}.
 \end{aligned}
 {% endkatex %}
 
-Now to derive equation {% katex %}(10){% endkatex %} consider the Inverse Fourier Transform of the time
+To derive equation {% katex %}(10){% endkatex %} consider the Inverse Fourier Transform of the time
 series {% katex %}f_{n}{% endkatex %} and {% katex %}g_{n+t}{% endkatex %},
 
 {% katex display %}
@@ -287,11 +288,11 @@ Substituting these expressions into equation {% katex %}(1){% endkatex %} gives,
 &= \sum_{n=0}^{N-1} \left\{   \frac{1}{N}\sum_{k=0}^{N-1}F_{k}^{\ast}e^{-2\pi i (k/N)n} \right\} \left\{ \frac{1}{N}\sum_{m=0}^{N-1}G_{m}e^{2\pi i (m/N)(n+t)} \right\} \\
 &= \frac{1}{N}\sum_{k=0}^{N-1}\sum_{m=0}^{N-1} F_{k}^{\ast}G_{m} e^{2\pi i (t/N)m} \frac{1}{N} \sum_{n=0}^{N-1} e^{2\pi i \left[(m-k)/N \right] n} \\
 &= \frac{1}{N}\sum_{k=0}^{N-1}\sum_{m=0}^{N-1} F_{k}^{\ast}G_{m} e^{2\pi i (t/N)m} \delta_{mk} \\
-&= \frac{1}{N}\sum_{k=0}^{N-1} F_{k}^{\ast}G_{k} e^{2\pi i (t/N)k}.
+&= \frac{1}{N}\sum_{k=0}^{N-1} F_{k}^{\ast}G_{k} e^{2\pi i (t/N)k},
 \end{aligned}
 {% endkatex %}
 
-Equation {% katex %}(10){% endkatex %} follows by taking the Fourier Transform of the previous result,
+where the second step follows from equation {% katex %}(9){% endkatex %}. Equation {% katex %}(10){% endkatex %} follows by taking the Fourier Transform of the previous result,
 
 {% katex display %}
 \begin{aligned}
@@ -303,13 +304,13 @@ Equation {% katex %}(10){% endkatex %} follows by taking the Fourier Transform o
 \end{aligned}
 {% endkatex %}
 
-which proves the Cross Correlation Theorem defined by equation {% katex %}(10){% endkatex %}.
+proving the Cross Correlation Theorem defined by equation {% katex %}(10){% endkatex %}.
 
 ## Discrete Fourier Transform Example
 
 This section will work through an example calculation of a discrete Fourier Transform which can be worked
 out by hand. The manual calculations will be compared with calculations performed using the FFT library
-from `scipy`.
+from `numpy`.
 
 The Discrete Fourier Transform of a time series, given by the column vector {% katex %}f{% endkatex %},
 into a column vector of Fourier coefficients, {% katex %}\overline{f}{% endkatex %}, can be represented by the linear
