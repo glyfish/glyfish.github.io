@@ -343,7 +343,7 @@ Some choices can produce inferior results. Analysis of the the acceptance functi
 
 ## Conclusions
 
-Rejection Sampling provides a general method for generation of samples for a know
+Rejection Sampling provides a general method for generation of samples for a known
 target distribution by rejecting or accepting samples from a known proposal distribution sampler.
 It was analytically proven that if proposal samples
 are accepted with a probability defined by equation {% katex %}(1){% endkatex %} the accepted samples have

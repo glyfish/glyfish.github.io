@@ -318,7 +318,7 @@ equation,
 {% endkatex %}
 
 Where {% katex %}T{% endkatex %} is the transform matrix computed from the Fourier basis functions.
-Each element of the matrix is the value of the basis function used in the calculation. 
+Each element of the matrix is the value of the basis function used in the calculation.
 It is assumed that the time series contains only {% katex %}4{% endkatex %} points so that
 {% katex %}T{% endkatex %} will be a {% katex %}4\times 4{% endkatex %} matrix. The transform
 matrix only depends on the number of elements in the time series vector and is given by,
@@ -386,7 +386,7 @@ It follows that,
 
 The Python code listing below uses the FFT implementation from `numpy` to confirm the calculation of
 equation {% katex %}(12){% endkatex %}. It first defines the time series example data
-{% katex %}f{% endkatex %}. The Fourier Transform provided by `numpy` is then used to compute
+{% katex %}f{% endkatex %}. The Fourier Transform is then used to compute
 {% katex %}\overline{f}{% endkatex %} followed by calculation of the inverse Fourier Transform
 using {% katex %}\overline{f}{% endkatex %}
 
@@ -401,7 +401,7 @@ Out[3]: array([20.+0.j,  0.-4.j, 12.+0.j,  0.+4.j])
 This section will work through an example calculation of cross correlation using the Cross Correlation Theorem
 with the goal of verifying an implementation of the algorithm in Python. Here use will be made of the
 time series vector {% katex %}f{% endkatex %} and the transform matrix {% katex %}T{% endkatex %}
-discussed in the previous section, but time series vector also needs to be considered, let,
+discussed in the previous section and an additional time series vector also needs to be considered, let,
 
 {% katex display %}
 g =
@@ -434,14 +434,16 @@ In [5]: cross_correlate_sum(f, g)
 Out[5]: array([132.,  84.,  84.,  24.])
 ```
 
-`cross_correlate_sum(x, y)` takes two vectors, `x` and `y`, as arguments. It assumes that `x` and `y` are equal length and
-after allocating storage for the result performs the double summation required to compute the cross correlation for all possible time
-lags, returning the result. It is also seen that {% katex %}O(N^2){% endkatex %} operations are required to perform the calculation, where
+`cross_correlate_sum(x, y)` takes two vectors, `x` and `y`, as arguments. It assumes that `x` and `y` are equal length and after allocating storage for the result performs the double summation required to compute the cross
+correlation for all possible time lags, returning the result. It is also seen that
+{% katex %}O(N^2){% endkatex %} operations are required to perform the calculation, where
 {% katex %}N{% endkatex %} is the length of the input vectors.
 
 To verify following results a manual evaluation is helpful. A method of organizing the calculation to facilitate  
-this is shown in table below. The table rows are constructed from the all elements of {% katex %}f_{n}{% endkatex %} and the time lagged
-elements of {% katex %}g_{n+t}{% endkatex %} for each value {% katex %}t{% endkatex %}. The column is indexed by the element number
+this is shown in table below. The table rows are constructed from the all elements of
+{% katex %}f_{n}{% endkatex %} and the time lagged
+elements of {% katex %}g_{n+t}{% endkatex %} for each value {% katex %}t{% endkatex %}.
+The column is indexed by the element number
 {% katex %}n{% endkatex %}. The time lag shift performed on the vector {% katex %}g_{n+t}{% endkatex %} results
 in the translation of the components to the left that increases for each row as the time lag increases. Since the number of elements in
 {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} is finite the time lag shift will lead to some
@@ -536,7 +538,7 @@ are computed. The Cross Correlation Theorem is then used to compute the Fourier 
 {% katex %}\psi_t{% endkatex %}, which is then inverted. The result obtained is the same as obtained in the
 manual calculation verifying the results. Since the calculations seem to be correct the problem must be that
 periodicity of the Fourier representations {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} was
-not handled properly. This analysis *artifact* is called [Aliasing](https://en.wikipedia.org/wiki/Aliasing).
+not handled properly. This analysis *artifact* is called [aliasing](https://en.wikipedia.org/wiki/Aliasing).
 The following example attempts to correct for this problem.
 
 The cross correlation calculation table for periodic {% katex %}f{% endkatex %} and
@@ -664,7 +666,7 @@ It is defined by the difference equation,
 X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (16),
 {% endkatex %}
 
-where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon{t}{% endkatex %} are identically
+where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon_{t}{% endkatex %} are identically
 distributed independent {% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %} random variables with zero mean and variance,
 {% katex %}\sigma^2{% endkatex %}.
 
