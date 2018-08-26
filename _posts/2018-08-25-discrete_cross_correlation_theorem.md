@@ -9,7 +9,7 @@ comments: false
 
 The [Cross Correlation Theorem](https://en.wikipedia.org/wiki/Cross-correlation) is similar to the more
 widely known [Convolution Theorem](https://en.wikipedia.org/wiki/Convolution_theorem). The cross correlation
-of two discrete finite time series is {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{N-1}\}{% endkatex %} and
+of two discrete finite time series {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{N-1}\}{% endkatex %} and
 {% katex %}\{g_0,\ g_1,\ g_2,\ldots\,\ g_{N-1}\}{% endkatex %} is defined by,
 
 {% katex display %}
@@ -65,9 +65,9 @@ These two results are combined in the definition of the
 The correlation coefficient has a geometric interpretation leading to the conclusion that
 {% katex %}-1\ \leq \rho_{XY}\ \leq 1{% endkatex %}. At the extreme values
 {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %} are either the same or differ by a
-multiple of {% katex %}-1{% endkatex %}. At the midpoint value of, {% katex %}0{% endkatex %},
+multiple of {% katex %}-1{% endkatex %}. At the midpoint value, {% katex %}\rho_{XY}=0{% endkatex %},
 {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %} are independent random variables. If follows that
-{% katex %}\rho{% endkatex %} provides a measure of possible *dependence* or *similarity* of two random variables.
+{% katex %}\rho_{XY}{% endkatex %} provides a measure of possible *dependence* or *similarity* of two random variables.
 
 Consider the first term in equation {% katex %}(2){% endkatex %} when a time series of samples
 of {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %} of equal length are available,
@@ -277,9 +277,6 @@ g_{n+t} = \frac{1}{N}\sum_{k=0}^{N-1}G_{k}e^{2\pi i (k/N)(n+t)},
 \end{gathered}
 {% endkatex %}
 
-where use was made of equation {% katex %}(7){% endkatex %} when writing the inverse transform for
-{% katex %}f_{n}{% endkatex %}.
-
 Substituting these expressions into equation {% katex %}(1){% endkatex %} gives,
 
 {% katex display %}
@@ -321,7 +318,7 @@ equation,
 {% endkatex %}
 
 Where {% katex %}T{% endkatex %} is the transform matrix computed from the Fourier basis functions.
-Each row the matrix will be the value of the basis functions used for calculation a Fourier coefficient.
+Each element of the matrix is the value of the basis function used in the calculation. 
 It is assumed that the time series contains only {% katex %}4{% endkatex %} points so that
 {% katex %}T{% endkatex %} will be a {% katex %}4\times 4{% endkatex %} matrix. The transform
 matrix only depends on the number of elements in the time series vector and is given by,
@@ -342,7 +339,7 @@ T=
 \end{pmatrix} \ \ \ \ \ (11)
 {% endkatex %}
 
-Assume that example time series is given buy,
+Assume that the example time series is given buy,
 
 {% katex display %}
 f =
@@ -389,7 +386,7 @@ It follows that,
 
 The Python code listing below uses the FFT implementation from `numpy` to confirm the calculation of
 equation {% katex %}(12){% endkatex %}. It first defines the time series example data
-{% katex %}f{% endkatex %}. The Fourier Transform provided by `fftpack` is then used to compute
+{% katex %}f{% endkatex %}. The Fourier Transform provided by `numpy` is then used to compute
 {% katex %}\overline{f}{% endkatex %} followed by calculation of the inverse Fourier Transform
 using {% katex %}\overline{f}{% endkatex %}
 
