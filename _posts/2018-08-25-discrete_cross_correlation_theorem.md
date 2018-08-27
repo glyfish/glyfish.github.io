@@ -262,7 +262,7 @@ where,
 {% katex display %}
 \begin{aligned}
 \Psi_{k} &= \sum_{n=0}^{N-1}\psi_{n}e^{-2\pi i (n/N)k} \\
-F_{k}^{\ast} &= \sum_{n=0}^{N-1}f_{n}e^{2\pi i (n/N)k} \\
+F_{k}^{\ast} &= \sum_{n=0}^{N-1}f_{n}^{\ast}e^{2\pi i (n/N)k} \\
 G_{k} &= \sum_{n=0}^{N-1}g_{n}e^{-2\pi i (n/N)k}.
 \end{aligned}
 {% endkatex %}
@@ -305,19 +305,19 @@ proving the Cross Correlation Theorem defined by equation {% katex %}(10){% endk
 
 ## Discrete Fourier Transform Example
 
-This section will work through an example calculation of a discrete Fourier Transform which can be worked
+This section will work through an example calculation of a discrete Fourier Transform that can be worked
 out by hand. The manual calculations will be compared with calculations performed using the FFT library
 from `numpy`.
 
-The Discrete Fourier Transform of a time series, given by the column vector {% katex %}f{% endkatex %},
+The Discrete Fourier Transform of a time series, represented by the column vector {% katex %}f{% endkatex %},
 into a column vector of Fourier coefficients, {% katex %}\overline{f}{% endkatex %}, can be represented by the linear
 equation,
 
 {% katex display %}
-\overline{f} = Tf
+\overline{f} = Tf,
 {% endkatex %}
 
-Where {% katex %}T{% endkatex %} is the transform matrix computed from the Fourier basis functions.
+where {% katex %}T{% endkatex %} is the transform matrix computed from the Fourier basis functions.
 Each element of the matrix is the value of the basis function used in the calculation.
 It is assumed that the time series contains only {% katex %}4{% endkatex %} points so that
 {% katex %}T{% endkatex %} will be a {% katex %}4\times 4{% endkatex %} matrix. The transform
@@ -339,7 +339,7 @@ T=
 \end{pmatrix} \ \ \ \ \ (11)
 {% endkatex %}
 
-Assume that the example time series is given buy,
+Assume an example time series of,
 
 {% katex display %}
 f =
@@ -387,8 +387,7 @@ It follows that,
 The Python code listing below uses the FFT implementation from `numpy` to confirm the calculation of
 equation {% katex %}(12){% endkatex %}. It first defines the time series example data
 {% katex %}f{% endkatex %}. The Fourier Transform is then used to compute
-{% katex %}\overline{f}{% endkatex %} followed by calculation of the inverse Fourier Transform
-using {% katex %}\overline{f}{% endkatex %}
+{% katex %}\overline{f}{% endkatex %}. 
 
 ```python
 In [1]: import numpy
@@ -401,7 +400,7 @@ Out[3]: array([20.+0.j,  0.-4.j, 12.+0.j,  0.+4.j])
 This section will work through an example calculation of cross correlation using the Cross Correlation Theorem
 with the goal of verifying an implementation of the algorithm in Python. Here use will be made of the
 time series vector {% katex %}f{% endkatex %} and the transform matrix {% katex %}T{% endkatex %}
-discussed in the previous section and an additional time series vector also needs to be considered, let,
+discussed in the previous section. An additional time series vector also needs to be considered, let,
 
 {% katex display %}
 g =
@@ -413,7 +412,7 @@ g =
 \end{pmatrix}.
 {% endkatex %}
 
-First, consider a direct calculation of the cross correlation defined by equation {% katex %}(1){% endkatex %},
+First, consider a direct calculation of the cross correlation,
 {% katex %}\psi_t = \sum_{n=0}^{N-1} f_{n} g_{n+t}{% endkatex %}. The following python function
 `cross_correlate_sum(x, y)` implements the required summation.
 
@@ -439,8 +438,8 @@ correlation for all possible time lags, returning the result. It is also seen th
 {% katex %}O(N^2){% endkatex %} operations are required to perform the calculation, where
 {% katex %}N{% endkatex %} is the length of the input vectors.
 
-To verify following results a manual evaluation is helpful. A method of organizing the calculation to facilitate  
-this is shown in table below. The table rows are constructed from the all elements of
+Verification of following results requires a manual calculation. A method of organizing the calculation to facilitate  
+this is shown in table below. The table rows are constructed from the elements of
 {% katex %}f_{n}{% endkatex %} and the time lagged
 elements of {% katex %}g_{n+t}{% endkatex %} for each value {% katex %}t{% endkatex %}.
 The column is indexed by the element number
@@ -460,8 +459,8 @@ is assumed to be {% katex %}0{% endkatex %}.
 | {% katex %}g_{n+3}{% endkatex %}|  6  |  3  |  9  |  3  |     |     |     |
 
 The cross correlation, {% katex %}\psi_t{% endkatex %}, for a value of the time lag,
-{% katex %}t{% endkatex %}, is computed for each value of {% katex %}n{% endkatex %} by multiplication
-of each value of {% katex %}f_{n}{% endkatex %} and {% katex %}g_{n+t}{% endkatex %} and summing the results.
+{% katex %}t{% endkatex %}, is computed for each {% katex %}n{% endkatex %} by multiplication
+of {% katex %}f_{n}{% endkatex %} and {% katex %}g_{n+t}{% endkatex %} and summing the results.
 The outcome of this calculation is shown as the column vector
 {% katex %}\psi{% endkatex %} below where each row corresponds to a different time lag value.
 
@@ -482,13 +481,13 @@ The outcome of this calculation is shown as the column vector
 \end{pmatrix}\ \ \ \ \ \ (13)
 {% endkatex %}
 
-The result is the same as determined by `cross_correlate_sum`.
+The result is the same as determined by `cross_correlate_sum(x,y)`.
 
 Now that an expectation of a result is established it can be compared with the
-a calculation using using the Cross Correlation Theorem from equation {% katex %}10{% endkatex %}
+a calculation using using the Cross Correlation Theorem from equation {% katex %}(10){% endkatex %}
 where {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} are represented by Discrete Fourier
-Series. It was previously shown that the Fourier representation are simplicity periodic, see
-equation {% katex %}(10){% endkatex %}. It follows that the time lag shifts of
+Series. It was previously shown that the Fourier representation is periodic, see
+equation {% katex %}(6){% endkatex %}. It follows that the time lag shifts of
 {% katex %}g_{n+t}{% endkatex %} will by cyclic as shown in the calculation table below.
 
 | {% katex %}n{% endkatex %}      |  0  |  1  |  2  |  3  |
@@ -534,8 +533,7 @@ Out[6]: array([132.+0.j,  72.+0.j, 132.+0.j,  84.+0.j])
 ```
 
 In the calculation {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} are defined and their Fourier Transforms
-are computed. The Cross Correlation Theorem is then used to compute the Fourier Transform of the cross correlation,
-{% katex %}\psi_t{% endkatex %}, which is then inverted. The result obtained is the same as obtained in the
+are computed. The Cross Correlation Theorem is then used to compute the Fourier Transform of the cross correlation, which is then inverted. The result obtained is the same as obtained in the
 manual calculation verifying the results. Since the calculations seem to be correct the problem must be that
 periodicity of the Fourier representations {% katex %}f{% endkatex %} and {% katex %}g{% endkatex %} was
 not handled properly. This analysis *artifact* is called [aliasing](https://en.wikipedia.org/wiki/Aliasing).
@@ -558,7 +556,7 @@ new construction is shown below.
 | {% katex %}g_{n+5}{% endkatex %}|  9  |  3  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |  0  |
 | {% katex %}g_{n+6}{% endkatex %}|  3  |  0  |  0  |  0  |  6  |  3  |  9  |  3  |  0  |  0  |
 
-The manual calculation of {% katex %}\psi_{t}{% endkatex %} follows,
+It follows that,
 
 {% katex display %}
 \psi =
@@ -660,7 +658,7 @@ normalized by the zero lag autocorrelation which equals {% katex %}\sigma_f{% en
 
 The equilibrium properties of the AR(1) random process are discussed in some detail in
 [Continuous State Markov Chain Equilibrium]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}).
-It is defined by the difference equation,
+AR(1) is defined by the difference equation,
 
 {% katex display %}
 X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (16),
@@ -670,7 +668,7 @@ where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon
 distributed independent {% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %} random variables with zero mean and variance,
 {% katex %}\sigma^2{% endkatex %}.
 
-In a [previous post]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}) it was shown that the
+The 
 equilibrium mean and standard deviation, {% katex %}\mu_E{% endkatex %} and {% katex %}\sigma_E{% endkatex %} are given by,
 
 {% katex display %}
@@ -686,7 +684,7 @@ The equilibrium autocorrelation with time lag {% katex %}\tau{% endkatex %} is d
 r_{\tau}^{E} = \lim_{t\to\infty} E\left[X_t X_{t+\tau} \right]
 {% endkatex %}
 
-If {% katex %}(16){% endkatex %} is used to evaluate a few steps beyond an arbitrary time {% katex %}t{% endkatex %}
+If equation {% katex %}(16){% endkatex %} is used to evaluate a few steps beyond an arbitrary time {% katex %}t{% endkatex %}
 it is seen that,
 
 {% katex display %}
