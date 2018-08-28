@@ -387,7 +387,7 @@ It follows that,
 The Python code listing below uses the FFT implementation from `numpy` to confirm the calculation of
 equation {% katex %}(12){% endkatex %}. It first defines the time series example data
 {% katex %}f{% endkatex %}. The Fourier Transform is then used to compute
-{% katex %}\overline{f}{% endkatex %}. 
+{% katex %}\overline{f}{% endkatex %}.
 
 ```python
 In [1]: import numpy
@@ -668,7 +668,7 @@ where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon
 distributed independent {% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %} random variables with zero mean and variance,
 {% katex %}\sigma^2{% endkatex %}.
 
-The 
+The
 equilibrium mean and standard deviation, {% katex %}\mu_E{% endkatex %} and {% katex %}\sigma_E{% endkatex %} are given by,
 
 {% katex display %}
@@ -756,8 +756,10 @@ r_{\tau}^{E} &= \lim_{t\to\infty} E\left[X_t X_{t+\tau} \right] \\
 \end{aligned}
 {% endkatex %}
 
-The last step results from {% katex %}(17){% endkatex %} where {% katex %}\mu_{E} = 0{% endkatex %} and leads
-a very simple form equilibrium limit of the autocorrelation coefficient, equation {% katex %}(15){% endkatex %},
+The last step results from {% katex %}(17){% endkatex %} where {% katex %}\mu_{E} = 0{% endkatex %} and
+assuming that {% katex %}\mid\alpha\mid\ < 1{% endkatex %} so that {% katex %}\sigma_{E}{% endkatex %}
+is finite. A simple form of the autocorrelation coefficient in the equilibrium limit
+follows from equation {% katex %}(15){% endkatex %},
 
 {% katex display %}
 \begin{aligned}
