@@ -7,8 +7,8 @@ permlink: /rejetion_sampling.html
 comments: false
 ---
 
-Rejection Sampling is a method for obtaining samples for a known target probability distribution
-with no sampler using samples from some other proposal distribution with a sampler.
+[Rejection Sampling](https://en.wikipedia.org/wiki/Rejection_sampling) is a method for obtaining samples for a known target
+probability distribution with no sampler using samples from some other proposal distribution.
 It is a more general method than
 [Inverse CDF Sampling]({{ site.baseurl }}{% link _posts/2018-07-21-inverse_cdf_sampling.md %}) which requires
 distribution to have an invertible CDF. Inverse CDF Sampling transforms a
