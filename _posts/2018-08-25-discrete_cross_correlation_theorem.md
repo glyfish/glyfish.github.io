@@ -703,6 +703,7 @@ X_{t+3} = \alpha^{3} X_t + \sum_{n=1}^{3}\alpha^{n-1} \varepsilon_{t+n}.
 {% endkatex %}
 
 If this procedure is continued for {% katex %}\tau{% endkatex %} steps the following is obtained,
+
 {% katex display %}
 X_{t+\tau} = \alpha^{\tau} X_t + \sum_{n=1}^{\tau}\alpha^{n-1} \varepsilon_{t+n}.
 {% endkatex %}
@@ -756,9 +757,10 @@ r_{\tau}^{E} &= \lim_{t\to\infty} E\left[X_t X_{t+\tau} \right] \\
 \end{aligned}
 {% endkatex %}
 
-The last step results from {% katex %}(17){% endkatex %} where {% katex %}\mu_{E} = 0{% endkatex %} and
-assuming that {% katex %}\mid\alpha\mid\ < 1{% endkatex %} so that {% katex %}\sigma_{E}{% endkatex %}
-is finite. A simple form of the autocorrelation coefficient in the equilibrium limit
+The last step results from {% katex %}(17){% endkatex %} by assuming that
+{% katex %}\mid\alpha\mid\ < 1{% endkatex %} so that {% katex %}\mu_{E}{% endkatex %} and
+{% katex %}\sigma_{E}{% endkatex %}
+are finite. A simple form of the autocorrelation coefficient in the equilibrium limit
 follows from equation {% katex %}(15){% endkatex %},
 
 {% katex display %}

@@ -8,12 +8,12 @@
 <meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="gly.fish" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
+<link rel="canonical" href="gly.fish/" />
+<meta property="og:url" content="gly.fish/" />
 <meta property="og:site_name" content="gly.fish" />
-<link rel="next" href="http://localhost:4000/page2" />
+<link rel="next" href="gly.fish/page2" />
 <script type="application/ld+json">
-{"name":"gly.fish","@type":"WebSite","url":"http://localhost:4000/","headline":"gly.fish","@context":"http://schema.org"}</script>
+{"name":"gly.fish","@type":"WebSite","url":"gly.fish/","headline":"gly.fish","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -22,7 +22,7 @@
   <link rel="manifest" href="/assets/favicon/site.webmanifest">
   <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#000000">
   <meta name="msapplication-TileColor" content="#329EFF">
-  <meta name="theme-color" content="#329EFF"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="gly.fish" /></head>
+  <meta name="theme-color" content="#329EFF"><link type="application/atom+xml" rel="alternate" href="gly.fish/feed.xml" title="gly.fish" /></head>
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a rel="author" href="/"><?xml version="1.0" encoding="UTF-8"?>
@@ -132,12 +132,22 @@
         Metropolis Hastings Sampling
       </h1>
       <p class="post-meta">
-        <time class="dt-published" datetime="" itemprop="datePublished">Aug 26, 2018
+        <time class="dt-published" datetime="" itemprop="datePublished">Aug 28, 2018
         </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
               <span class="p-author h-card" itemprop="name">Troy Stribling</span>
             </span></p>
-      <img class="post-image" src="/assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png"><p>Metropolis Hastings Samp...
-      <a href="/2018/08/26/metropolis_hastings_sampling.html">read more</a>
+      <img class="post-image" src="/assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png"><p><a href="https://en.wikipedia.org/wiki/Metropolis–Hastings_algorithm">Metropolis Hastings Sampling</a> is a method for obtaining samples for known target
+probability distribution with no sampler using samples from some other proposal distribution. It is similar to
+<a href="/2018/07/29/rejection_sampling.html">Rejection Sampling</a> in providing of a criteria for acceptance
+of a proposal sample as a target sample but instead of discarding the samples that do not meet the acceptance criteria the sample
+from the previous time step is replicated. Another difference is that Metropolis Hastings samples are modeled as a <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chain</a> where the target distribution
+is the <a href="/2018/08/16/continuous_state_markov_chain_equilibrium.html">Markov Chain Equilibrium Distribution</a>. As a consequence
+the previously accepted sample is used as part of the acceptance criteria when generating the next sample. This has the advantage of
+permitting dynamical adjustment of the proposal distribution parameters as each sample is generated, which is an improvement over Rejection Sampling,
+that can lead to a more efficient traversal of the distribution. But a downside of the Markov Chain representation is that
+<a href="/2018/08/25/discrete_cross_correlation_theorem.html">autocorrelation</a> can develop in the samples which is
+not the case in Rejection Sampl...
+      <a href="/2018/08/28/metropolis_hastings_sampling.html">read more</a>
     </li>
     <li><h1 class="post-title p-name" >
         Discrete Cross Correlation Theorem
@@ -216,8 +226,8 @@ for this limit is discussed and illustrated with examp...
         </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
               <span class="p-author h-card" itemprop="name">Troy Stribling</span>
             </span></p>
-      <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png"><p>Rejection Sampling is a method for obtaining samples for a known target probability distribution
-with no sampler using samples from some other proposal distribution with a sampler.
+      <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png"><p><a href="https://en.wikipedia.org/wiki/Rejection_sampling">Rejection Sampling</a> is a method for obtaining samples for a known target
+probability distribution with no sampler using samples from some other proposal distribution.
 It is a more general method than
 <a href="/2018/07/21/inverse_cdf_sampling.html">Inverse CDF Sampling</a> which requires
 distribution to have an invertible CDF. Inverse CDF Sampling transforms a
@@ -247,7 +257,7 @@ distribut...
 
   <div class="wrapper">
     <div class="site-footer"><aside  itemscope itemtype="http://schema.org/Organization">
-          <meta itemprop="name" content="gly.fish"><meta itemprop="url" content="http://localhost:4000">
+          <meta itemprop="name" content="gly.fish"><meta itemprop="url" content="gly.fish">
           <meta itemprop="description" content="">
         </aside><div class="social-media-list">
   <ul><li title="Follow glyfish on Twitter">
