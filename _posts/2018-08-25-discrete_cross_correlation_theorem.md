@@ -616,7 +616,7 @@ def cross_correlate(x, y):
 
 The autocorrelation, defined by equation {% katex %}(3){% endkatex %}, is the special case of the
 cross correlation of a time series with itself. It provides a measure of the *dependence* or
-*similarity* of its past and future. The analog of the Cross Correlation Theorem for autocorrelation is
+*similarity* of its past and future. The version of the Cross Correlation Theorem for autocorrelation is
 given by,
 
 {% katex display %}
@@ -652,7 +652,7 @@ def autocorrelate(x):
 The function first shifts
 `x` by its mean, then adds padding to remove aliasing and computes its FFT. Equation {% katex %}(14){% endkatex %} is
 next used to compute the Discrete Fourier Transform of the autocorrelation which is inverted. The final result is
-normalized by the zero lag autocorrelation which equals {% katex %}\sigma_f{% endkatex %}.
+normalized by the zero lag autocorrelation which equals {% katex %}\sigma_f^2{% endkatex %}.
 
 ### AR(1) Equilibrium Autocorrelation
 
@@ -665,8 +665,7 @@ X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (16),
 {% endkatex %}
 
 where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon_{t}{% endkatex %} are identically
-distributed independent {% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %} random variables with zero mean and variance,
-{% katex %}\sigma^2{% endkatex %}.
+distributed independent {% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %} random variables. 
 
 The
 equilibrium mean and standard deviation, {% katex %}\mu_E{% endkatex %} and {% katex %}\sigma_E{% endkatex %} are given by,
@@ -737,8 +736,7 @@ E\left[ X_t \varepsilon_{t+n}\right] &= E\left[ \alpha^t X_{0}\varepsilon_{t+n} 
 \end{aligned}
 {% endkatex %}
 
-since the {% katex %}\varepsilon_{t}{% endkatex %} are independent and identically distributed random variables with distribution
-{% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %}. It follows that,
+since the {% katex %}\varepsilon_{t}{% endkatex %} are independent and identically distributed random variables. It follows that,
 
 {% katex display %}
 \begin{aligned}
@@ -757,7 +755,7 @@ r_{\tau}^{E} &= \lim_{t\to\infty} E\left[X_t X_{t+\tau} \right] \\
 \end{aligned}
 {% endkatex %}
 
-The last step results from {% katex %}(17){% endkatex %} by assuming that
+The last step follows from {% katex %}(17){% endkatex %} by assuming that
 {% katex %}\mid\alpha\mid\ < 1{% endkatex %} so that {% katex %}\mu_{E}{% endkatex %} and
 {% katex %}\sigma_{E}{% endkatex %}
 are finite. A simple form of the autocorrelation coefficient in the equilibrium limit
@@ -767,10 +765,11 @@ follows from equation {% katex %}(15){% endkatex %},
 \begin{aligned}
 \gamma_{\tau}^{E} &= \frac{r_{\tau}}{\sigma^2_E} \\
 &= \alpha^{\tau}
-\end{aligned}\ \ \ \ \ (17).
+\end{aligned}\ \ \ \ \ (18).
 {% endkatex %}
 
-{% katex %}\gamma_{\tau}^{E}{% endkatex %} is finite only for {% katex %}\mid\alpha\mid\ \leq\ 1{% endkatex %}.
+{% katex %}\gamma_{\tau}^{E}{% endkatex %} 
+remains finite for increasing {% katex %}\tau{% endkatex %} only for {% katex %}\mid\alpha\mid\ \leq\ 1{% endkatex %}.
 
 ### AR(1) Simulations
 
@@ -789,25 +788,24 @@ def ar_1_series(α, σ, x0=0.0, nsamples=100):
 ```
 
 The function `ar_1_series(α, σ, x0, nsamples)` takes four arguments: `α` and `σ` from equation {% katex %}(16){% endkatex %},
-the initial value of {% katex %}x{% endkatex %}, `x0` and the number of desired samples, `nsamples`. It begins by allocating storage
-for the sample output followed by generation of `nsamples` values of {% katex %}\varepsilon_\sim \textbf{Normal}(0,\ \sigma^2){% endkatex %}
+the initial value of {% katex %}x{% endkatex %}, `x0`, and the number of desired samples, `nsamples`. It begins by allocating storage
+for the sample output followed by generation of `nsamples` values of {% katex %}\varepsilon \sim \textbf{Normal}(0,\ \sigma^2){% endkatex %}
 with the requested standard deviation, {% katex %}\sigma{% endkatex %}.
 The samples are then created using the AR(1 ) difference equation, equation {% katex %}(5){% endkatex %}.
 
 The plots below show examples of simulated time series with {% katex %}\sigma=1{% endkatex %} and values of
 {% katex %}\alpha{% endkatex %} satisfying {% katex %}\alpha\ <\ 1{% endkatex %}.
-It is seen that for smaller {% katex %}\alpha{% endkatex %} values of the series more frequently change direction
-and have smaller variance. This is expected from equation {% katex %}(17){% endkatex %},
-where {% katex %}\sigma_E=1/1-\alpha^2{% endkatex %}.
+It is seen that for smaller {% katex %}\alpha{% endkatex %} values the series more frequently change direction
+and have smaller variance. This is expected from equation {% katex %}(17){% endkatex %}. 
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/discrete_cross_correlation_theorem/ar1_alpha_sample_comparison.png">
 </div>
 
-The next series of plots compare the autocorrelation coefficient from equation {% katex %}(17){% endkatex %}, obtained in
+The next series of plots compare the autocorrelation coefficient from equation {% katex %}(18){% endkatex %}, obtained in
 the equilibrium limit, with an autocorrelation coefficient calculation using the previously discussed `autocorrelate(x)` function on
 the generated sample data. Recall that `autocorrelate(x)` performs a calculation using the Cross Correlation Theorem.
-Equation {% katex %}(17){% endkatex %} does a good job of capturing the time scale for the series to become uncorrelated.
+Equation {% katex %}(18){% endkatex %} does a good job of capturing the time scale for the series to become uncorrelated.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/discrete_cross_correlation_theorem/ar1_alpha_equilibrium_autocorrelation_comparison.png">
@@ -816,13 +814,13 @@ Equation {% katex %}(17){% endkatex %} does a good job of capturing the time sca
 ## Conclusions
 
 The Discrete Cross Correlation Theorem provides a more efficient method of calculating time series
-correlations that a directly evaluating the sums. For a time series of length N it decreases the cost
+correlations than directly evaluating the sums. For a time series of length N it decreases the cost
 of the calculation from {% katex %}O(N^2){% endkatex %} to {% katex %}O(NlogN){% endkatex %} by
 use of the Fast Fourier Transform.
 An interpretation of the cross correlation as the time lagged covariance of two random variables was presented
-first and followed a discussion of the properties of Discrete Fourier Transforms needed to prove the
+and followed by a discussion of the properties of Discrete Fourier Transforms needed to prove the
 Cross Correlation Theorem. After building sufficient tools the theorem was derived by application of the
-Discrete Fourier Transforms to equation {% katex %}(1){% endkatex %}, which defines cross correlation.
+Discrete Fourier Transform to equation {% katex %}(1){% endkatex %}, which defines cross correlation.
 An example manual calculation of a Discrete Fourier Transform was performed and compared with a calculation
 using the FFT library form `numpy`. Next, manual calculations of cross correlation using a tabular method
 to represent the summations were presented and followed by a calculation using the Discrete
@@ -832,6 +830,6 @@ A *dealiased* implementation using `numpy` FFT libraries was then presented. Fin
 the Discrete Cross Correlation Theorem for the special case of the autocorrelation was
 discussed and a `numpy` FFT implementation was provided and followed by an example calculation using the AR(1)
 random process. In conclusion the autocorrelation coefficient in the equilibrium limit for AR(1) was evaluated
-and shown to be finite only values of the AR(1) parameter that satisfy
+and shown to be finite only for values of the AR(1) parameter that satisfy
 {% katex %}\mid\alpha\mid\ < \ 1{% endkatex %}. This result is compared to direct simulations and shown to
 provide a good estimate of the decorrelation time of the process.
