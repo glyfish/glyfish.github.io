@@ -46,7 +46,7 @@ The [stochastic kernel]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_s
 {% katex %}p(x,y){% endkatex %} for the Markov Chain must satisfy,
 
 {% katex display %}
-\pi_{E}(y) = \int_{-\infty}^{\infty} p(x, y) \pi_{E}(x) dx.
+\pi_{E}(y) = \int_{-\infty}^{\infty} p(x, y) \pi_{E}(x) dx\ \ \ \ \ (1).
 {% endkatex %}
 
 To generate samples for {% katex %}p(x, y){% endkatex %} samples form a proposal stochastic kernel {% katex %}q(x, y){% endkatex %} are generated.
@@ -72,7 +72,7 @@ is not satisfied then *reject* the sample by replicating the state from the prev
 Later it will be shown that,
 
 {% katex display %}
-\alpha(x, y) = min\left\{\frac{f(y)q(y,x)}{f(x)q(x,y)}, 1\right\}\ \ \ \ \ (1).
+\alpha(x, y) = min\left\{\frac{f(y)q(y,x)}{f(x)q(x,y)}, 1\right\}\ \ \ \ \ (2).
 {% endkatex %}
 
 The algorithm can be summarized by the following steps that are repeated for each sample.
@@ -81,9 +81,34 @@ The algorithm can be summarized by the following steps that are repeated for eac
 2. If {% katex %}u\ \leq\ \alpha(x, y^{\ast}){% endkatex %} then {% katex %}y = y^{\ast}{% endkatex %}.
 3. If {% katex %}u\ >\ \alpha(x, y^{\ast}){% endkatex %} then {% katex %}y = x{% endkatex %}.
 
+The algorithm is similar to [Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}). The only difference is the more complex acceptance
+function but the implementation remains simple
+
 ## Theory
 
+Metropolis Hastings Sampling has a simple implementation but the theory that provides
+validation of the algorithm is more complicated than required for both
+[Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) and
+[Inverse CDF Sampling]({{ site.baseurl }}{% link _posts/2018-07-21-inverse_cdf_sampling.md %}).
+Here the proof is accomplished in four steps. The first will show that distributions and stochastic kernels
+that satisfy Time Reversal Symmetry, also referred to as Detailed Balance, are equilibrium
+solutions that satisfy equation {% katex %}(1){% endkatex %}. Next, the stochastic kernel resulting
+from the algorithm is derived and followed by a proof that a distribution that satisfies Time Reversal
+Symmetry with the stochastic kernel is a solution to equation {% katex %}(1){% endkatex %}.
+Finally, the expression for {% katex %}\alpha(x,y){% endkatex %} from equation {% katex %}(2){% endkatex %}
+will be derived.
+
+### Time Reversal Symmetry
+
+### Stochastic Kernel
+
+### Equilibrium
+
+### Derivation of {% katex %}\alpha(x,y){% endkatex %}
+
 ## Example
+
+### Parameterization
 
 ### Implementation
 
@@ -102,3 +127,7 @@ def metropolis_hastings(f, q, qsample, stepsize, nsample, x0):
         samples[i] = x
     return samples
 ```
+
+### Convergence To Equilibrium
+
+### Burn In
