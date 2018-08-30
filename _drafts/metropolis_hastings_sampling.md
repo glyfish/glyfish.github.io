@@ -1,24 +1,104 @@
 ---
 title: Metropolis Hastings Sampling
 key: 20180721
-image: /assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png
+image: /assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance_fit.png
 author: Troy Stribling
 permlink: /metropolis_hastings_sampling.html
 comments: false
 ---
 
 [Metropolis Hastings Sampling](https://en.wikipedia.org/wiki/Metropolis–Hastings_algorithm) is a method for obtaining samples for known target
-probability distribution with no sampler using samples from some other proposal distribution. It is similar to
-[Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) in providing of a criteria for acceptance
-of a proposal sample as a target sample but instead of discarding the samples that do not meet the acceptance criteria the sample
+probability distribution using samples from some other proposal distribution. It is similar to
+[Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) in providing a
+criteria for acceptance of a proposal sample as a target sample but instead of discarding the
+samples that do not meet the acceptance criteria the sample
 from the previous time step is replicated. Another difference is that Metropolis Hastings samples are modeled as a [Markov Chain](https://en.wikipedia.org/wiki/Markov_chain) where the target distribution
 is the [Markov Chain Equilibrium Distribution]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}). As a consequence
-the previously accepted sample is used as part of the acceptance criteria when generating the next sample. This has the advantage of
-permitting dynamical adjustment of the proposal distribution parameters as each sample is generated, which is an improvement over Rejection Sampling,
-that can lead to a more efficient traversal of the distribution. But a downside of the Markov Chain representation is that
-[autocorrelation]({{ site.baseurl }}{% link _posts/2018-08-25-discrete_cross_correlation_theorem.md %}) can develop in the samples which is
-not the case in Rejection Sampling.
+the previously accepted sample is used as part of the acceptance criteria when generating the next sample.
+It will be seen this has the advantage of permitting dynamical adjustment of some proposal distribution
+parameters as each sample is generated, which in effect eliminates those parameters from concern in the model.  
+This is is an improvement over Rejection Sampling, where it was
+[previously shown]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) that
+slight variations in proposal distribution parameters can lead to a more can significantly impact performance. A downside of the Markov Chain representation is that
+[autocorrelation]({{ site.baseurl }}{% link _posts/2018-08-25-discrete_cross_correlation_theorem.md %}) can develop in the samples which is not the case in Rejection Sampling.
 
 <!--more-->
 
+## Algorithm
+
+The [Metropolis Sampling Algorithm](https://www.google.com/search?hl=en&source=hp&ei=O-CGW-qAIMWosgXf9ofQDA&q=Equation+of+state+calculations+by+fast+computing+machines&oq=Equation+of+state+calculations+by+fast+computing+machines&gs_l=psy-ab.3..35i39k1j0i22i30k1l2.1983.1983.0.2488.3.2.0.0.0.0.91.91.1.2.0....0...1.2.64.psy-ab..1.2.180.6...89.Y99UmLWMZD0) was
+originally developed by physicist studying simulations of equation of state at the dawn of the computer age.
+It is the first a a class of sampling algorithms referred to a [Monte Carlo Markov Chain](https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo).
+A couple of decades later the algorithm was generalized and given a firmer theoretical foundation to became the [Metropolis Hastings Sampling Algorithm](https://www.google.com/search?client=safari&rls=en&ei=Xt-GW5GyLOWwtgX38az4Dg&q=Monte+Carlo+Sampling+Methods+Using+Markov+Chains&oq=Monte+Carlo+Sampling+Methods+Using+Markov+Chains&gs_l=psy-ab.3..0j0i22i30k1l2.79402.79402.0.79877.1.1.0.0.0.0.95.95.1.1.0....0...1.2.64.psy-ab..0.1.95....0.99vsUPrnsUQ).
+It was another couple of decades before this work became widely used in simulating (Bayesian Posterior Distributions)[https://en.wikipedia.org/wiki/Posterior_probability]
+in Probabilistic Programming DSLs such as (`pymc`)[https://en.wikipedia.org/wiki/PyMC3]. This section provides an overview of how to implement the algorithm to motivate
+details of the theory and examples discussed in following sections.
+
+Let {% katex %}f(y){% endkatex %} denote the target distribution that is sampled. The algorithm constructs a Markov Chain with
+[equilibrium distribution]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}),
+{% katex %}\pi_{E}{% endkatex %}, such that,
+
+{% katex display %}
+f(y) = \pi_{E}(y).
+{% endkatex %}
+
+The [stochastic kernel]({{ site.baseurl }}{% link _posts/2018-08-16-continuous_state_markov_chain_equilibrium.md %}),
+{% katex %}p(x,y){% endkatex %} for the Markov Chain must satisfy,
+
+{% katex display %}
+\pi_{E}(y) = \int_{-\infty}^{\infty} p(x, y) \pi_{E}(x) dx.
+{% endkatex %}
+
+To generate samples for {% katex %}p(x, y){% endkatex %} samples form a proposal stochastic kernel {% katex %}q(x, y){% endkatex %} are generated.
+Let {% katex %}x{% endkatex %} denote the state of the Markov Chain of {% katex %}p(x, y){% endkatex %} at the previous time step,
+{% katex %}t-1{% endkatex %}, {% katex %}y{% endkatex %} the yet to be determined state at time {% katex %}t{% endkatex %} and
+{% katex %}y^{\ast}{% endkatex %} a proposal for {% katex %}y{% endkatex %} generated by {% katex %}q(x, y^{\ast}){% endkatex %}. Define an
+acceptance function,
+
+{% katex display %}
+0\ \leq\ \alpha(x, y^{\ast})\ \leq 1,
+{% endkatex %}
+
+and an *acceptance* probability by {% katex %}u\ \sim\ \textbf{Uniform}(0,\ 1){% endkatex %} independent of {% katex %}y^{\ast}{% endkatex %}.
+Now, if the following inequality is satisfied,
+
+{% katex display %}
+u\ \leq\ \alpha(x, y^{\ast}),
+{% endkatex %}
+
+*accept* the proposed sample, {% katex %}y=y^{\ast}{% endkatex %}, as a sample of {% katex %}p(x, y){% endkatex %}. If the inequality
+is not satisfied then *reject* the sample by replicating the state from the previous time step, {% katex %}y=x{% endkatex %}.
+
+Later it will be shown that,
+
+{% katex display %}
+\alpha(x, y) = min\left\{\frac{f(y)q(y,x)}{f(x)q(x,y)}, 1\right\}\ \ \ \ \ (1).
+{% endkatex %}
+
+The algorithm can be summarized by the following steps that are repeated for each sample.
+
+1. Independently generate samples of {% katex %}y^{\ast}{% endkatex %} and {% katex %}u{% endkatex %}.
+2. If {% katex %}u\ \leq\ \alpha(x, y^{\ast}){% endkatex %} then {% katex %}y = y^{\ast}{% endkatex %}.
+3. If {% katex %}u\ >\ \alpha(x, y^{\ast}){% endkatex %} then {% katex %}y = x{% endkatex %}.
+
 ## Theory
+
+## Example
+
+### Implementation
+
+```python
+def metropolis_hastings(f, q, qsample, stepsize, nsample, x0):
+    x = x0
+    samples = numpy.zeros(nsample)
+    for i in range(nsample):
+        accept = numpy.random.rand()
+        y_star = qsample(x, stepsize)
+        fy_star = f(y_star)
+        fx = p(x)
+        α = (fy_star*q(y_star, x, stepsize)) / (fx*q(x, y_star, stepsize))
+        if accept < α:
+            x = y_star
+        samples[i] = x
+    return samples
+```
