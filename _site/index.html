@@ -132,7 +132,7 @@
         Metropolis Hastings Sampling
       </h1>
       <p class="post-meta">
-        <time class="dt-published" datetime="" itemprop="datePublished">Aug 30, 2018
+        <time class="dt-published" datetime="" itemprop="datePublished">Aug 31, 2018
         </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
               <span class="p-author h-card" itemprop="name">Troy Stribling</span>
             </span></p>
@@ -143,14 +143,16 @@ criteria for acceptance of a proposal sample as a target sample but instead of d
 samples that do not meet the acceptance criteria the sample
 from the previous time step is replicated. Another difference is that Metropolis Hastings samples are modeled as a <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chain</a> where the target distribution
 is the <a href="/2018/08/16/continuous_state_markov_chain_equilibrium.html">Markov Chain Equilibrium Distribution</a>. As a consequence
-the previously accepted sample is used as part of the acceptance criteria when generating the next sample.
+the previous sample is used as part of the acceptance criteria when generating the next sample.
 It will be seen this has the advantage of permitting dynamical adjustment of some proposal distribution
-parameters as each sample is generated, which in effect eliminates those parameters from concern in the model.<br />
+parameters as each sample is generated, which in effect eliminates parameters as model inputs.<br />
 This is is an improvement over Rejection Sampling, where it was
 <a href="/2018/07/29/rejection_sampling.html">previously shown</a> that
-slight variations in proposal distribution parameters can lead to a more can significantly impact performance. A downside of the Markov Chain representation is that
-<a href="/2018/08/25/discrete_cross_correlation_theorem.html">autocorrelation</a> can develop in the samples which is not the case in Rejection Sampl...
-      <a href="/2018/08/30/metropolis_hastings_sampling.html">read more</a>
+slight variations in proposal distribution parameters can significantly impact performance.
+A downside of the Markov Chain representation is that
+<a href="/2018/08/25/discrete_cross_correlation_theorem.html">autocorrelation</a> can develop in the samples
+which is not the case in Rejection Sampl...
+      <a href="/2018/08/31/metropolis_hastings_sampling.html">read more</a>
     </li>
     <li><h1 class="post-title p-name" >
         Discrete Cross Correlation Theorem
