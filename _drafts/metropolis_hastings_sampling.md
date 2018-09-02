@@ -58,7 +58,7 @@ time step, {% katex %}t-1{% endkatex %} and {% katex %}y{% endkatex %} represent
 Define an acceptance function,
 
 {% katex display %}
-0\ \leq\ \alpha(x, y^{\ast})\ \leq 1,
+0\ \leq\ \alpha(x, y^{\ast})\ \leq 1\ \ \ \ \ (2),
 {% endkatex %}
 
 and an *acceptance* random variable, {% katex %}U{% endkatex %}, with distribution {% katex %}\textbf{Uniform}(0,\ 1){% endkatex %}
@@ -74,7 +74,7 @@ is not satisfied then *reject* the sample by replicating the state from the prev
 It will be shown that,
 
 {% katex display %}
-\alpha(x, y) = min\left\{\frac{f(y)q(y,x)}{f(x)q(x,y)}, 1\right\}\ \ \ \ \ (2).
+\alpha(x, y) = min\left\{\frac{f(y)q(y,x)}{f(x)q(x,y)}, 1\right\}\ \ \ \ \ (3).
 {% endkatex %}
 
 The algorithm can be summarized by the following steps that are repeated for each sample.
@@ -95,10 +95,10 @@ validation of the algorithm is more complicated than required for both
 Here the proof that the algorithm produces the desired result is accomplished in four steps.
 The first will show that distributions and stochastic kernels that satisfy Time Reversal Symmetry,
 also referred to as Detailed Balance, are equilibrium solutions that satisfy equation
-{% katex %}(1){% endkatex %}. Next, the stochastic kernel resulting from the algorithm is derived
+{% katex %}(1).{% endkatex %} Next, the stochastic kernel resulting from the algorithm is derived
 and followed by a proof that a distribution that satisfies Time Reversal Symmetry with the resulting
 stochastic kernel is a solution to equation {% katex %}(1){% endkatex %}. Finally, the
-expression for {% katex %}\alpha(x,y){% endkatex %} from equation {% katex %}(2){% endkatex %} will
+expression for {% katex %}\alpha(x,y){% endkatex %} from equation {% katex %}(3){% endkatex %} will
 be derived.
 
 ### Time Reversal Symmetry
@@ -183,7 +183,7 @@ then {% katex %}y=x{% endkatex %}. Now, using the
 \begin{aligned}
 P\left[ Y\ \leq\ y\ \mid\ X=x \right]\ &=\ P\left[Y\ \leq\ y\ \mid\ U\ \leq\ \alpha(x, y^{\ast}),\ X=x \right]\ P\left[U\ \leq\ \alpha(x, y^{\ast})\ \mid\ X=x \right] \\
 &\ + P\left[Y\ \leq\ y\ \mid\ U\ >\ \alpha(x, y^{\ast}),\ X=x \right]\ P\left[U\ >\ \alpha(x, y^{\ast})\ \mid\ X=x \right].
-\end{aligned}\ \ \ \ \ (4)
+\end{aligned}\ \ \ \ \ (4).
 {% endkatex %}
 
 The first term is the probability that the proposed sample is accepted and the second term the
@@ -208,11 +208,11 @@ h(y^{\ast}, u\mid x) &= g(u)f(y^{\ast}\mid x) \\
 {% endkatex %}
 
 where the last step follows by noting that the density of {% katex %}U{% endkatex %} is given by
-{% katex %}g(u)=1{% endkatex %}, since {% katex %}\textbf{Uniform}(0,1){% endkatex %}, and the density
+{% katex %}g(u)=1{% endkatex %}, since {% katex %}\textbf{Uniform}(0,1),{% endkatex %} and the density
 of {% katex %}y^{\ast}{% endkatex %} conditioned on {% katex %}x{% endkatex %} is given by the
 proposal stochastic kernel {% katex %}f(y^{\ast}\mid x)=q(x, y^{\ast}){% endkatex %}. Using this
-result to continue with the result from equation {% katex %}(5){% endkatex %} gives the acceptance
-probability term for the stochastic kernel CDF from equation {% katex %}(4){% endkatex %},
+result to continue gives the acceptance probability term for the stochastic kernel CDF from
+equation {% katex %}(4){% endkatex %},
 
 {% katex display %}
 \begin{aligned}
@@ -243,11 +243,11 @@ since {% katex %}\int_{-\infty}^{\infty}\ q(x, y^{\ast}) dy^{\ast}=1{% endkatex 
 things by defining the rejection probability density by,
 
 {% katex display %}
-f_{R}(x) = 1 - \int_{-\infty}^{\infty}\alpha(x, w) q(x, w) dw\ \ \ \ \ (8).
+f_{R}(x) = 1 - \int_{-\infty}^{\infty}\alpha(x, y) q(x, y) dy\ \ \ \ \ (8).
 {% endkatex %}
 
 Equation {% katex %}(7){% endkatex %} needs to be written as an integral over
-{% katex %}y{% endkatex %} to continue with the evaluation of equation {% katex %}(4){% endkatex %}. This
+{% katex %}y{% endkatex %} to continue with the evaluation of equation {% katex %}(5){% endkatex %}. This
 is accomplished by use of the [Dirac Delta Function](https://en.wikipedia.org/wiki/Dirac_delta_function)
 which is defined by,
 
@@ -265,7 +265,7 @@ P\left[Y\ \leq\ y,\ U\ >\ \alpha(x, y^{\ast})\ \mid\ X=x \right] = \int_{-\infty
 The upper range of the limit was changed to conform to the limits of the CDF. This is acceptable
 since if {% katex %}y\ <\ x{% endkatex %} the integral will evaluate to zero as it should. The Metropolis Hastings stochastic kernel can now by constructed by assembling the results obtained in
 equations {% katex %}(6){% endkatex %} and {% katex %}(9){% endkatex %} and revisiting equation
-{% katex %}(4){% endkatex %},
+{% katex %}(5){% endkatex %},
 
 {% katex display %}
 \begin{aligned}
@@ -332,7 +332,50 @@ leading to the desired result.
 
 ### Derivation of {% katex %}\alpha(x,y){% endkatex %}
 
+It has been shown that the Metropolis Hastings algorithm generates a Markov Chain with an equilibrium
+distribution equal to the target distribution. This has been accomplished by only requiring that
+the acceptance function, {% katex %}\alpha(x,y){% endkatex %}, satisfy Time Reversal Symmetry
+as specified by equation {% katex %}(11){% endkatex %} without giving and explicit form. Here
+an expression for {% katex %}\alpha(x,y){% endkatex %} is derived with the aim of driving arbitrary
+proposal Markov Chains toward a states satisfying Time Reversal.
 
+For an arbitrary proposal stochastic kernel, {% katex %}q(x,y){% endkatex %}, Time Reversal Symmetry
+will not be satisfied, so either {% katex %}\pi(x)q(x,y)\ >\ \pi(y)q(y,x){% endkatex %} or
+{% katex %}\pi(x)q(x,y)\ <\ \pi(y)q(y,x){% endkatex %} will be true. Assume the first condition is valid.
+If this is the case transitions from {% katex %}x{% endkatex %} to {% katex %}y{% endkatex %} occur more
+frequently than transitions from {% katex %}y{% endkatex %} to {% katex %}x{% endkatex %}. To correct for
+the imbalance the number of transitions from {% katex %}x{% endkatex %} to {% katex %}y{% endkatex %} needs
+to be decreased and the number of transition from {% katex %}y{% endkatex %} to {% katex %}x{% endkatex %}
+increased. This can be accomplished by setting {% katex %}\alpha(y,x)=1{% endkatex %} in equation
+{% katex %}(11){% endkatex %} to obtain,
+
+{% katex display %}
+\pi(x)\alpha(x,y)q(x,y) = \pi(y)q(y,x).
+{% endkatex %}
+
+Solving this equation for {% katex %}\alpha(x,y){% endkatex %} gives,
+
+{% katex display %}
+\alpha(x,y) = \frac{\pi(y)q(y,x)}{\pi(x)q(x,y)}.
+{% endkatex %}
+
+Similarly if the second condition, {% katex %}\pi(x)q(x,y)\ <\ \pi(y)q(y,x){% endkatex %}, is satisfied
+by the proposal stochastic kernel the number of transitions from {% katex %}x{% endkatex %} to
+{% katex %}y{% endkatex %} needs to be increased and the transitions from {% katex %}y{% endkatex %} to
+{% katex %}x{% endkatex %} decreased. Setting {% katex %}\alpha(x,y)=1{% endkatex %} in equation
+{% katex %}(11){% endkatex %} produces the desired result, namely,
+
+{% katex display %}
+\pi(x)q(x,y) = \pi(y)\alpha(y,x)q(y,x).
+{% endkatex %}
+
+Solving for {% katex %}\alpha(y,x){% endkatex %} gives,
+
+{% katex display %}
+\alpha(y,x) = \frac{\pi(x)q(x,y)}{\pi(y)q(y,x)},
+{% endkatex %}
+
+which is the time revered version of the first result.
 
 ## Example
 
