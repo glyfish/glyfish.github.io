@@ -217,7 +217,7 @@ AR(1) is defined by the difference equation,
 X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (5),
 {% endkatex %}
 
-where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon{t}{% endkatex %} are identically
+where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon_{t}{% endkatex %} are identically
 distributed independent {% katex %}\textbf{Normal}{% endkatex %}
 random variables with zero mean and variance, {% katex %}\sigma^2{% endkatex %}. The {% katex %}t{% endkatex %}
 subscript on {% katex %}\varepsilon{% endkatex %} indicates that it is generated at time step

@@ -132,7 +132,7 @@ def rejection_sample(h, y_samples, c):
 The above function `rejection_sample(h, y_samples, c)` takes three arguments as input which are
 described in the table below.
 
-| Arguments  | Description  |
+| Argument  | Description  |
 | :-----: | :---- |
 | `h` | The acceptance function. Defined by {% katex %}h(Y)=f_X(Y)/f_Y(Y){% endkatex %}.|
 | `y_samples` | Array of samples of {% katex %}Y{% endkatex %} generated using {% katex %}f_Y(Y){% endkatex %}.|
@@ -172,9 +172,10 @@ The first and second moments are,
 \begin{aligned}
 \mu & = \lambda\Gamma\left(1+\frac{1}{k}\right) \\
 \sigma^2 & = \lambda^2\left[\Gamma\left(1+\frac{2}{k}\right)-\left(\Gamma\left(1+\frac{1}{k}\right)\right)^2\right]
-\end{aligned} \ \ \ \ \ (5).
+\end{aligned} \ \ \ \ \ (5),
 {% endkatex %}
 
+where {% katex %}\Gamma(x){% endkatex %} is the [Gamma function](https://en.wikipedia.org/wiki/Gamma_function).
 In the examples described here it will be assumed that {% katex %}k=5.0{% endkatex %} and
 {% katex %}\lambda=1.0{% endkatex %}. The plot below shows the PDF and CDF using these values.
 

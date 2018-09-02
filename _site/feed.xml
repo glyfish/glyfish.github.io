@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-01T17:38:50-07:00</updated><id>http://localhost:4000/</id><title type="html">gly.fish</title><subtitle></subtitle><entry><title type="html">Discrete Cross Correlation Theorem</title><link href="http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem.html" rel="alternate" type="text/html" title="Discrete Cross Correlation Theorem" /><published>2018-08-25T00:00:00-07:00</published><updated>2018-08-25T00:00:00-07:00</updated><id>http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem</id><content type="html" xml:base="http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem.html">The [Cross Correlation Theorem](https://en.wikipedia.org/wiki/Cross-correlation) is similar to the more
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-02T14:36:46-07:00</updated><id>http://localhost:4000/</id><title type="html">gly.fish</title><subtitle></subtitle><entry><title type="html">Discrete Cross Correlation Theorem</title><link href="http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem.html" rel="alternate" type="text/html" title="Discrete Cross Correlation Theorem" /><published>2018-08-25T00:00:00-07:00</published><updated>2018-08-25T00:00:00-07:00</updated><id>http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem</id><content type="html" xml:base="http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem.html">The [Cross Correlation Theorem](https://en.wikipedia.org/wiki/Cross-correlation) is similar to the more
 widely known [Convolution Theorem](https://en.wikipedia.org/wiki/Convolution_theorem). The cross correlation
 of two discrete finite time series {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{N-1}\}{% endkatex %} and
 {% katex %}\{g_0,\ g_1,\ g_2,\ldots\,\ g_{N-1}\}{% endkatex %} is defined by,
@@ -1033,7 +1033,7 @@ AR(1) is defined by the difference equation,
 X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (5),
 {% endkatex %}
 
-where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon{t}{% endkatex %} are identically
+where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon_{t}{% endkatex %} are identically
 distributed independent {% katex %}\textbf{Normal}{% endkatex %}
 random variables with zero mean and variance, {% katex %}\sigma^2{% endkatex %}. The {% katex %}t{% endkatex %}
 subscript on {% katex %}\varepsilon{% endkatex %} indicates that it is generated at time step
@@ -2331,7 +2331,7 @@ def rejection_sample(h, y_samples, c):
 The above function `rejection_sample(h, y_samples, c)` takes three arguments as input which are
 described in the table below.
 
-| Arguments  | Description  |
+| Argument  | Description  |
 | :-----: | :---- |
 | `h` | The acceptance function. Defined by {% katex %}h(Y)=f_X(Y)/f_Y(Y){% endkatex %}.|
 | `y_samples` | Array of samples of {% katex %}Y{% endkatex %} generated using {% katex %}f_Y(Y){% endkatex %}.|
@@ -2371,9 +2371,10 @@ The first and second moments are,
 \begin{aligned}
 \mu &amp; = \lambda\Gamma\left(1+\frac{1}{k}\right) \\
 \sigma^2 &amp; = \lambda^2\left[\Gamma\left(1+\frac{2}{k}\right)-\left(\Gamma\left(1+\frac{1}{k}\right)\right)^2\right]
-\end{aligned} \ \ \ \ \ (5).
+\end{aligned} \ \ \ \ \ (5),
 {% endkatex %}
 
+where {% katex %}\Gamma(x){% endkatex %} is the [Gamma function](https://en.wikipedia.org/wiki/Gamma_function).
 In the examples described here it will be assumed that {% katex %}k=5.0{% endkatex %} and
 {% katex %}\lambda=1.0{% endkatex %}. The plot below shows the PDF and CDF using these values.
 
