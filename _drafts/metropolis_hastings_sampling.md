@@ -412,7 +412,7 @@ where {% katex %}k\ >\ 0{% endkatex %} is the shape parameter and {%katex %}\lam
 {% endkatex %}
 
 where {% katex %}\Gamma(x){% endkatex %} is the [Gamma function](https://en.wikipedia.org/wiki/Gamma_function). The following plot illustrates the variation in the Weibull distribution for a fixed value of the scale
-parameter of {% katex %}\lambda=1{% endkatex %} as the scale parameter {% katex %}k{% endkatex %} is varied.
+parameter of {% katex %}\lambda=1{% endkatex %} as the shape parameter, {% katex %}k{% endkatex %}, is varied.
 The following sections will assume that {% katex %}\lambda=1{% endkatex %} and {% katex %}k=5{% endkatex %}.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/weibull_distribution_parameters.png">
@@ -484,9 +484,11 @@ def qsample(x, stepsize):
     return numpy.random.normal(x, stepsize)
 ```
 
-` qsample(x, stepsize)` takes two arguments as input. The first is `x` the previous state and the second the `stepsize`.
+`qsample(x, stepsize)` takes two arguments as input. The first is `x` the previous state and the second the `stepsize`.
 `x` is used as the `loc` parameter and `stepsize` the `scale` parameter in the call to the `numpy`
 `normal` random number generator.
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_time_series.png">
 
 The Python implementation of the steps performed by Metropolis Hastings Sampling discussed in the
 **Algorithm** section is shown below.
@@ -507,17 +509,17 @@ def metropolis_hastings(f, q, qsample, stepsize, nsample, x0):
     return samples
 ```
 
-`metropolis_hastings(f, q, qsample, stepsize, nsample, x0)` take five arguments as input that are
+`metropolis_hastings(f, q, qsample, stepsize, nsample, x0)` takes five arguments as input that are
 described in the table below.
 
 | Argument | Description |
 | :-----: | :---- |
 | `f` | The target distribution which is assumed to support an interface taking a the previous state, `x`, as a floating point argument. In this example equation {% katex %}(12){% endkatex %} is used.|
 | `q` | The proposal stochastic kernel which is assumed to support an interface taking the previous state, `x`, and the `stepsize` both as floating point arguments. In this example equation {% katex %}(15){% endkatex %} is used.|
-| `qsample` | A random number generator based on the proposal stochastic kernel {% katex %}q(x,y){% endkatex %} which is assumed to support an interface taking the previous state, `x`, and the `stepsize` both as floating point arguments. The implementation used in this example by the function ` qsample(x, stepsize)` previously discussed.|
-| `stepsize` | The scale parameter used by the proposal distribution. |
-| `nsample` | The number of samples desired. |
-| `x0` | The initial target sample value. |
+| `qsample` | A random number generator based on the proposal stochastic kernel {% katex %}q(x,y){% endkatex %} which is assumed to support an interface taking the previous state, `x`, and the `stepsize` both as floating point arguments. The implementation used in this example by the function `qsample(x, stepsize)` previously discussed.|
+| `stepsize` | The scale parameter used by the proposal distribution.|
+| `nsample` | The number of samples desired.|
+| `x0` | The initial target sample value.|
 
 The execution of `metropolis_hastings(f, q, qsample, stepsize, nsample, x0)` begins by allocation of storage for
 the result and the initialization of the result Markov Chain. A loop is then executed `nsample` times
@@ -529,6 +531,38 @@ evaluated leading the sample being rejected or accepted.
 
 ### Convergence To Equilibrium
 
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/norma_proposal_acceptance.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_time_series_stepsize_comparison.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-99.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-82.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-12.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sigma_convergence_stepsize_comparison.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_mean_convergence_stepsize_comparison.png">
+
 ### Burn In
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-mean-convergence.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-sigma-convergence.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-autocorrelation.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-x-3.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-removed-mean-convergence.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin_removed-sigma-convergence.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-removed-x-3.png">
+
+### Acceptance Probability
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance_fit.png">
 
 ## Conclusions

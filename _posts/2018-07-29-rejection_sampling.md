@@ -136,7 +136,7 @@ described in the table below.
 | :-----: | :---- |
 | `h` | The acceptance function. Defined by {% katex %}h(Y)=f_X(Y)/f_Y(Y){% endkatex %}.|
 | `y_samples` | Array of samples of {% katex %}Y{% endkatex %} generated using {% katex %}f_Y(Y){% endkatex %}.|
-|`c`   |A constant chosen so {% katex %}0\ \leq\ h(Y)/c\ \leq\ 1, \ \ \forall\ Y{% endkatex %} |
+|`c` | A constant chosen so {% katex %}0\ \leq\ h(Y)/c\ \leq\ 1, \ \ \forall\ Y{% endkatex %} |
 
 The execution of `rejection_sample(h, y_samples, c)` begins by generating an appropriate number of acceptance variable samples, {% katex %}U{% endkatex %}, and
 then determines which satisfy the acceptance criterion specified by equation (1). The accepted samples are then returned.
