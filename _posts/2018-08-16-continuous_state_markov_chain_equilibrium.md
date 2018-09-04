@@ -228,7 +228,7 @@ The transition kernel for AR(1) can be derived from equation {% katex %}(5){% en
 {% katex %}\varepsilon_{t} = y - \alpha x{% endkatex %}. The result is,
 
 {% katex display %}
-p(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{(y-\alpha x)^2/2\sigma^2}\ \ \ \ \ \ (6)
+p(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-(y-\alpha x)^2/2\sigma^2}\ \ \ \ \ \ (6)
 {% endkatex %}
 
 Now, consider a few steps,

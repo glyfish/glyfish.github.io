@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-03T11:56:39-07:00</updated><id>http://localhost:4000/</id><title type="html">gly.fish</title><subtitle></subtitle><entry><title type="html">Discrete Cross Correlation Theorem</title><link href="http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem.html" rel="alternate" type="text/html" title="Discrete Cross Correlation Theorem" /><published>2018-08-25T00:00:00-07:00</published><updated>2018-08-25T00:00:00-07:00</updated><id>http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem</id><content type="html" xml:base="http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem.html">The [Cross Correlation Theorem](https://en.wikipedia.org/wiki/Cross-correlation) is similar to the more
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-03T17:24:51-07:00</updated><id>http://localhost:4000/</id><title type="html">gly.fish</title><subtitle></subtitle><entry><title type="html">Discrete Cross Correlation Theorem</title><link href="http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem.html" rel="alternate" type="text/html" title="Discrete Cross Correlation Theorem" /><published>2018-08-25T00:00:00-07:00</published><updated>2018-08-25T00:00:00-07:00</updated><id>http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem</id><content type="html" xml:base="http://localhost:4000/2018/08/25/discrete_cross_correlation_theorem.html">The [Cross Correlation Theorem](https://en.wikipedia.org/wiki/Cross-correlation) is similar to the more
 widely known [Convolution Theorem](https://en.wikipedia.org/wiki/Convolution_theorem). The cross correlation
 of two discrete finite time series {% katex %}\{f_0,\ f_1,\ f_2,\ldots\,\ f_{N-1}\}{% endkatex %} and
 {% katex %}\{g_0,\ g_1,\ g_2,\ldots\,\ g_{N-1}\}{% endkatex %} is defined by,
@@ -1044,7 +1044,7 @@ The transition kernel for AR(1) can be derived from equation {% katex %}(5){% en
 {% katex %}\varepsilon_{t} = y - \alpha x{% endkatex %}. The result is,
 
 {% katex display %}
-p(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{(y-\alpha x)^2/2\sigma^2}\ \ \ \ \ \ (6)
+p(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-(y-\alpha x)^2/2\sigma^2}\ \ \ \ \ \ (6)
 {% endkatex %}
 
 Now, consider a few steps,
@@ -2342,13 +2342,13 @@ then determines which satisfy the acceptance criterion specified by equation (1)
 
 ## Examples
 
-Consider the [Weibull Distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The PDF is
+Consider the [{% katex %}\textbf{Weibull}{% endkatex %} Distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The PDF is
 given by,
 
 {% katex display %}
 f_X(x; k, \lambda) =
 \begin{cases}
-\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{\left(\frac{-x}{\lambda}\right)^k} &amp; x\ \geq\ 0 \\
+\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{-\left(x/\lambda\right)^k} &amp; x\ \geq\ 0 \\
 0 &amp; x &lt; 0
 \end{cases} \ \ \ \ \ (4),
 {% endkatex %}
@@ -2380,14 +2380,16 @@ In the examples described here it will be assumed that {% katex %}k=5.0{% endkat
 
 &lt;img class=&quot;post-image&quot; src=&quot;/assets/posts/rejection_sampling/weibull_pdf.png&quot;&gt;
 
-The following sections will compare the performance of generating Weibull samples using both
+The following sections will compare the performance of generating
+{% katex %}\textbf{Weibull}{% endkatex %} samples using both
 {% katex %}\textbf{Uniform}(0,\ m){% endkatex %} and {% katex %}\textbf{Normal}(\mu,\ \sigma){% endkatex %}
 proposal distributions.
 
 ### Uniform Proposal Distribution
 
 Here a {% katex %}\textbf{Uniform}(0,\ m){% endkatex %} proposal distribution will be used to
-generate samples for the Weibull distribution {% katex %}(4){% endkatex %}. It provides a simple and
+generate samples for the {% katex %}\textbf{Weibull}{% endkatex %} distribution
+{% katex %}(4){% endkatex %}. It provides a simple and
 illustrative example of the algorithm. The following plot shows the
 target distribution {% katex %}f_X(y){% endkatex %}, the proposal distribution
 {% katex %}f_Y(y){% endkatex %} and the acceptance function
@@ -2459,16 +2461,20 @@ If no proposal samples are rejected the proposal and target distributions will b
 ### Normal Proposal Distribution
 
 In this section a sampler using a {% katex %}\textbf{Normal}(\mu,\ \sigma){% endkatex %} proposal
-distribution and target Weibull distribution is discussed. A Normal proposal distribution has advantages over
+distribution and target {% katex %}\textbf{Weibull}{% endkatex %} distribution is discussed.
+A {% katex %}\textbf{Normal}{% endkatex %} proposal distribution has advantages over
 the {% katex %}\textbf{Uniform}(0,\ m){% endkatex %} distribution discussed in the previous
 section. First, it can provide unbounded samples, while a uniform proposal requires specifying bounds
 on the samples. Second, it is a closer approximation to the target distribution so it should provide samples
-that are accepted with greater frequency. A disadvantage of the Normal proposal distribution is that it requires specification of {% katex %}\mu{% endkatex %} and {% katex %}\sigma{% endkatex %}.
+that are accepted with greater frequency. A disadvantage of the {% katex %}\textbf{Normal}{% endkatex %}
+proposal distribution is that it requires specification of {% katex %}\mu{% endkatex %} and
+{% katex %}\sigma{% endkatex %}.
 If these parameters are the slightest off the performance of the
 sampler will be severely degraded. To learn this lesson the first attempt will assume values for
 both the parameters that closely match the target distribution. The following plot compares the {% katex %}f_X(y){% endkatex %}, the proposal distribution {% katex %}f_Y(y){% endkatex %} and the acceptance function
 {% katex %}h(y){% endkatex %}. There is a large peak in {% katex %}h(y){% endkatex %} to right caused
-by the more rapid increase of the Weibull distribution relative to the Normal distribution with the result
+by the more rapid increase of the {% katex %}\textbf{Weibull}{% endkatex %} distribution relative to the
+{% katex %}\textbf{Normal}{% endkatex %} distribution with the result
 that most of its mass is not aligned with the target distribution.
 
 &lt;img class=&quot;post-image&quot; src=&quot;/assets/posts/rejection_sampling/weibull_normal_1_sampled_functions.png&quot;&gt;
@@ -2535,8 +2541,10 @@ examples discussed here and convergence of the sampled {% katex %}\mu{% endkatex
 
 &lt;img class=&quot;post-image&quot; src=&quot;/assets/posts/rejection_sampling/weibull_normal_3_sigma_convergence.png&quot;&gt;
 
-Sampling the Weibull distribution with a Normal proposal distribution can produce a better result than a
-uniform distribution but care must be exercised in selecting the Normal distribution parameters.
+Sampling the {% katex %}\textbf{Weibull}{% endkatex %} distribution with a
+{% katex %}\textbf{Normal}{% endkatex %} proposal distribution can produce a better result than a
+uniform distribution but care must be exercised in selecting the
+{% katex %}\textbf{Normal}{% endkatex %} distribution parameters.
 Some choices can produce inferior results. Analysis of the the acceptance function
 {% katex %}(2){% endkatex %} can provide guidance in parameter selection.
 
@@ -2751,8 +2759,8 @@ given by,
 {% katex display %}
 f_X(x; k, \lambda) =
 \begin{cases}
-\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{\left(\frac{-x}{\lambda}\right)^k} &amp; x\ \geq\ 0 \\
-0 &amp; x\ &lt;\ 0,
+\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{-\left(x/\lambda\right)^k} &amp; x\ \geq\ 0 \\
+0 &amp; x &lt; 0
 \end{cases} \ \ \ \ \ (5)
 {% endkatex %}
 
@@ -2784,7 +2792,8 @@ In the example described here it will be assumed that {% katex %}k=5.0{% endkate
 
 The sampler implementation for the continuous case is simpler than for the discrete case.
 Just as in the discrete case CDF samples with distribution {% katex %}U \sim \textbf{Uniform}(0, 1){% endkatex %}
-are generated. The desired samples with the target Weibull distribution are then computed using the CDF inverse.
+are generated. The desired samples with the target {% katex %}\textbf{Weibull}{% endkatex %}
+distribution are then computed using the CDF inverse.
 Below an implementation of this procedure in Python is given.
 
 ```python
@@ -2799,11 +2808,12 @@ samples = [cdf_inv(u) for u in numpy.random.rand(nsamples)]
 ```
 
 The following plot compares a histogram of the samples generated by the sampler above and the target
-distribution (5). The fit is quite good. The subtle asymmetry of the Weibull distribution is captured.
+distribution (5). The fit is quite good. The subtle asymmetry of the
+{% katex %}\textbf{Weibull}{% endkatex %} distribution is captured.
 
 &lt;img class=&quot;post-image&quot; src=&quot;/assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png&quot;&gt;
 
-The first and second moments for the Weibull distribution are given by,
+The first and second moments for the {% katex %}\textbf{Weibull}{% endkatex %} distribution are given by,
 
 {% katex display %}
 \begin{aligned}

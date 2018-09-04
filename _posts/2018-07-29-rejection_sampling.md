@@ -143,13 +143,13 @@ then determines which satisfy the acceptance criterion specified by equation (1)
 
 ## Examples
 
-Consider the [Weibull Distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The PDF is
+Consider the [{% katex %}\textbf{Weibull}{% endkatex %} Distribution](https://en.wikipedia.org/wiki/Weibull_distribution). The PDF is
 given by,
 
 {% katex display %}
 f_X(x; k, \lambda) =
 \begin{cases}
-\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{\left(\frac{-x}{\lambda}\right)^k} & x\ \geq\ 0 \\
+\frac{k}{\lambda}\left(\frac{x}{\lambda} \right)^{k-1} e^{-\left(x/\lambda\right)^k} & x\ \geq\ 0 \\
 0 & x < 0
 \end{cases} \ \ \ \ \ (4),
 {% endkatex %}
@@ -181,14 +181,16 @@ In the examples described here it will be assumed that {% katex %}k=5.0{% endkat
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_pdf.png">
 
-The following sections will compare the performance of generating Weibull samples using both
+The following sections will compare the performance of generating
+{% katex %}\textbf{Weibull}{% endkatex %} samples using both
 {% katex %}\textbf{Uniform}(0,\ m){% endkatex %} and {% katex %}\textbf{Normal}(\mu,\ \sigma){% endkatex %}
 proposal distributions.
 
 ### Uniform Proposal Distribution
 
 Here a {% katex %}\textbf{Uniform}(0,\ m){% endkatex %} proposal distribution will be used to
-generate samples for the Weibull distribution {% katex %}(4){% endkatex %}. It provides a simple and
+generate samples for the {% katex %}\textbf{Weibull}{% endkatex %} distribution
+{% katex %}(4){% endkatex %}. It provides a simple and
 illustrative example of the algorithm. The following plot shows the
 target distribution {% katex %}f_X(y){% endkatex %}, the proposal distribution
 {% katex %}f_Y(y){% endkatex %} and the acceptance function
@@ -260,16 +262,20 @@ If no proposal samples are rejected the proposal and target distributions will b
 ### Normal Proposal Distribution
 
 In this section a sampler using a {% katex %}\textbf{Normal}(\mu,\ \sigma){% endkatex %} proposal
-distribution and target Weibull distribution is discussed. A Normal proposal distribution has advantages over
+distribution and target {% katex %}\textbf{Weibull}{% endkatex %} distribution is discussed.
+A {% katex %}\textbf{Normal}{% endkatex %} proposal distribution has advantages over
 the {% katex %}\textbf{Uniform}(0,\ m){% endkatex %} distribution discussed in the previous
 section. First, it can provide unbounded samples, while a uniform proposal requires specifying bounds
 on the samples. Second, it is a closer approximation to the target distribution so it should provide samples
-that are accepted with greater frequency. A disadvantage of the Normal proposal distribution is that it requires specification of {% katex %}\mu{% endkatex %} and {% katex %}\sigma{% endkatex %}.
+that are accepted with greater frequency. A disadvantage of the {% katex %}\textbf{Normal}{% endkatex %}
+proposal distribution is that it requires specification of {% katex %}\mu{% endkatex %} and
+{% katex %}\sigma{% endkatex %}.
 If these parameters are the slightest off the performance of the
 sampler will be severely degraded. To learn this lesson the first attempt will assume values for
 both the parameters that closely match the target distribution. The following plot compares the {% katex %}f_X(y){% endkatex %}, the proposal distribution {% katex %}f_Y(y){% endkatex %} and the acceptance function
 {% katex %}h(y){% endkatex %}. There is a large peak in {% katex %}h(y){% endkatex %} to right caused
-by the more rapid increase of the Weibull distribution relative to the Normal distribution with the result
+by the more rapid increase of the {% katex %}\textbf{Weibull}{% endkatex %} distribution relative to the
+{% katex %}\textbf{Normal}{% endkatex %} distribution with the result
 that most of its mass is not aligned with the target distribution.
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_1_sampled_functions.png">
@@ -336,8 +342,10 @@ examples discussed here and convergence of the sampled {% katex %}\mu{% endkatex
 
 <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_sigma_convergence.png">
 
-Sampling the Weibull distribution with a Normal proposal distribution can produce a better result than a
-uniform distribution but care must be exercised in selecting the Normal distribution parameters.
+Sampling the {% katex %}\textbf{Weibull}{% endkatex %} distribution with a
+{% katex %}\textbf{Normal}{% endkatex %} proposal distribution can produce a better result than a
+uniform distribution but care must be exercised in selecting the
+{% katex %}\textbf{Normal}{% endkatex %} distribution parameters.
 Some choices can produce inferior results. Analysis of the the acceptance function
 {% katex %}(2){% endkatex %} can provide guidance in parameter selection.
 
