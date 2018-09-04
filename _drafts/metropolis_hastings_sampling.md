@@ -1,7 +1,7 @@
 ---
 title: Metropolis Hastings Sampling
 key: 20180721
-image: /assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance_fit.png
+image: /assets/posts/metropolis_hastings_sampling/norma_proposal_acceptance.png
 author: Troy Stribling
 permlink: /metropolis_hastings_sampling.html
 comments: false
@@ -568,17 +568,23 @@ The plot below shows the percentage of proposal samples accepted as a function o
 simulations with `stepsize` ranging from {% katex %}10^{-3}{% endkatex %} to {% katex %}10^{1}{% endkatex %}.
 The simulation believed to be the best performing accepted {% katex %}82\%{% endkatex %} of the proposed
 samples and had a stepsize of {% katex %}0.121{% endkatex %}. This simulation is indicated by the orange point
-in the plot. For `stepsize` smaller than {% katex %}0.121{% endkatex %} the accepted percentage of
-proposal samples very quickly approach {% katex %}100\%{% endkatex %} while for `stepsize` larger than
-{% katex %}0.121{% endkatex %} it approaches {% katex %}0\%{% endkatex %} as a power low. To get a sense of
-why this happens the `stepsize` needs to be compared to the standard deviation of the target distribution
-computed from equation {% katex %}(13){% endkatex %}. Using the assumed values for
-{% katex %}\lambda{% endkatex %} and {% katex %}k{% endkatex %} gives {% katex %}0.21{% endkatex %}.
-This values is the same order of magnitude of the proposed step size determined from simulations.
-Comparing the `stepsize` to the target standard deviation if the limits large and small limits
-provides and interpretation of the results.
+in the plot.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/norma_proposal_acceptance.png">
+
+An examination of the results reveals that for `stepsize` smaller than
+{% katex %}0.121{% endkatex %}, the simulations to the left of the orange symbol, the accepted percentage of
+proposal samples very quickly approach {% katex %}100\%{% endkatex %} while for `stepsize` larger than
+{% katex %}0.121{% endkatex %}, the simulations to the right of the orange symbol, the accepted
+percentage approaches {% katex %}0\%{% endkatex %} as a power law.
+To get a sense of why this happens the `stepsize` needs to be compared to the standard deviation
+of the target distribution computed from equation {% katex %}(13){% endkatex %}. Using the assumed values for
+{% katex %}\lambda{% endkatex %} and {% katex %}k{% endkatex %} gives {% katex %}0.21{% endkatex %}.
+This value is the same order of magnitude of the best performing `stepsize` determined from simulations.
+Comparing the `stepsize` to the target standard deviation in the large and small limits
+provides an interpretation of the results. For small `stepsize` the proposal variance is much smaller then
+the target variance. Because of this the difference between updates in the proposal Markov Chain leading
+to a exploration of the target distribution that never finds a boundary,
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_time_series_stepsize_comparison.png">
 
