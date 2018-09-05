@@ -618,18 +618,23 @@ other two simulations. Both are showing convergence after {% katex %}O(10^4){% e
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_mean_convergence_stepsize_comparison.png">
 
 A consequence of using a Markov Chain to generate samples is that autocorrelation is built into the model.
-This is not desirable in general since independent and identically distributed samples are usually
-desired. It follows that there is a preference rapid decorrelation of samples. The following plot
-shows that autocorrelation coefficient for the three values of `stepsize` previously discussed.
-The autocorrelation coefficient of a time series, {% katex %}f{% endkatex %}, is defined by,
+This is considered an undesirable artifact since in general independent and identically distributed samples
+are desired. It follows that there is a preference for rapid decorrelation of samples. The following plot
+shows the autocorrelation coefficient for the three values of `stepsize` previously discussed.
+The autocorrelation coefficient of a time series, {% katex %}f{% endkatex %}, provides a measure
+*similarity* or *dependence* of the series past and future and is defined by,
 
 {% katex display %}
-\gamma_{\tau} = \frac{1}{\sigma_{f}^2}\sum_{n=0}^{t} \left(f_{n} - \mu_f \right) \left(f_{n+\tau} - \mu_f\right)\ \ \ \ \ (16),
+\gamma_{\tau} = \frac{1}{\sigma_{f}^2}\sum_{n=0}^{t} \left(f_{n} - \mu_f \right) \left(f_{n+\tau} - \mu_f\right),
 {% endkatex %}
 
 where {% katex %}\mu_{f}{% endkatex %} and {% katex %}\sigma_{f}{% endkatex %} are the time series mean and
 standard deviation respectively. Calculation of autocorrelation was discussed in a
 [previous post]({{ site.baseurl }}{% link _posts/2018-08-25-discrete_cross_correlation_theorem.md %}).
+The small `stepsize` simulation has a very slowly decaying autocorrelation. For time lags of up to 100
+steps it has decayed by only a few precent. This behavior is expected since for small
+`stepsize` the resulting samples have the proposal distribution Markov Chain, with stochastic
+kernel shown in equation {% katex %}(15){% endkatex %} and has {% katex %}\gamma_{\tau}=1{% endkatex %}.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_autocorrelation_convergence_stepsize_comparison.png">
 
