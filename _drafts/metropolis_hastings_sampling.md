@@ -568,35 +568,59 @@ The plot below shows the percentage of proposal samples accepted as a function o
 simulations with `stepsize` ranging from {% katex %}10^{-3}{% endkatex %} to {% katex %}10^{1}{% endkatex %}.
 The simulation believed to be the best performing accepted {% katex %}82\%{% endkatex %} of the proposed
 samples and had a stepsize of {% katex %}0.121{% endkatex %}. This simulation is indicated by the orange point
-in the plot.
+in the plot. For all simulations discussed in this section `x0=1.0`.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/norma_proposal_acceptance.png">
 
-An examination of the results reveals that for `stepsize` smaller than
+On examination of the plot it is seen that for `stepsize` smaller than
 {% katex %}0.121{% endkatex %}, the simulations to the left of the orange symbol, the accepted percentage of
 proposal samples very quickly approach {% katex %}100\%{% endkatex %} while for `stepsize` larger than
 {% katex %}0.121{% endkatex %}, the simulations to the right of the orange symbol, the accepted
 percentage approaches {% katex %}0\%{% endkatex %} as a power law.
-To get a sense of why this happens the `stepsize` needs to be compared to the standard deviation
-of the target distribution computed from equation {% katex %}(13){% endkatex %}. Using the assumed values for
-{% katex %}\lambda{% endkatex %} and {% katex %}k{% endkatex %} gives {% katex %}0.21{% endkatex %}.
+
+To get a sense of why this happens the `stepsize` is compared to the standard deviation
+of the target distribution computed from equation {% katex %}(13){% endkatex %}, using the assumed values for
+{% katex %}\lambda{% endkatex %} and {% katex %}k{% endkatex %}, gives {% katex %}0.21{% endkatex %}.
 This value is the same order of magnitude of the best performing `stepsize` determined from simulations.
 Comparing the `stepsize` to the target standard deviation in the large and small limits
-provides an interpretation of the results. For small `stepsize` the proposal variance is much smaller then
-the target variance. Because of this the difference between updates in the proposal Markov Chain leading
-to a exploration of the target distribution that never finds a boundary,
+provides an interpretation of the results. For small `stepsize` relative to the target standard deviation the proposal variance is
+much smaller then the target variance. Because of this the steps taken by the proposal Markov Chain are small leading
+to a exploration of the target distribution that never goes far from the initial value. The samples produced will have
+the proposal distribution since nearly all proposals are accepted. This is seen in the first of the following
+plots where time series examples for different `stepsize` values for the last {% katex %}500{% endkatex %} steps
+for a {% katex %}51000{% endkatex %} sample simulation are shown. The small variance seen in the first
+plot is a consequence of the small `stepsize` leading to very small deviations from the initial value `x0=1`. In the
+opposite limit where the `stepsize` becomes large relative to the target standard deviation the steps taken by the proposal
+Markov Chain are so large that they are frequently rejected since low probability target events are oversampled. This effect is seen in
+last time series plot shown below. There long runs where the series has a constant value are clearly visible. The
+best value of `stepsize` relative to the target standard deviation occurs when they are about the same size. The middle plot
+below has the optimal `stepsize` of {% katex %}0.121{% endkatex %} accepted {% katex %}82\%{% endkatex %} of the proposed
+samples. It clearly has a more authentic look than the other two simulations which are at extreme values of the
+percentage accepted.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_time_series_stepsize_comparison.png">
+
+A measure of simulation performance is the rate of convergence of distribution moments computed from samples to the
+target distribution values. The next two plots show convergence of the cumulative sample mean, {% katex %}\mu{% endkatex %},
+and standard deviation, {% katex %}\sigma{% endkatex %}, to the target distribution values computed from
+equation {% katex %}(13){% endkatex %} for three values of `stepsize`. The `stepsize` values compare simulations at both the
+small and large value extremes with the optimal `stepsize` of {% katex %}0.121{% endkatex %}. For both {% katex %}\mu{% endkatex %}
+and {% katex %}\sigma{% endkatex %} the small `stepsize` example is clearly the worst performing. After
+{% katex %}10^5{% endkatex %} time steps there is no indication of convergence. There is no significant difference  between the
+other two simulations. Both are showing convergence after {% katex %}O(10^4){% endkatex %} samples.
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sigma_convergence_stepsize_comparison.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_mean_convergence_stepsize_comparison.png">
+
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_autocorrelation_convergence_stepsize_comparison.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-99.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-82.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-12.png">
-
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sigma_convergence_stepsize_comparison.png">
-
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_mean_convergence_stepsize_comparison.png">
 
 ### Burn In
 
@@ -613,9 +637,5 @@ to a exploration of the target distribution that never finds a boundary,
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin_removed-sigma-convergence.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-removed-x-3.png">
-
-## Acceptance Probability
-
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance_fit.png">
 
 ## Conclusions
