@@ -633,16 +633,44 @@ standard deviation respectively. Calculation of autocorrelation was discussed in
 [previous post]({{ site.baseurl }}{% link _posts/2018-08-25-discrete_cross_correlation_theorem.md %}).
 The small `stepsize` simulation has a very slowly decaying autocorrelation. For time lags of up to 100
 steps it has decayed by only a few precent. This behavior is expected since for small
-`stepsize` the resulting samples have the proposal distribution Markov Chain, with stochastic
-kernel shown in equation {% katex %}(15){% endkatex %} and has {% katex %}\gamma_{\tau}=1{% endkatex %}.
+`stepsize` the resulting samples are from the proposal Markov Chain, with stochastic
+kernel shown in equation {% katex %}(15){% endkatex %} which is independent of {% katex %}\tau{% endkatex %}
+{% katex %}\gamma_{\tau}=1{% endkatex %}. The other simulations have a similar decorrelation rate of {% katex %}O(10){% endkatex %} time steps,
+though for the larger `stepsize` the decorrelation rate is slightly faster.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_autocorrelation_convergence_stepsize_comparison.png">
+
+The following three plots compare histograms computed from simulations of {% katex %}10^5{% endkatex %} samples with the target
+{% katex %}\textbf{Weibull}{% endkatex %} distribution from equation {% katex %}(12){% endkatex %} for the same `stepsize`
+values used in the previous comparisons. The first plot shows the small `stepsize` simulation with a very high acceptance rate.
+For this case the simulated histogram is nowhere close to reproducing the target distribution. The last plot is the large `stepsize` simulation
+with a very large rejection rate. When compared with optimal `stepsize` of {% katex %}0.121{% endkatex %} simulation shown in the middle plot
+the larger `stepsize` simulation is not as smooth but is acceptable. The degraded performance of larger `stepsize` simulation
+will be a consequence of rejection of many more proposal samples leading to long stretches repeated values. For the
+optimal `stepsize` simulation almost {% katex %}10{% endkatex %} times more sample are available in the histogram caclculation.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-99.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-82.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-12.png">
+
+In summary a collection of simulations using the Metropolis Hastings algorithm to sample a target
+{% katex %}\texfbf{Weibull}{% endkatex %} distribution using a {% katex %}\textbf{Normal}{% endkatex %}
+proposal distribution have been performed that scan the `stepsize` parameter for a fixed initial value
+of `x0=1.0` in an effort to determine the best performing `stepsize`. Best performing was determined by considering
+the total percentage of accepted samples, the *quality* of the generated time series, the convergence of first
+and second moments to the known target values, the decorrelation timescale and fit of sample histograms to
+the target distribution. The best performing `stepsize` was found to have a value of {% katex %}0.121{% endkatex %}
+which is near the standard deviation of the target distribution. For values of `stepsize` smaller than the best
+performing `stepsize` the performance was clearly inferior on all counts. The number of accepted proposals was high,
+the time series look like the proposal distribution, convergence of moments is very slow, samples remain correlated
+over long time scales and the distributions computed from samples look nothing like the target distribution.
+When the same comparison is made to simulations with a larger `stepsize` the results were less conclusive.
+Larger values of `stepsize` accept fewer proposal samples. This causes degradation of the time series since there
+are many long runs of repeated values. In comparisons of convergence of distribution moments and autocorrelation
+there was no significant differences but calculation of the distribution using histograms on sample data were not
+as good since an order of magnitude less data was used in the calculation because of the high rejection percentage.
 
 ### Burn In
 
