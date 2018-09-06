@@ -168,7 +168,7 @@ F_{k+mN} &= \sum_{n=0}^{N} f_{n}e^{-2\pi i (n/N)(k+mN)} \\
 
 since, {% katex %}e^{2\pi i mn} = 1,\ \forall\ m,\ n{% endkatex %}.
 
-### Consequence Real {% katex %}f_{n}{% endkatex %}
+### Consequence of Real {% katex %}f_{n}{% endkatex %}
 
 If {% katex %}f_{n}{% endkatex %} is real then {% katex %}f_{n}=f_{n}^{\ast}{% endkatex %}, where
 {% katex %}\ast{% endkatex %} denotes the [Complex Conjugate](https://en.wikipedia.org/wiki/Complex_conjugate).
@@ -665,7 +665,7 @@ X_{t} = \alpha X_{t-1} + \varepsilon_{t}\ \ \ \ \ (16),
 {% endkatex %}
 
 where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon_{t}{% endkatex %} are identically
-distributed independent {% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %} random variables. 
+distributed independent {% katex %}\textbf{Normal}(0,\ \sigma^2){% endkatex %} random variables.
 
 The
 equilibrium mean and standard deviation, {% katex %}\mu_E{% endkatex %} and {% katex %}\sigma_E{% endkatex %} are given by,
@@ -768,7 +768,7 @@ follows from equation {% katex %}(15){% endkatex %},
 \end{aligned}\ \ \ \ \ (18).
 {% endkatex %}
 
-{% katex %}\gamma_{\tau}^{E}{% endkatex %} 
+{% katex %}\gamma_{\tau}^{E}{% endkatex %}
 remains finite for increasing {% katex %}\tau{% endkatex %} only for {% katex %}\mid\alpha\mid\ \leq\ 1{% endkatex %}.
 
 ### AR(1) Simulations
@@ -796,7 +796,7 @@ The samples are then created using the AR(1 ) difference equation, equation {% k
 The plots below show examples of simulated time series with {% katex %}\sigma=1{% endkatex %} and values of
 {% katex %}\alpha{% endkatex %} satisfying {% katex %}\alpha\ <\ 1{% endkatex %}.
 It is seen that for smaller {% katex %}\alpha{% endkatex %} values the series more frequently change direction
-and have smaller variance. This is expected from equation {% katex %}(17){% endkatex %}. 
+and have smaller variance. This is expected from equation {% katex %}(17){% endkatex %}.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/discrete_cross_correlation_theorem/ar1_alpha_sample_comparison.png">

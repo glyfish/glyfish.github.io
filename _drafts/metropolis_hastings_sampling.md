@@ -555,10 +555,12 @@ Here the results of simulations performed using the previously described
 algorithm are discussed. The simulations assume the {% katex %}\textbf{Weibull}{% endkatex %} target distribution
 from equation {% katex %}(12){% endkatex %} with {% katex %}\lambda=1{% endkatex %} and
 {% katex %}k=5{% endkatex %} and the {% katex %}\textbf{Normal}{% endkatex %} stochastic kernel from
-equation {% katex %}(14){% endkatex %}. Simulations that scan 4 orders of magnitude of `setpsize`
-are compared with the goal of determining the value leading the best performance. The criteria for
-evaluating performance include the time for convergence of the first and seconds moments computed from
-samples to the corresponding target distribution values, the fit of
+equation {% katex %}(14){% endkatex %}. Simulations that scan 4 orders of magnitude of `stepsize`
+with `x0` fixed are compared with the goal of determining the value leading to the best performance.
+Simulations are also performed with `stepsize` fixed that scan values of `x0` to determine the impact
+of initial condition on performance.
+The criteria for evaluating simulations include the time for convergence of the first and seconds
+moments computed from samples to the corresponding target distribution values, the fit of
 the sampled distribution to the target PDF, the percentage of accepted proposal samples and the timescale
 for the decay of time series autocorrelation.
 
@@ -567,15 +569,15 @@ for the decay of time series autocorrelation.
 The plot below shows the percentage of proposal samples accepted as a function of `stepsize` for
 simulations with `stepsize` ranging from {% katex %}10^{-3}{% endkatex %} to {% katex %}10^{1}{% endkatex %}.
 The simulation believed to be the best performing accepted {% katex %}82\%{% endkatex %} of the proposed
-samples and had a stepsize of {% katex %}0.121{% endkatex %}. This simulation is indicated by the orange point
+samples and had a stepsize of {% katex %}0.12{% endkatex %}. This simulation is indicated by the orange point
 in the plot. For all simulations discussed in this section `x0=1.0`.
 
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/norma_proposal_acceptance.png">
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png">
 
 On examination of the plot it is seen that for `stepsize` smaller than
-{% katex %}0.121{% endkatex %}, the simulations to the left of the orange symbol, the accepted percentage of
+{% katex %}0.12{% endkatex %}, the simulations to the left of the orange symbol, the accepted percentage of
 proposal samples very quickly approach {% katex %}100\%{% endkatex %} while for `stepsize` larger than
-{% katex %}0.121{% endkatex %}, the simulations to the right of the orange symbol, the accepted
+{% katex %}0.12{% endkatex %}, the simulations to the right of the orange symbol, the accepted
 percentage approaches {% katex %}0\%{% endkatex %} as a power law.
 
 To get a sense of why this happens the `stepsize` is compared to the standard deviation
@@ -583,10 +585,12 @@ of the target distribution computed from equation {% katex %}(13){% endkatex %},
 {% katex %}\lambda{% endkatex %} and {% katex %}k{% endkatex %}, gives {% katex %}0.21{% endkatex %}.
 This value is the same order of magnitude of the best performing `stepsize` determined from simulations.
 Comparing the `stepsize` to the target standard deviation in the large and small limits
-provides an interpretation of the results. For small `stepsize` relative to the target standard deviation the proposal variance is
-much smaller then the target variance. Because of this the steps taken by the proposal Markov Chain are small leading
-to a exploration of the target distribution that never goes far from the initial value. The samples produced will have
-the proposal distribution since nearly all proposals are accepted. This is seen in the first of the following
+provides an interpretation of the results. For small `stepsize` relative to the target standard
+deviation the proposal variance is much smaller then the target variance. Because of this the steps
+taken by the proposal Markov Chain are small leading
+to a exploration of the target distribution that never goes far from the initial value. The samples
+produced will have the proposal distribution since nearly all proposals are accepted.
+This is seen in the first of the following
 plots where time series examples for different `stepsize` values for the last {% katex %}500{% endkatex %} steps
 for a {% katex %}51000{% endkatex %} sample simulation are shown. The small variance seen in the first
 plot is a consequence of the small `stepsize` leading to very small deviations from the initial value `x0=1`. In the
@@ -594,7 +598,7 @@ opposite limit where the `stepsize` becomes large relative to the target standar
 Markov Chain are so large that they are frequently rejected since low probability target events are oversampled. This effect is seen in
 last time series plot shown below. There long runs where the series has a constant value are clearly visible. The
 best value of `stepsize` relative to the target standard deviation occurs when they are about the same size. The middle plot
-below has the optimal `stepsize` of {% katex %}0.121{% endkatex %} accepted {% katex %}82\%{% endkatex %} of the proposed
+below has the optimal `stepsize` of {% katex %}0.12{% endkatex %} accepted {% katex %}82\%{% endkatex %} of the proposed
 samples. It clearly has a more authentic look than the other two simulations which are at extreme values of the
 percentage accepted.
 
@@ -607,7 +611,7 @@ target distribution values. The next two plots show convergence of the cumulativ
 distribution values computed from
 equation {% katex %}(13){% endkatex %} for three values of `stepsize` that compare
 simulations at both the
-small and large extremes with the optimal `stepsize` of {% katex %}0.121{% endkatex %}.
+small and large extremes with the optimal `stepsize` of {% katex %}0.12{% endkatex %}.
 For both {% katex %}\mu{% endkatex %}
 and {% katex %}\sigma{% endkatex %} the small `stepsize` example is clearly the worst performing. After
 {% katex %}10^5{% endkatex %} time steps there is no indication of convergence. There is no significant difference  between the
@@ -644,7 +648,7 @@ The following three plots compare histograms computed from simulations of {% kat
 {% katex %}\textbf{Weibull}{% endkatex %} distribution from equation {% katex %}(12){% endkatex %} for the same `stepsize`
 values used in the previous comparisons. The first plot shows the small `stepsize` simulation with a very high acceptance rate.
 For this case the simulated histogram is nowhere close to reproducing the target distribution. The last plot is the large `stepsize` simulation
-with a very large rejection rate. When compared with optimal `stepsize` of {% katex %}0.121{% endkatex %} simulation shown in the middle plot
+with a very large rejection rate. When compared with optimal `stepsize` of {% katex %}0.12{% endkatex %} simulation shown in the middle plot
 the larger `stepsize` simulation is not as smooth but is acceptable. The degraded performance of larger `stepsize` simulation
 will be a consequence of rejection of many more proposal samples leading to long stretches repeated values. For the
 optimal `stepsize` simulation almost {% katex %}10{% endkatex %} times more sample are available in the histogram caclculation.
@@ -653,16 +657,17 @@ optimal `stepsize` simulation almost {% katex %}10{% endkatex %} times more samp
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-82.png">
 
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-12.png">
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-19.png">
 
 In summary a collection of simulations using the Metropolis Hastings algorithm to sample a target
-{% katex %}\texfbf{Weibull}{% endkatex %} distribution using a {% katex %}\textbf{Normal}{% endkatex %}
+{% katex %}\textbf{Weibull}{% endkatex %} distribution using a {% katex %}\textbf{Normal}{% endkatex %}
 proposal distribution have been performed that scan the `stepsize` parameter for a fixed initial value
 of `x0=1.0` in an effort to determine the best performing `stepsize`. Best performing was determined by considering
 the total percentage of accepted samples, the *quality* of the generated time series, the convergence of first
 and second moments to the known target values, the decorrelation timescale and fit of sample histograms to
-the target distribution. The best performing `stepsize` was found to have a value of {% katex %}0.121{% endkatex %}
-which is near the standard deviation of the target distribution. For values of `stepsize` smaller than the best
+the target distribution. The best performing `stepsize` was found to have a value of
+{% katex %}0.12{% endkatex %} which is near the standard deviation of the target distribution.
+For values of `stepsize` smaller than the best
 performing `stepsize` the performance was clearly inferior on all counts. The number of accepted proposals was high,
 the time series look like the proposal distribution, convergence of moments is very slow, samples remain correlated
 over long time scales and the distributions computed from samples look nothing like the target distribution.
@@ -673,6 +678,18 @@ there was no significant differences but calculation of the distribution using h
 as good since an order of magnitude less data was used in the calculation because of the high rejection percentage.
 
 ### Burn In
+
+In the previous section simulations were compared that scanned `stepsize` with `x0` fixed. Here
+simulations with `stepsize` fixed that scan `x0` are discussed. The further `x0` is from the
+target distribution mean the further displaced the initial state is from equilibrium so the
+expectation is that a longer time is required to reach equilibrium. If
+some knowledge of the target mean is available it should be used to minimize this relaxation period.
+The time required to reach the equilibrium is referred to as *burn in*. Typically the
+burn in period of the simulation is considered and artifact and discarded with the aim of
+improving the final result. The expectation then is that the simulation is generating *natural*
+fluctuations about equilibrium. For the target {% katex %}\textbf{Weibull}{% endkatex %}
+distribution the mean value computed from equation {% katex %}(13){% endkatex %} using
+{% katex %}\lambda = 1{% endkatex %} and {% katex %}k=5{% endkatex %} is {% katex %}0.92{% endkatex %}.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-mean-convergence.png">
 
