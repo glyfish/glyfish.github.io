@@ -686,20 +686,24 @@ simulations with `stepsize` fixed that scan `x0` are discussed. The further `x0`
 target distribution mean the further displaced the initial state is from equilibrium so the
 expectation is that a longer time is required to reach equilibrium. If
 some knowledge of the target mean is available it should be used to minimize this relaxation period.
-The time required to reach the equilibrium is referred to as *burn in*. Typically the
+The time required to reach equilibrium is referred to as *burn in*. Typically the
 burn in period of the simulation is considered and artifact and discarded with the aim of
 improving the final result. The expectation then is that the simulation is generating *natural*
-fluctuations about equilibrium. For the target {% katex %}\textbf{Weibull}{% endkatex %}
-distribution the mean value computed from equation {% katex %}(13){% endkatex %} using
-{% katex %}\lambda = 1{% endkatex %} and {% katex %}k=5{% endkatex %} is {% katex %}0.92{% endkatex %}.
-The following two plots compare cumulative calculations of the first and second moments performed with samples
-from simulations with the target distribution values.
+fluctuations about equilibrium.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-mean-convergence.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-sigma-convergence.png">
 
-
+The following two plots compare cumulative first and second moment calculations on simulated samples with
+the target{% katex %}\textbf{Weibull}{% endkatex %} distribution values calculated from equation {% katex %}(13){% endkatex %} using {% katex %}\lambda = 1{% endkatex %} and {% katex %}k=5{% endkatex %}. The obtained
+mean and standard deviation are {% katex %}0.92{% endkatex %} and {% katex %}0.21{% endkatex %} respectively.
+The time to reach equilibrium if shown to increase with increasing displacement `x0` from
+{% katex %}0.92{% endkatex %}. For the mean at the most extreme the time to reach equilibrium
+is a factor of {% katex %}10{% endkatex %} larger than the fasted. For standard deviation the effect
+is even larger increasing the relaxation time by nearly a factor of {% katex %}100{% endkatex %} when compared
+to the fastest relaxation time seen. There is also a very large spike in the standard deviation that increases
+with displacement of `x0` from the target mean.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-autocorrelation.png">
 
