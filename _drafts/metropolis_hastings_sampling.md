@@ -1,7 +1,7 @@
 ---
 title: Metropolis Hastings Sampling
 key: 20180721
-image: /assets/posts/metropolis_hastings_sampling/norma_proposal_acceptance.png
+image: /assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png
 author: Troy Stribling
 permlink: /metropolis_hastings_sampling.html
 comments: false
@@ -568,9 +568,11 @@ for the decay of time series autocorrelation.
 
 The plot below shows the percentage of proposal samples accepted as a function of `stepsize` for
 simulations with `stepsize` ranging from {% katex %}10^{-3}{% endkatex %} to {% katex %}10^{1}{% endkatex %}.
-The simulation believed to be the best performing accepted {% katex %}82\%{% endkatex %} of the proposed
-samples and had a stepsize of {% katex %}0.12{% endkatex %}. This simulation is indicated by the orange point
-in the plot. For all simulations discussed in this section `x0=1.0`.
+For all simulations `x0=1.0`. The simulation believed to be the best performing accepted {% katex %}82\%{% endkatex %}
+of the proposed samples and had a stepsize of {% katex %}0.12{% endkatex %}. The two other simulations discussed
+in this section as representative of small and large values of `stepsize` had acceptance
+percentages of {% katex %}99\%{% endkatex %} and {% katex %}19\%{% endkatex %} for `stepsize` values of
+{% katex %}0.01{% endkatex %} and {% katex %}1.33{% endkatex %} respectively. Each of this simulations is indicated in the plot.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png">
 
@@ -690,10 +692,14 @@ improving the final result. The expectation then is that the simulation is gener
 fluctuations about equilibrium. For the target {% katex %}\textbf{Weibull}{% endkatex %}
 distribution the mean value computed from equation {% katex %}(13){% endkatex %} using
 {% katex %}\lambda = 1{% endkatex %} and {% katex %}k=5{% endkatex %} is {% katex %}0.92{% endkatex %}.
+The following two plots compare cumulative calculations of the first and second moments performed with samples
+from simulations with the target distribution values.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-mean-convergence.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-sigma-convergence.png">
+
+
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-autocorrelation.png">
 
