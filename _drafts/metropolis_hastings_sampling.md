@@ -28,8 +28,7 @@ which is not the case in Rejection Sampling.
 
 ## Algorithm
 
-The [Metropolis Sampling Algorithm](https://www.google.com/search?hl=en&source=hp&ei=O-CGW-qAIMWosgXf9ofQDA&q=Equation+of+state+calculations+by+fast+computing+machines&oq=Equation+of+state+calculations+by+fast+computing+machines&gs_l=psy-ab.3..35i39k1j0i22i30k1l2.1983.1983.0.2488.3.2.0.0.0.0.91.91.1.2.0....0...1.2.64.psy-ab..1.2.180.6...89.Y99UmLWMZD0) was
-originally developed by physicist studying simulations of equation of state at the dawn of the computer age.
+The [Metropolis Sampling Algorithm](https://www.google.com/search?hl=en&source=hp&ei=O-CGW-qAIMWosgXf9ofQDA&q=Equation+of+state+calculations+by+fast+computing+machines&oq=Equation+of+state+calculations+by+fast+computing+machines&gs_l=psy-ab.3..35i39k1j0i22i30k1l2.1983.1983.0.2488.3.2.0.0.0.0.91.91.1.2.0....0...1.2.64.psy-ab..1.2.180.6...89.Y99UmLWMZD0) was developed by physicist studying simulations of equation of state at the dawn of the computer age.
 It is the first a a class of sampling algorithms referred to a [Monte Carlo Markov Chain](https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo).
 A couple of decades later the algorithm was generalized and given a firmer theoretical foundation becoming the [Metropolis Hastings Sampling Algorithm](https://www.google.com/search?client=safari&rls=en&ei=Xt-GW5GyLOWwtgX38az4Dg&q=Monte+Carlo+Sampling+Methods+Using+Markov+Chains&oq=Monte+Carlo+Sampling+Methods+Using+Markov+Chains&gs_l=psy-ab.3..0j0i22i30k1l2.79402.79402.0.79877.1.1.0.0.0.0.95.95.1.1.0....0...1.2.64.psy-ab..0.1.95....0.99vsUPrnsUQ).
 After a few more decades this work became widely used in simulating [Bayesian Posterior Distributions](https://en.wikipedia.org/wiki/Posterior_probability)
@@ -695,24 +694,60 @@ fluctuations about equilibrium.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-sigma-convergence.png">
 
-The following two plots compare cumulative first and second moment calculations on simulated samples with
-the target{% katex %}\textbf{Weibull}{% endkatex %} distribution values calculated from equation {% katex %}(13){% endkatex %} using {% katex %}\lambda = 1{% endkatex %} and {% katex %}k=5{% endkatex %}. The obtained
+The two plots above compare cumulative first and second moment calculations on simulated samples with
+the target{% katex %}\textbf{Weibull}{% endkatex %} distribution values calculated from equation
+{% katex %}(13){% endkatex %} using {% katex %}\lambda = 1{% endkatex %} and {% katex %}k=5{% endkatex %}. The obtained
 mean and standard deviation are {% katex %}0.92{% endkatex %} and {% katex %}0.21{% endkatex %} respectively.
-The time to reach equilibrium if shown to increase with increasing displacement `x0` from
-{% katex %}0.92{% endkatex %}. For the mean at the most extreme the time to reach equilibrium
-is a factor of {% katex %}10{% endkatex %} larger than the fasted. For standard deviation the effect
-is even larger increasing the relaxation time by nearly a factor of {% katex %}100{% endkatex %} when compared
-to the fastest relaxation time seen. There is also a very large spike in the standard deviation that increases
-with displacement of `x0` from the target mean.
+In the plots time to reach equilibrium in seen to increase with increasing displacement of `x0` from
+{% katex %}0.92{% endkatex %}. For the simulation at the most extreme value of `x0` the time to reach equilibrium
+is a factor of {% katex %}10{% endkatex %} longer than the simulation that reached  equilibrium fastest.
+For standard deviation the effect is even larger increasing the relaxation time by nearly a factor of
+{% katex %}10^2{% endkatex %} when compared to the fastest relaxation time seen. There is also a very
+large spike in the standard deviation that increases with displacement of `x0` from the target mean.
+
+The following plot of the autocorrelation coefficient shows that time for sampled time series to decorrelate is not impacted by
+the initial value of `x0`.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-autocorrelation.png">
 
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-x-3.png">
+The next plot shows a comparison of the histogram computed from the worst performing simulation with `x0=3.5` with the
+target distribution. The
+over representation of large low probability samples induced by the large displacement of the initial condition is
+apparent in the long right tail.
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-x-3-5.png">
+
+In the next series of plots a *burn in* period of {% katex %}10^4{% endkatex %} time steps is assumed and the data is excluded
+from calculations. This corresponds to removing {% katex %}20\%{% endkatex %} of the samples. The magnitude of the adjustment
+to equilibrium is significantly reduced. Within {% katex %}10^3{% endkatex %} time steps all simulations for both moments
+are near their equilibrium values.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-removed-mean-convergence.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin_removed-sigma-convergence.png">
 
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-removed-x-3.png">
+The final plot compares the sample histogram with burn in removed for the simulation with `x0=3.5` to the target distribution.
+It is much improved from the plot in which burn in was retained. In fact it is comparable with the same plot
+obtained for a simulation where `x0=1` above.
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-removed-x-3-5.png">
 
 ## Conclusions
+
+The Metropolis Hastings Sampling algorithm provides a general method for generating samples for a known target distribution
+using an available proposal sampler. The algorithm is similar to
+[Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) but instead of discarding
+rejected proposal samples Metropolis Hastings Sampling replicates the previous sample. It also has a more
+complicated acceptance function that assumes the generated samples are a Markov Chain.
+Metropolis Hastings Sampling is simple to implement but the theory describing how it works is more sophisticated
+that what was encountered in both [Inverse CDF Sampling]({{ site.baseurl }}{% link _posts/2018-07-21-inverse_cdf_sampling.md %})
+and [Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}). The theoretical discussion
+began by deriving the stochastic kernel following from the assumptions of the rejection algorithm, equation {% katex %}(10){% endkatex %}.
+Next, it was shown that if Time Reversal Symmetry were assumed for the stochastic kernel and target distribution,
+equation {% katex %}(11){% endkatex %}, then the target distribution is the equilibrium distribution of the Markov Chain
+created by the stochastic kernel. Finally, the acceptance function was derived using the Time Reversal Symmetry producing
+equation {% katex %}(3){% endkatex %}.
+
+A Python implementation of Metropolis Hastings Sampler was presented and followed by discussion of an example using a
+{% katex %}\textbf(Weibull){% endkatex %} distribution as target and a {% katex %}\textbf{Normal}{% endkatex %} proposal distribution.
+A parameterization of the proposal stochastic kernel using `setpsize` was described.
