@@ -89,7 +89,7 @@ P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)},\ Y\ \leq y\right] &= \int_{-\infty}^{y}\
 \end{aligned}
 {% endkatex %}
 
-Next, it will be shown that the probability of accepting a sample is given by,
+Next, it will be shown that,
 {% katex display %}
 P\left[U\ \leq\ \frac{f_X(Y)}{cf_Y(Y)}\right] = \frac{1}{c}\ \ \ \ \ (5).
 {% endkatex %}

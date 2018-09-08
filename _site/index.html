@@ -132,11 +132,11 @@
         Metropolis Hastings Sampling
       </h1>
       <p class="post-meta">
-        <time class="dt-published" datetime="" itemprop="datePublished">Sep 6, 2018
+        <time class="dt-published" datetime="" itemprop="datePublished">Sep 8, 2018
         </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
               <span class="p-author h-card" itemprop="name">Troy Stribling</span>
             </span></p>
-      <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png"><p><a href="https://en.wikipedia.org/wiki/Metropolis–Hastings_algorithm">Metropolis Hastings Sampling</a> is a method for obtaining samples for known target
+      <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png"><p><a href="https://en.wikipedia.org/wiki/Metropolis–Hastings_algorithm">Metropolis Hastings Sampling</a> is a method for obtaining samples for a known target
 probability distribution using samples from some other proposal distribution. It is similar to
 <a href="/2018/07/29/rejection_sampling.html">Rejection Sampling</a> in providing a
 criteria for acceptance of a proposal sample as a target sample but instead of discarding the
@@ -144,15 +144,15 @@ samples that do not meet the acceptance criteria the sample
 from the previous time step is replicated. Another difference is that Metropolis Hastings samples are modeled as a <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chain</a> where the target distribution
 is the <a href="/2018/08/16/continuous_state_markov_chain_equilibrium.html">Markov Chain Equilibrium Distribution</a>. As a consequence
 the previous sample is used as part of the acceptance criteria when generating the next sample.
-It will be seen this has the advantage of permitting dynamical adjustment of some proposal distribution
-parameters as each sample is generated, which in effect eliminates parameters as model inputs.<br />
+It will be seen this has the advantage of permitting dynamic adjustment of some proposal distribution
+parameters as each sample is generated, which in effect eliminates parameter inputs.<br />
 This is is an improvement over Rejection Sampling, where it was
 <a href="/2018/07/29/rejection_sampling.html">previously shown</a> that
 slight variations in proposal distribution parameters can significantly impact performance.
 A downside of the Markov Chain representation is that
 <a href="/2018/08/25/discrete_cross_correlation_theorem.html">autocorrelation</a> can develop in the samples
 which is not the case in Rejection Sampl...
-      <a href="/2018/09/06/metropolis_hastings_sampling.html">read more</a>
+      <a href="/2018/09/08/metropolis_hastings_sampling.html">read more</a>
     </li>
     <li><h1 class="post-title p-name" >
         Discrete Cross Correlation Theorem
