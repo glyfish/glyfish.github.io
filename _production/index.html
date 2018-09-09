@@ -11,6 +11,7 @@
 <link rel="canonical" href="gly.fish/" />
 <meta property="og:url" content="gly.fish/" />
 <meta property="og:site_name" content="gly.fish" />
+<link rel="next" href="gly.fish/page2" />
 <script type="application/ld+json">
 {"name":"gly.fish","@type":"WebSite","url":"gly.fish/","headline":"gly.fish","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
@@ -139,6 +140,34 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
   <ul class="post-list">
     
     <li><h1 class="post-title p-name" >
+        Metropolis Hastings Sampling
+      </h1>
+      <p class="post-meta">
+        <time class="dt-published" datetime="" itemprop="datePublished">Sep 8, 2018
+        </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <span class="p-author h-card" itemprop="name">Troy Stribling</span>
+            </span></p>
+      <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png"><p><a href="https://en.wikipedia.org/wiki/Metropolis–Hastings_algorithm">Metropolis Hastings Sampling</a> is a method for obtaining samples for a known target
+probability distribution using samples from some other proposal distribution. It is similar to
+<a href="/2018/07/29/rejection_sampling.html">Rejection Sampling</a> in providing a
+criteria for acceptance of a proposal sample as a target sample but instead of discarding the
+samples that do not meet the acceptance criteria the sample
+from the previous time step is replicated. Another difference is that Metropolis Hastings samples are modeled as a <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chain</a> where the target distribution
+is the
+<a href="/2018/08/16/continuous_state_markov_chain_equilibrium.html">Markov Chain Equilibrium Distribution</a>.
+As a consequence
+the previous sample is used as part of the acceptance criteria when generating the next sample.
+It will be seen this has the advantage of permitting adjustment of some proposal distribution
+parameters as each sample is generated, which in effect eliminates parameter inputs.<br />
+This is is an improvement over Rejection Sampling, where it was
+<a href="/2018/07/29/rejection_sampling.html">previously shown</a> that
+slight variations in proposal distribution parameters can significantly impact performance.
+A downside of the Markov Chain representation is that
+<a href="/2018/08/25/discrete_cross_correlation_theorem.html">autocorrelation</a> can develop in the samples
+which is not the case in Rejection Sampl...
+      <a href="/2018/09/08/metropolis_hastings_sampling.html">read more</a>
+    </li>
+    <li><h1 class="post-title p-name" >
         Discrete Cross Correlation Theorem
       </h1>
       <p class="post-meta">
@@ -224,24 +253,17 @@ a desired target distribution using the inverted CDF of the target distribution.
 is a method for transformation of random variables from arbitrary proposal distributions into a desired target
 distribut...
       <a href="/2018/07/29/rejection_sampling.html">read more</a>
-    </li>
-    <li><h1 class="post-title p-name" >
-        Inverse CDF Sampling
-      </h1>
-      <p class="post-meta">
-        <time class="dt-published" datetime="" itemprop="datePublished">Jul 21, 2018
-        </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <span class="p-author h-card" itemprop="name">Troy Stribling</span>
-            </span></p>
-      <img class="post-image" src="/assets/posts/inverse_cdf_sampling/weibull_sampled_distribution.png"><p><a href="https://en.wikipedia.org/wiki/Inverse_transform_sampling">Inverse CDF</a> sampling is a method
-for obtaining samples from both discrete and continuous probability distributions that requires the
-CDF to be invertible.
-The method assumes values of the CDF are Uniform random variables on <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[0, 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mopen">[</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mclose">]</span></span></span></span>.
-CDF values are generated and used as input into the inverted CDF to obtain samples with the
-distribution defined by the ...
-      <a href="/2018/07/21/inverse_cdf_sampling.html">read more</a>
     </li></ul>
 
+  
+    <ul class="pager">
+      
+      
+      <li class="next">
+        <a href="/page2">Older Posts &rarr;</a>
+      </li>
+      
+    </ul>
   
 
 </div>

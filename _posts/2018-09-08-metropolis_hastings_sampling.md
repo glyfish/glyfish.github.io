@@ -533,7 +533,7 @@ described in the table below.
 | `x0` | The initial target sample value.|
 
 The execution of `metropolis_hastings(f, q, qsample, stepsize, nsample, x0)` begins by allocation of storage for
-the result and the initialization of the Markov Chain. A loop is then executed `nsample` times
+the result and initialization of the Markov Chain. A loop is then executed `nsample` times
 where each iteration generates the next sample. Within the loop the acceptance random variable
 with distribution {% katex %}\textbf{Uniform}(0,\ 1){% endkatex %} is generated using the `numpy` random number
 generator. Next, a proposal sample is generated using `qsample(x, stepsize)` followed by evaluation
@@ -546,15 +546,15 @@ Here the results of simulations performed using `metropolis_hastings(f, q, qsamp
 {% katex %}\textbf{Weibull}{% endkatex %} target distribution
 from equation {% katex %}(12){% endkatex %} with {% katex %}\lambda=1{% endkatex %} and
 {% katex %}k=5{% endkatex %} and the {% katex %}\textbf{Normal}{% endkatex %} stochastic kernel from
-equation {% katex %}(14){% endkatex %}. Simulations that scan 4 orders of magnitude of `stepsize`
+equation {% katex %}(14){% endkatex %}. First, simulations that scan 4 orders of magnitude of `stepsize`
 with `x0` fixed are compared with the goal of determining the value leading to the best performance.
-Simulations are also performed with `stepsize` fixed that scan values of `x0` to determine the impact
+Next, simulations are performed with `stepsize` fixed that scan values of `x0` to determine the impact
 of initial condition on performance. The criteria for evaluating simulations include the time for
-convergence of the first and seconds moments computed from samples to the corresponding target
-distribution values, the fit of the sampled distribution to the target PDF, the percentage of
+convergence of the first and seconds moments computed from samples to the target
+distribution moments, the fit of the sampled distribution to the target PDF, the percentage of
 accepted proposal samples and the timescale for the decay of time series autocorrelation.
 It will be shown that `stepsize` is the only relevant parameter. The choice for `x0` will be seen
-to have an impact that vanishes given sufficient time. Thus the model has a single significant parameter.
+to have an impact that vanishes given sufficient time. Thus, the model has a single parameter of significance.
 
 ### Performance
 
@@ -564,7 +564,7 @@ For all simulations `x0=1.0`. The simulation believed to be the best performing 
 of the proposed samples and had a stepsize of {% katex %}0.12{% endkatex %}. The two other simulations discussed
 in this section as representative of small and large values of `stepsize` had acceptance
 percentages of {% katex %}99\%{% endkatex %} and {% katex %}19\%{% endkatex %} for `stepsize` values of
-{% katex %}0.01{% endkatex %} and {% katex %}1.33{% endkatex %} respectively. Each of this simulations is indicated in the plot.
+{% katex %}0.01{% endkatex %} and {% katex %}1.33{% endkatex %} respectively. Each of this simulations is indicated in the plot below.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png">
 
@@ -592,7 +592,7 @@ opposite limit where the `stepsize` becomes large relative to the target standar
 Markov Chain are so large that they are frequently rejected since low probability target events are oversampled. This effect is seen in
 last time series plot shown below. There long runs where the series has a constant value are clearly visible. The
 best value of `stepsize` relative to the target standard deviation occurs when they are about the same size. The middle plot
-below has the optimal `stepsize` of {% katex %}0.12{% endkatex %} accepted {% katex %}82\%{% endkatex %} of the proposed
+below has the optimal `stepsize` of {% katex %}0.12{% endkatex %} and accepted {% katex %}82\%{% endkatex %} of the proposed
 samples. It clearly has a more authentic look than the other two simulations which are at extreme values of the
 percentage accepted.
 
@@ -600,7 +600,7 @@ percentage accepted.
 
 A measure of simulation performance is the rate of convergence of distribution moments computed from
 samples to the
-target distribution values. The next two plots show convergence of the cumulative sample mean,
+target distribution momements. The next two plots show convergence of the cumulative sample mean,
 {% katex %}\mu{% endkatex %}, and standard deviation, {% katex %}\sigma{% endkatex %}, to the target
 distribution values computed from
 equation {% katex %}(13){% endkatex %} for three values of `stepsize` that compare
@@ -619,7 +619,7 @@ A consequence of using a Markov Chain to generate samples is that autocorrelatio
 This is considered an undesirable artifact since in general independent and identically distributed samples
 are desired. It follows that there is a preference for rapid decorrelation of samples. The following plot
 shows the autocorrelation coefficient for the three values of `stepsize` previously discussed.
-The autocorrelation coefficient of a time series, {% katex %}f{% endkatex %}, provides a measure
+The autocorrelation coefficient of a time series, {% katex %}f{% endkatex %}, provides a measure of
 *similarity* or *dependence* of the series past and future and is defined by,
 
 {% katex display %}
@@ -632,8 +632,9 @@ standard deviation respectively. Calculation of autocorrelation was discussed in
 The small `stepsize` simulation has a very slowly decaying autocorrelation. For time lags of up to 100
 steps it has decayed by only a few precent. This behavior is expected since for small
 `stepsize` the resulting samples are from the proposal Markov Chain, with stochastic
-kernel shown in equation {% katex %}(15){% endkatex %} which is independent of {% katex %}\tau{% endkatex %}
-{% katex %}\gamma_{\tau}=1{% endkatex %}. The other simulations have a similar decorrelation rate of {% katex %}O(10){% endkatex %} time steps,
+kernel shown in equation {% katex %}(15){% endkatex %}, which has an autocorrelation coefficient independent
+of {% katex %}\tau{% endkatex %} given by {% katex %}\gamma_{\tau}=1{% endkatex %}.
+The other simulations have a similar decorrelation rate of {% katex %}O(10){% endkatex %} time steps,
 though for the larger `stepsize` the decorrelation rate is slightly faster.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_autocorrelation_convergence_stepsize_comparison.png">
@@ -641,11 +642,12 @@ though for the larger `stepsize` the decorrelation rate is slightly faster.
 The following three plots compare histograms computed from simulations of {% katex %}10^5{% endkatex %} samples with the target
 {% katex %}\textbf{Weibull}{% endkatex %} distribution from equation {% katex %}(12){% endkatex %} for the same `stepsize`
 values used in the previous comparisons. The first plot shows the small `stepsize` simulation with a very high acceptance rate.
-For this case the simulated histogram is nowhere close to reproducing the target distribution. The last plot is the large `stepsize` simulation
+For this case the simulated histogram is not close to reproducing the target distribution. The last plot is the large `stepsize` simulation
 with a very large rejection rate. When compared with optimal `stepsize` of {% katex %}0.12{% endkatex %} simulation shown in the middle plot
 the larger `stepsize` simulation is not as smooth but is acceptable. The degraded performance of larger `stepsize` simulation
-will be a consequence of rejection of many more proposal samples leading to long stretches repeated values. For the
-optimal `stepsize` simulation almost {% katex %}10{% endkatex %} times more sample are available in the histogram caclculation.
+will be a consequence of rejection of many more proposal samples leading to long stretches of repeated values. For the
+optimal `stepsize` simulation almost {% katex %}10{% endkatex %} times more samples are available
+in the histogram calculation.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-99.png">
 
@@ -653,7 +655,7 @@ optimal `stepsize` simulation almost {% katex %}10{% endkatex %} times more samp
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf-19.png">
 
-In summary a collection of simulations using the Metropolis Hastings algorithm to sample a target
+In summary a collection of simulations using the Metropolis Hastings Sampling algorithm to sample a target
 {% katex %}\textbf{Weibull}{% endkatex %} distribution using a {% katex %}\textbf{Normal}{% endkatex %}
 proposal distribution have been performed that scan the `stepsize` parameter for a fixed initial value
 of `x0=1.0` in an effort to determine the best performing `stepsize`. Best performing was determined by considering
@@ -662,14 +664,16 @@ and second moments to the known target values, the decorrelation timescale and f
 the target distribution. The best performing `stepsize` was found to have a value of
 {% katex %}0.12{% endkatex %} which is near the standard deviation of the target distribution.
 For values of `stepsize` smaller than the best
-performing `stepsize` the performance was clearly inferior on all counts. The number of accepted proposals was high,
-the time series look like the proposal distribution, convergence of moments is very slow, samples remain correlated
-over long time scales and the distributions computed from samples look nothing like the target distribution.
+performing `stepsize` the performance was inferior on all counts. The number of accepted
+proposals was high,
+the time series look like the proposal distribution, convergence of moments is slow, samples
+remain correlated
+over long time scales and the distributions computed from samples do not converge to the target distribution.
 When the same comparison is made to simulations with a larger `stepsize` the results were less conclusive.
 Larger values of `stepsize` accept fewer proposal samples. This causes degradation of the time series since there
 are many long runs of repeated values. In comparisons of convergence of distribution moments and autocorrelation
 there was no significant differences but calculation of the distribution using histograms on sample data were not
-as good since an order of magnitude less data was used in the calculation because of the high rejection percentage.
+as acceptable since an order of magnitude less data was used in the calculation because of the high rejection percentage.
 
 ### Burn In
 
@@ -688,12 +692,12 @@ fluctuations about equilibrium.
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-sigma-convergence.png">
 
 The two plots above compare cumulative first and second moment calculations on simulated samples with
-the target{% katex %}\textbf{Weibull}{% endkatex %} distribution values calculated from equation
+the target {% katex %}\textbf{Weibull}{% endkatex %} distribution values calculated from equation
 {% katex %}(13){% endkatex %} using {% katex %}\lambda = 1{% endkatex %} and {% katex %}k=5{% endkatex %}. The obtained
 mean and standard deviation are {% katex %}0.92{% endkatex %} and {% katex %}0.21{% endkatex %} respectively.
 In the plots time to reach equilibrium in seen to increase with increasing displacement of `x0` from
 {% katex %}0.92{% endkatex %}. For the simulation at the most extreme value of `x0` the time to reach equilibrium
-is a factor of {% katex %}10{% endkatex %} longer than the simulation that reached  equilibrium fastest.
+is a factor of {% katex %}10{% endkatex %} longer than the simulation that reached equilibrium first.
 For standard deviation the effect is even larger increasing the relaxation time by nearly a factor of
 {% katex %}10^2{% endkatex %} when compared to the fastest relaxation time seen. There is also a very
 large spike in the standard deviation that increases with displacement of `x0` from the target mean.
@@ -715,7 +719,8 @@ and the data is excluded from calculations. This corresponds to removing
 {% katex %}20\%{% endkatex %} of the samples. The magnitude of the adjustment
 to equilibrium is significantly reduced. Within {% katex %}10^3{% endkatex %} time steps all
 simulations for both moments are near their equilibrium values with no significant
-difference in the convergence rate.
+difference in the convergence rate. The clear increase in the time of convergence to equilibrium
+with displacement of `x0` from the equilibrium value seen when all samples are included has been eliminated.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_burnin-removed-mean-convergence.png">
 
@@ -734,7 +739,7 @@ known target distribution using an available proposal sampler. The algorithm is 
 [Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) but instead of discarding rejected proposal samples Metropolis Hastings Sampling replicates the previous sample.
 It also has a more complicated acceptance function that assumes the generated samples are a Markov Chain.
 Metropolis Hastings Sampling is simple to implement but the theory describing how it works is more
-sophisticated that what was encountered in both
+sophisticated than that encountered in both
 [Inverse CDF Sampling]({{ site.baseurl }}{% link _posts/2018-07-21-inverse_cdf_sampling.md %})
 and [Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}).
 
@@ -745,20 +750,20 @@ equation {% katex %}(11){% endkatex %}, then the target distribution is the equi
 equation {% katex %}(3){% endkatex %}, was derived using the Time Reversal Symmetry.
 
 A Python implementation of a Metropolis Hastings Sampler was presented and followed by discussion of an
-example using a {% katex %}\textbf(Weibull){% endkatex %} distribution as target and a
-{% katex %}\textbf{Normal}{% endkatex %} distribution as a proposal.
+example using a {% katex %}\textbf{Weibull}{% endkatex %} distribution as target and a
+{% katex %}\textbf{Normal}{% endkatex %} distribution as proposal.
 A parameterization of the proposal stochastic kernel using `setpsize` as the standard deviation
-of the proposal distribution was described. The results of series of simulations that varied `stepsize`
+of the proposal distribution was described. The results of a series of simulations that varied `stepsize`
 for a fixed initial state `x0` over several orders of magnitude were presented. It was shown that
 the best performing simulations have `stepsize` that is about the same as the standard deviation
 of the proposal distribution. This was followed by simulations that scanned `x0` for the
 `stepsize` determined as best. It was determined that the best performing simulations have `x0` near
 the mean of the target distribution but that if the first {% katex %}10^4{% endkatex %} samples
-of the simulation were discarded `x0` can differ significantly target mean with no significant impact.
+of the simulation were discarded `x0` can differ significantly from the target mean with no significant impact.
 
 The best performing simulations using Metropolis Hastings Sampling have an acceptance rate of
 about {% katex %}80\%{% endkatex %} and converge to target values in about {% katex %}O(10^3){% endkatex %}
 time steps. This is the same performance obtained using [Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) with a {% katex %}\textbf{Normal}{% endkatex %} proposal distribution.
-The advantage offered by Metropolis Hastings Sampling is that it has a single free parameter. Rejection sampling
-has two free parameters and the performance can vary significantly with small changes in the parameters.
+The advantage offered by Metropolis Hastings Sampling is that it has a single arbitrary parameter.
+Rejection sampling has two arbitrary parameters that can significantly impact performance for small changes.
 It follows that Metropolis Hastings Sampling can be considered more robust.
