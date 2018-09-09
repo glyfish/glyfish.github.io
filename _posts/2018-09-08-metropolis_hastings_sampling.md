@@ -1,6 +1,6 @@
 ---
 title: Metropolis Hastings Sampling
-key: 20180721
+key: 20180901
 image: /assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png
 author: Troy Stribling
 permlink: /metropolis_hastings_sampling.html
