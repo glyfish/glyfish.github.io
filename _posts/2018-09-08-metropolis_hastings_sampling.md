@@ -385,7 +385,7 @@ when the constraint, {% katex %}0\ \leq\ \alpha(x, y^{\ast})\ \leq 1,{% endkatex
 
 ## Example
 
-Here an example implementation of the Metropolis Hastings algorithm using
+Here an example implementation of the Metropolis Hastings Sampling algorithm using a
 [{% katex %}\textbf{Weibull}{% endkatex %}](https://en.wikipedia.org/wiki/Weibull_distribution)
 target distribution and
 [{% katex %}\textbf{Normal}{% endkatex %}](https://en.wikipedia.org/wiki/Normal_distribution)
@@ -423,14 +423,14 @@ f_X(x; \mu, \sigma^2) =\frac{1}{\sqrt{2\pi\sigma^2}}e^{(x-\mu)^2/2\sigma^2}\ \ \
 
 where {% katex %}\mu{% endkatex %} is the location parameter and first moment and
 {% katex %}\sigma^2{% endkatex %} is the scale parameter and second moment. The following plot illustrates
-variation in the PDF and the scale and location parameter are varied.
+variation in the PDF as the scale and location parameter are varied.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_distribution_parameters.png">
 
 ### Proposal Distribution Stochastic Kernel
 
-The Metropolis Hastings algorithm requires a stochastic kernel based on the proposal distribution.
-In this example the proposal stochastic kernel is derived from the difference equation,
+The Metropolis Hastings Sampling algorithm requires a stochastic kernel based on the proposal distribution.
+A {% katex %}\textbf{Normal}{% endkatex %} stochastic kernel can be derived from the difference equation,
 
 {% katex display %}
 X_{t} = X_{t-1} + \varepsilon_{t},
@@ -438,7 +438,6 @@ X_{t} = X_{t-1} + \varepsilon_{t},
 
 where {% katex %}t=0,\ 1,\ 2,\ldots{% endkatex %} and the {% katex %}\varepsilon_{t}{% endkatex %} are identically distributed independent {% katex %}\textbf{Normal}{% endkatex %}
 random variables with zero mean and variance, {% katex %}\sigma^2{% endkatex %}.
-It is a special case of the [AR(1)](https://en.wikipedia.org/wiki/Autoregressive_model) random process.
 Let {% katex %}y=X_{t}{% endkatex %} and {% katex %}x=X_{t-1}{% endkatex %} then the equation above becomes,
 
 {% katex display %}
@@ -453,27 +452,27 @@ q(x,y) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-(y-x)^2/2\sigma^2}\ \ \ \ \ (15),
 
 The form of {% katex %}q(x,y){% endkatex %} is a {% katex %}\textbf{Normal}{% endkatex %} distribution with
 mean {% katex %}\mu=x{% endkatex %}. This has eliminated {% katex %}\mu{% endkatex %} as a free parameter.
-The only free parameter now is the standard deviation, {% katex %}\sigma{% endkatex %}. In
-the implementation {% katex %}\sigma{% endkatex %} is referred to as the `stepsize`. The plot below
+The only arbitrary parameter is the standard deviation, {% katex %}\sigma{% endkatex %}. In
+the implementation {% katex %}\sigma{% endkatex %} will be referred to as the `stepsize`. The plot below
 shows how {% katex %}q(x,y){% endkatex %} varies with each step in a simulation. The first five steps
 are shown for an initial condition {% katex %}X_{0}=0{% endkatex %} and `stepsize=1.0`.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_examples.png">
 
-It is seen that the distribution is recentered at each step about the the previous value. This behavior
-is a consequence of the assuming a {% katex %}\textbf{Normal}{% endkatex %} proposal distribution.
+In the plot it is seen that the distribution is recentered at each step about the the previous value.
+This behavior is a consequence of the assuming a {% katex %}\textbf{Normal}{% endkatex %} proposal distribution.
 Using another form for a proposal distribution could use a different parameterization.
 
 A [Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) implementation
 using the same proposal and target distributions has both {% katex %}\mu{% endkatex %} and
-{% katex %}\sigma{% endkatex %} as free parameters. Modeling the sampling process as a Markov Chain
-has eliminated a parameter.
+{% katex %}\sigma{% endkatex %} as arbitrary parameters. Modeling the sampling process as a Markov Chain
+has eliminated one parameter.
 
 ### Implementation
 
 Metropolis Hastings Sampling is simple to implement. This section will describe an implementation
 in Python using libraries available in `numpy`. Below a sampler for {% katex %}q(x,y){% endkatex %}
-using the `numpy` `normal` random number generator is listed.
+using the `numpy` `normal` random number generator is shown.
 
 ```python
 import numpy
@@ -482,13 +481,11 @@ def qsample(x, stepsize):
     return numpy.random.normal(x, stepsize)
 ```
 
-`qsample(x, stepsize)` takes two arguments as input. The first is `x` the previous state and
+`qsample(x, stepsize)` takes two arguments as input. The first is `x`, the previous state, and
 the second the `stepsize`. `x` is used as the `loc` parameter and `stepsize` the `scale` parameter
 in the call to the `numpy` `normal` random number generator.
 
-Simulations of time series using `qsample(x, stepsize)` can be performed using the code below where
-first the simulation parameters are specified and followed by allocation of storage for the result.
-Finally, the simulation is initialized and `nsamples` samples are generated.
+Simulations of time series using `qsample(x, stepsize)` can be performed using the code below.
 
 ```python
 stepsize = 1.0
@@ -505,8 +502,7 @@ The following plot shows time series generated by three separate runs of the cod
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_time_series.png">
 
-The Python implementation of the steps performed by Metropolis Hastings Sampling discussed in the
-**Algorithm** section is shown below.
+The Python implementation of the algorithm summarized in the  **Algorithm** section is shown below,
 
 ```python
 def metropolis_hastings(f, q, qsample, stepsize, nsample, x0):
@@ -531,13 +527,13 @@ described in the table below.
 | :-----: | :---- |
 | `f` | The target distribution which is assumed to support an interface taking a the previous state, `x`, as a floating point argument. In this example equation {% katex %}(12){% endkatex %} is used.|
 | `q` | The proposal stochastic kernel which is assumed to support an interface taking the previous state, `x`, and the `stepsize` both as floating point arguments. In this example equation {% katex %}(15){% endkatex %} is used.|
-| `qsample` | A random number generator based on the proposal stochastic kernel {% katex %}q(x,y){% endkatex %} which is assumed to support an interface taking the previous state, `x`, and the `stepsize` both as floating point arguments. The implementation used in this example by the function `qsample(x, stepsize)` previously discussed.|
+| `qsample` | A random number generator based on the proposal stochastic kernel, {% katex %}q(x,y).{% endkatex %} It is assumed to support an interface taking the previous state, `x`, and the `stepsize` both as floating point arguments. The implementation used in this example is the function `qsample(x, stepsize)` previously discussed.|
 | `stepsize` | The scale parameter used by the proposal distribution.|
 | `nsample` | The number of samples desired.|
 | `x0` | The initial target sample value.|
 
 The execution of `metropolis_hastings(f, q, qsample, stepsize, nsample, x0)` begins by allocation of storage for
-the result and the initialization of the result Markov Chain. A loop is then executed `nsample` times
+the result and the initialization of the Markov Chain. A loop is then executed `nsample` times
 where each iteration generates the next sample. Within the loop the acceptance random variable
 with distribution {% katex %}\textbf{Uniform}(0,\ 1){% endkatex %} is generated using the `numpy` random number
 generator. Next, a proposal sample is generated using `qsample(x, stepsize)` followed by evaluation
