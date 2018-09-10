@@ -1,7 +1,7 @@
 ---
 title: Gibbs Sampling
 key: 20180909
-image: /assets/posts/metropolis_hastings_sampling/normal_proposal_acceptance.png
+image: /assets/posts/gibbs_sampling/bivariate_pdf_sampler_steps_1.png
 author: Troy Stribling
 permlink: /gibbs_sampling.html
 comments: false
@@ -10,3 +10,15 @@ comments: false
 Gibbs sampling.
 
 <!--more-->
+
+## Algorithm
+
+## Theory
+
+### Metropolis Hastings
+
+## Implementation
+
+## Normal Bivariate Sampler
+
+## Change Point Model
