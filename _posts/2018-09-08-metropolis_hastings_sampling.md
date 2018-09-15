@@ -732,6 +732,11 @@ In fact it is comparable with the same plot obtained for a simulation where `x0=
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-removed-x-3-5.png">
 
+###
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-autocorrelation .png">
+
+
 ## Conclusions
 
 The Metropolis Hastings Sampling algorithm provides a general method for generating samples for a
