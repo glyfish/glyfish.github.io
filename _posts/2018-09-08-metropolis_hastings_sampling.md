@@ -732,10 +732,60 @@ In fact it is comparable with the same plot obtained for a simulation where `x0=
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_burnin-removed-x-3-5.png">
 
-###
+### Thinning
 
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-autocorrelation .png">
+It is desirable that sampling algorithms not introduce correlations between samples since
+random number generators for a given distribution are expected to produce samples that are
+independent and identically distributed. Since Metropolis Hastings Sampling models generated
+samples as a Markov Chain, autocorrelation is expected because the proposal stochastic kernel
+depends on the previously generated sample. Thinning is a method for reducing autocorrelation
+in sequence of generated samples. It is a simple algorithm that can be understood by considering
+the definition of [autocorrelation]({{ site.baseurl }}{% link _posts/2018-08-25-discrete_cross_correlation_theorem.md %}),
 
+{% katex display %}
+r_t = \sum_{n=0}^{N-1} x_{n} x_{n+t},
+{% endkatex %}
+
+where {% katex %}\{x_{n}\}{% endkatex %} is a time series of samples of length
+{% katex %}N{% endkatex %}. Thinning discards samples that do not satisfy
+{% katex %}n\ \mod\ {\eta}=0{% endkatex %}. {% katex %}\eta{% endkatex %} is referred to as
+the thinning interval. Discarding all but equally spaced samples increases the time
+between the retained samples which can reduce the correlation between consecutive samples.
+The following plot shows the effect of Thinning on autocorrelation for samples generated using Metropolis Hastings with `x0=1` and the best performing `stepsize=0.12` as
+{% katex %}\eta{% endkatex %} is increased from {% katex %}1{% endkatex %} to
+{% katex %}6{% endkatex %}. The burn in period samples have also been discarded.
+A value of {% katex %}\eta=1{% endkatex %} corresponds to not discarding any samples.
+It is seen that the decorrelation time scale decreases rapidly
+with most of the reduction occurring by {% katex %}\eta=4.{% endkatex %}
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-thined-autocorrelation.png">
+
+The impact of Thinning on the appearance of the time series is illustrated below. The first plot
+is from the original time series and the others illustrate increasing the thinning interval.
+The first point in each plot is the same and the plot range is adjusted so that all
+have {% katex %}500{% endkatex %} samples. A tendency of series values to infrequently change
+from increasing to decreasing as time increases is an indication of autocorrelation. Comparison
+of the original series with the thinned series illustrates this.
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-time-series.png">
+
+Thinning has no impact on the rate of convergence of first and second moments computed from
+samples to the target distribution values as shown in the following two plots which have
+similar convergence rates seen in the previous section when only the burn in samples were discarded.
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-mean-convergence.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-sigms-convergence.png">
+
+The following two plots compare histograms computed from samples with the target distribution for
+different values of the thinning interval. The first plot shows the original series and the second
+the result from thinned samples. The fit of the thinned plot is degraded but this will be due to the
+smaller number on samples. The original series consists of {% katex %}4\times 10^4{% endkatex %}
+samples and the thinned series {% katex %}6.6\times 10^3{% endkatex %}
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_thinning-1.png">
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_thinning-6.png">
 
 ## Conclusions
 
