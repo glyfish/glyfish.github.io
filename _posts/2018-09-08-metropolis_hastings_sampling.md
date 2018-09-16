@@ -542,14 +542,22 @@ evaluated leading the sample being rejected or accepted.
 
 ## Simulations
 
-Here the results of simulations performed using `metropolis_hastings(f, q, qsample, stepsize, nsample, x0)` from the previous section are discussed. The simulations assume the
+Here the results of simulations performed using,
+
+```python
+ metropolis_hastings(f, q, qsample, stepsize, nsample, x0),
+ ```
+
+from the previous section are discussed. The simulations assume the
 {% katex %}\textbf{Weibull}{% endkatex %} target distribution
 from equation {% katex %}(12){% endkatex %} with {% katex %}\lambda=1{% endkatex %} and
 {% katex %}k=5{% endkatex %} and the {% katex %}\textbf{Normal}{% endkatex %} stochastic kernel from
 equation {% katex %}(14){% endkatex %}. First, simulations that scan 4 orders of magnitude of `stepsize`
 with `x0` fixed are compared with the goal of determining the value leading to the best performance.
 Next, simulations are performed with `stepsize` fixed that scan values of `x0` to determine the impact
-of initial condition on performance. The criteria for evaluating simulations include the time for
+of initial condition on performance. Finally, a method for removing autocorrelation from generated samples using Thinning is discussed.
+
+The criteria for evaluating simulations include the time for
 convergence of the first and seconds moments computed from samples to the target
 distribution moments, the fit of the sampled distribution to the target PDF, the percentage of
 accepted proposal samples and the timescale for the decay of time series autocorrelation.
@@ -735,43 +743,44 @@ In fact it is comparable with the same plot obtained for a simulation where `x0=
 ### Thinning
 
 It is desirable that sampling algorithms not introduce correlations between samples since
-random number generators for a given distribution are expected to produce samples that are
-independent and identically distributed. Since Metropolis Hastings Sampling models generated
+random number generators for a given distribution are expected to produce independent and identically distributed. Since Metropolis Hastings Sampling models generated
 samples as a Markov Chain, autocorrelation is expected because the proposal stochastic kernel
 depends on the previously generated sample. Thinning is a method for reducing autocorrelation
 in sequence of generated samples. It is a simple algorithm that can be understood by considering
-the definition of [autocorrelation]({{ site.baseurl }}{% link _posts/2018-08-25-discrete_cross_correlation_theorem.md %}),
-
-{% katex display %}
-r_t = \sum_{n=0}^{N-1} x_{n} x_{n+t},
-{% endkatex %}
-
-where {% katex %}\{x_{n}\}{% endkatex %} is a time series of samples of length
+a time series {% katex %}\{x_{t}\}{% endkatex %} samples of length
 {% katex %}N{% endkatex %}. Thinning discards samples that do not satisfy
-{% katex %}n\ \mod\ {\eta}=0{% endkatex %}. {% katex %}\eta{% endkatex %} is referred to as
+{% katex %}t\ \mod\ {\eta}=0{% endkatex %}, where {% katex %}\eta{% endkatex %} is referred to as
 the thinning interval. Discarding all but equally spaced samples increases the time
-between the retained samples which can reduce the correlation between consecutive samples.
-The following plot shows the effect of Thinning on autocorrelation for samples generated using Metropolis Hastings with `x0=1` and the best performing `stepsize=0.12` as
-{% katex %}\eta{% endkatex %} is increased from {% katex %}1{% endkatex %} to
-{% katex %}6{% endkatex %}. The burn in period samples have also been discarded.
-A value of {% katex %}\eta=1{% endkatex %} corresponds to not discarding any samples.
-It is seen that the decorrelation time scale decreases rapidly
+between the retained samples which can reduce autocorrelation.
+
+The impact of Thinning on the appearance of the time series is illustrated below.
+The first plot is from the original time series and the others illustrate increasing the
+thinning interval. The first point in each plot is the same and the plot range is adjusted so that all
+have {% katex %}500{% endkatex %} samples. A tendency of series values to infrequently change
+from increasing to decreasing as time increases is an indication of autocorrelation. Comparison
+of the original series with the thinned series illustrates this. The plot with
+{% katex %}\eta=1{% endkatex %} may have runs of {% katex %}O(10){% endkatex %} samples
+with a persistent increasing or decreasing trend which is consistent with decorrelation
+time of {% katex %}O(10){% endkatex %} previously demonstrated. For increasing
+{% katex %}\eta{% endkatex %} the length of increasing or decreasing trends clearly
+decreases.
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-time-series.png">
+
+The following plot confirms this intuition. The simulation samples are generated
+using Metropolis Hastings with a {% katex %}\textbf{Weibull}{% endkatex %} target
+distribution and {% katex %}\textbf{Normal}{% endkatex %} proposal distribution with `x0=1`
+and the previously determined best performing `stepsize=0.12`. The burn in period samples
+have also been discarded. A value of {% katex %}\eta=1{% endkatex %} corresponds
+to not discarding any samples. It is seen that the decorrelation time scale decreases rapidly
 with most of the reduction occurring by {% katex %}\eta=4.{% endkatex %}
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-thined-autocorrelation.png">
 
-The impact of Thinning on the appearance of the time series is illustrated below. The first plot
-is from the original time series and the others illustrate increasing the thinning interval.
-The first point in each plot is the same and the plot range is adjusted so that all
-have {% katex %}500{% endkatex %} samples. A tendency of series values to infrequently change
-from increasing to decreasing as time increases is an indication of autocorrelation. Comparison
-of the original series with the thinned series illustrates this.
-
-<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-time-series.png">
-
 Thinning has no impact on the rate of convergence of first and second moments computed from
-samples to the target distribution values as shown in the following two plots which have
-similar convergence rates seen in the previous section when only the burn in samples were discarded.
+samples to the target distribution values. This is shown in the following two plots which have
+convergence rates of {% katex %}O(10^3){% endkatex %} samples as seen in the previous section
+when only the burn in samples were discarded.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_thinning-mean-convergence.png">
 
@@ -781,11 +790,18 @@ The following two plots compare histograms computed from samples with the target
 different values of the thinning interval. The first plot shows the original series and the second
 the result from thinned samples. The fit of the thinned plot is degraded but this will be due to the
 smaller number on samples. The original series consists of {% katex %}4\times 10^4{% endkatex %}
-samples and the thinned series {% katex %}6.6\times 10^3{% endkatex %}
+samples and the thinned series {% katex %}6.6\times 10^3{% endkatex %}. It follows that if fairly
+aggressive thinning is performed simulations may need to be run {% katex %}O(10){% endkatex %}
+longer to obtain a sufficient set of samples.
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_thinning-1.png">
 
 <img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_thinning-6.png">
+
+The following plot shows the results of a simulation {% katex %}5\times10^5{% endkatex %} samples
+that is comparable with the result obtained without thinning.
+
+<img class="post-image" src="/assets/posts/metropolis_hastings_sampling/normal_proposal_sampled_pdf_thinning-large-run-6.png">
 
 ## Conclusions
 
@@ -802,23 +818,28 @@ The theoretical discussion began by deriving the stochastic kernel following fro
 introduced by the rejection algorithm, equation {% katex %}(10){% endkatex %}.
 Next, it was shown that if Time Reversal Symmetry were assumed for the stochastic kernel and target distribution,
 equation {% katex %}(11){% endkatex %}, then the target distribution is the equilibrium distribution of the Markov Chain created by the stochastic kernel. Finally, the acceptance function,
-equation {% katex %}(3){% endkatex %}, was derived using the Time Reversal Symmetry.
+equation {% katex %}(3){% endkatex %}, was derived using Time Reversal Symmetry.
 
 A Python implementation of a Metropolis Hastings Sampler was presented and followed by discussion of an
 example using a {% katex %}\textbf{Weibull}{% endkatex %} distribution as target and a
 {% katex %}\textbf{Normal}{% endkatex %} distribution as proposal.
 A parameterization of the proposal stochastic kernel using `setpsize` as the standard deviation
-of the proposal distribution was described. The results of a series of simulations that varied `stepsize`
-for a fixed initial state `x0` over several orders of magnitude were presented. It was shown that
+of the proposal distribution was described. The results of a series of simulations that varied `stepsize` for a fixed initial state, `x0`, over several orders of magnitude were presented.
+It was shown that
 the best performing simulations have `stepsize` that is about the same as the standard deviation
 of the proposal distribution. This was followed by simulations that scanned `x0` for the
-`stepsize` determined as best. It was determined that the best performing simulations have `x0` near
+`stepsize` determined as best. It was shown that the best performing simulations have `x0` near
 the mean of the target distribution but that if the first {% katex %}10^4{% endkatex %} samples
-of the simulation were discarded `x0` can differ significantly from the target mean with no significant impact.
+of the simulation were discarded `x0` can differ significantly from the target mean with no impact.
+Autocorrelation of samples is a consequence of using a Markov Chain to model samples and
+considered an undesirable artifact since independent identically distributed samples are desired.
+Autocorrelation can be removed by Thinning the samples. It was shown that thinning intervals
+of about {% katex %}\eta=5{% endkatex %} can produce samples with a very short decorrelation time
+at the expense of requiring generation of more samples.
 
 The best performing simulations using Metropolis Hastings Sampling have an acceptance rate of
-about {% katex %}80\%{% endkatex %} and converge to target values in about {% katex %}O(10^3){% endkatex %}
-time steps. This is the same performance obtained using [Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %}) with a {% katex %}\textbf{Normal}{% endkatex %} proposal distribution.
+about {% katex %}80\%{% endkatex %} and converge to target values in about {% katex %}O(10^3){% endkatex %} time steps. This is the same performance obtained using
+[Rejection Sampling]({{ site.baseurl }}{% link _posts/2018-07-29-rejection_sampling.md %})
+with a {% katex %}\textbf{Normal}{% endkatex %} proposal distribution.
 The advantage offered by Metropolis Hastings Sampling is that it has a single arbitrary parameter.
-Rejection sampling has two arbitrary parameters that can significantly impact performance for small changes.
-It follows that Metropolis Hastings Sampling can be considered more robust.
+Rejection sampling has two arbitrary parameters that can significantly impact performance for small changes. It follows that Metropolis Hastings Sampling can be considered more robust.
