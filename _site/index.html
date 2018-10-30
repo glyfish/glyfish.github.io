@@ -136,21 +136,27 @@
         </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
               <span class="p-author h-card" itemprop="name">Troy Stribling</span>
             </span></p>
-      <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_sigma_scan.png"><p>The <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Bivariate Normal Distribution</a> is obtained by
-application of a linear transformation to a sum of independent <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>Normal</mtext><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\textbf{Normal}(0, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord text"><span class="mord mathbf">Normal</span></span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span>
-random variables. Here the distribution will be derived from the PDF for two independent <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>Normal</mtext><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\textbf{Normal}(0, 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord text"><span class="mord mathbf">Normal</span></span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm">1</span><span class="mclose">)</span></span></span></span> random variab...
+      <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_sigma_scan.png"><p>The <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Bivariate Normal Distribution</a> is a frequently used
+multivariable distribution because it provides a simple model of correlation between random variables. It is derived by
+application of a linear transformation to a sum of two independent <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>Normal</mtext><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mtext> </mtext><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\textbf{Normal}(0,\ 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord text"><span class="mord mathbf">Normal</span></span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm"><span class="mspace"> </span><span class="mord mathrm">1</span></span><span class="mclose">)</span></span></span></span>
+random variables. Here a derivation is presented that uses a change of variables on the distribution of the independent variable sum.
+To provide background a general expression for change of variables of a bivariate integral is discussed. This result is then applied to
+obtain the Bivariate Normal Distribution. The first and seconds moments and correlation coefficient are next computed followed by
+derivation of the <a href="https://en.wikipedia.org/wiki/Marginal_distribution">marginal</a> and <a href="https://en.wikipedia.org/wiki/Conditional_probability_distribution">conditional</a> distributions which are
+used in a calculation of the <a href="https://en.wikipedia.org/wiki/Conditional_expectation">conditional expectation and variance</a>.
+Finally, the variation in the shape of the distribution as the free parameters are varied is discus...
       <a href="/2018/10/29/bivariate_normal_distribution.html">read more</a>
     </li>
     <li><h1 class="post-title p-name" >
         Gibbs Sampling
       </h1>
       <p class="post-meta">
-        <time class="dt-published" datetime="" itemprop="datePublished">Sep 9, 2018
+        <time class="dt-published" datetime="" itemprop="datePublished">Sep 10, 2018
         </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
               <span class="p-author h-card" itemprop="name">Troy Stribling</span>
             </span></p>
       <img class="post-image" src="/assets/posts/gibbs_sampling/bivariate_pdf_sampler_steps_1.png"><p>Gibbs sampl...
-      <a href="/2018/09/09/gibbs_sampling.html">read more</a>
+      <a href="/2018/09/10/gibbs_sampling.html">read more</a>
     </li>
     <li><h1 class="post-title p-name" >
         Metropolis Hastings Sampling
