@@ -21,47 +21,70 @@ Finally, the variation in the shape of the distribution as the free parameters a
 
 ## Bivariate Change of Variables
 
-Consider the PDF of a single variable, {% katex %}f(x){% endkatex %}, and the transformation, {% katex %}y=h(x){% endkatex %} which
-is assumed to be invertible and monotonically increasing. The PDF of the transformed variable is given by,
+First consider the PDF of a single variable, {% katex %}f(x){% endkatex %}, and the transformation,
+{% katex %}x=x(y){% endkatex %} which is assumed monotonically increasing or decreasing.
+The PDF of the transformed variable is given by,
 
 {% katex display %}
-g(y) = f(h^{-1}(x)) \frac{dh^{-1}{dx},
+g(y) = f(x(y)) \frac{dx}{dy},
 {% endkatex %}
 
-where {% katex %}h^{-1}(y){% endkatex %} is the inverse of {% katex %}h(x){% endkatex %}. This result follows from performing a change of variables
-on the CDF,
+This result follows from performing a change of variables on the CDF,
 
 {% katex display %}
 \begin{aligned}
 P(X\ \leq\ x) &= \int_{-\infty}^{x} f(x) dx \\
-&= \int_{-\infty}^{y} f(h^{-1}(x)) \frac{dh^{-1}}{dx} dy \\
-&= P(Y\ \leq\ y) \\
-&= P(h(Y)\ \leq\ h(x)),
+&= \int_{-\infty}^{y} f(x(w) \frac{dx}{dw} dy \\
+&= P(Y\ \leq\ y)
 \end{aligned}
 {% endkatex %}
 
 where use was made of,
 
 {% katex display %}
-dx = \frac{dh^{-1}}{dx} dy.
+dx = \frac{dh}{dx} dy.
 {% endkatex %}
 
-Next consider the PDF of two variables, {% katex %}f(x,y){% endkatex %}. and the transformation,
+The {% katex %}dh/dx{% endkatex %} term stretches or scales {% katex %}dy{% endkatex %} appropriately. In two
+dimensions a similar thing happens that is slightly more complicated. Consider the PDF of two variables,
+{% katex %}f(x,y){% endkatex %}, with CDF.
 
 {% katex display %}
-\begin{aligned}
-x &= g(u,v) \\
-y &= h(u,v).
-\end{aligned}
+P(X \cup Y \in A) = \int_{A} f(x, y) dA,
 {% endkatex %}
+
+that defines an integration over a region that computes that probability that {% katex %}X{% endkatex %} and
+{% katex %}Y{% endkatex %} are both in the region {% katex %}A{% endkatex %}. The figure below provides an illustration.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/2DIntegral.png">
 </div>
 
+To go further a geometric result is discussed in the following section relating the [Cross Product](https://en.wikipedia.org/wiki/Cross_product) of two vectors to the area of the parallelogram
+defined by the intersection of the vectors is needed.
+
 ### Area Element as Differential Cross Product
 
+Consider two vectors {% katex %}\vec{\textbf{A}}{% endkatex %} and {% katex %}\vec{\textbf{B}}{% endkatex %}
+separated by an angle {% katex %}\theta{% endkatex %} as shown in the following figure. The cross
+product of the two vectors is defined by,
+
+{% katex display %}
+
+{% endkatex %}
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
+</div>
+
 ### The Bivariate Jacobian
+
+{% katex display %}
+\begin{aligned}
+x &= x(u,v) \\
+y &= y(u,v).
+\end{aligned}
+{% endkatex %}
 
 ## Bivariate Normal Distribution
 
