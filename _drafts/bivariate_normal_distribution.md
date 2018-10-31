@@ -86,6 +86,11 @@ y &= y(u,v).
 \end{aligned}
 {% endkatex %}
 
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
+</div>
+
+
 ## Bivariate Normal Distribution
 
 ### Sum of Independent {% katex %}\textbf{Normal}(0, 1){% endkatex %} Random Variables
