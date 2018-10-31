@@ -22,7 +22,7 @@ Finally, the variation in the shape of the distribution as the free parameters a
 ## Bivariate Change of Variables
 
 First consider the PDF of a single variable, {% katex %}f(x){% endkatex %}, and the transformation,
-{% katex %}x=x(y){% endkatex %} which is assumed monotonically increasing or decreasing.
+{% katex %}x=x(y){% endkatex %} which is assumed monotonically increasing.
 The PDF of the transformed variable is given by,
 
 {% katex display %}
@@ -50,7 +50,7 @@ dimensions a similar thing happens that is slightly more complicated. Consider t
 {% katex %}f(x,y){% endkatex %}, with CDF.
 
 {% katex display %}
-P(X \cup Y \in A) = \int_{A} f(x, y) dA,
+P(\{X,Y\} \in A) = \int_{A} f(x, y) dA,
 {% endkatex %}
 
 that defines an integration over a region that computes that probability that {% katex %}X{% endkatex %} and
