@@ -60,17 +60,17 @@ that defines an integration over a region that computes that probability that {%
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/2DIntegral.png">
 </div>
 
-To go further a geometric result is discussed in the following section relating the [Cross Product](https://en.wikipedia.org/wiki/Cross_product) of two vectors to the area of the parallelogram
-defined by the intersection of the vectors is needed.
+To go further a geometric result relating the [Cross Product](https://en.wikipedia.org/wiki/Cross_product) of two vectors to the area of the parallelogram enclosed by the vectors is needed.
+This topic is discussed in the following section.
 
 ### Area Element as Differential Cross Product
 
 Consider two vectors {% katex %}\vec{\textbf{A}}{% endkatex %} and {% katex %}\vec{\textbf{B}}{% endkatex %}
-separated by an angle {% katex %}\theta{% endkatex %} as shown in the following figure. The cross
-product of the two vectors is defined by,
+separated by an angle {% katex %}\theta{% endkatex %} as shown in the following figure. The magnitude of
+the cross product of the two vectors is defined by,
 
 {% katex display %}
-
+\mid \vec{A} \times \vex{B} \mid = A_{x}B_{y} - A_{y} B_{x}
 {% endkatex %}
 
 <div style="text-align:center;">
@@ -87,7 +87,7 @@ y &= y(u,v).
 {% endkatex %}
 
 <div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/Jacobian.png">
 </div>
 
 
