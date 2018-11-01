@@ -117,7 +117,8 @@ results in,
 \mid \vec{\textbf{A}} \times \vec{\textbf{B}} \mid = \mid \vec{\textbf{A}} \mid \mid \vec{\textbf{B}} \mid \sin{\theta},
 {% endkatex %}
 
-which is the area of the parallelogram indicated by orange in the figure above.
+which is the area of the parallelogram indicated by orange in the figure above if it is assumed that
+{% katex %}\pi \leq \theta \leq 0{% endkatex %}.
 
 ### Bivariate Jacobian
 
