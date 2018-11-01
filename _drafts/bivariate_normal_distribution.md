@@ -67,7 +67,7 @@ the following section.
 
 Consider two vectors {% katex %}\vec{\textbf{A}}{% endkatex %} and {% katex %}\vec{\textbf{B}}{% endkatex %}
 separated by an angle {% katex %}\theta{% endkatex %} and rotated by and angle {% katex %}\gamma{% endkatex %}
-as shown in the following figure.
+as shown in the following figure. T
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
@@ -85,23 +85,41 @@ B_{y} &= \mid \vec{B} \mid \sin{\left(\gamma + \theta\right)} \\
 \end{aligned}\ \ \ \ \ (1).
 {% endkatex %}
 
-The magnitude of the cross product of the two vectors is defined by,
+The cross product of two vectors is another vector perpendicular both vectors. Here, for the figure
+above, this direction is perpendicular to the plane of the page, call it {% katex %}\hat{z}{% endkatex %}.
+Then the cross product is defined by the (determinate)[https://en.wikipedia.org/wiki/Determinant] computed
+computed from the components of the two vectors and projected along, namely,
 
 {% katex display %}
 \begin{aligned}
-\mid \vec{A} \times \vec{B} \mid &=
+\vec{\textbf{A}} \times \vec{\textbf{B}} &=
 \begin{vmatrix}
 A_{x} & A_{y} \\
 B_{x} & B_{y}
-\end{vmatrix}\\
-&= A_{x}B_{y} - A_{y} B_{x}
+\end{vmatrix} \hat{z} \\
+&= \left( A_{x}B_{y} - A_{y} B_{x} \right) \hat{z}
 \end{aligned}\ \ \ \ \ (2).
 {% endkatex %}
 
-Substituting equation {% katex %}(1){% endkatex %} into {% katex %}(2){% endkatex %} gives,
+Substituting equation {% katex %}(1){% endkatex %} into {% katex %}(2){% endkatex %} and making use of,
 
+{% katex display %}
+\begin{gathered}
+\sin{\left(\theta + \gamma)} = \sin{\theta}\cos{\gamma} + \cos{\theta}\sin{\gamma}
+\cos{\left(\theta + \gamma)} = \cos{\theta}\cos{\gamma} - \sin{\theta}\sin{\gamma}
+\sin^2{\gamma} + \cos^2{\gamma} = 1
+\end{gathered}
+{% endkatex %}
 
-### The Bivariate Jacobian
+results in,
+
+{% katex display %}
+\mid \vec{\textbf{A}} \times \vec{\textbf{B}} \mid = \mid \vec{\textbf{A}} \mid \mid \vec{\textbf{B}} \mid \sin{\theta},
+{% endkatex %}
+
+which is the area of the parallelogram indicated by orange in the figure above.
+
+### Bivariate Jacobian
 
 {% katex display %}
 \begin{aligned}
