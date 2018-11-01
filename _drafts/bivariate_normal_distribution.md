@@ -60,22 +60,46 @@ that defines an integration over a region that computes that probability that {%
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/2DIntegral.png">
 </div>
 
-To go further a geometric result relating the [Cross Product](https://en.wikipedia.org/wiki/Cross_product) of two vectors to the area of the parallelogram enclosed by the vectors is needed.
-This topic is discussed in the following section.
+To go further a geometric result relating the [Cross Product](https://en.wikipedia.org/wiki/Cross_product) of two vectors to the area of the parallelogram enclosed by the vectors is needed. This topic is discussed in
+the following section.
 
-### Area Element as Differential Cross Product
+### Cross Product as Area
 
 Consider two vectors {% katex %}\vec{\textbf{A}}{% endkatex %} and {% katex %}\vec{\textbf{B}}{% endkatex %}
-separated by an angle {% katex %}\theta{% endkatex %} as shown in the following figure. The magnitude of
-the cross product of the two vectors is defined by,
-
-{% katex display %}
-\mid \vec{A} \times \vex{B} \mid = A_{x}B_{y} - A_{y} B_{x}
-{% endkatex %}
+separated by an angle {% katex %}\theta{% endkatex %} and rotated by and angle {% katex %}\gamma{% endkatex %}
+as shown in the following figure.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
 </div>
+
+The vector components projected along the {% katex %}x{% endkatex %} and {% katex %}y{% endkatex %} axes are
+given by,
+
+{% katex display %}
+\begin{aligned}
+A_{x} &= \mid \vec{A} \mid \cos{\gamma} \\
+A_{y} &= \mid \vec{A} \mid \sin{\gamma} \\
+B_{x} &= \mid \vec{B} \mid \cos{\left(\gamma + \theta\right)} \\
+B_{y} &= \mid \vec{B} \mid \sin{\left(\gamma + \theta\right)} \\
+\end{aligned}\ \ \ \ \ (1).
+{% endkatex %}
+
+The magnitude of the cross product of the two vectors is defined by,
+
+{% katex display %}
+\begin{aligned}
+\mid \vec{A} \times \vec{B} \mid &=
+\begin{vmatrix}
+A_{x} & A_{y} \\
+B_{x} & B_{y}
+\end{vmatrix}\\
+&= A_{x}B_{y} - A_{y} B_{x}
+\end{aligned}\ \ \ \ \ (2).
+{% endkatex %}
+
+Substituting equation {% katex %}(1){% endkatex %} into {% katex %}(2){% endkatex %} gives,
+
 
 ### The Bivariate Jacobian
 
