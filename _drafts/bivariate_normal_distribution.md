@@ -73,8 +73,8 @@ as shown in the following figure.
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
 </div>
 
-The vector components projected along the {% katex %}x{% endkatex %} and {% katex %}y{% endkatex %} axes are
-given by,
+The vector components projected along the {% katex %}\textbf{\textit{x}}{% endkatex %} and
+{% katex %}\textbf{\textit{y}}{% endkatex %} axes are given by,
 
 {% katex display %}
 \begin{aligned}
@@ -86,7 +86,7 @@ B_{y} &= \mid \textbf{B} \mid \sin{\left(\gamma + \theta\right)} \\
 {% endkatex %}
 
 The cross product of two vectors is another vector perpendicular both vectors. Here, for the figure
-above, this direction is perpendicular to the plane of the page, call it {% katex %}\textbf{z}{% endkatex %}.
+above, this direction is perpendicular to the plane of the page, call it {% katex %}\textbf{\textit{z}}{% endkatex %}.
 Then the cross product is defined by the [determinate](https://en.wikipedia.org/wiki/Determinant) computed
 computed from the components of the two vectors and projected along, namely,
 
@@ -96,8 +96,8 @@ computed from the components of the two vectors and projected along, namely,
 \begin{vmatrix}
 A_{x} & A_{y} \\
 B_{x} & B_{y}
-\end{vmatrix} \textbf{z} \\
-&= \left( A_{x}B_{y} - A_{y} B_{x} \right) \textbf{z}
+\end{vmatrix} \textbf{\textit{z}} \\
+&= \left( A_{x}B_{y} - A_{y} B_{x} \right) \textbf{\textit{z}}
 \end{aligned}\ \ \ \ \ (2).
 {% endkatex %}
 
@@ -122,12 +122,25 @@ such that {% katex %}0\ \leq\ \theta\ \leq\ \pi{% endkatex %}.
 
 ### Bivariate Jacobian
 
+Consider the following transformation,
+
 {% katex display %}
 \begin{aligned}
 x &= x(u,v) \\
-y &= y(u,v).
-\end{aligned}
+y &= y(u,v)
+\end{aligned}\ \ \ \ \ (3).
 {% endkatex %}
+
+applied to the integral,
+
+{% katex display %}
+\int_{A} f(x, y) dxdy,
+{% endkatex %}
+
+where {% katex %}A{% endkatex %} is an arbitrary area in {% katex %}\left(\textbf{\textit{x}}, \textbf{\textit{y}}\right){% endkatex %} coordinates. The following plot shows how an area elements
+transforms between the {% katex %}\left(\textbf{\textit{u}}, \textbf{\textit{v}} \right){% endkatex %}
+and {% katex %}\left(\textbf{\textit{x}}, \textbf{\textit{y}} \right){% endkatex %} coordinates when
+transformation {% katex %}(3){% endkatex %} is applied.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/Jacobian.png">
@@ -138,7 +151,7 @@ y &= y(u,v).
 
 ### Sum of Independent {% katex %}\textbf{Normal}(0, 1){% endkatex %} Random Variables
 
-Consider the sums of two independent {% katex %}\textbf{Normal}(0,\ 1){% endkatex %} random variablesm
+Consider the sums of two independent {% katex %}\textbf{Normal}(0,\ 1){% endkatex %} random variables
 
 {% katex display %}
 U = X + Y
