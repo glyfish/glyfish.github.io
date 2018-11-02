@@ -47,7 +47,7 @@ dx = \frac{dh}{dx} dy.
 
 The {% katex %}dh/dx{% endkatex %} term stretches or scales {% katex %}dy{% endkatex %} appropriately. In two
 dimensions a similar thing happens that is slightly more complicated. Consider the PDF of two variables,
-{% katex %}f(x,y){% endkatex %}, with CDF.
+{% katex %}f(x,y){% endkatex %}, with CDF,
 
 {% katex display %}
 P(\{X,Y\} \in A) = \int_{A} f(x, y) dA,
@@ -60,14 +60,14 @@ that defines an integration over a region that computes that probability that {%
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/2DIntegral.png">
 </div>
 
-To go further a geometric result relating the [Cross Product](https://en.wikipedia.org/wiki/Cross_product) of two vectors to the area of the parallelogram enclosed by the vectors is needed. This topic is discussed in
-the following section.
+To go further a geometric result relating the [Cross Product](https://en.wikipedia.org/wiki/Cross_product) of two vectors to the area of the
+parallelogram enclosed by the vectors is needed. This topic is discussed in the following section.
 
 ### Cross Product as Area
 
-Consider two vectors {% katex %}\vec{\textbf{A}}{% endkatex %} and {% katex %}\vec{\textbf{B}}{% endkatex %}
+Consider two vectors {% katex %}\textbf{A}{% endkatex %} and {% katex %}\textbf{B}{% endkatex %}
 separated by an angle {% katex %}\theta{% endkatex %} and rotated by and angle {% katex %}\gamma{% endkatex %}
-as shown in the following figure. T
+as shown in the following figure.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
@@ -78,26 +78,26 @@ given by,
 
 {% katex display %}
 \begin{aligned}
-A_{x} &= \mid \vec{A} \mid \cos{\gamma} \\
-A_{y} &= \mid \vec{A} \mid \sin{\gamma} \\
-B_{x} &= \mid \vec{B} \mid \cos{\left(\gamma + \theta\right)} \\
-B_{y} &= \mid \vec{B} \mid \sin{\left(\gamma + \theta\right)} \\
+A_{x} &= \mid \textbf{A} \mid \cos{\gamma} \\
+A_{y} &= \mid \textbf{A} \mid \sin{\gamma} \\
+B_{x} &= \mid \textbf{B} \mid \cos{\left(\gamma + \theta\right)} \\
+B_{y} &= \mid \textbf{B} \mid \sin{\left(\gamma + \theta\right)} \\
 \end{aligned}\ \ \ \ \ (1).
 {% endkatex %}
 
 The cross product of two vectors is another vector perpendicular both vectors. Here, for the figure
-above, this direction is perpendicular to the plane of the page, call it {% katex %}\hat{z}{% endkatex %}.
-Then the cross product is defined by the (determinate)[https://en.wikipedia.org/wiki/Determinant] computed
+above, this direction is perpendicular to the plane of the page, call it {% katex %}\textbf{z}{% endkatex %}.
+Then the cross product is defined by the [determinate](https://en.wikipedia.org/wiki/Determinant) computed
 computed from the components of the two vectors and projected along, namely,
 
 {% katex display %}
 \begin{aligned}
-\vec{\textbf{A}} \times \vec{\textbf{B}} &=
+\textbf{A} \times \textbf{B} &=
 \begin{vmatrix}
 A_{x} & A_{y} \\
 B_{x} & B_{y}
-\end{vmatrix} \hat{z} \\
-&= \left( A_{x}B_{y} - A_{y} B_{x} \right) \hat{z}
+\end{vmatrix} \textbf{z} \\
+&= \left( A_{x}B_{y} - A_{y} B_{x} \right) \textbf{z}
 \end{aligned}\ \ \ \ \ (2).
 {% endkatex %}
 
@@ -105,20 +105,20 @@ Substituting equation {% katex %}(1){% endkatex %} into {% katex %}(2){% endkate
 
 {% katex display %}
 \begin{gathered}
-\sin{\left(\theta + \gamma)} = \sin{\theta}\cos{\gamma} + \cos{\theta}\sin{\gamma}
-\cos{\left(\theta + \gamma)} = \cos{\theta}\cos{\gamma} - \sin{\theta}\sin{\gamma}
-\sin^2{\gamma} + \cos^2{\gamma} = 1
+\sin{\left(\theta + \gamma\right)} = \sin{\theta}\ \cos{\gamma}\ +\ \cos{\theta}\ \sin{\gamma} \\
+\cos{\left(\theta + \gamma\right)} = \cos{\theta}\ \cos{\gamma}\ -\ \sin{\theta}\ \sin{\gamma} \\
+\sin^2{\gamma}\ +\ \cos^2{\gamma} = 1
 \end{gathered}
 {% endkatex %}
 
 results in,
 
 {% katex display %}
-\mid \vec{\textbf{A}} \times \vec{\textbf{B}} \mid = \mid \vec{\textbf{A}} \mid \mid \vec{\textbf{B}} \mid \sin{\theta},
+\mid \textbf{A} \times \textbf{B} \mid = \mid \textbf{A} \mid \mid \textbf{B} \mid \sin{\theta},
 {% endkatex %}
 
-which is the area of the parallelogram indicated by orange in the figure above if it is assumed that
-{% katex %}\pi \leq \theta \leq 0{% endkatex %}.
+which is the area of the parallelogram indicated by orange in the figure above since {% katex %}\theta{% endkatex %} can always be chosen
+such that {% katex %}0\ \leq\ \theta\ \leq\ \pi{% endkatex %}.
 
 ### Bivariate Jacobian
 
