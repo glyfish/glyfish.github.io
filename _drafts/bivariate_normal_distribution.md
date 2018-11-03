@@ -80,6 +80,15 @@ The vector components projected along the {% katex %}\textbf{x}{% endkatex %} an
 
 {% katex display %}
 \begin{aligned}
+\textbf{A} &= A_{x} \textbf{x} + A_{y} \textbf{y} \\
+\textbf{B} &= B_{x} \textbf{x} + B_{y} \textbf{y},
+\end{aligned}
+{% endkatex %}
+
+where,
+
+{% katex display %}
+\begin{aligned}
 A_{x} &= \mid \textbf{A} \mid \cos{\gamma} \\
 A_{y} &= \mid \textbf{A} \mid \sin{\gamma} \\
 B_{x} &= \mid \textbf{B} \mid \cos{\left(\gamma + \theta\right)} \\
@@ -140,23 +149,24 @@ applied to the integral,
 \int_{A} f(x, y) dxdy,
 {% endkatex %}
 
-where {% katex %}A{% endkatex %} is an arbitrary area in {% katex %}\left(\textbf{x}, \textbf{y}\right){% endkatex %} coordinates.
-The following figure shows how area elements transforms between the {% katex %}\left(\textbf{u}, \textbf{v} \right){% endkatex %}
-and {% katex %}\left(\textbf{x}, \textbf{y} \right){% endkatex %} coordinates when transformation {% katex %}(3){% endkatex %} is applied.
-The left side of the figure shows the {% katex %}\left(\textbf{u}, \textbf{v} \right){% endkatex %} [Cartesian Coordinate System](https://en.wikipedia.org/wiki/Cartesian_coordinate_system). In this coordinate system vertical lines of constant
+where {% katex %}A{% endkatex %} is an arbitrary area in {% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %} coordinates.
+The following figure shows how area elements transforms between the {% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %}
+and {% katex %}\left(\textit{x}, \textit{y} \right){% endkatex %} coordinates when transformation {% katex %}(3){% endkatex %} is applied.
+The left side of the figure shows the {% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %} [Cartesian Coordinate System](https://en.wikipedia.org/wiki/Cartesian_coordinate_system). In this coordinate system vertical lines of constant
 {% katex %}\textit{u}{% endkatex %} are colored orange and horizontal lines of constant {% katex %}\textit{v}{% endkatex %} blue. The right side
 of the figure shows the result of application of the transformation between the coordinate systems. The lines of constant {% katex %}\textit{u}{% endkatex %} and
-{% katex %}\textit{v}{% endkatex %} can be curved and not aligned with the {% katex %}\left(\textbf{x}, \textbf{y}\right){% endkatex %}
-Cartesian coordinates as shown in the figure. The transformed {% katex %}\left(\textbf{u}, \textbf{v} \right){% endkatex %} coordinates in
+{% katex %}\textit{v}{% endkatex %} can be curved and not aligned with the {% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %}
+Cartesian coordinates as shown in the figure. The transformed {% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %} coordinates in
 this case are [Curvilinear](https://en.wikipedia.org/wiki/Curvilinear_coordinates).
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/Jacobian.png">
 </div>
 
-The differential area elements are indicated in the figure. In the {% katex %}\left(\textbf{\textit{u}}, \textbf{\textit{v}} \right){% endkatex %}
+The differential area elements are indicated in the figure. In the
+{% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %}
 Cartesian coordinates the differential area element is given by {% katex %}dA=dudv{% endkatex %} but in the Curvilinear
-{% katex %}\left(\textbf{x}, \textbf{y}\right){% endkatex %} the area element is distorted because the differentials defining
+{% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %} the area element is distorted because the differentials defining
 the area are not orthogonal. In the infinitesimal limit it will become a parallelogram with area given by the cross product of
 {% katex %}d\textbf{X}{% endkatex %} and {% katex %}d\textbf{Y}{% endkatex %} which are tangent vectors to the curves of constant
 {% katex %}\textit{u}{% endkatex %} and {% katex %}\textit{v}{% endkatex %} respectively.
