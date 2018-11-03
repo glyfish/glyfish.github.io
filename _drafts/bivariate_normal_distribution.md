@@ -21,7 +21,7 @@ Finally, the variation in the shape of the distribution as the free parameters a
 
 ## Bivariate Change of Variables
 
-First consider the PDF of a single variable, {% katex %}f(x){% endkatex %}, and the transformation,
+First, consider the PDF of a single variable, {% katex %}f(x){% endkatex %}, and the transformation,
 {% katex %}x=x(y){% endkatex %} which is assumed monotonically increasing.
 The PDF of the transformed variable is given by,
 
@@ -54,7 +54,9 @@ P(\{X,Y\} \in A) = \int_{A} f(x, y) dA,
 {% endkatex %}
 
 that defines an integration over a region that computes that probability that {% katex %}X{% endkatex %} and
-{% katex %}Y{% endkatex %} are both in the region {% katex %}A{% endkatex %}. The figure below provides an illustration.
+{% katex %}Y{% endkatex %} are both in the region {% katex %}A{% endkatex %}. The figure below provides an illustration
+for a [Cartesian Coordinate System](https://en.wikipedia.org/wiki/Cartesian_coordinate_system) where
+{% katex %}dA=dxdy{% endkatex %}.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/2DIntegral.png">
@@ -73,8 +75,8 @@ as shown in the following figure.
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
 </div>
 
-The vector components projected along the {% katex %}\textbf{\textit{x}}{% endkatex %} and
-{% katex %}\textbf{\textit{y}}{% endkatex %} axes are given by,
+The vector components projected along the {% katex %}\textbf{x}{% endkatex %} and
+{% katex %}\textbf{y}{% endkatex %} axes are given by,
 
 {% katex display %}
 \begin{aligned}
@@ -86,7 +88,7 @@ B_{y} &= \mid \textbf{B} \mid \sin{\left(\gamma + \theta\right)} \\
 {% endkatex %}
 
 The cross product of two vectors is another vector perpendicular both vectors. Here, for the figure
-above, this direction is perpendicular to the plane of the page, call it {% katex %}\textbf{\textit{z}}{% endkatex %}.
+above, this direction is perpendicular to the plane of the page, call it {% katex %}\textbf{z}{% endkatex %}.
 Then the cross product is defined by the [determinate](https://en.wikipedia.org/wiki/Determinant) computed
 computed from the components of the two vectors and projected along, namely,
 
@@ -96,8 +98,8 @@ computed from the components of the two vectors and projected along, namely,
 \begin{vmatrix}
 A_{x} & A_{y} \\
 B_{x} & B_{y}
-\end{vmatrix} \textbf{\textit{z}} \\
-&= \left( A_{x}B_{y} - A_{y} B_{x} \right) \textbf{\textit{z}}
+\end{vmatrix}\ \textbf{z} \\
+&= \left( A_{x}B_{y} - A_{y} B_{x} \right)\ \textbf{z}
 \end{aligned}\ \ \ \ \ (2).
 {% endkatex %}
 
@@ -117,12 +119,13 @@ results in,
 \mid \textbf{A} \times \textbf{B} \mid = \mid \textbf{A} \mid \mid \textbf{B} \mid \sin{\theta},
 {% endkatex %}
 
-which is the area of the parallelogram indicated by orange in the figure above since {% katex %}\theta{% endkatex %} can always be chosen
-such that {% katex %}0\ \leq\ \theta\ \leq\ \pi{% endkatex %}.
+which is the area of the parallelogram indicated by orange in the figure above. {% katex %}sin\theta{% endkatex %}
+can be assumed positive since {% katex %}\theta{% endkatex %} can always be chosen such that
+{% katex %}0\ \leq\ \theta\ \leq\ \pi{% endkatex %}.
 
 ### Bivariate Jacobian
 
-Consider the following transformation,
+Consider the following coordinate transformation,
 
 {% katex display %}
 \begin{aligned}
@@ -137,14 +140,37 @@ applied to the integral,
 \int_{A} f(x, y) dxdy,
 {% endkatex %}
 
-where {% katex %}A{% endkatex %} is an arbitrary area in {% katex %}\left(\textbf{\textit{x}}, \textbf{\textit{y}}\right){% endkatex %} coordinates. The following plot shows how an area elements
-transforms between the {% katex %}\left(\textbf{\textit{u}}, \textbf{\textit{v}} \right){% endkatex %}
-and {% katex %}\left(\textbf{\textit{x}}, \textbf{\textit{y}} \right){% endkatex %} coordinates when
-transformation {% katex %}(3){% endkatex %} is applied.
+where {% katex %}A{% endkatex %} is an arbitrary area in {% katex %}\left(\textbf{x}, \textbf{y}\right){% endkatex %} coordinates.
+The following figure shows how area elements transforms between the {% katex %}\left(\textbf{u}, \textbf{v} \right){% endkatex %}
+and {% katex %}\left(\textbf{x}, \textbf{y} \right){% endkatex %} coordinates when transformation {% katex %}(3){% endkatex %} is applied.
+The left side of the figure shows the {% katex %}\left(\textbf{u}, \textbf{v} \right){% endkatex %} [Cartesian Coordinate System](https://en.wikipedia.org/wiki/Cartesian_coordinate_system). In this coordinate system vertical lines of constant
+{% katex %}\textit{u}{% endkatex %} are colored orange and horizontal lines of constant {% katex %}\textit{v}{% endkatex %} blue. The right side
+of the figure shows the result of application of the transformation between the coordinate systems. The lines of constant {% katex %}\textit{u}{% endkatex %} and
+{% katex %}\textit{v}{% endkatex %} can be curved and not aligned with the {% katex %}\left(\textbf{x}, \textbf{y}\right){% endkatex %}
+Cartesian coordinates as shown in the figure. The transformed {% katex %}\left(\textbf{u}, \textbf{v} \right){% endkatex %} coordinates in
+this case are [Curvilinear](https://en.wikipedia.org/wiki/Curvilinear_coordinates).
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/Jacobian.png">
 </div>
+
+The differential area elements are indicated in the figure. In the {% katex %}\left(\textbf{\textit{u}}, \textbf{\textit{v}} \right){% endkatex %}
+Cartesian coordinates the differential area element is given by {% katex %}dA=dudv{% endkatex %} but in the Curvilinear
+{% katex %}\left(\textbf{x}, \textbf{y}\right){% endkatex %} the area element is distorted because the differentials defining
+the area are not orthogonal. In the infinitesimal limit it will become a parallelogram with area given by the cross product of
+{% katex %}d\textbf{X}{% endkatex %} and {% katex %}d\textbf{Y}{% endkatex %} which are tangent vectors to the curves of constant
+{% katex %}\textit{u}{% endkatex %} and {% katex %}\textit{v}{% endkatex %} respectively.
+To compute the cross product expressions for the differentials are required. From the transformation defined by equation
+{% katex %}(3){% endkatex %} the components of the differentials are computed by assuming that for {% katex %}d\textbf{X}{% endkatex %}
+{% katex %}\textit{v}{% endkatex %} is constant and for {% katex %}d\textbf{Y}{% endkatex %} {% katex %}\textit{u}{% endkatex %} is
+constant. It follows that,
+
+{% katex display %}
+\begin{aligned}
+d\textbf{X} &= \frac{\partial x}{\partial u}du\ \textbf{x} + \frac{\partial y}{\partial u}dv\ \textbf{y} \\
+d\textbf{Y} &= \frac{\partial x}{\partial v}dv\ \textbf{x} + \frac{\partial y}{\partial v}dv\ \textbf{y} \\
+\end{aligned}.
+{% endkatex %}
 
 
 ## Bivariate Normal Distribution
