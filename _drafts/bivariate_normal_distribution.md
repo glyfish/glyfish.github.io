@@ -183,8 +183,8 @@ It follows that,
 
 {% katex display %}
 \begin{aligned}
-d\textbf{X} &= \frac{\partial x}{\partial u}du\ \textbf{x} + \frac{\partial y}{\partial u}du\ \textbf{y} \\
-d\textbf{Y} &= \frac{\partial x}{\partial v}dv\ \textbf{x} + \frac{\partial y}{\partial v}dv\ \textbf{y}
+d\textbf{X} &= \frac{\partial x}{\partial u}du\textbf{x} + \frac{\partial y}{\partial u}du\textbf{y} \\
+d\textbf{Y} &= \frac{\partial x}{\partial v}dv\textbf{x} + \frac{\partial y}{\partial v}dv\textbf{y}
 \end{aligned}\ \ \ \ (5).
 {% endkatex %}
 
@@ -194,18 +194,18 @@ Now the cross product of the differentials above is given by,
 \begin{aligned}
 d\textbf{X} \times d\textbf{Y}
 &= \begin{vmatrix}
-\frac{\normalsize{\partial x}}{\normalsize{\partial u}}du &
-\frac{\normalsize{\partial y}}{\normalsize{\partial u}}dv \\
-\frac{\normalsize{\partial x}}{\normalsize{\partial v}}dv &
-\frac{\normalsize{\partial y}}{\normalsize{\partial v}}dv
+\frac{\small{\partial x}}{\small{\partial u}}\small{du} &
+\frac{\small{\partial y}}{\small{\partial u}}\small{du} \\
+\frac{\small{\partial x}}{\small{\partial v}}\small{dv} &
+\frac{\small{\partial y}}{\small{\partial v}}\small{dv}
 \end{vmatrix}\textbf{z} \\
 &= \begin{vmatrix}
-\frac{\normalsize{\partial x}}{\normalsize{\partial u}} &
-\frac{\normalsize{\partial y}}{\normalsize{\partial u}} \\
-\frac{\normalsize{\partial x}}{\normalsize{\partial v}} &
-\frac{\normalsize{\partial y}}{\normalsize{\partial v}}
-\end{vmatrix}dudv\ \textbf{z} \\
-&= \left(\frac{\partial x}{\partial u}\frac{\partial y}{\partial v} - \frac{\partial y}{\partial u}\frac{\partial x}{\partial v} \right)dudv\  \textbf{z}.
+\frac{\small{\partial x}}{\small{\partial u}} &
+\frac{\small{\partial y}}{\small{\partial u}} \\
+\frac{\small{\partial x}}{\small{\partial v}} &
+\frac{\small{\partial y}}{\small{\partial v}}
+\end{vmatrix}dudv\textbf{z} \\
+&= \left(\frac{\partial x}{\partial u}\frac{\partial y}{\partial v} - \frac{\partial y}{\partial u}\frac{\partial x}{\partial v} \right)dudv\textbf{z}.
 \end{aligned}
 {% endkatex %}
 
@@ -215,10 +215,10 @@ The bivariate [Jacobian](https://en.wikipedia.org/wiki/Jacobian_matrix_and_deter
 \begin{aligned}
 \mid J \mid &= \left| \frac{\partial\left(x, y\right)}{\partial\left(u, v\right)} \right| \\
 &= \begin{vmatrix}
-\frac{\normalsize{\partial x}}{\normalsize{\partial u}} &
-\frac{\normalsize{\partial x}}{\normalsize{\partial v}} \\
-\frac{\normalsize{\partial y}}{\normalsize{\partial u}} &
-\frac{\normalsize{\partial y}}{\normalsize{\partial v}}
+\frac{\small{\partial x}}{\small{\partial u}} &
+\frac{\small{\partial x}}{\small{\partial v}} \\
+\frac{\small{\partial y}}{\small{\partial u}} &
+\frac{\small{\partial y}}{\small{\partial v}}
 \end{vmatrix} \\
 &= \left(\frac{\partial x}{\partial u}\frac{\partial y}{\partial v} - \frac{\partial y}{\partial u}\frac{\partial x}{\partial v} \right).
 \end{aligned}
@@ -258,7 +258,7 @@ V - \mu_{v}
 \end{pmatrix} =
 \begin{pmatrix}
 \sigma_{u} & 0 \\
-\sigma_{v}\rho & \sigma_{V}\sqrt{1 - \rho^{2}}
+\sigma_{v}\gamma & \sigma_{v}\sqrt{1 - \gamma^{2}}
 \end{pmatrix} =
 \begin{pmatrix}
 X \\
@@ -267,7 +267,7 @@ Y
 {% endkatex %}
 
 where {% katex %}\mu_{u}{% endkatex %}, {% katex %}\mu_{v}{% endkatex %},
-{% katex %}\sigma_{u}{% endkatex %}, {% katex %}\sigma_{v}{% endkatex %} and {% katex %}\rho{% endkatex %}
+{% katex %}\sigma_{u}{% endkatex %}, {% katex %}\sigma_{v}{% endkatex %} and {% katex %}\gamma{% endkatex %}
 are scalar constants named in anticipation of being the mean, standard deviation and correlation coefficient
 of the distribution.
 
@@ -279,10 +279,10 @@ and {% katex %}V{% endkatex %} is obtained by inverting the transformation matri
 X \\
 Y
 \end{pmatrix} =
-\frac{1}{\sigma_u\sigma_v\sqrt{1 - \rho^2}}
+\frac{1}{\sigma_{u}\sigma_{v}\sqrt{1 - \gamma^2}}
 \begin{pmatrix}
-\sigma_{V}\sqrt{1 - \rho^{2}} & 0 \\
--\sigma_{v}\rho & \sigma_{u}
+\sigma_{v}\sqrt{1 - \gamma^{2}} & 0 \\
+-\sigma_{v}\gamma & \sigma_{u}
 \end{pmatrix}
 \begin{pmatrix}
 U - \mu_{u} \\
@@ -324,24 +324,218 @@ from equation {% katex %}(6){% endkatex %},
 
 {% katex display %}
 \begin{aligned}
-x(u,v) & = \frac{1}{\sigma_{u}}\left(u-\mu_{u} \right) \\
-y(u,v) & = \frac{1}{\sqrt{1-\rho^2}}
+x(u,v) & = \frac{\left(u-\mu_{u} \right)}{\sigma_{u}} \\
+y(u,v) & = \frac{1}{\sqrt{1-\gamma^2}}
              \left[
-               \frac{1}{\sigma_{v}\left(v-\mu_{v}\right)} -
-               \frac{\rho}{\sigma_{u}}\left(u-\mu_{u}\right)
-             \right].
-\end{aligned}
+               \frac{1}{\sigma_{v}}\left(v-\mu_{v}\right) -
+               \frac{\gamma}{\sigma_{u}}\left(u-\mu_{u}\right)
+             \right]
+\end{aligned}\ \ \ \ \ (9).
 {% endkatex %}
 
 It follows that the Jacobian is given by,
 
 {% katex display %}
-\mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\rho^{2}}}
+\mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\ \ \ \ \ (10)
 {% endkatex %}
+
+With the goal of keeping things simple in the evaluation of equation {% katex %}(8){% endkatex %}
+the exponential argument term of equation {% katex %}(7){% endkatex %}, {% katex %}x^2 + y^2,{% endkatex %}
+will first be considered. Now, making use of equations {% katex %}(9){% endkatex %} gives,
+
+{% katex display %}
+\begin{aligned}
+x^2 + y^2 &= x^2(u,v) + y^2(u,v) \\
+&= \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} +
+   \frac{1}{1-\gamma^2}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}\right) -
+               \frac{\gamma}{\sigma_{u}}\left(u-\mu_{u}\right)\right]^2 \\
+&= \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} +
+   \frac{\gamma^2}{1-\gamma^2}\frac{\left(u - \mu_u \right)^2}{\sigma_u^2} +
+   \frac{1}{1-\gamma^2}\frac{\left(v-\mu_v\right)^2}{\sigma_v^2} -
+   \frac{2\gamma}{1-\gamma^2}\frac{\left(u - \mu_u \right)\left(v-\mu_v\right)}{\sigma_u\sigma_v} \\
+&= \frac{1}{1-\gamma^2}   
+   \left[
+      \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2}\left(1-\gamma^2+\gamma^2\right)
+      \frac{\left(v-\mu_v\right)^2}{\sigma_{v}^2} -
+      2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}}
+   \right] \\
+&= \frac{1}{1-\gamma^2}
+   \left[
+      \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} +
+      \frac{\left(v-\mu_v\right)^2}{\sigma_v^2} -
+      2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}}
+   \right],
+\end{aligned}\ \ \ \ \ (11)
+{% endkatex %}
+
+where the first step expands the right most squared term and the last two steps aggregate terms with
+the same posers of {% katex %}\left(u-\mu_{u} \right){% endkatex %} and
+{% katex %}\left(v-\mu_v\right){% endkatex %}. Making use of equations {% katex %}(10){% endkatex %} and
+{% katex %}(11){% endkatex %} the Bivariate Normal Distribution PDF defined by equation
+{% katex %}(8){% endkatex %} gives,
+
+{% katex display %}
+\begin{aligned}
+g(u, v) &= \mid J \mid f(x(u,v), y(u,v)) \\
+&= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
+  \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
+     \left[
+        \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} +
+        \frac{\footnotesize{\left(v-\mu_v\right)^2}}{\footnotesize{\sigma_v^2}} -
+        2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+     \right]
+}
+\end{aligned}\ \ \ \ \ (12)
+{% endkatex %}
+
+With this form of the Bivariate Normal Distribution PDF extensions to higher dimensions is not clear. In the
+next section a form us described that makes this clear.
 
 ### Matrix Form of Bivariate Normal Distribution
 
-### Multivariate Normal Distribution
+A matrix form for the Bivariate Normal Distribution PDF can be constructed that scales
+to higher dimensions. Here the version for two variables is compared with the results of the
+previous section followed by a discussion of extension to an arbitrary number of dimensions.
+To begin consider the column vectors,
+
+{% katex display %}
+\begin{gathered}
+Y = \begin{pmatrix}
+     y_1 \\
+     y_2
+    \end{pmatrix} \\
+\mu = \begin{pmatrix}
+      \mu_1 \\
+      \mu_2
+      \end{pmatrix} \\
+P = \begin{pmatrix}
+      \sigma_{1}^{2} & \gamma\sigma_{1}\sigma_{2} \\
+      \gamma\sigma_{1}\sigma_{2} & \sigma_{2}^{2}
+      \end{pmatrix} \\
+\end{gathered}\ \ \ \ \ (14)
+{% endkatex %}
+
+Here {% katex %}Y{% endkatex %} is the column vector of Bivariate Normal Random variables,
+{% katex %}\mu{% endkatex %} the column vector of mean values and {% katex %}P{% endkatex %} is called the
+covariance matrix. To continue the inverse of the covariance matrix and determinate are required.
+First, the inverse is given by,
+
+{% katex display %}
+P^{-1} = \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
+\begin{pmatrix}
+   \sigma_{2}^{2} & \gamma\sigma_{1}\sigma_{2} \\
+   -\gamma\sigma_{1}\sigma_{2} & \sigma_{1}^{2}
+\end{pmatrix},
+{% endkatex %}
+
+and the determinate is,
+
+{% katex display %}
+\mid P \mid = \sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)
+{% endkatex %}
+
+Now consider the product where {% katex %}\left( Y - \mu\right)^{T}{% endkatex %} is the
+[transpose](https://en.wikipedia.org/wiki/Transpose) of {% katex %}\left( Y - \mu\right){% endkatex %},
+
+{% katex display %}
+\left( Y - \mu\right)^{T}P^{-1}\left(Y-\mu\right).
+{% endkatex %}
+
+The two rightmost terms evaluate to,
+
+{% katex display %}
+\begin{aligned}
+P^{-1}\left(Y-\mu\right) &=
+   \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
+   \begin{pmatrix}
+      \sigma_{1}^{2} & \gamma\sigma_{1}\sigma_{2} \\
+      \gamma\sigma_{1}\sigma_{2} & \sigma_{2}^{2}
+   \end{pmatrix}
+   \begin{pmatrix}
+       y_1 -\mu_1 \\
+       y_2 -\mu_2
+   \end{pmatrix} \\
+&= \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
+   \begin{pmatrix}
+      \sigma_{1}^{2}\left(y_1 -\mu_1\right) & \gamma\sigma_{1}\sigma_{2}\left(y_2 -\mu_2\right) \\
+      \gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) & \sigma_{2}^{2}\left(y_2 -\mu_2\right)
+  \end{pmatrix}.
+\end{aligned}
+{% endkatex %}
+
+Continuing the evaluation by including the left most term gives,
+
+{% katex display %}
+\begin{aligned}
+\left( Y - \mu\right)^{T}P^{-1}\left(Y-\mu\right) &=
+\frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
+\begin{pmatrix}
+    y_1 -\mu_1 & y_2 -\mu_2
+\end{pmatrix}
+\begin{pmatrix}
+    \sigma_{1}^{2}\left(y_1 -\mu_1\right) & \gamma\sigma_{1}\sigma_{2}\left(y_2 -\mu_2\right) \\
+    \gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) & \sigma_{2}^{2}\left(y_2 -\mu_2\right)
+\end{pmatrix} \\
+&= \frac{1}{1-\gamma^2}
+   \left[
+      \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} +
+      \frac{\left(v-\mu_v\right)^2}{\sigma_v^2} -
+      2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}}
+   \right],
+\end{aligned}
+{% endkatex %}
+
+Which is the same as obtained using transform {% katex %}(9){% endkatex %} in the previous section. Comparing
+the expression for {% katex %}\mid P\mid{% endkatex %} with equation {% katex %}(12){% endkatex %} gives,
+
+{% katex display %}
+\mid J \mid = \frac{1}{\sqrt{\mid P \mid}}.
+{% endkatex %}
+
+Putting these results together produces the desired result,
+
+{% katex display %}
+\begin{aligned}
+g(u, v) &= \mid J \mid f(x(u,v), y(u,v)) \\
+&= \frac{1}{2\pi\sqrt{\mid P \mid}} e^{
+  \left[-\frac{1}{2}\footnotesize{\left( Y - \mu\right)^{T}P^{-1}\left(Y-\mu\right)}\right]
+}
+\end{aligned}\ \ \ \ \ (15)
+{% endkatex %}
+
+To extend to an arbitrary number of dimensions, {% katex %}n{% endkatex %}, the covariance matrix
+defined in equation {% katex %}(14){% endkatex %} needs to written in a more general form,
+
+{% katex display %}
+P_{ij} = Cov(Y_{i}, Y_{j})\ \ \ \ \ (16).
+{% endkatex %}
+
+and the Multivariate Normal PDF becomes,
+
+{% katex display %}
+\begin{aligned}
+g(u, v) &= \mid J \mid f(x(u,v), y(u,v)) \\
+&= \frac{1}{(2\pi)^{n/2}\sqrt{\mid P \mid}} e^{
+  \left[-\frac{1}{2}\footnotesize{\left( Y - \mu\right)^{T}P^{-1}\left(Y-\mu\right)}\right]
+}
+\end{aligned}\ \ \ \ \ (15)
+{% endkatex %}
+
+To determine the linear transformation, analogous to equation {% katex %}(9){% endkatex %},
+{% katex %}P_{ij}{% endkatex %} is factored using
+[Cholesky Decomposition](https://en.wikipedia.org/wiki/Cholesky_decomposition).
+
+In a following section it will be shown that for two variables,
+
+{% katex display %}
+Cov(Y_{i}, Y_{j}) =
+\begin{cases}
+\gamma\sigma_{i}\sigma_{j} & i\ \neq\ j \\
+\sigma_{i}^{2} & i = j
+\end{cases}.
+{% endkatex %}
+
+which is equivalent to equation {% katex %}(14){% endkatex %}.
 
 ## Bivariate Normal Distribution Properties
 
