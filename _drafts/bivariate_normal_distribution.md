@@ -423,7 +423,7 @@ First, the inverse is given by,
 {% katex display %}
 P^{-1} = \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
 \begin{pmatrix}
-   \sigma_{2}^{2} & \gamma\sigma_{1}\sigma_{2} \\
+   \sigma_{2}^{2} & -\gamma\sigma_{1}\sigma_{2} \\
    -\gamma\sigma_{1}\sigma_{2} & \sigma_{1}^{2}
 \end{pmatrix},
 {% endkatex %}
@@ -448,8 +448,8 @@ The two rightmost terms evaluate to,
 P^{-1}\left(Y-\mu\right) &=
    \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
    \begin{pmatrix}
-      \sigma_{1}^{2} & \gamma\sigma_{1}\sigma_{2} \\
-      \gamma\sigma_{1}\sigma_{2} & \sigma_{2}^{2}
+      \sigma_{2}^{2} & -\gamma\sigma_{1}\sigma_{2} \\
+      -\gamma\sigma_{1}\sigma_{2} & \sigma_{1}^{2}
    \end{pmatrix}
    \begin{pmatrix}
        y_1 -\mu_1 \\
@@ -457,8 +457,8 @@ P^{-1}\left(Y-\mu\right) &=
    \end{pmatrix} \\
 &= \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
    \begin{pmatrix}
-      \sigma_{1}^{2}\left(y_1 -\mu_1\right) & \gamma\sigma_{1}\sigma_{2}\left(y_2 -\mu_2\right) \\
-      \gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) & \sigma_{2}^{2}\left(y_2 -\mu_2\right)
+      \sigma_{2}^{2}\left(y_1 -\mu_1\right) - \gamma\sigma_{1}\sigma_{2}\left(y_2 -\mu_2\right) \\
+      -\gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) +  \sigma_{2}^{2}\left(y_2 -\mu_2\right)
   \end{pmatrix}.
 \end{aligned}
 {% endkatex %}
@@ -473,14 +473,21 @@ Continuing the evaluation by including the left most term gives,
     y_1 -\mu_1 & y_2 -\mu_2
 \end{pmatrix}
 \begin{pmatrix}
-    \sigma_{1}^{2}\left(y_1 -\mu_1\right) & \gamma\sigma_{1}\sigma_{2}\left(y_2 -\mu_2\right) \\
-    \gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) & \sigma_{2}^{2}\left(y_2 -\mu_2\right)
+   \sigma_{2}^{2}\left(y_1 -\mu_1\right) - \gamma\sigma_{1}\sigma_{2}\left(y_2 -\mu_2\right) \\
+   -\gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) + \sigma_{2}^{2}\left(y_2 -\mu_2\right)
 \end{pmatrix} \\
-&= \frac{1}{1-\gamma^2}
+=& \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
+      \left\{
+         \left[\sigma_{2}^{2}\left(y_1 -\mu_{1}\right) - \gamma\sigma_{1}\sigma_{2}\left(y_{2} -\mu_{2}\right)\right]
+         \left(y_{1}-\mu_{1} \right) + 
+         \left[\sigma_{2}^{2}\left(y_{2} -\mu_{2}\right) -\gamma\sigma_{1}\sigma_{2}\left(y_{1} -\mu_{1}\right)\right]
+        \left(y_{2}-\mu_{2} \right)
+      \right\} \\
+=& \frac{1}{1-\gamma^2}
    \left[
-      \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} +
-      \frac{\left(v-\mu_v\right)^2}{\sigma_v^2} -
-      2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}}
+      \frac{\left(y_{1}-\mu_{1} \right)^2}{\sigma_{1}^2} +
+      \frac{\left(y_{2}-\mu_{2}\right)^2}{\sigma_{2}^2} -
+      2\gamma\frac{\left(y_{1}-\mu_{1}\right)}{\sigma_{1}}\frac{\left(y_{2}-\mu_{2}\right)}{\sigma_{2}}
    \right],
 \end{aligned}
 {% endkatex %}
@@ -539,7 +546,12 @@ which is equivalent to equation {% katex %}(14){% endkatex %}.
 
 ## Bivariate Normal Distribution Properties
 
-### Marginal Distribution
+
+### Marginal Distributions
+
+{% katex display %}
+
+{% endkatex %}
 
 ### First and Second Moments and Correlation Coefficient
 
