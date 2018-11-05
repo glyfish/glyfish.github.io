@@ -403,7 +403,7 @@ To begin consider the column vectors,
 Y = \begin{pmatrix}
      y_1 \\
      y_2
-    \end{pmatrix} \\
+    \end{pmatrix}
 \mu = \begin{pmatrix}
       \mu_1 \\
       \mu_2
@@ -458,7 +458,7 @@ P^{-1}\left(Y-\mu\right) &=
 &= \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
    \begin{pmatrix}
       \sigma_{2}^{2}\left(y_1 -\mu_1\right) - \gamma\sigma_{1}\sigma_{2}\left(y_2 -\mu_2\right) \\
-      -\gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) +  \sigma_{2}^{2}\left(y_2 -\mu_2\right)
+      -\gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) +  \sigma_{1}^{2}\left(y_2 -\mu_2\right)
   \end{pmatrix}.
 \end{aligned}
 {% endkatex %}
@@ -474,16 +474,22 @@ Continuing the evaluation by including the left most term gives,
 \end{pmatrix}
 \begin{pmatrix}
    \sigma_{2}^{2}\left(y_1 -\mu_1\right) - \gamma\sigma_{1}\sigma_{2}\left(y_2 -\mu_2\right) \\
-   -\gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) + \sigma_{2}^{2}\left(y_2 -\mu_2\right)
+   -\gamma\sigma_{1}\sigma_{2}\left(y_1 -\mu_1\right) + \sigma_{1}^{2}\left(y_2 -\mu_2\right)
 \end{pmatrix} \\
-=& \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
+&= \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
       \left\{
          \left[\sigma_{2}^{2}\left(y_1 -\mu_{1}\right) - \gamma\sigma_{1}\sigma_{2}\left(y_{2} -\mu_{2}\right)\right]
-         \left(y_{1}-\mu_{1} \right) + 
-         \left[\sigma_{2}^{2}\left(y_{2} -\mu_{2}\right) -\gamma\sigma_{1}\sigma_{2}\left(y_{1} -\mu_{1}\right)\right]
+         \left(y_{1}-\mu_{1} \right) +
+         \left[\sigma_{1}^{2}\left(y_{2} -\mu_{2}\right) -\gamma\sigma_{1}\sigma_{2}\left(y_{1} -\mu_{1}\right)\right]
         \left(y_{2}-\mu_{2} \right)
       \right\} \\
-=& \frac{1}{1-\gamma^2}
+&= \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
+      \left[
+         \sigma_{2}^{2}\left(y_{1} -\mu_{1}\right)^{2} +
+         \sigma_{1}^{2}\left(y_{2} -\mu_{2}\right)^{2} -
+         2\gamma\sigma_{1}\sigma_{2}\left(y_{2} -\mu_{2}\right)\left(y_{1}-\mu_{1} \right)
+      \right] \\
+&= \frac{1}{1-\gamma^2}
    \left[
       \frac{\left(y_{1}-\mu_{1} \right)^2}{\sigma_{1}^2} +
       \frac{\left(y_{2}-\mu_{2}\right)^2}{\sigma_{2}^2} -
@@ -546,16 +552,100 @@ which is equivalent to equation {% katex %}(14){% endkatex %}.
 
 ## Bivariate Normal Distribution Properties
 
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.0.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.5.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.0.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.5.png">
+</div>
 
 ### Marginal Distributions
 
 {% katex display %}
-
+\begin{aligned}
+g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
+g(v) &= \int_{-\infty}^{\infty} g(u, v) du
+\end{aligned}
 {% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
+&= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\infty}e^{
+  -\frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+     \left[
+        \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} +
+        \frac{\footnotesize{\left(v-\mu_v\right)^2}}{\footnotesize{\sigma_v^2}} -
+        2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+     \right]
+}dv\\
+&= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
+     \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
+     \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}}
+  }
+  \int_{-\infty}^{\infty}e^{
+  -\frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+     \left[
+        \frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{\footnotesize{\sigma_{v}^2}} -
+        2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+     \right]
+}dv\\
+&= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
+     \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
+     \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}}
+  }
+  \int_{-\infty}^{\infty}e^{
+  -\frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+     \left\{
+        \left[
+           \frac{\footnotesize{\left(v-\mu_{v} \right)}}{\footnotesize{\sigma_{v}}} -
+           \gamma\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+        \right]^{2}
+        -\gamma^{2}\frac{\footnotesize{\left(u-\mu_u\right)^2}}{\footnotesize{\sigma_u^2}}
+     \right\}
+}dv\\
+&= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
+     -\frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+     \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}}
+  }
+  e^{
+    \frac{\footnotesize{\gamma}}{\footnotesize{2(1-\gamma^2)}}
+    \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}}
+  }
+  \int_{-\infty}^{\infty}e^{
+  \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
+    \left[
+       \frac{\footnotesize{\left(v-\mu_{v} \right)}}{\footnotesize{\sigma_{v}}} -
+       \gamma\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+    \right]^{2}
+}dv\\
+&= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
+     -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{2\footnotesize{\sigma_{u}^2}}
+  }
+  \sqrt{\footnotesize{2\pi\sigma_{v}^{2}(1-\gamma^2)}}
+\end{aligned}
+{% endkatex %}
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/normal_distribution_parameters.png">
+</div>
 
 ### First and Second Moments and Correlation Coefficient
 
-### Conditional Distribution and Conditional Expectation and variance
+### Conditional Distribution and Conditional Expectation and Variance
 
 ### Probability Density Contours
 
