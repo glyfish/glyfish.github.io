@@ -552,26 +552,6 @@ which is equivalent to equation {% katex %}(14){% endkatex %}.
 
 ## Bivariate Normal Distribution Properties
 
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.0.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.5.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.0.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.5.png">
-</div>
-
 ### Marginal Distributions
 
 {% katex display %}
@@ -635,18 +615,105 @@ g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
 &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
      -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{2\footnotesize{\sigma_{u}^2}}
   }
-  \sqrt{\footnotesize{2\pi\sigma_{v}^{2}(1-\gamma^2)}}
-\end{aligned}
+  \sqrt{\footnotesize{2\pi\sigma_{v}^{2}(1-\gamma^2)}}\\
+&= \frac{1}{\sqrt{2\pi\sigma_{u}^{2}}}e^{
+     -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{2\footnotesize{\sigma_{u}^2}}
+  }
+\end{aligned}\ \ \ \ \ (16)
+{% endkatex %}
+
+{% katex display %}
+g(v) = \int_{-\infty}^{\infty} g(u, v) du
+= \frac{1}{\sqrt{2\pi\sigma_{v}^{2}}}e^{
+     -\frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{2\footnotesize{\sigma_{v}^2}}
+  }\ \ \ \ \ (17)
 {% endkatex %}
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/normal_distribution_parameters.png">
 </div>
 
-### First and Second Moments and Correlation Coefficient
+### First and Second Moments and Cross Correlation
+
+{% katex display %}
+\begin{aligned}
+E[U] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} u g(u,v) dvdu\\
+E[V] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} v g(u,v) dvdu
+\end{aligned}
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+E[U^{2}] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} u^{2} g(u,v) dvdu\\
+E[V^{2}] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} v^{2} g(u,v) dvdu
+\end{aligned}
+{% endkatex %}
+
+{% katex display %}
+E[UV] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u,v) dvdu
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+E[U] &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}uve^{
+  -\frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+     \left[
+        \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} +
+        \frac{\footnotesize{\left(v-\mu_v\right)^2}}{\footnotesize{\sigma_v^2}} -
+        2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+     \right]
+}dudv\\
+\end{aligned}
+{% endkatex %}
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.0.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.5.png">
+</div>
+
+### Probability Density Contours
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_0.0.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_0.5.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contours_sigma_2.0.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_sigma_scan.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_scan.png">
+</div>
+
+### Coordinate transformation
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.5.png">
+</div>
 
 ### Conditional Distribution and Conditional Expectation and Variance
 
-### Probability Density Contours
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_conditional_pdf_y_scan.png">
+</div>
 
 ## Conclusions
