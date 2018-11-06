@@ -634,14 +634,41 @@ g(v) = \int_{-\infty}^{\infty} g(u, v) du
 </div>
 
 <div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot.png">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_1.png">
 </div>
 
 <div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.0.png">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_plot_0.0_1.png">
 </div>
 
-### Cross Correlation
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_2.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_plot_0.0_2.png">
+</div>
+
+### Conditional Distribution and Conditional Expectation and Variance
+
+{% katex display %}
+\begin{aligned}
+E[UV] &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}uve^{
+  -\frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+     \left[
+        \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} +
+        \frac{\footnotesize{\left(v-\mu_v\right)^2}}{\footnotesize{\sigma_v^2}} -
+        2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+     \right]
+}dudv\\
+\end{aligned}
+{% endkatex %}
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_conditional_pdf_y_scan.png">
+</div>
+
+### Correlation Coefficient
 
 {% katex display %}
 E[UV] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u,v) dvdu
@@ -694,12 +721,6 @@ E[U] &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\i
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.5.png">
-</div>
-
-### Conditional Distribution and Conditional Expectation and Variance
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_conditional_pdf_y_scan.png">
 </div>
 
 ## Conclusions
