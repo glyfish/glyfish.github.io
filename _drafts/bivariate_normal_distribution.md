@@ -633,21 +633,15 @@ g(v) = \int_{-\infty}^{\infty} g(u, v) du
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/normal_distribution_parameters.png">
 </div>
 
-### First and Second Moments and Cross Correlation
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot.png">
+</div>
 
-{% katex display %}
-\begin{aligned}
-E[U] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} u g(u,v) dvdu\\
-E[V] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} v g(u,v) dvdu
-\end{aligned}
-{% endkatex %}
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.0.png">
+</div>
 
-{% katex display %}
-\begin{aligned}
-E[U^{2}] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} u^{2} g(u,v) dvdu\\
-E[V^{2}] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} v^{2} g(u,v) dvdu
-\end{aligned}
-{% endkatex %}
+### Cross Correlation
 
 {% katex display %}
 E[UV] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u,v) dvdu
@@ -665,14 +659,6 @@ E[U] &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\i
 }dudv\\
 \end{aligned}
 {% endkatex %}
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.0.png">
-</div>
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.5.png">
