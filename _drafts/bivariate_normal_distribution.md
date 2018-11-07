@@ -633,7 +633,7 @@ g(v) = \int_{-\infty}^{\infty} g(u, v) du
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/normal_distribution_parameters.png">
 </div>
 
-### Conditional Distribution, Conditional Expectation and Variance
+### Conditional Distribution
 
 {% katex display %}
 \begin{aligned}
@@ -679,7 +679,7 @@ e^{
      \left\{
         \frac{1}{\footnotesize{\sigma_{u}}}
         \left[
-           u - \left(\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right)
+           u - \left(\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right)
          \right]^2 -
           \frac{\footnotesize{\gamma^2\sigma_v^2}}{\footnotesize{\sigma_v^2}}  \left(\footnotesize{v-\mu_{v}})\right)^2
      \right\}
@@ -698,7 +698,7 @@ e^{
      \left\{
         \frac{1}{\footnotesize{\sigma_{u}}}
         \left[
-           u - \left(\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right)
+           u - \left(\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right)
          \right]^2
      \right\}
 }
@@ -713,7 +713,7 @@ e^{
   &= \frac{1}{\sigma_{u}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
     \frac{\footnotesize{-1}}{\footnotesize{2\sigma_{u}^{2}(1-\gamma^2)}}
         \left\{
-           u - \left[\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
+           u - \left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
         \right\}^2
   }
 \end{aligned}\ \ \ \ \ (19)
@@ -725,15 +725,46 @@ g(v|u) &= \frac{g(u, v)}{g(u)} \\
 &= \frac{1}{\sigma_{v}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
   \frac{\footnotesize{-1}}{\footnotesize{2\sigma_{u}^{2}(1-\gamma^2)}}
       \left\{
-         v - \left[\mu_v - \frac{\footnotesize{\gamma\sigma_v}}{\footnotesize{\sigma_u}} \left(\footnotesize{u-\mu_{u}}\right)\right]
+         v - \left[\mu_v + \frac{\footnotesize{\gamma\sigma_v}}{\footnotesize{\sigma_u}} \left(\footnotesize{u-\mu_{u}}\right)\right]
       \right\}^2
 }
 \end{aligned}\ \ \ \ \ (20)
 {% endkatex %}
 
+{% katex display %}
+\begin{aligned}
+E[U|V] &= \int_{-\infty}^{\infty} ug(u|v) du \\
+&=\left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right] \\
+\end{aligned}
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+E[V|U] &= \int_{-\infty}^{\infty} vg(v|u) dv \\
+&= \left[\mu_v + \frac{\footnotesize{\gamma\sigma_v}}{\footnotesize{\sigma_u}} \left(\footnotesize{u-\mu_{u}}\right)\right]
+\end{aligned}
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+Var[U|V] &= E[\left(U - E[U|V]\right)^{2}] \\
+&= \int_{-\infty}^{\infty} \left(u - E[U|V]\right)^{2}g(u|v) du \\
+&= \sigma_{u}^{2}(1-\gamma^2)
+\end{aligned}
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+Var[V|U] &= E[\left(V - E[V|U]\right)^{2}] \\
+&= \int_{-\infty}^{\infty} \left(v - E[V|U]\right)^{2}g(v|u) dv \\
+&=\sigma_{v}^{2}(1-\gamma^2)
+\end{aligned}
+{% endkatex %}
+
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_conditional_pdf_y_scan.png">
 </div>
+
 
 ### Correlation Coefficient
 
@@ -751,7 +782,7 @@ E[UV] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu \\
 \frac{1}{\sigma_{u}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
   \frac{\footnotesize{-1}}{\footnotesize{2\sigma_{u}^{2}(1-\gamma^2)}}
       \left\{
-         u - \left[\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
+         u - \left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
       \right\}^2
 }
 \frac{1}{\sqrt{2\pi\sigma_{v}^{2}}}e^{
@@ -765,17 +796,25 @@ E[UV] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu \\
 \int_{-\infty}^{\infty}ue^{
   \frac{\footnotesize{-1}}{\footnotesize{2\sigma_{u}^{2}(1-\gamma^2)}}
       \left\{
-         u - \left[\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
+         u + \left[\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
       \right\}^2
 }dudv\\
 &= \frac{1}{\sqrt{2\pi\sigma_{v}^{2}}}
 \int_{-\infty}^{\infty}ve^{
      -\frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{2\footnotesize{\sigma_{v}^2}}
 }
- \left[\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right] dv\\
- &=\mu_{u}\mu_{v} - \frac{\gamma\sigma_{u}}{\sigma_{v}}\sigma_{v}^{2} + \mu_{v}^{2} \\
- &=\mu_{u}\mu_{v} - \gamma\sigma_{u}\sigma_{v + \mu_{v}^{2}
+ \left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right] dv\\
+ &=\mu_{u}\mu_{v} + \frac{\gamma\sigma_{u}}{\sigma_{v}}\sigma_{v}^{2} \\
+ &=\mu_{u}\mu_{v} + \gamma\sigma_{u}\sigma_{v}
 \end{aligned}
+{% endkatex %}
+
+{% katex display %}
+Cov(U,V) = E[UV] - E[U]E[V] = \gamma\sigma_{v}\sigma_{u}
+{% endkatex %}
+
+{% katex display %}
+\gamma = \frac{Cov(U,V)}{\sigma_{v}\sigma_{u}}
 {% endkatex %}
 
 ### Distribution Parameters
