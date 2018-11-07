@@ -531,7 +531,7 @@ g(u, v) &= \mid J \mid f(x(u,v), y(u,v)) \\
 &= \frac{1}{(2\pi)^{n/2}\sqrt{\mid P \mid}} e^{
   \left[-\frac{1}{2}\footnotesize{\left( Y - \mu\right)^{T}P^{-1}\left(Y-\mu\right)}\right]
 }
-\end{aligned}\ \ \ \ \ (15)
+\end{aligned}\ \ \ \ \ (17)
 {% endkatex %}
 
 To determine the linear transformation, analogous to equation {% katex %}(9){% endkatex %},
@@ -613,55 +613,122 @@ g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
     \right]^{2}
 }dv\\
 &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
-     -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{2\footnotesize{\sigma_{u}^2}}
+     -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{2\sigma_{u}^2}}
   }
   \sqrt{\footnotesize{2\pi\sigma_{v}^{2}(1-\gamma^2)}}\\
 &= \frac{1}{\sqrt{2\pi\sigma_{u}^{2}}}e^{
-     -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{2\footnotesize{\sigma_{u}^2}}
+     -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{2\sigma_{u}^2}}
   }
-\end{aligned}\ \ \ \ \ (16)
+\end{aligned}\ \ \ \ \ (18)
 {% endkatex %}
 
 {% katex display %}
 g(v) = \int_{-\infty}^{\infty} g(u, v) du
 = \frac{1}{\sqrt{2\pi\sigma_{v}^{2}}}e^{
      -\frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{2\footnotesize{\sigma_{v}^2}}
-  }\ \ \ \ \ (17)
+  }\ \ \ \ \ (19)
 {% endkatex %}
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/normal_distribution_parameters.png">
 </div>
 
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_1.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_plot_0.0_1.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_2.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_plot_0.0_2.png">
-</div>
-
-### Conditional Distribution and Conditional Expectation and Variance
+### Conditional Distribution, Conditional Expectation and Variance
 
 {% katex display %}
 \begin{aligned}
-E[UV] &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}uve^{
-  -\frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+g(u|v) &= \frac{g(u, v)}{g(v)} \\
+g(v|u) &= \frac{g(u, v)}{g(u)}
+\end{aligned}
+{% endkatex %}
+
+Using equations {% katex %}(12){% endkatex %} and {% katex %}(19){% endkatex %} gives,
+
+{% katex display %}
+\begin{aligned}
+g(u|v) &= \frac{g(u, v)}{g(v)} \\
+&= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
+  \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
      \left[
         \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} +
         \frac{\footnotesize{\left(v-\mu_v\right)^2}}{\footnotesize{\sigma_v^2}} -
         2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
      \right]
-}dudv\\
-\end{aligned}
+}
+\sqrt{2\pi\sigma_{v}^{2}}e^{
+     \frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{\footnotesize{2\sigma_{v}^2}}
+  }\\
+&= \frac{1}{\sigma_{u}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
+  \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
+     \left[
+        \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} -
+        2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+     \right]
+}
+e^{
+     \left\{
+        \frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{\footnotesize{2\sigma_{v}^2}} +
+        \frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+        \left[
+           \frac{\footnotesize{\left(v-\mu_v\right)^2}}{\footnotesize{\sigma_v^2}}
+        \right]
+      \right\}
+  }\\
+&= \frac{1}{\sigma_{u}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
+  \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
+     \left\{
+        \frac{1}{\footnotesize{\sigma_{u}}}
+        \left[
+           u - \left(\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right)
+         \right]^2 -
+          \frac{\footnotesize{\gamma^2\sigma_v^2}}{\footnotesize{\sigma_v^2}}  \left(\footnotesize{v-\mu_{v}})\right)^2
+     \right\}
+}
+e^{
+     \left\{
+        \frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{\footnotesize{2\sigma_{v}^2}} -
+        \frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
+        \left[
+           \frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_v^2}}
+        \right]
+      \right\}
+  }\\
+&= \frac{1}{\sigma_{u}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
+  \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
+     \left\{
+        \frac{1}{\footnotesize{\sigma_{u}}}
+        \left[
+           u - \left(\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right)
+         \right]^2
+     \right\}
+}
+e^{
+     \left\{
+        \frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{\footnotesize{2\sigma_{v}^2}}
+        \left[
+             \footnotesize{1} - \frac{\footnotesize{1-\gamma^2}}{\footnotesize{1-\gamma^2}}
+        \right]
+      \right\}
+  }\\
+  &= \frac{1}{\sigma_{u}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
+    \frac{\footnotesize{-1}}{\footnotesize{2\sigma_{u}^{2}(1-\gamma^2)}}
+        \left\{
+           u - \left[\mu_u - \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
+        \right\}^2
+  }
+\end{aligned}\ \ \ \ \ (19)
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+g(v|u) &= \frac{g(u, v)}{g(u)} \\
+&= \frac{1}{\sigma_{v}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
+  \frac{\footnotesize{-1}}{\footnotesize{2\sigma_{u}^{2}(1-\gamma^2)}}
+      \left\{
+         v - \left[\mu_v - \frac{\footnotesize{\gamma\sigma_v}}{\footnotesize{\sigma_u}} \left(\footnotesize{u-\mu_{u}}\right)\right]
+      \right\}^2
+}
+\end{aligned}\ \ \ \ \ (20)
 {% endkatex %}
 
 <div style="text-align:center;">
@@ -676,7 +743,7 @@ E[UV] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u,v) dvdu
 
 {% katex display %}
 \begin{aligned}
-E[U] &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}uve^{
+E[UV] &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}uve^{
   -\frac{\footnotesize{1}}{\footnotesize{2(1-\gamma^2)}}
      \left[
         \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} +
@@ -687,8 +754,30 @@ E[U] &= \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\int_{-\infty}^{\i
 \end{aligned}
 {% endkatex %}
 
+### Distribution Parameters
+
 <div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contours_correlation_0.5.png">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_1.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.0_1.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_2.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.0_2.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution//bivariate_pdf_surface_plot_0.5_1.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.5_1.png">
 </div>
 
 ### Probability Density Contours
