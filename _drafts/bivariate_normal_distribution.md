@@ -259,7 +259,7 @@ V - \mu_{v}
 \begin{pmatrix}
 \sigma_{u} & 0 \\
 \sigma_{v}\gamma & \sigma_{v}\sqrt{1 - \gamma^{2}}
-\end{pmatrix} =
+\end{pmatrix}
 \begin{pmatrix}
 X \\
 Y
@@ -952,7 +952,8 @@ These two equations define lines of constant {% katex %}x{% endkatex %}. Substit
 gives a {% katex %}y{% endkatex %} as a function of {% katex %}v{% endkatex %} and ,
 
 {% katex display %}
-y = \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(C_{v}-\mu_{v}\right) - \gamma x\right]
+y = \frac{-\gamma}{\sqrt{1-\gamma^{2}}}x +
+  \frac{1}{\sigma_{v}\sqrt{1-\gamma^{2}}}\left(C_{v}-\mu_{v}\right)
 {% endkatex %}
 
 <div style="text-align:center;">
