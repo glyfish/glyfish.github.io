@@ -918,6 +918,43 @@ K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}}
 
 ### Coordinate transformation
 
+{% katex display %}
+\begin{aligned}
+x(u,v) &= \frac{1}{\sigma_{u}}\left(u-\mu_{u}\right) \\
+y(u,v) &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}\right) -
+  \frac{\gamma}{\sigma_{u}}\left(u-\mu_{u)}\right)\right].
+\end{aligned}
+{% endkatex %}
+
+The contours of constant {% katex %}u = C_{u}{% endkatex %} in {% katex %}(x, y){% endkatex %} are defined
+by,
+
+{% katex display %}
+\begin{aligned}
+x &= \frac{1}{\sigma_{u}}\left(C_{u}-\mu_{u}\right) \\
+y &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}\right) -
+  \frac{\gamma}{\sigma_{u}}\left(C_{u}-\mu_{u)}\right)\right],
+\end{aligned}
+{% endkatex %}
+
+and the contours of constant {% katex %}v=C_{v}{% endkatex %} are defined by,
+
+{% katex display %}
+\begin{aligned}
+x &= \frac{1}{\sigma_{u}}\left(u-\mu_{u}\right) \\
+y &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(C_{v}-\mu_{v}\right) -
+  \frac{\gamma}{\sigma_{u}}\left(u-\mu_{u)}\right)\right].
+\end{aligned}
+{% endkatex %}
+
+These two equations define lines of constant {% katex %}x{% endkatex %}. Substituting the expression for
+{% katex %}x{% endkatex %} into the expression for {% katex %}y{% endkatex %}
+gives a {% katex %}y{% endkatex %} as a function of {% katex %}v{% endkatex %} and ,
+
+{% katex display %}
+y = \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(C_{v}-\mu_{v}\right) - \gamma x\right]
+{% endkatex %}
+
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.png">
 </div>
