@@ -837,6 +837,65 @@ Cov(U,V) = E[UV] - E[U]E[V] = \gamma\sigma_{v}\sigma_{u}
 
 ### Probability Density Contours
 
+{% katex display %}
+g(u, v) = \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
+  \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
+     \left[
+        \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} +
+        \frac{\footnotesize{\left(v-\mu_v\right)^2}}{\footnotesize{\sigma_v^2}} -
+        2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
+     \right]
+}
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+C^{2} &=
+  \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} + \frac{\left(v-\mu_v\right)^2}{\sigma_v^2} -
+  2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} \\
+&= \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} + \frac{\left(v-\mu_v\right)^2}{\sigma_v^2} -
+  2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} +
+  \frac{\gamma^{2}}{\sigma_{v}^{2}}\left(v-\mu_v\right)^{2} - \frac{\gamma^{2}}{\sigma_{v}^{2}}\left(v-\mu_v\right)^{2} \\
+&= \left[\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} - \frac{\gamma}{\sigma_{v}}\left(v-\mu_v\right)\right]^{2}  +
+  \frac{\left(v-\mu_v\right)^2}{\sigma_v^2}(1-\gamma^2)
+\end{aligned}
+{% endkatex %}
+
+{% katex display %}
+\frac{1}{C^2}\left[\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} - \frac{\gamma}{\sigma_{v}}\left(v-\mu_v\right)\right]^{2}  +
+  \frac{\left(v-\mu_v\right)^2}{C^2\sigma_v^2}(1-\gamma^2) = 1
+{% endkatex %}
+
+{% katex display %}
+\sin^{2}{\theta} + \cos^2{\theta} = 1
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+\sin{\theta} &= \frac{1}{C}\left[\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} - \frac{\gamma}{\sigma_{v}}\left(v-\mu_v\right)\right] \\
+\cos{\theta} &= \frac{\left(v-\mu_v\right)}{C\sigma_v}\sqrt{(1-\gamma^2)}
+\end{aligned}
+{% endkatex %}
+
+{% katex display %}
+\begin{aligned}
+u &= C\sigma_{u}\left[\sin{\theta} + \frac{\gamma}{\sqrt{1-\gamma^2}}\cos{\theta}\right] + \mu_{u} \\
+v &= \frac{C\sigma_v}{\sqrt{1-\gamma^2}}\cos{\theta} + \mu_{v}
+\end{aligned}
+{% endkatex %}
+
+{% katex display %}
+K=\frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{\frac{-C^2}{2(1-\gamma^2)}}
+{% endkatex %}
+
+{% katex display %}
+C = \left[-2\left(1-\gamma^2\right)\ln{\left(2K\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}\right)}\right]^{\frac{\footnotesize{1}}{\footnotesize{2}}}
+{% endkatex %}
+
+{% katex display %}
+K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}}
+{% endkatex %}
+
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_0.0.png">
 </div>
