@@ -552,14 +552,32 @@ which is equivalent to equation {% katex %}(14){% endkatex %}.
 
 ## Bivariate Normal Distribution Properties
 
+The previous sections discussed the derivation of the Bivariate Normal random variables as
+[linear combinations](https://en.wikipedia.org/wiki/Linear_combination) of independent unit normal
+random variables. The linear combinations were constructed by application of a linear transformation
+that include five independent parameters. In this section interpretations of the parameters are
+provided and variation in the distribution as the parameters are varied is described. First, the
+[Marginal Distributions](https://en.wikipedia.org/wiki/Marginal_distribution) are calculated and it is
+shown that four of the distribution parameters correspond to the means and standard deviations.
+Next, the correlation coefficient of the distribution random variables is computed and shown to
+correspond to the remaining parameter. The remaining sections consider how changes in the
+parameters affect the distribution shape. This includes an analysis of PDF contours and the
+linear transformation used to constrict the distribution from the independent
+{% katex %}\textbf{Normal}(0,1){% endkatex %} random variables.
+
 ### Marginal Distributions
+
+The Marginal Distributions for Bivariate Normal random variables {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %}
+are defined by,
 
 {% katex display %}
 \begin{aligned}
 g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
-g(v) &= \int_{-\infty}^{\infty} g(u, v) du
+g(v) &= \int_{-\infty}^{\infty} g(u, v) du,
 \end{aligned}
 {% endkatex %}
+
+where {% katex %}g(u,v){% endkatex %} is defined by equation {% katex %}(12).{}% endkatex %}
 
 {% katex display %}
 \begin{aligned}
@@ -961,7 +979,15 @@ y = \frac{-\gamma}{\sqrt{1-\gamma^{2}}}x +
 </div>
 
 <div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0_sigma.png">
+</div>
+
+<div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.5.png">
+</div>
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.95.png">
 </div>
 
 ## Conclusions
