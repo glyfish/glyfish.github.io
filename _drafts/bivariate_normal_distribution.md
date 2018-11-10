@@ -1,7 +1,7 @@
 ---
 title: Bivariate Normal Distribution
 key: 20181029
-image: /assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_sigma_scan.png
+image: /assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_sigma2_scan.png
 author: Troy Stribling
 permlink: /bivariate_normal_distribution.html
 comments: false
@@ -520,7 +520,7 @@ To extend to an arbitrary number of dimensions, {% katex %}n{% endkatex %}, the 
 defined in equation {% katex %}(14){% endkatex %} needs to written in a more general form,
 
 {% katex display %}
-P_{ij} = Cov(Y_{i}, Y_{j})\ \ \ \ \ (16).
+P_{ij} = \text{Cov}(Y_{i}, Y_{j})\ \ \ \ \ (16).
 {% endkatex %}
 
 and the Multivariate Normal PDF becomes,
@@ -541,7 +541,7 @@ To determine the linear transformation, analogous to equation {% katex %}(9){% e
 In a following section it will be shown that for two variables,
 
 {% katex display %}
-Cov(Y_{i}, Y_{j}) =
+\text{Cov}(Y_{i}, Y_{j}) =
 \begin{cases}
 \gamma\sigma_{i}\sigma_{j} & i\ \neq\ j \\
 \sigma_{i}^{2} & i = j
@@ -577,7 +577,8 @@ g(v) &= \int_{-\infty}^{\infty} g(u, v) du,
 \end{aligned}
 {% endkatex %}
 
-where {% katex %}g(u,v){% endkatex %} is defined by equation {% katex %}(12).{% endkatex %}
+where {% katex %}g(u,v){% endkatex %} is defined by equation {% katex %}(12).{% endkatex %} First,
+consider evaluation of the integral for {% katex %}g(u),{% endkatex %}
 
 {% katex display %}
 \begin{aligned}
@@ -636,22 +637,73 @@ g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
   \sqrt{\footnotesize{2\pi\sigma_{v}^{2}(1-\gamma^2)}}\\
 &= \frac{1}{\sqrt{2\pi\sigma_{u}^{2}}}e^{
      -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{2\sigma_{u}^2}}
-  }
-\end{aligned}\ \ \ \ \ (18)
+  }.
+\end{aligned}.\ \ \ \ \ (18)
 {% endkatex %}
+
+In the first step the {% katex %}u{% endkatex %} dependence is factored out for
+evaluation of the integral over {% katex %}v{% endkatex %}. The next step completes the
+square of the exponential followed by also factoring the introduced {% katex %}u{% endkatex %}
+term outside the {% katex %}v{% endkatex %} integral, which is followed by simplification of the
+{% katex %}u{% endkatex %} exponential argument. Finally, the integral over
+{% katex %}v{% endkatex %} is evaluated yielding a
+{% katex %}\textbf{Normal}(\mu_{u}, \sigma_{u}){% endkatex %} distribution. Similarly,
+the marginal distribution {% katex %}g(v){% endkatex %} is given by,
 
 {% katex display %}
 g(v) = \int_{-\infty}^{\infty} g(u, v) du
 = \frac{1}{\sqrt{2\pi\sigma_{v}^{2}}}e^{
      -\frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{2\footnotesize{\sigma_{v}^2}}
-  }\ \ \ \ \ (19)
+  },\ \ \ \ \ (19)
 {% endkatex %}
+
+which is a {% katex %}\textbf{Normal}(\mu_{v}, \sigma_{v}){% endkatex %} distribution. The
+plot below shows examples of {% katex %}\textbf{Normal}(\mu, \sigma){% endkatex %} as
+{% katex %}\mu{% endkatex %} and {% katex %}\sigma{% endkatex %} are varied. The effect of
+{% katex %}\mu{% endkatex %} is to translate the distribution along the {% katex %}u{% endkatex %}
+axis and {% katex %}\sigma{% endkatex %} scales the distribution width.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/normal_distribution_parameters.png">
 </div>
 
+The mean and variance are now readily determined for both {% katex %}u{% endkatex %} and
+ {% katex %}v{% endkatex %},
+
+{% katex display %}
+\begin{aligned}
+\text{E}[U] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} ug(u, v) dvdu \\
+&= \int_{-\infty}^{\infty}u\int_{-\infty}^{\infty} g(u, v) dvdu \\
+&= \int_{-\infty}^{\infty}ug(u) dvdu \\
+&= \mu_{u},
+\end{aligned},\ \ \ \ \ (20)
+{% endkatex %}
+
+and,
+
+{% katex display %}
+\begin{aligned}
+\text{Var}[U] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} (u -\mu_{u})^2 g(u, v) dvdu \\
+&= \int_{-\infty}^{\infty}(u -\mu_{u})^2 \int_{-\infty}^{\infty} g(u, v) dvdu \\
+&= \int_{-\infty}^{\infty}(u -\mu_{u})^2g(u) dvdu \\
+&= \sigma_{u}^{2}.
+\end{aligned}\ \ \ \ \ (21)
+{% endkatex %}
+
+Similarly for {% katex %}v{% endkatex %},
+
+{% katex display %}
+\begin{aligned}
+\text{E}[V] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} vg(u, v) dudv = \mu_{v} \\
+\text{Var}[V] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} (v -\mu_{v})^2 g(u, v) dudv = \sigma_{v}^{2}.
+\end{aligned}\ \ \ \ \ (22)
+{% endkatex %}
+
 ### Conditional Distribution
+
+The [Conditional Distributions](https://en.wikipedia.org/wiki/Conditional_probability_distribution)
+for {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} are
+defined by,
 
 {% katex display %}
 \begin{aligned}
@@ -660,7 +712,8 @@ g(v|u) &= \frac{g(u, v)}{g(u)}
 \end{aligned}
 {% endkatex %}
 
-Using equations {% katex %}(12){% endkatex %} and {% katex %}(19){% endkatex %} gives,
+Using equations {% katex %}(12){% endkatex %} and {% katex %}(19){% endkatex %}
+{% katex %}g(u|v){% endkatex %} is evaluated as follows,
 
 {% katex display %}
 \begin{aligned}
@@ -733,9 +786,16 @@ e^{
         \left\{
            u - \left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
         \right\}^2
-  }
-\end{aligned}\ \ \ \ \ (19)
+  },
+\end{aligned}\ \ \ \ \ (23)
 {% endkatex %}
+
+In the first step the {% katex %}\left(v-\mu_{v}\right)^2{% endkatex %} terms are collected and
+then the square is completed for the remaining terms. Once again the
+{% katex %}\left(v-\mu_{v}\right)^2{% endkatex %} terms are collected and the finial result obtained,
+a {% katex %}\textbf{Normal}{% endkatex %} distribution.
+
+Similarly, {% katex %}g(v|U){% endkatex %} is given by,
 
 {% katex display %}
 \begin{aligned}
@@ -745,57 +805,87 @@ g(v|u) &= \frac{g(u, v)}{g(u)} \\
       \left\{
          v - \left[\mu_v + \frac{\footnotesize{\gamma\sigma_v}}{\footnotesize{\sigma_u}} \left(\footnotesize{u-\mu_{u}}\right)\right]
       \right\}^2
-}
-\end{aligned}\ \ \ \ \ (20)
+}.
+\end{aligned}\ \ \ \ \ (24)
+{% endkatex %}
+
+The conditional mean and variance can now be easily evaluated,
+
+{% katex display %}
+\begin{aligned}
+\text{E}[U|V] &= \int_{-\infty}^{\infty} ug(u|v) du \\
+&=\left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right],
+\end{aligned}\ \ \ \ \ (25)
 {% endkatex %}
 
 {% katex display %}
 \begin{aligned}
-E[U|V] &= \int_{-\infty}^{\infty} ug(u|v) du \\
-&=\left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right] \\
-\end{aligned}
+\text{E}[V|U] &= \int_{-\infty}^{\infty} vg(v|u) dv \\
+&= \left[\mu_v + \frac{\footnotesize{\gamma\sigma_v}}{\footnotesize{\sigma_u}} \left(\footnotesize{u-\mu_{u}}\right)\right],
+\end{aligned}\ \ \ \ \ (26)
 {% endkatex %}
 
 {% katex display %}
 \begin{aligned}
-E[V|U] &= \int_{-\infty}^{\infty} vg(v|u) dv \\
-&= \left[\mu_v + \frac{\footnotesize{\gamma\sigma_v}}{\footnotesize{\sigma_u}} \left(\footnotesize{u-\mu_{u}}\right)\right]
-\end{aligned}
+\text{Var}[U|V] &= \text{E}[\left(U - \text{E}[U|V]\right)^{2}] \\
+&= \int_{-\infty}^{\infty} \left(u - \text{E}[U|V]\right)^{2}g(u|v) du \\
+&= \sigma_{u}^{2}(1-\gamma^2),
+\end{aligned}\ \ \ \ \ (27)
 {% endkatex %}
 
 {% katex display %}
 \begin{aligned}
-Var[U|V] &= E[\left(U - E[U|V]\right)^{2}] \\
-&= \int_{-\infty}^{\infty} \left(u - E[U|V]\right)^{2}g(u|v) du \\
-&= \sigma_{u}^{2}(1-\gamma^2)
-\end{aligned}
+\text{Var}[V|U] &= \text{E}[\left(V - \text{E}[V|U]\right)^{2}] \\
+&= \int_{-\infty}^{\infty} \left(v - \text{E}[V|U]\right)^{2}g(v|u) dv \\
+&=\sigma_{v}^{2}(1-\gamma^2),
+\end{aligned}\ \ \ \ \ (28)
 {% endkatex %}
 
-{% katex display %}
-\begin{aligned}
-Var[V|U] &= E[\left(V - E[V|U]\right)^{2}] \\
-&= \int_{-\infty}^{\infty} \left(v - E[V|U]\right)^{2}g(v|u) dv \\
-&=\sigma_{v}^{2}(1-\gamma^2)
-\end{aligned}
-{% endkatex %}
+For both {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} the conditional expectation
+is a linear function of the conditioned variable. This is illustrated in the following plot
+where {% katex %}g(u|v){% endkatex %} is plotted for several values of {% katex %}v{% endkatex %}.
+It is seen that increasing values of {% katex %}v{% endkatex %} leads to increasing translations
+of the distribution.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_conditional_pdf_y_scan.png">
 </div>
 
+Consider the variation of equations {% katex %}(25){% endkatex %} through
+{% katex %}(28){% endkatex %} with {% katex %}\gamma{% endkatex %}. For
+{% katex %}\gamma = 0{% endkatex %} each reduces to the values corresponding to its
+marginal distribution discussed in the previous section. For both conditional distributions
+increasing {% katex %}\gamma{% endkatex %} leads to decreasing variance resulting in a
+sharper peak. Additionally, changing the sign of {% katex %}\gamma{% endkatex %} results in a
+reflection of the distribution about the mean. Each of these properties is illustrated on the
+plot below where {% katex %}g(u|v){% endkatex %} is plotted for values of
+{% katex %}\gamma{% endkatex %} ranging from {% katex %}-1{% endkatex %} to
+{% katex %}1.{% endkatex %}
+
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_conditional_pdf_correlation_scan.png">
+</div>
 
 ### Correlation Coefficient
 
-{% katex display %}
-\begin{aligned}
-E[UV] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u,v) dvdu \\
-&= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu
-\end{aligned}
-{% endkatex %}
+The [Cross Correlation](https://en.wikipedia.org/wiki/Cross-correlation) of the two Bivariate
+Normal random variable {% katex %}U{% endkatex %} and {% katex %}V{% endkatex %} is defined
+by,
 
 {% katex display %}
 \begin{aligned}
-E[UV] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu \\
+\text{E}[UV] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u,v) dvdu \\
+&= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu,
+\end{aligned}
+{% endkatex %}
+
+the last step follows from the definition of conditional probability. Now, substituting
+equations {% katex %}(23){% endkatex %} and {% katex %}(19){% endkatex %} into the equation
+above yields,
+
+{% katex display %}
+\begin{aligned}
+\text{E}[UV] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu \\
 &=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}uv
 \frac{1}{\sigma_{u}\sqrt{2\pi\left(1-\gamma^{2}\right)}}e^{
   \frac{\footnotesize{-1}}{\footnotesize{2\sigma_{u}^{2}(1-\gamma^2)}}
@@ -823,19 +913,29 @@ E[UV] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu \\
 }
  \left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right] dv\\
  &=\mu_{u}\mu_{v} + \frac{\gamma\sigma_{u}}{\sigma_{v}}\sigma_{v}^{2} \\
- &=\mu_{u}\mu_{v} + \gamma\sigma_{u}\sigma_{v}
+ &=\mu_{u}\mu_{v} + \gamma\sigma_{u}\sigma_{v}.
 \end{aligned}
 {% endkatex %}
 
-{% katex display %}
-Cov(U,V) = E[UV] - E[U]E[V] = \gamma\sigma_{v}\sigma_{u}
-{% endkatex %}
+Using this result gives the [Covariance](https://en.wikipedia.org/wiki/Covariance),
 
 {% katex display %}
-\gamma = \frac{Cov(U,V)}{\sigma_{v}\sigma_{u}}
+\text{Cov}(U,V) = \text{E}[UV] - \text{E}[U]E[V] = \gamma\sigma_{v}\sigma_{u},
+{% endkatex %}
+
+and finally the [Correlation Coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient),
+
+{% katex display %}
+\gamma = \frac{\text{Cov}(U,V)}{\sigma_{v}\sigma_{u}}.\ \ \ \ \ (29)
 {% endkatex %}
 
 ### Distribution Parameters
+
+In previous sections it was shown that the free parameters used in the definition of
+the Bivariate Normal distribution its the mean, variance and correlation coefficient.
+Here a sketch of the change in shape of the distribution as these parameters are varied is
+discussed. The following section will do further with an analysis of the PDF contours.
+The following plot 
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_1.png">
