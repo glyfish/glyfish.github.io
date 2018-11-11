@@ -932,10 +932,24 @@ and finally the [Correlation Coefficient](https://en.wikipedia.org/wiki/Pearson_
 ### Distribution Parameters
 
 In previous sections it was shown that the free parameters used in the definition of
-the Bivariate Normal distribution its the mean, variance and correlation coefficient.
-Here a sketch of the change in shape of the distribution as these parameters are varied is
-discussed. The following section will do further with an analysis of the PDF contours.
-The following plot 
+the Bivariate Normal distribution, equation {% katex %}(12){% endkatex %}, are its the mean,
+variance and correlation coefficient. Here a sketch of the change in shape of the
+distribution as these parameters are varied is discussed. The following section will go
+further with an analysis of the PDF contours.
+
+In all of the plots shown here it is assumed that the distribution means
+are zero, {% katex %}\mu_{u}=\mu_{v}=0{% endkatex %}, since this just results in a
+translation. More interesting are the correlation coefficient,
+{% katex %}\gamma{% endkatex %}, and the ratio of the standard deviations
+{% katex %}\sigma_{u}/\sigma_{v)}{% endkatex %}.
+
+The following two plots show the surface an contour plots for a distribution with
+{% katex %}\sigma_{u}/\sigma_{v}=1{% endkatex %} and {% katex %}\gamma=0.{% endkatex %}
+This is the case where {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} are
+uncorrelated with equal variances. The rotational symmetry is apparent in the contour plot
+where the contours are concentric circles. The surface plot is included to show how
+poor it is at giving a sense of the distribution shape though it does assist in imagining the
+how the contour plot would be projected into the third dimension.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_1.png">
@@ -944,6 +958,12 @@ The following plot
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.0_1.png">
 </div>
+
+The next plot also has {% katex %}\gamma=0{% endkatex %} but
+{% katex %}\sigma_{u}/\sigma_{v)}=0.5{% endkatex %}. The contours become ellipses with the axis
+aligned with the {% katex %}v{% endkatex %} axis. Similarly, for  
+{% katex %}\sigma_{u}/\sigma_{v)\ \geq\ 1{% endkatex %} the contours are ellipses with axis
+aligned with the {% katex %}u{% endkatex %} axis. 
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.0_2.png">
