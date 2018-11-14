@@ -1166,10 +1166,14 @@ the appropriate limiting line without any rotation of the contour.
 </div>
 
 The final two plots look at the {% katex %}\gamma\to 1{% endkatex %} limit but this time the first plot has
-{% katex %}\sigma_{v}/\sigma{u}=0.5{% endkatex %} and the second {% katex %}\sigma_{v}/\sigma{u}=2{% endkatex %}. The first is
-converging to the line {% katex %}v=0.5u{% endkatex %} and the second converges to the line {% katex %}v=2u{% endkatex %} in agreement
-with the previous analysis. The behavior of the contour as the limit is approached is more interesting since the ellipse has to
-rotate to reach the limit.
+{% katex %}\sigma_{v}/\sigma{u}=0.5{% endkatex %} and the second {% katex %}\sigma_{v}/\sigma{u}=2{% endkatex %}. The first is converging to th e line {% katex %}v=0.5u{% endkatex %} and the second converges to the
+line {% katex %}v=2u{% endkatex %} in agreement with the previous analysis. The behavior of the
+contour as the limit is approached is more interesting since the ellipse has to rotate to reach the limit.
+This is caused by the {% katex %}\gamma=0{% endkatex %} contour also being an ellipse. As
+{% katex %}/gamma{% endkatex %} increases it begins to distort along the limiting line. The result
+is the vector sum of the semi-major axis of the {% katex %}\gamma=0{% endkatex %} contour and the
+developing component along the limiting line. If the {% katex %}\gamma=0{% endkatex %}
+contour were a symmetric circle the axis is uniform and lies along the limiting line.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_sigma1_scan.png">
@@ -1181,6 +1185,11 @@ rotate to reach the limit.
 
 ### Coordinate Transformation
 
+In the derivation of the Bivariate Normal Distribution the linear transform defined by
+equation{% katex %}(6){% endkatex %} is applied two independent
+{% katex %}\textbf{Normal}(0, 1){% endkatex %} random variables {% katex %}x{% endkatex %}
+and {% katex %}y{% endkatex %}. This transformation is shown below.
+
 {% katex display %}
 \begin{aligned}
 x(u,v) &= \frac{1}{\sigma_{u}}\left(u-\mu_{u}\right) \\
@@ -1189,8 +1198,12 @@ y(u,v) &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}
 \end{aligned}
 {% endkatex %}
 
-The contours of constant {% katex %}u = C_{u}{% endkatex %} in {% katex %}(x, y){% endkatex %} are defined
-by,
+In this section contours of constant {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %}
+using transform are plotted in the {% katex %}(x, y){% endkatex %} coordinate system to understand
+how area elements are distorted by.
+
+The contours of constant {% katex %}u = C_{u}{% endkatex %} in {% katex %}(x, y){% endkatex %}
+coordinates are defined by,
 
 {% katex display %}
 \begin{aligned}
@@ -1200,7 +1213,10 @@ y &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}\righ
 \end{aligned}
 {% endkatex %}
 
-and the contours of constant {% katex %}v=C_{v}{% endkatex %} are defined by,
+This set of equations defines contours which are lines of constant {% katex %}x{% endkatex %}
+since the equation for {% katex %}x{% endkatex %} is constant.
+
+The contours of constant {% katex %}v=C_{v}{% endkatex %} are defined by,
 
 {% katex display %}
 \begin{aligned}
@@ -1210,22 +1226,60 @@ y &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(C_{v}-\mu_{v}\
 \end{aligned}
 {% endkatex %}
 
-These two equations define lines of constant {% katex %}x{% endkatex %}. Substituting the expression for
-{% katex %}x{% endkatex %} into the expression for {% katex %}y{% endkatex %}
-gives a {% katex %}y{% endkatex %} as a function of {% katex %}v{% endkatex %} and ,
+Substituting the expression for {% katex %}x{% endkatex %} into the expression for
+{% katex %}y{% endkatex %} gives,
 
 {% katex display %}
 y = \frac{-\gamma}{\sqrt{1-\gamma^{2}}}x +
-  \frac{1}{\sigma_{v}\sqrt{1-\gamma^{2}}}\left(C_{v}-\mu_{v}\right)
+  \frac{1}{\sigma_{v}\sqrt{1-\gamma^{2}}}\left(C_{v}-\mu_{v}\right),
+{% endkatex %}
+
+which is the equation a line with slope {% katex %}-\gamma/\sqrt{1-\gamma^{2}}{% endkatex %}.
+
+The plot below shows the transformation for parameter values
+{% katex %}\gamma=0{% endkatex %}, {% katex %}\mu_{u}=\mu_{v}=0{% endkatex %} and
+{% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %} which
+produces the transform,
+
+{% katex display %}
+\begin{aligned}
+x &= C_{u} \\
+y &= C_{v}
+\end{aligned}
 {% endkatex %}
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.png">
 </div>
 
+The next plot has parameters
+{% katex %}\gamma=0{% endkatex %} and {% katex %}\sigma_{u}=1{% endkatex %}
+and {% katex %}\sigma_{v}=2{% endkatex %}. Once again the {% katex %}u{% endkatex %} contours
+are aligned with lines of constant{% katex %}x{% endkatex %} but the {% katex %}v{% endkatex %}
+contours are compressed relative to lines of constant {% katex %}y{% endkatex %}.
+
+{% katex display %}
+\begin{aligned}
+x &= C_{u} \\
+y &= \frac{1}{\sigma_{2}}C_{v}
+\end{aligned}
+{% endkatex %}
+
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0_sigma.png">
 </div>
+
+The final plot has parameters {% katex %}\gamma=0.5{% endkatex %} and
+{% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %}. The {% katex %}u{% endkatex %} contours are aligned
+again but now since there is correlation the {% katex %}v{% endkatex %} contours are lines with a
+negative slope.
+
+{% katex display %}
+\begin{aligned}
+x &= C_{u} \\
+y &= \frac{2}{\sqrt{3}}\left(-\frac{1}{2}x + C_{v}\right)
+\end{aligned}
+{% endkatex %}
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.5.png">
