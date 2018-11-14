@@ -643,7 +643,7 @@ g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
 &= \frac{1}{\sqrt{2\pi\sigma_{u}^{2}}}e^{
      -\frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{2\sigma_{u}^2}}
   }.
-\end{aligned}.\ \ \ \ \ (18)
+\end{aligned}\ \ \ \ \ (18)
 {% endkatex %}
 
 In the first step the {% katex %}u{% endkatex %} dependence is factored out for
@@ -658,7 +658,7 @@ the marginal distribution {% katex %}g(v){% endkatex %} is given by,
 {% katex display %}
 g(v) = \int_{-\infty}^{\infty} g(u, v) du
 = \frac{1}{\sqrt{2\pi\sigma_{v}^{2}}}e^{
-     -\frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{2\footnotesize{\sigma_{v}^2}}
+     -\frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{\footnotesize{2\sigma_{v}^2}}
   },\ \ \ \ \ (19)
 {% endkatex %}
 
@@ -934,7 +934,7 @@ and finally the [Correlation Coefficient](https://en.wikipedia.org/wiki/Pearson_
 \gamma = \frac{\text{Cov}(U,V)}{\sigma_{v}\sigma_{u}}.\ \ \ \ \ (29)
 {% endkatex %}
 
-### Distribution Shape Variation
+### Distribution Parameter Limits
 
 In previous sections it was shown that the free parameters used in the definition of
 the Bivariate Normal distribution, equation {% katex %}(12){% endkatex %}, are its the mean,
@@ -943,7 +943,8 @@ distribution as these parameters are varied is discussed by evaluating
 limits of the parameters for the equation defining the PDF contours.
 The following section will describe the results of a more detailed numerical analysis.
 
-An equation for the PDF contours is obtained from equation{% katex %}(12){% endkatex %},
+The equation satisfied by the contours is obtained by setting the argument of the
+exponential in equation {% katex %}(12){% endkatex %} to a constant {% katex %}C^{2}{% endkatex %},
 
 {% katex display %}
 C^{2} =
@@ -951,25 +952,33 @@ C^{2} =
   2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}},
 {% endkatex %}
 
-where{% katex %}C^{% endkatex %} is a constant related to the value of the contour. To develop an
+where{% katex %}C^{2}{% endkatex %} is a constant related to the value of the contour. To develop an
 expectation of the behavior the following limits of this equation are considered,
 {% katex %}\gamma\to 0{% endkatex %}, {% katex %}\gamma\to \pm 1{% endkatex %},
-{% katex %}\sigma_{u}/\sigma_{v}\to 1{% endkatex %},
-{% katex %}\sigma_{u}/\sigma_{v}\to 0{% endkatex %} and
-{% katex %}\sigma_{u}/\sigma_{v}\to \infty{% endkatex %}.
+{% katex %}\sigma_{v}/\sigma_{u}\to 1{% endkatex %},
+{% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} and
+{% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %}.
 
-First, consider the limit {% katex %}\gamma\to 0{% endkatex %}. This limit is easily evaluated,
+First, consider the limit {% katex %}\gamma\to 0{% endkatex %} which is easily evaluated
+using the equation above,
 
 {% katex display %}
-C^{2} = \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} + \frac{\left(v-\mu_v\right)^2}{\sigma_v^2},
+C^{2} = \frac{\left(u-\mu_{u} \right)^{2}}{\sigma_{u}^{2}} + \frac{\left(v-\mu_v\right)^2}{\sigma_{v}^{2}},
 {% endkatex %}
 
-which is the equation of an ellipse with axis of length {% katex %}2C\sigma_{u}{% endkatex %} and
-{% katex %}2C\sigma_{v}{% endkatex %}.
+which is the equation of an ellipse with axes of length {% katex %}2C\sigma_{u}{% endkatex %} and
+{% katex %}2C\sigma_{v}{% endkatex %}. The aspect ratio of the ellipse is given by
+{% katex %}\sigma_{v}/\sigma_{u}{% endkatex %}. It follows that in the limit
+{% katex %}\sigma_{v}/\sigma_{u}\to 1{% endkatex %} the contour approaches a circle and in the limits
+{% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} or
+{% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %} the contour approaches a line along the
+{% katex %}u{% endkatex %} or {% katex %}v{% endkatex %} axes respectively.
 
-In the derivation of inverse of the Bivariate Transformation, equation
-{% katex %}(6){% endkatex %}, it was assumed that {% katex %}\gamma^{2}\ne 1{% endkatex %}.
-To evaluate the limit it needs to be evaluated before inverting the transformation defining the distribution, resulting in,
+To evaluate the limit {% katex %}\gamma\to \pm 1{% endkatex %} it must be noted that
+{% katex %}\gamma^{2}\ne \pm 1{% endkatex %} was assumed in the derivation of inverse of the
+Bivariate Transformation, equation {% katex %}(6){% endkatex %}.
+To evaluate the limit it should be evaluated before inverting the transformation defining the distribution.
+Taking the limit results in a transformation that is valid for {% katex %}\gamma^{2}= 1{% endkatex %}, namely,
 
 {% katex display %}
 \begin{pmatrix}
@@ -989,37 +998,47 @@ Y
 Evaluation of the equation above gives,
 
 {% katex display %}
-\left(U-\mu_{u}\right) = \pm \frac{\sigma_{u}}{\sigma_{v}} \left(V-\mu_{v}\right).
+\left(V-\mu_{v}\right) = \pm \frac{\sigma_{v}}{\sigma_{u}} \left(U-\mu_{u}\right).
 {% endkatex %}
 
 It follows that as the limit is approached contours will approach a line with slope
-{% katex %}\pm \frac{\sigma_{u}}{\sigma_{v}}.{% endkatex %}
+{% katex %}\pm \frac{\sigma_{v}}{\sigma_{u}}{% endkatex %}. The slope is positive
+for positive correlation and negative for negative correlation. It follows that in the limit
+{% katex %}\frac{\sigma_{v}}{\sigma_{u}}\to 1{% endkatex %} the contour slope approaches
+approaches a circle with {% katex %}\pm 1{% endkatex %} and in the limit
+{% katex %}\frac{\sigma_{v}}{\sigma_{u}}\to 0{% endkatex %} or
+{% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %} the contour approaches a line along the
+{% katex %}u{% endkatex %} or {% katex %}v{% endkatex %} axes respectively which is the same
+as obtained in the limit {% katex %}\gamma\to 0.{% endkatex %}
 
 The following two plots show the surface an contour plots for a distribution with
-{% katex %}\sigma_{u}/\sigma_{v}=1{% endkatex %} and {% katex %}\gamma=0.{% endkatex %}
-This is the case where {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} are
-uncorrelated with equal variances. The rotational symmetry is apparent in the contour plot
-where the contours are concentric circles. The surface plot is included to show how
-poor it is at giving a sense of the distribution shape though it does assist in imagining the
-how the contour plot would be projected into the third dimension.
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_1.png">
-</div>
+{% katex %}\sigma_{v}/\sigma_{u}=1{% endkatex %} and {% katex %}\gamma=0,{% endkatex %}
+which is the case where {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} are
+uncorrelated with equal variances. The contours are circles are previously described.
+The surface plot is included to show how poor it is at giving a sense of the distribution shape
+though it does assist in imagining the how the contour plot would be projected into the
+third dimension.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.0_1.png">
 </div>
 
+<div style="text-align:center;">
+  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_surface_plot_0.0_1.png">
+</div>
+
 The next plot also has {% katex %}\gamma=0{% endkatex %} but
-{% katex %}\sigma_{u}/\sigma_{v)}=0.5{% endkatex %}. The contours become ellipses with the axis
-aligned with the {% katex %}v{% endkatex %} axis. Similarly,
-for {% katex %}\sigma_{u}/\sigma_{v}\ \geq\ 1{% endkatex %} the contours are ellipses with axis
-aligned with the {% katex %}u{% endkatex %} axis.
+{% katex %}\sigma_{v}/\sigma_{u}=2{% endkatex %}. The contours become ellipses with the axis
+aligned with the {% katex %}v{% endkatex %} axis.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.0_2.png">
 </div>
+
+The final plot has {% katex %}\gamma=0.5{% endkatex %} and {% katex %}\sigma_{v}/\sigma_{u}=1{% endkatex %}.
+The contours are symmetric about the line {% katex %}v=u{% endkatex %} as expected for the limit
+{% katex %}\gamma\to \pm 1{% endkatex %}. If the correlation were negative the contours would be reflected about the
+origin and symmetric about the line {% katex %}v=-u{% endkatex %}.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.5_1.png">
@@ -1027,16 +1046,12 @@ aligned with the {% katex %}u{% endkatex %} axis.
 
 ### Probability Density Contours
 
-{% katex display %}
-g(u, v) = \frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{
-  \frac{\footnotesize{-1}}{\footnotesize{2(1-\gamma^2)}}
-     \left[
-        \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}} +
-        \frac{\footnotesize{\left(v-\mu_v\right)^2}}{\footnotesize{\sigma_v^2}} -
-        2\gamma\frac{\footnotesize{\left(v-\mu_v\right)}}{\footnotesize{\sigma_{v}}}\frac{\footnotesize{\left(u-\mu_{u} \right)}}{\footnotesize{\sigma_{u}}}
-     \right]
-}
-{% endkatex %}
+This section will describe a more detailed analysis of the Bivariate Normal PDF contours
+consisting of a larger range of values for the parameters {% katex %}\gamma{% endkatex %}
+and {% katex %}\sigma_{v}/\sigma{u}{% endkatex %}.
+
+The equation satisfied by the contours is obtained by setting the argument of the
+exponential in equation {% katex %}(12){% endkatex %} to a constant {% katex %}C^{2}{% endkatex %},
 
 {% katex display %}
 \begin{aligned}
@@ -1047,44 +1062,69 @@ C^{2} &=
   2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} +
   \frac{\gamma^{2}}{\sigma_{v}^{2}}\left(v-\mu_v\right)^{2} - \frac{\gamma^{2}}{\sigma_{v}^{2}}\left(v-\mu_v\right)^{2} \\
 &= \left[\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} - \frac{\gamma}{\sigma_{v}}\left(v-\mu_v\right)\right]^{2}  +
-  \frac{\left(v-\mu_v\right)^2}{\sigma_v^2}(1-\gamma^2)
+  \frac{\left(v-\mu_v\right)^2}{\sigma_v^2}(1-\gamma^2).
 \end{aligned}
 {% endkatex %}
 
-{% katex display %}
-\frac{1}{C^2}\left[\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} - \frac{\gamma}{\sigma_{v}}\left(v-\mu_v\right)\right]^{2}  +
-  \frac{\left(v-\mu_v\right)^2}{C^2\sigma_v^2}(1-\gamma^2) = 1
-{% endkatex %}
+Here the equation is put into a form that is more easily evaluated by completing the square of the original equation.
+If both sides are divided by {% katex %}C^{2}{% endkatex %} the equation below is obtained,
 
 {% katex display %}
-\sin^{2}{\theta} + \cos^2{\theta} = 1
+\frac{1}{C^2}\left[\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} - \frac{\gamma}{\sigma_{v}}\left(v-\mu_v\right)\right]^{2}  +
+  \frac{\left(v-\mu_v\right)^2}{C^2\sigma_v^2}(1-\gamma^2) = 1.
 {% endkatex %}
+
+This equation is equivalent the equation of a unit circle which satisfies the equation,
+
+{% katex display %}
+\sin^{2}{\theta} + \cos^2{\theta} = 1.
+{% endkatex %}
+
+If {% katex %}\theta{% endkatex %} is assumed a parametric parameter satisfying
+{% katex %}0\geq \theta \geq 2\pi{% endkatex %} a parametric equation for the contours is obtained
+by making the following change of variables,
 
 {% katex display %}
 \begin{aligned}
 \sin{\theta} &= \frac{1}{C}\left[\frac{\left(u-\mu_{u} \right)}{\sigma_{u}} - \frac{\gamma}{\sigma_{v}}\left(v-\mu_v\right)\right] \\
-\cos{\theta} &= \frac{\left(v-\mu_v\right)}{C\sigma_v}\sqrt{(1-\gamma^2)}
+\cos{\theta} &= \frac{\left(v-\mu_v\right)}{C\sigma_v}\sqrt{(1-\gamma^2)}.
 \end{aligned}
 {% endkatex %}
+
+Solving these equations for {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} yields the following
+parametric equations,
 
 {% katex display %}
 \begin{aligned}
 u &= C\sigma_{u}\left[\sin{\theta} + \frac{\gamma}{\sqrt{1-\gamma^2}}\cos{\theta}\right] + \mu_{u} \\
-v &= \frac{C\sigma_v}{\sqrt{1-\gamma^2}}\cos{\theta} + \mu_{v}
-\end{aligned}
+v &= \frac{C\sigma_v}{\sqrt{1-\gamma^2}}\cos{\theta} + \mu_{v}.
+\end{aligned}\ \ \ \ \ (30)
 {% endkatex %}
 
-{% katex display %}
-K=\frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{\frac{-C^2}{2(1-\gamma^2)}}
-{% endkatex %}
+To plot the actual contours a relation between the constant {% katex %}C{% endkatex %} and the the value of the
+PDF along the contour is required. This relation is obtained by replacing the argument of the exponential
+in equation {% katex %}(12){% endkatex %} with {% katex %}C^{2}{% endkatex %},
 
 {% katex display %}
-C = \left[-2\left(1-\gamma^2\right)\ln{\left(2K\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}\right)}\right]^{\frac{\footnotesize{1}}{\footnotesize{2}}}
+K=\frac{1}{2\pi\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}e^{\frac{\footnotesize{-C^2}}{\footnotesize{2(1-\gamma^2)}}},
 {% endkatex %}
 
+where {% katex %}K{% endkatex %} is the PDF value along the contour. Solving this equation for
+{% katex %}C{% endkatex %} gives,
+
 {% katex display %}
-K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}}
+C = \left[-2\left(1-\gamma^2\right)\ln{\left(2K\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}\right)}\right]^{\frac{\footnotesize{1}}{\footnotesize{2}}}.
 {% endkatex %}
+
+If {% katex %}C{% endkatex %} is assumed to be real the following constraint must be satisfied,
+
+{% katex display %}
+K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}},
+{% endkatex %}
+
+which places an upper bound on the value of the peak of the distribution. The following two plots of the
+parametric equations defined by {% katex %}(30){% endkatex %} should be compared to the contour plots
+from the previous section.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_0.0.png">
@@ -1094,13 +1134,14 @@ K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}}
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_0.5.png">
 </div>
 
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contours_sigma_2.0.png">
-</div>
+To get a sense of how the contour shape varies with the distribution parameters the following two plots scan the range of
+{% katex %}\sigma_{v}/\sigma{u}{% endkatex %} with {% katex %}\gamma = 0{% endkatex %} to illustrate the
+limits {% katex %}\sigma_{v}/\sigma{u}\to 0{% endkatex %} and {% katex %}\sigma_{v}/\sigma{u}\to\infty{% endkatex %}
+respectively with {% katex %}\gamma=0{% endkatex %}.
+This result agrees with the expectation obtained in the previous analysis.
+The {% katex %}\sigma_{v}/\sigma{u}\to 0{% endkatex %} series of contours approaches the {% katex %}u{% endkatex %} axis and
+the {% katex %}\sigma_{v}/\sigma{u}\to\infty{% endkatex %} contours approach the {% katex %}v{% endkatex %} axis.
 
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contours_sigma_2.0_correlation_0.5.png">
-</div>
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_sigma1_scan.png">
@@ -1110,6 +1151,12 @@ K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}}
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_sigma2_scan.png">
 </div>
 
+The next two plots illustrate the limit {% katex %}\gamma\to 1{% endkatex %} and {% katex %}\gamma\to -1{% endkatex %} respectively
+with {% katex %}\sigma_{u}/\sigma{v}=1{% endkatex %}. The {% katex %}\gamma\to 1{% endkatex %} plot is converging to the line
+{% katex %}v=u{% endkatex %} and the {% katex %}\gamma\to -1{% endkatex %} to the line {% katex %}v=-u{% endkatex %} as described
+in the previous section. Note that as {% katex %}\gamma{% endkatex %} approaches the limit the semi-axis of the contour increases along
+the appropriate limiting line without any rotation of the contour.
+
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_positive_correlation_scan.png">
 </div>
@@ -1117,6 +1164,12 @@ K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}}
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_negative_correlation_scan.png">
 </div>
+
+The final two plots look at the {% katex %}\gamma\to 1{% endkatex %} limit but this time the first plot has
+{% katex %}\sigma_{v}/\sigma{u}=0.5{% endkatex %} and the second {% katex %}\sigma_{v}/\sigma{u}=2{% endkatex %}. The first is
+converging to the line {% katex %}v=0.5u{% endkatex %} and the second converges to the line {% katex %}v=2u{% endkatex %} in agreement
+with the previous analysis. The behavior of the contour as the limit is approached is more interesting since the ellipse has to
+rotate to reach the limit.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_sigma1_scan.png">
@@ -1126,7 +1179,7 @@ K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}}
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_sigma2_scan.png">
 </div>
 
-### Coordinate transformation
+### Coordinate Transformation
 
 {% katex display %}
 \begin{aligned}
@@ -1176,10 +1229,6 @@ y = \frac{-\gamma}{\sqrt{1-\gamma^{2}}}x +
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.5.png">
-</div>
-
-<div style="text-align:center;">
-  <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.95.png">
 </div>
 
 ## Conclusions
