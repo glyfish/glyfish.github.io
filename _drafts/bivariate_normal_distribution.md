@@ -340,7 +340,7 @@ y(u,v) & = \frac{1}{\sqrt{1-\gamma^2}}
 It follows that the Jacobian is given by,
 
 {% katex display %}
-\mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}\ \ \ \ \ (10)
+\mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}}.\ \ \ \ \ (10)
 {% endkatex %}
 
 With the goal of keeping things simple in the evaluation of equation {% katex %}(8){% endkatex %}
@@ -1186,7 +1186,7 @@ contour were a symmetric circle the axis is uniform and lies along the limiting 
 ### Coordinate Transformation
 
 In the derivation of the Bivariate Normal Distribution the linear transform defined by
-equation{% katex %}(6){% endkatex %} is applied two independent
+equation {% katex %}(6){% endkatex %} is applied two independent
 {% katex %}\textbf{Normal}(0, 1){% endkatex %} random variables {% katex %}x{% endkatex %}
 and {% katex %}y{% endkatex %}. This transformation is shown below.
 
@@ -1198,11 +1198,11 @@ y(u,v) &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}
 \end{aligned}
 {% endkatex %}
 
-In this section contours of constant {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %}
-using transform are plotted in the {% katex %}(x, y){% endkatex %} coordinate system to understand
-how area elements are distorted by.
+Contours of constant {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %}
+using the transform are plotted in the {% katex %}(x, y){% endkatex %} coordinate system to understand
+how the transform distorts area elements.
 
-The contours of constant {% katex %}u = C_{u}{% endkatex %} in {% katex %}(x, y){% endkatex %}
+Contours of constant {% katex %}u = C_{u}{% endkatex %} in {% katex %}(x, y){% endkatex %}
 coordinates are defined by,
 
 {% katex display %}
@@ -1236,49 +1236,114 @@ y = \frac{-\gamma}{\sqrt{1-\gamma^{2}}}x +
 
 which is the equation a line with slope {% katex %}-\gamma/\sqrt{1-\gamma^{2}}{% endkatex %}.
 
-The plot below shows the transformation for parameter values
+The following plot shows the transformation for parameter values
 {% katex %}\gamma=0{% endkatex %}, {% katex %}\mu_{u}=\mu_{v}=0{% endkatex %} and
-{% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %} which
-produces the transform,
+{% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %} which results in the transform,
 
 {% katex display %}
 \begin{aligned}
 x &= C_{u} \\
-y &= C_{v}
+y &= C_{v},
 \end{aligned}
 {% endkatex %}
+
+and Jacobian, from equation {% katex %}(10){% endkatex %}, is given by,
+
+{% katex display %}
+\mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}} = 1.
+{% endkatex %}
+
+It follows that area elements satisfy,
+
+{% katex display %}
+dxdy = |J|dudv = dudv.
+{% endkatex %}
+
+Thus, for this particular choice of transform parameters area elements are preserved. Inspection of the plot and transform
+confirms that this is the case since the transform exactly maps {% katex %}(u,v){% endkatex %} coordinates onto
+{% katex %}(x,y){% endkatex %} coordinates.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.png">
 </div>
 
-The next plot has parameters
-{% katex %}\gamma=0{% endkatex %} and {% katex %}\sigma_{u}=1{% endkatex %}
-and {% katex %}\sigma_{v}=2{% endkatex %}. Once again the {% katex %}u{% endkatex %} contours
-are aligned with lines of constant{% katex %}x{% endkatex %} but the {% katex %}v{% endkatex %}
-contours are compressed relative to lines of constant {% katex %}y{% endkatex %}.
+The next plot has parameters {% katex %}\gamma=0{% endkatex %} and {% katex %}\sigma_{u}=1{% endkatex %}
+and {% katex %}\sigma_{v}=2{% endkatex %}. The transform associated this parameter choice is given by,
 
 {% katex display %}
 \begin{aligned}
 x &= C_{u} \\
-y &= \frac{1}{\sigma_{2}}C_{v}
+y &= \frac{1}{\sigma_{2}}C_{v},
 \end{aligned}
 {% endkatex %}
+
+with Jacobian,
+
+{% katex display %}
+\mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}} = \frac{1}{2}.
+{% endkatex %}
+
+Once again the {% katex %}u{% endkatex %} contours are aligned with lines of constant{% katex %}x{% endkatex %} but
+the {% katex %}v{% endkatex %} contours are compressed by a factor of {% katex %}2{% endkatex %} relative to lines of
+constant {% katex %}y{% endkatex %}. If follows that the transform reduces the size of {% katex %}(u,v){% endkatex %}
+area elements by a factor of {% katex %}1/2{% endkatex %} when transformed, namely,
+
+{% katex display %}
+dxdy = |J|dudv = \frac{1}{2}dudv.
+{% endkatex %}
+
+What this is saying is that for an arbitrary area element {% katex %}dudv{% endkatex %} in the {% katex %}(u,v){% endkatex %}
+coordinates when transformed to the {% katex %}(x,y){% endkatex %} the element has {% katex %}1/2{% endkatex %} the area. This is seen
+to be the case in the plot where the area of a {% katex %}(u,v){% endkatex %} rectangle is reduced by a factor of
+{% katex %}(2){% endkatex %}.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0_sigma.png">
 </div>
 
-The final plot has parameters {% katex %}\gamma=0.5{% endkatex %} and
-{% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %}. The {% katex %}u{% endkatex %} contours are aligned
-again but now since there is correlation the {% katex %}v{% endkatex %} contours are lines with a
-negative slope.
+The final plot introduces the impact of correlation to the transform by using the parameters
+{% katex %}\gamma=0.5{% endkatex %} and {% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %}. The transform corresponding
+to this parameter choice is given by,
 
 {% katex display %}
 \begin{aligned}
 x &= C_{u} \\
-y &= \frac{2}{\sqrt{3}}\left(-\frac{1}{2}x + C_{v}\right)
+y &= \frac{2}{\sqrt{3}}\left(-\frac{1}{2}x + C_{v}\right),
 \end{aligned}
+{% endkatex %}
+
+with Jacobian,
+
+{% katex display %}
+\mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}} = \frac{2}{\sqrt{3}}.
+{% endkatex %}
+
+The {% katex %}u{% endkatex %} contours are aligned again but now since there is correlation the
+{% katex %}v{% endkatex %} contours are lines with a negative slope so rectangular area elements in
+{% katex %}(u,v){% endkatex %} are transformed into parallelograms in {% katex %}(x, y){% endkatex %}
+coordinates. The area of one of the parallelograms is {% katex %}\Delta y\Delta x{% endkatex %}, where
+{% katex %}\Delta y{% endkatex %} is the spacing between contours of constant {% katex %}v{% endkatex %}
+and {% katex %}\Delta x{% endkatex %} is the spacing between contours of constant {% katex %}u{% endkatex %}.
+Now, from the transform above it is seen that,
+
+{% katex display %}
+\begin{aligned}
+\Delta x &= \Delta C_{u} \\
+\Delta y &= \frac{2}{\sqrt{3}}\Delta C_{v},
+\end{aligned}
+{% endkatex %}
+
+but {% katex %}\Delta C_{u}=\Delta C_{v} = 1{% endkatex %}, so the area of the parallelogram is given by,
+
+{% katex display %}
+\Delta y \Delta x = \frac{2}{\sqrt{3}},
+{% endkatex %}
+
+which is equal to the Jacobian. It follows that for this transformation area elements are increased in size by
+a factor of {% katex %}2/\sqrt{3}{% endkatex %},
+
+{% katex display %}
+dxdy = |J|dudv = \frac{2}{\sqrt{3}}dudv.
 {% endkatex %}
 
 <div style="text-align:center;">
