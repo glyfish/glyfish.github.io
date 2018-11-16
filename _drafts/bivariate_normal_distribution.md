@@ -422,8 +422,8 @@ P = \begin{pmatrix}
 
 Here {% katex %}Y{% endkatex %} is the column vector of Bivariate Normal Random variables,
 {% katex %}\mu{% endkatex %} the column vector of mean values and {% katex %}P{% endkatex %} is called the
-covariance matrix. To continue the inverse of the covariance matrix and determinate are required.
-First, the inverse is given by,
+[Covariance Matrix](https://en.wikipedia.org/wiki/Covariance_matrix). To continue the inverse of the
+covariance matrix and determinate are required. First, the inverse is given by,
 
 {% katex display %}
 P^{-1} = \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
@@ -1351,3 +1351,24 @@ dxdy = |J|dudv = \frac{2}{\sqrt{3}}dudv.
 </div>
 
 ## Conclusions
+
+The Bivariate Normal distribution is widely used because it provides a simple model of correlated random variables.
+It is interesting to study because it is modeled as a linear transform of independent {% katex %}\textbf{Normal}(0, 1){% endkatex %}
+random variables that can serve as an introduction to the concepts used in application of transformations to multivariate integrals.
+Here the background needed to understand transformations of multivariate integrals was developed by starting with a discussion of the
+interpretation of the vector cross product as an area. This idea was then applied to the derivation of the Jacobian Matrix for an arbitrary
+multivariate transformation of differential area elements. Next, the transformation used to define the Bivariate Normal distribution was
+introduced and applied do a distribution of two independent {% katex %}\textbf{Normal}(0, 1){% endkatex %} random variables. The Jacobian
+matrix was next computed and the Bivariate Normal PDF derived. A matrix form of the Bivariate Normal PDF
+based the idea of the [Covariance Matrix](https://en.wikipedia.org/wiki/Covariance_matrix) was introduced and shown to
+be equivalent to the linear transform version first discussed. The covariance matrix for more easily extends to higher dimensions.
+The linear transform used to define the Bivariate Normal PDF introduced five parameters. It was next shown that these parameters are the
+means, {% katex %}\mu_{u}, \mu_{v}{% endkatex %}, variance, {% katex %}\sigma_{u}, \sigma_{v}{% endkatex %} and correlation coefficient,
+{% katex %}\gamma{% endkatex %}, of the distribution. This was followed by a derivation of the conditional distributions which are useful
+in simulations. The change in shape of the distribution was then investigated by
+evaluating limits for the PDF contours that included {% katex %}\gamma\to 0{% endkatex %}, {% katex %}\gamma\to \pm 1{% endkatex %},
+{% katex %}\sigma_{v}/\sigma_{u}\to 1{% endkatex %}, {% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} and
+{% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %}. This was followed by numerically investigating the convergence to these limits
+using a parametric form of the equation defining the PDF contours. The last topic discussed was the variation of the linear coordinate
+transformation with the distribution parameters. It was shown that resulting changes in area of transformed area elements were described
+by the Jacobian.
