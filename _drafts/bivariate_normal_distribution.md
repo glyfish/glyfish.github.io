@@ -47,9 +47,10 @@ where use was made of,
 dx = \frac{dh}{dx} dy.
 {% endkatex %}
 
-The {% katex %}dh/dx{% endkatex %} term stretches or scales {% katex %}dy{% endkatex %} appropriately. In two
-dimensions a similar but more complicated thing happens. Consider the PDF of two variables,
-{% katex %}f(x,y){% endkatex %}, with CDF,
+The {% katex %}dh/dx{% endkatex %} term stretches or scales {% katex %}dy{% endkatex %} appropriately
+to conserve the differential length. In two dimensions a similar but more complicated thing happens.
+
+Consider the bivariate PDF, {% katex %}f(x,y){% endkatex %}, with CDF,
 
 {% katex display %}
 P(\{X,Y\} \in A) = \int_{A} f(x, y) dA\ \ \ \ \ (1),
@@ -69,8 +70,8 @@ parallelogram enclosed by the vectors is needed. This topic is discussed in the 
 ### Cross Product as Area
 
 Consider two vectors {% katex %}\textbf{A}{% endkatex %} and {% katex %}\textbf{B}{% endkatex %}
-separated by an angle {% katex %}\theta{% endkatex %} and rotated by and angle {% katex %}\gamma{% endkatex %}
-as shown in the following figure.
+separated by an angle {% katex %}\theta{% endkatex %} and rotated by and angle
+{% katex %}\phi{% endkatex %} as shown in the following figure.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/CrossProduct.png">
@@ -93,8 +94,8 @@ where,
 A_{x} &= \mid \textbf{A} \mid \cos{\phi} \\
 A_{y} &= \mid \textbf{A} \mid \sin{\phi} \\
 B_{x} &= \mid \textbf{B} \mid \cos{\left(\phi + \theta\right)} \\
-B_{y} &= \mid \textbf{B} \mid \sin{\left(\phi + \theta\right)} \\
-\end{aligned}\ \ \ \ \ (2).
+B_{y} &= \mid \textbf{B} \mid \sin{\left(\phi + \theta\right)}. \\
+\end{aligned}\ \ \ \ \ (2)
 {% endkatex %}
 
 The cross product of two vectors is another vector perpendicular to both vectors. Here, for the figure
@@ -109,9 +110,9 @@ computed from the components of the two vectors and projected along
 \begin{vmatrix}
 A_{x} & A_{y} \\
 B_{x} & B_{y}
-\end{vmatrix}\textbf{z} \\
-&= \left( A_{x}B_{y} - A_{y} B_{x} \right)\textbf{z}
-\end{aligned}\ \ \ \ \ (3).
+\end{vmatrix}\ \textbf{z} \\
+&= \left( A_{x}B_{y} - A_{y} B_{x} \right)\ \textbf{z}.
+\end{aligned}\ \ \ \ \ (3)
 {% endkatex %}
 
 Substituting equation {% katex %}(2){% endkatex %} into {% katex %}(3){% endkatex %} and making use of,
@@ -120,7 +121,7 @@ Substituting equation {% katex %}(2){% endkatex %} into {% katex %}(3){% endkate
 \begin{gathered}
 \sin{\left(\theta + \phi\right)} = \sin{\theta}\ \cos{\phi}\ +\ \cos{\theta}\ \sin{\phi} \\
 \cos{\left(\theta + \phi\right)} = \cos{\theta}\ \cos{\phi}\ -\ \sin{\theta}\ \sin{\phi} \\
-\sin^2{\phi}\ +\ \cos^2{\phi} = 1
+\sin^2{\phi}\ +\ \cos^2{\phi} = 1,
 \end{gathered}
 {% endkatex %}
 
@@ -145,13 +146,14 @@ which is the area of the parallelogram indicated by orange in the figure above.
 
 ### Bivariate Jacobian
 
-Consider the following coordinate transformation,
+Consider the following coordinate transformation between two coordinate systems defined by the
+variables {% katex %}\left(x,y\right){% endkatex %} and {% katex %}\left(u,v\right){% endkatex %},
 
 {% katex display %}
 \begin{aligned}
 x &= x(u,v) \\
-y &= y(u,v)
-\end{aligned}\ \ \ \ \ (4).
+y &= y(u,v).
+\end{aligned}\ \ \ \ \ (4)
 {% endkatex %}
 
 applied to the integral,
@@ -160,16 +162,18 @@ applied to the integral,
 \int_{A} f(x, y) dxdy,
 {% endkatex %}
 
-where {% katex %}A{% endkatex %} is an arbitrary area in
-{% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %} coordinates. The following figure shows how area elements transforms between the {% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %}
-and {% katex %}\left(\textit{x}, \textit{y} \right){% endkatex %} coordinates when
-transformation {% katex %}(4){% endkatex %} is applied. The left side of the figure shows the
+where {% katex %}A{% endkatex %} is an arbitrary area in {% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %} coordinates. The following figure shows how area elements transform between
+{% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %} coordinates
+and {% katex %}\left(\textit{x}, \textit{y} \right){% endkatex %} coordinates when equation
+{% katex %}(4){% endkatex %} is applied. The left side of the figure shows the
 {% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %}
 [Cartesian Coordinate System](https://en.wikipedia.org/wiki/Cartesian_coordinate_system).
 In this system vertical lines of constant {% katex %}\textit{u}{% endkatex %}
 are colored orange and horizontal lines of constant {% katex %}\textit{v}{% endkatex %} blue. The right side
-of the figure shows the result of application of the transformation between the coordinate systems.
-The lines of constant {% katex %}\textit{u}{% endkatex %} and {% katex %}\textit{v}{% endkatex %}
+of the figure illustrates how equation {% katex %}(4){% endkatex %} maps lines of constant
+{% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} onto
+{% katex %}\left(x,y\right){% endkatex %} coordinates. The lines of constant
+{% katex %}\textit{u}{% endkatex %} and {% katex %}\textit{v}{% endkatex %}
 can be curved and not aligned with the {% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %}
 Cartesian coordinates as shown in the figure. The transformed
 {% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %} coordinates in this case are [Curvilinear](https://en.wikipedia.org/wiki/Curvilinear_coordinates).
@@ -178,28 +182,27 @@ Cartesian coordinates as shown in the figure. The transformed
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/Jacobian.png">
 </div>
 
-Consider the differential area elements indicated in the figure. In the
+Consider the differential area elements indicated by orange in the figure. In the
 {% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %}
 Cartesian coordinates the differential area element is given by {% katex %}dA=dudv{% endkatex %} but
-in the Curvilinear {% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %} the area element is
-distorted because the differentials defining the area are not orthogonal. In the infinitesimal limit it
+in {% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %} cooirdinates differentials defining the area are not orthogonal and the element is distorted. In the infinitesimal limit it
 will become a parallelogram with area given by the cross product of {% katex %}d\textbf{X}{% endkatex %}
 and {% katex %}d\textbf{Y}{% endkatex %} which are tangent vectors to the curves of constant
-{% katex %}\textit{v}{% endkatex %} and {% katex %}\textit{u}{% endkatex %} respectively.
-To compute the cross product expressions for the differentials are required. From the transformation
-defined by equation {% katex %}(4){% endkatex %} the components of the differentials are computed by
-assuming {% katex %}\textit{v}{% endkatex %} is constant for {% katex %}d\textbf{X}{% endkatex %} and
-{% katex %}\textit{u}{% endkatex %} is constant for {% katex %}d\textbf{Y}{% endkatex %}.
-It follows that,
+{% katex %}\textit{v}{% endkatex %} and {% katex %}\textit{u}{% endkatex %} respectively at the origin
+point of the vectors. To compute the cross product expressions for the differentials are required.
+The components of the differentials are computed from the transformation defined by equation
+{% katex %}(4){% endkatex %} by assuming {% katex %}\textit{v}{% endkatex %} is constant for
+{% katex %}d\textbf{X}{% endkatex %} and {% katex %}\textit{u}{% endkatex %} is constant for
+{% katex %}d\textbf{Y}{% endkatex %}. It follows that,
 
 {% katex display %}
 \begin{aligned}
-d\textbf{X} &= \frac{\partial x}{\partial u}du\textbf{x} + \frac{\partial y}{\partial u}du\textbf{y} \\
-d\textbf{Y} &= \frac{\partial x}{\partial v}dv\textbf{x} + \frac{\partial y}{\partial v}dv\textbf{y}
-\end{aligned}.
+d\textbf{X} &= \frac{\partial x}{\partial u}du\ \textbf{x} + \frac{\partial y}{\partial u}du\ \textbf{y} \\
+d\textbf{Y} &= \frac{\partial x}{\partial v}dv\ \textbf{x} + \frac{\partial y}{\partial v}dv\ \textbf{y}.
+\end{aligned}
 {% endkatex %}
 
-Now the cross product of the differentials above is given by,
+The cross product of the differentials above is given by,
 
 {% katex display %}
 \begin{aligned}
@@ -209,14 +212,14 @@ d\textbf{X} \times d\textbf{Y}
 \frac{\small{\partial y}}{\small{\partial u}}\small{du} \\
 \frac{\small{\partial x}}{\small{\partial v}}\small{dv} &
 \frac{\small{\partial y}}{\small{\partial v}}\small{dv}
-\end{vmatrix}\textbf{z} \\
+\end{vmatrix}\ \textbf{z} \\
 &= \begin{vmatrix}
 \frac{\small{\partial x}}{\small{\partial u}} &
 \frac{\small{\partial y}}{\small{\partial u}} \\
 \frac{\small{\partial x}}{\small{\partial v}} &
 \frac{\small{\partial y}}{\small{\partial v}}
-\end{vmatrix}dudv\textbf{z} \\
-&= \left(\frac{\partial x}{\partial u}\frac{\partial y}{\partial v} - \frac{\partial y}{\partial u}\frac{\partial x}{\partial v} \right)dudv\textbf{z}.
+\end{vmatrix}dudv\ \textbf{z} \\
+&= \left(\frac{\partial x}{\partial u}\frac{\partial y}{\partial v} - \frac{\partial y}{\partial u}\frac{\partial x}{\partial v} \right)dudv\ \textbf{z}.
 \end{aligned}
 {% endkatex %}
 
@@ -244,7 +247,8 @@ dA = \mid d\textbf{X} \times d\textbf{Y} \mid = \mid J \mid dudv.
 {% endkatex %}
 
 {% katex %}\mid J \mid{% endkatex %} will scale the differential area {% katex %}dudv{% endkatex %}
-by the amount required by the transform in a manner similar to that seen for a single variable.
+by the amount required by the transform to conserve the area in a manner similar to that seen for a
+single variable length is conserved.
 
 Finally the transform of the bivariate integral in equation {% katex %}(1){% endkatex %} is given by,
 
@@ -252,7 +256,7 @@ Finally the transform of the bivariate integral in equation {% katex %}(1){% end
 \int_{A} f(x, y) dxdy = \int_{A'} f(x(u,v), y(u, v)) \mid J \mid dudv,
 {% endkatex %}
 
-where {% katex %}A'{% endkatex %} is the region obtained by applying transform {% katex %}(4){% endkatex %}
+where {% katex %}A'{% endkatex %} is the region obtained by applying {% katex %}(4){% endkatex %}
 to {% katex %}A{% endkatex %}.
 
 ## Bivariate Normal Distribution
@@ -260,8 +264,7 @@ to {% katex %}A{% endkatex %}.
 The Bivariate Normal Distribution with random variables {% katex %}U{% endkatex %} and
 {% katex %}V{% endkatex %} is obtained by applying the following linear transformation to
 two independent {% katex %}\textbf{Normal}(0, 1){% endkatex %} random variables
-{% katex %}X{% endkatex %}
-and {% katex %}Y,{% endkatex %}
+{% katex %}X{% endkatex %} and {% katex %}Y,{% endkatex %}
 
 {% katex display %}
 \begin{pmatrix}
@@ -309,10 +312,10 @@ The distribution for {% katex %}X{% endkatex %} and {% katex %}Y{% endkatex %} i
 of the assumption that they are independent {% katex %}\textbf{Normal}(0, 1){% endkatex %}, namely,
 
 {% katex display %}
-f(x,y) = \frac{1}{2\pi}e^{-(x^2 + y^2) / 2}\ \ \ \ \ (7).
+f(x,y) = f(x)f(y) = \frac{1}{2\pi}e^{-(x^2 + y^2) / 2}.\ \ \ \ \ (7)
 {% endkatex %}
 
-In the previous section it was shown that if a transformation of the form,
+In the previous section it was shown that for transformation ,
 
 {% katex display %}
 \begin{aligned}
@@ -321,20 +324,14 @@ y &= y(u, v),
 \end{aligned}
 {% endkatex %}
 
-is available the transformed density is given by,
+the transformed PDF is given by,
 
 {% katex display %}
-g(u, v) = \mid J \mid f(x(u,v), y(u,v))\ \ \ \ \ (8),
+g(u, v) = \mid J \mid f(x(u,v), y(u,v)),\ \ \ \ \ (8)
 {% endkatex %}
 
-where {% katex %}\mid J \mid{% endkatex %} is the Jacobian,
-
-{% katex display %}
-\mid J \mid = \frac{\partial x}{\partial u}\frac{\partial y}{\partial v} -
-  \frac{\partial y}{\partial u}\frac{\partial x}{\partial v}.
-{% endkatex %}
-
-The transformations {% katex %}x(u,v){% endkatex %} and {% katex %}y(u,v){% endkatex %} can be determined
+where {% katex %}\mid J \mid{% endkatex %} is the Jacobian. The transformations
+{% katex %}x(u,v){% endkatex %} and {% katex %}y(u,v){% endkatex %} can be determined
 from equation {% katex %}(6){% endkatex %},
 
 {% katex display %}
@@ -344,8 +341,8 @@ y(u,v) & = \frac{1}{\sqrt{1-\gamma^2}}
              \left[
                \frac{1}{\sigma_{v}}\left(v-\mu_{v}\right) -
                \frac{\gamma}{\sigma_{u}}\left(u-\mu_{u}\right)
-             \right]
-\end{aligned}\ \ \ \ \ (9).
+             \right].
+\end{aligned}\ \ \ \ \ (9)
 {% endkatex %}
 
 It follows that the Jacobian is given by,
@@ -356,12 +353,12 @@ It follows that the Jacobian is given by,
 
 With the goal of keeping things simple in the evaluation of equation {% katex %}(8){% endkatex %}
 the exponential argument term of equation {% katex %}(7){% endkatex %},
-{% katex %}x^2 + y^2,{% endkatex %} will first be considered. Now, making use of
-equations {% katex %}(9){% endkatex %} gives,
+{% katex %}x^2 + y^2,{% endkatex %} will first be considered. Equation {% katex %}(9){% endkatex %}
+gives,
 
 {% katex display %}
 \begin{aligned}
-x^2 + y^2 &= x^2(u,v) + y^2(u,v) \\
+x^2 + y^2 &= \left[x(u,v)\right]^{^2} + \left[y(u,v)\right]^{^2} \\
 &= \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} +
    \frac{1}{1-\gamma^2}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}\right) -
                \frac{\gamma}{\sigma_{u}}\left(u-\mu_{u}\right)\right]^2 \\
@@ -380,15 +377,14 @@ x^2 + y^2 &= x^2(u,v) + y^2(u,v) \\
       \frac{\left(u-\mu_{u} \right)^2}{\sigma_{u}^2} +
       \frac{\left(v-\mu_v\right)^2}{\sigma_v^2} -
       2\gamma\frac{\left(v-\mu_v\right)}{\sigma_{v}}\frac{\left(u-\mu_{u} \right)}{\sigma_{u}}
-   \right],
+   \right].
 \end{aligned}\ \ \ \ \ (11)
 {% endkatex %}
 
-where the first step expands the right most squared term and the last two steps aggregate terms with
-the same posers of {% katex %}\left(u-\mu_{u} \right){% endkatex %} and
-{% katex %}\left(v-\mu_v\right){% endkatex %}. Making use of equations {% katex %}(10){% endkatex %} and
-{% katex %}(11){% endkatex %} the Bivariate Normal Distribution PDF defined by equation
-{% katex %}(8){% endkatex %} gives,
+The first step expands the right most squared term and the last two steps aggregate
+{% katex %}\left(u-\mu_{u} \right){% endkatex %} and {% katex %}\left(v-\mu_v\right){% endkatex %}
+terms. The Bivariate Normal PDF follows by inserting equations {% katex %}(10){% endkatex %}
+and {% katex %}(11){% endkatex %} into equation {% katex %}(8){% endkatex %},
 
 {% katex display %}
 \begin{aligned}
@@ -404,8 +400,8 @@ g(u, v) &= \mid J \mid f(x(u,v), y(u,v)) \\
 \end{aligned}\ \ \ \ \ (12)
 {% endkatex %}
 
-With this form of the Bivariate Normal Distribution PDF extensions to higher dimensions is not clear. In the
-next section a form us described that makes this clear.
+Extension of transform {% katex %}(5){% endkatex %} to more than two dimensions is not clear. The
+following section will describe a form of the transformation that makes the extension more apparent.
 
 ### Matrix Form of Bivariate Normal Distribution
 
@@ -427,14 +423,14 @@ Y = \begin{pmatrix}
 P = \begin{pmatrix}
       \sigma_{1}^{2} & \gamma\sigma_{1}\sigma_{2} \\
       \gamma\sigma_{1}\sigma_{2} & \sigma_{2}^{2}
-      \end{pmatrix} \\
+      \end{pmatrix}. \\
 \end{gathered}\ \ \ \ \ (13)
 {% endkatex %}
 
-Here {% katex %}Y{% endkatex %} is the column vector of Bivariate Normal Random variables,
+{% katex %}Y{% endkatex %} is the column vector of Bivariate Normal Random variables,
 {% katex %}\mu{% endkatex %} the column vector of mean values and {% katex %}P{% endkatex %} is called the
 [Covariance Matrix](https://en.wikipedia.org/wiki/Covariance_matrix). To continue the inverse of the
-covariance matrix and determinate are required. First, the inverse is given by,
+covariance matrix and its determinate are required. The inverse is given by,
 
 {% katex display %}
 P^{-1} = \frac{1}{\sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)}
@@ -450,7 +446,7 @@ and the determinate is,
 \mid P \mid = \sigma_1^2\sigma_2^2\left(1 - \gamma^2 \right)
 {% endkatex %}
 
-Now consider the product where {% katex %}\left( Y - \mu\right)^{T}{% endkatex %} is the
+Next, consider the product, where {% katex %}\left( Y - \mu\right)^{T}{% endkatex %} is the
 [transpose](https://en.wikipedia.org/wiki/Transpose) of {% katex %}\left( Y - \mu\right){% endkatex %},
 
 {% katex display %}
@@ -510,7 +506,7 @@ Continuing the evaluation by including the left most term gives,
       \frac{\left(y_{1}-\mu_{1} \right)^2}{\sigma_{1}^2} +
       \frac{\left(y_{2}-\mu_{2}\right)^2}{\sigma_{2}^2} -
       2\gamma\frac{\left(y_{1}-\mu_{1}\right)}{\sigma_{1}}\frac{\left(y_{2}-\mu_{2}\right)}{\sigma_{2}}
-   \right],
+   \right].
 \end{aligned}
 {% endkatex %}
 
@@ -521,7 +517,7 @@ the expression for {% katex %}\mid P\mid{% endkatex %} with equation {% katex %}
 \mid J \mid = \frac{1}{\sqrt{\mid P \mid}}.
 {% endkatex %}
 
-Putting these results together produces the desired result,
+Putting things together produces the desired result,
 
 {% katex display %}
 \begin{aligned}
@@ -574,16 +570,15 @@ random variables. Linear combinations were constructed by application of a linea
 that includes five independent parameters. In this section interpretations of the parameters are
 provided and variation in the distribution as the parameters are varied is described. First, the
 [Marginal Distributions](https://en.wikipedia.org/wiki/Marginal_distribution) are calculated and it is
-shown that four of the distribution parameters correspond to the means and standard deviations.
-Next, the correlation coefficient of the distribution random variables is computed and shown to
-correspond to the remaining parameter. The remaining sections consider how changes in the
-parameters affect the distribution shape. This includes an analysis of PDF contours and the
-linear transformation used to construct the distribution from the independent
-{% katex %}\textbf{Normal}(0,1){% endkatex %} random variables.
+shown that four of the distribution parameters correspond to marginal distribution means and standard deviations. Next, the [Correlation Coefficient](https://en.wikipedia.org/wiki/Correlation_coefficient)
+of the distribution is computed and shown to correspond to the remaining parameter.
+In remaining sections how changes in the parameters
+affect the distribution shape are considered. This includes an analysis of PDF contours and the linear
+transformation used to construct the distribution.
 
 ### Marginal Distributions
 
-The Marginal Distributions for Bivariate Normal random variables {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %}
+The Marginal Distributions for {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %}
 are defined by,
 
 {% katex display %}
@@ -637,7 +632,7 @@ g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
      \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}}
   }
   e^{
-    \frac{\footnotesize{\gamma}}{\footnotesize{2(1-\gamma^2)}}
+    \frac{\footnotesize{\gamma^2}}{\footnotesize{2(1-\gamma^2)}}
     \frac{\footnotesize{\left(u-\mu_{u} \right)^2}}{\footnotesize{\sigma_{u}^2}}
   }
   \int_{-\infty}^{\infty}e^{
@@ -660,7 +655,7 @@ g(u) &= \int_{-\infty}^{\infty} g(u, v) dv \\
 In the first step the {% katex %}u{% endkatex %} dependence is factored out for
 evaluation of the integral over {% katex %}v{% endkatex %}. The next step completes the
 square of the exponential followed by also factoring the introduced {% katex %}u{% endkatex %}
-term outside the {% katex %}v{% endkatex %} integral, which is followed by simplification of the
+term from the {% katex %}v{% endkatex %} integral. This is followed by simplification of the
 {% katex %}u{% endkatex %} exponential argument. Finally, the integral over
 {% katex %}v{% endkatex %} is evaluated yielding a
 {% katex %}\textbf{Normal}(\mu_{u}, \sigma_{u}){% endkatex %} distribution. Similarly,
@@ -670,7 +665,7 @@ the marginal distribution {% katex %}g(v){% endkatex %} is given by,
 g(v) = \int_{-\infty}^{\infty} g(u, v) du
 = \frac{1}{\sqrt{2\pi\sigma_{v}^{2}}}e^{
      -\frac{\footnotesize{\left(v-\mu_{v} \right)^2}}{\footnotesize{2\sigma_{v}^2}}
-  },\ \ \ \ \ (19)
+  },\ \ \ \ \ (14)
 {% endkatex %}
 
 which is a {% katex %}\textbf{Normal}(\mu_{v}, \sigma_{v}){% endkatex %} distribution. The
@@ -717,9 +712,15 @@ Similarly for {% katex %}v{% endkatex %},
 
 ### Conditional Distribution
 
-The [Conditional Distributions](https://en.wikipedia.org/wiki/Conditional_probability_distribution)
-for {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} are
-defined by,
+The [Conditional Distribution](https://en.wikipedia.org/wiki/Conditional_probability_distribution)
+of a random variable is the distribution obtained by assuming the values of one or more
+correlated random variables are known. If the variables are uncorrelated, independent,
+the conditional distribution is equivalent to the marginal distribution.
+The conditional distribution is useful in the of the calculation of [Correlation Coefficient](https://en.wikipedia.org/wiki/Correlation_coefficient)
+performed in the following section and in simulation methods such as
+[Gibbs Sampling](https://en.wikipedia.org/wiki/Gibbs_sampling).
+
+For the bivariate case the conditional distributions are defined by,
 
 {% katex display %}
 \begin{aligned}
@@ -728,7 +729,7 @@ g(v|u) &= \frac{g(u, v)}{g(u)}
 \end{aligned}
 {% endkatex %}
 
-Using equations {% katex %}(12){% endkatex %} and {% katex %}(19){% endkatex %}
+Using equations {% katex %}(12){% endkatex %} and {% katex %}(14),{% endkatex %}
 {% katex %}g(u|v){% endkatex %} is evaluated as follows,
 
 {% katex display %}
@@ -802,8 +803,8 @@ e^{
         \left\{
            u - \left[\mu_u + \frac{\footnotesize{\gamma\sigma_u}}{\footnotesize{\sigma_v}} \left(\footnotesize{v-\mu_{v}}\right)\right]
         \right\}^2
-  },
-\end{aligned}\ \ \ \ \ (23)
+  }.
+\end{aligned}\ \ \ \ \ (15)
 {% endkatex %}
 
 In the first step the {% katex %}\left(v-\mu_{v}\right)^2{% endkatex %} terms are collected and
@@ -811,7 +812,7 @@ then the square is completed for the remaining terms. Once again the
 {% katex %}\left(v-\mu_{v}\right)^2{% endkatex %} terms are collected and the finial result obtained,
 a {% katex %}\textbf{Normal}{% endkatex %} distribution.
 
-Similarly, {% katex %}g(v|U){% endkatex %} is given by,
+Similarly, {% katex %}g(v|u){% endkatex %} is given by,
 
 {% katex display %}
 \begin{aligned}
@@ -853,27 +854,26 @@ The conditional mean and variance can now be easily evaluated,
 \begin{aligned}
 \text{Var}[V|U] &= \text{E}[\left(V - \text{E}[V|U]\right)^{2}] \\
 &= \int_{-\infty}^{\infty} \left(v - \text{E}[V|U]\right)^{2}g(v|u) dv \\
-&=\sigma_{v}^{2}(1-\gamma^2),
+&=\sigma_{v}^{2}(1-\gamma^2).
 \end{aligned}
 {% endkatex %}
 
 For both {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %} the conditional expectation
 is a linear function of the conditioned variable. This is illustrated in the following plot
 where {% katex %}g(u|v){% endkatex %} is plotted for several values of {% katex %}v{% endkatex %}.
-It is seen that increasing values of {% katex %}v{% endkatex %} leads to increasing translations
-of the distribution.
+It is seen that {% katex %}v{% endkatex %} translates the distribution along the
+{% katex %}u{% endkatex %} axis.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_conditional_pdf_y_scan.png">
 </div>
 
-Consider the variation of {% katex %}\text{E}[U|V]{% endkatex %},  
-{% katex %}\text{E}[V|U]{% endkatex %}, {% katex %}\text{Var}[U|V]{% endkatex %} and {% katex %}\text{Var}[U|V]{% endkatex %} with {% katex %}\gamma{% endkatex %}. For
-{% katex %}\gamma = 0{% endkatex %} each reduces to the values corresponding to its
-marginal distribution discussed in the previous section. For both conditional distributions
-increasing {% katex %}\gamma{% endkatex %} leads to decreasing variance resulting in a
-sharper peak. Additionally, changing the sign of {% katex %}\gamma{% endkatex %} results in a
-reflection of the distribution about the mean. Each of these properties is illustrated on the
+Consider the variation of {% katex %}\text{E}[U|V]{% endkatex %}, {% katex %}\text{E}[V|U]{% endkatex %},
+{% katex %}\text{Var}[U|V]{% endkatex %} and {% katex %}\text{Var}[U|V]{% endkatex %} with
+{% katex %}\gamma{% endkatex %}. For {% katex %}\gamma = 0{% endkatex %} each reduces to the
+values corresponding to its marginal distribution discussed in the previous section. For both conditional distributions increasing {% katex %}\gamma{% endkatex %} leads to decreasing variance resulting in a
+sharper peak. Additionally, changing the sign of {% katex %}\gamma{% endkatex %} causes reflection of the
+distribution about the mean. Each of these properties is illustrated on the
 plot below where {% katex %}g(u|v){% endkatex %} is plotted for values of
 {% katex %}\gamma{% endkatex %} ranging from {% katex %}-1{% endkatex %} to
 {% katex %}1.{% endkatex %}
@@ -884,19 +884,18 @@ plot below where {% katex %}g(u|v){% endkatex %} is plotted for values of
 
 ### Correlation Coefficient
 
-The [Cross Correlation](https://en.wikipedia.org/wiki/Cross-correlation) of the two Bivariate
-Normal random variable {% katex %}U{% endkatex %} and {% katex %}V{% endkatex %} is defined
-by,
+The [Cross Correlation](https://en.wikipedia.org/wiki/Cross-correlation) of the two random variables
+{% katex %}U{% endkatex %} and {% katex %}V{% endkatex %} is defined by,
 
 {% katex display %}
 \begin{aligned}
 \text{E}[UV] &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u,v) dvdu \\
-&= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu,
+&= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} uv g(u|v)g(v) dvdu.
 \end{aligned}
 {% endkatex %}
 
-the last step follows from the definition of conditional probability. Now, substituting
-equations {% katex %}(23){% endkatex %} and {% katex %}(19){% endkatex %} into the equation
+The last step follows from the definition of conditional probability. Now, substituting
+equations {% katex %}(15){% endkatex %} and {% katex %}(14){% endkatex %} into the equation
 above yields,
 
 {% katex display %}
@@ -933,13 +932,13 @@ above yields,
 \end{aligned}
 {% endkatex %}
 
-Using this result gives the [Covariance](https://en.wikipedia.org/wiki/Covariance),
+It follows that the [Covariance](https://en.wikipedia.org/wiki/Covariance) is given by,
 
 {% katex display %}
 \text{Cov}(U,V) = \text{E}[UV] - \text{E}[U]E[V] = \gamma\sigma_{v}\sigma_{u},
 {% endkatex %}
 
-and finally the [Correlation Coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient),
+and [Correlation Coefficient](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) by,
 
 {% katex display %}
 \gamma = \frac{\text{Cov}(U,V)}{\sigma_{v}\sigma_{u}}.
@@ -952,10 +951,10 @@ the Bivariate Normal distribution, equation {% katex %}(12){% endkatex %}, are i
 variance and correlation coefficient. Here a sketch of the change in shape of the
 distribution as these parameters are varied is discussed by evaluating
 limits of the parameters for the equation defining the PDF contours.
-The following section will describe the results of a more detailed numerical analysis.
+The following section will describe the convergence to the limits using a numerical analysis.
 
 The equation satisfied by the contours is obtained by setting the argument of the
-exponential in equation {% katex %}(12){% endkatex %} to a constant {% katex %}C^{2}{% endkatex %},
+exponential in equation {% katex %}(12){% endkatex %} to a constant, {% katex %}C^{2}{% endkatex %},
 
 {% katex display %}
 C^{2} =
@@ -968,16 +967,18 @@ expectation of the behavior the following limits of this equation are considered
 {% katex %}\gamma\to 0{% endkatex %}, {% katex %}\gamma\to \pm 1{% endkatex %},
 {% katex %}\sigma_{v}/\sigma_{u}\to 1{% endkatex %},
 {% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} and
-{% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %}.
+{% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %}. The variation with
+{% katex %}\mu_{u}{% endkatex %} and {% katex %}\mu_{v}{% endkatex %} produces a translation
+which is not as interesting.
 
 First, consider the limit {% katex %}\gamma\to 0{% endkatex %} which is easily evaluated
 using the equation above,
 
 {% katex display %}
-C^{2} = \frac{\left(u-\mu_{u} \right)^{2}}{\sigma_{u}^{2}} + \frac{\left(v-\mu_v\right)^2}{\sigma_{v}^{2}},
+C^{2} = \frac{\left(u-\mu_{u} \right)^{2}}{\sigma_{u}^{2}} + \frac{\left(v-\mu_v\right)^2}{\sigma_{v}^{2}}.
 {% endkatex %}
 
-which is the equation of an ellipse with axes of length {% katex %}2C\sigma_{u}{% endkatex %} and
+This is the equation of an ellipse with axes of length {% katex %}2C\sigma_{u}{% endkatex %} and
 {% katex %}2C\sigma_{v}{% endkatex %}. The aspect ratio of the ellipse is given by
 {% katex %}\sigma_{v}/\sigma_{u}{% endkatex %}. It follows that in the limit
 {% katex %}\sigma_{v}/\sigma_{u}\to 1{% endkatex %} the contour approaches a circle and in the limits
@@ -986,10 +987,11 @@ which is the equation of an ellipse with axes of length {% katex %}2C\sigma_{u}{
 {% katex %}u{% endkatex %} or {% katex %}v{% endkatex %} axes respectively.
 
 To evaluate the limit {% katex %}\gamma\to \pm 1{% endkatex %} it must be noted that
-{% katex %}\gamma^{2}\ne \pm 1{% endkatex %} was assumed in the derivation of inverse of the
+{% katex %}\gamma^{2}\ne 1{% endkatex %} was assumed in the derivation of inverse of the
 Bivariate Transformation, equation {% katex %}(6){% endkatex %}.
-To evaluate the limit it should be evaluated before inverting the transformation defining the distribution.
-Taking the limit results in a transformation that is valid for {% katex %}\gamma^{2}= 1{% endkatex %}, namely,
+To evaluate the limit it should be evaluated before inverting the transformation defining the distribution,
+equation {% katex %}(5){% endkatex %}. Taking the limit results in a transformation that is valid for
+{% katex %}\gamma^{2}= 1{% endkatex %}, namely,
 
 {% katex display %}
 \begin{pmatrix}
@@ -1013,11 +1015,11 @@ Evaluation of the equation above gives,
 {% endkatex %}
 
 It follows that as the limit is approached contours will approach a line with slope
-{% katex %}\pm \frac{\sigma_{v}}{\sigma_{u}}{% endkatex %}. The slope is positive
-for positive correlation and negative for negative correlation. It follows that in the limit
-{% katex %}\frac{\sigma_{v}}{\sigma_{u}}\to 1{% endkatex %} the contour slope approaches
-approaches a circle with {% katex %}\pm 1{% endkatex %} and in the limit
-{% katex %}\frac{\sigma_{v}}{\sigma_{u}}\to 0{% endkatex %} or
+{% katex %}\pm \sigma_{v} / \sigma_{u}{% endkatex %}. The slope is positive
+for positive correlation and negative for negative correlation. In the limit
+{% katex %}\sigma_{v} / \sigma_{u}\to 1{% endkatex %} the contour slope approaches
+approaches a line with slope {% katex %}\pm 1{% endkatex %} and in the limit
+{% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} or
 {% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %} the contour approaches a line along the
 {% katex %}u{% endkatex %} or {% katex %}v{% endkatex %} axes respectively which is the same
 as obtained in the limit {% katex %}\gamma\to 0.{% endkatex %}
@@ -1048,8 +1050,7 @@ aligned with the {% katex %}v{% endkatex %} axis.
 
 The final plot has {% katex %}\gamma=0.5{% endkatex %} and {% katex %}\sigma_{v}/\sigma_{u}=1{% endkatex %}.
 The contours are symmetric about the line {% katex %}v=u{% endkatex %} as expected for the limit
-{% katex %}\gamma\to \pm 1{% endkatex %}. If the correlation were negative the contours would be reflected about the
-origin and symmetric about the line {% katex %}v=-u{% endkatex %}.
+{% katex %}\gamma\to \pm 1{% endkatex %}. If the correlation were negative the contours would be reflected about the {% katex %}v{% endkatex %} axis and symmetric about the line {% katex %}v=-u{% endkatex %}.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_contour_plot_0.5_1.png">
@@ -1057,8 +1058,8 @@ origin and symmetric about the line {% katex %}v=-u{% endkatex %}.
 
 ### Probability Density Contours
 
-This section will describe a more detailed analysis of the Bivariate Normal PDF contours
-consisting of a larger range of values for the parameters {% katex %}\gamma{% endkatex %}
+This section will describe a more detailed analysis of parameter limits of the Bivariate Normal PDF
+contours consisting of plots of a larger range of values for the parameters {% katex %}\gamma{% endkatex %}
 and {% katex %}\sigma_{v}/\sigma{u}{% endkatex %}.
 
 The equation satisfied by the contours is obtained by setting the argument of the
@@ -1109,7 +1110,7 @@ parametric equations,
 \begin{aligned}
 u &= C\sigma_{u}\left[\sin{\theta} + \frac{\gamma}{\sqrt{1-\gamma^2}}\cos{\theta}\right] + \mu_{u} \\
 v &= \frac{C\sigma_v}{\sqrt{1-\gamma^2}}\cos{\theta} + \mu_{v}.
-\end{aligned}\ \ \ \ \ (30)
+\end{aligned}\ \ \ \ \ (16)
 {% endkatex %}
 
 To plot the actual contours a relation between the constant {% katex %}C{% endkatex %} and the the value of the
@@ -1134,7 +1135,7 @@ K\ <\ \frac{1}{2\pi\sigma_{u}\sigma_{v}\sqrt{1-\gamma^{2}}},
 {% endkatex %}
 
 which places an upper bound on the value of the peak of the distribution. The following two plots of the
-parametric equations defined by {% katex %}(30){% endkatex %} should be compared to the contour plots
+parametric equations defined by {% katex %}(16){% endkatex %} should be compared to the contour plots
 from the previous section.
 
 <div style="text-align:center;">
@@ -1145,13 +1146,15 @@ from the previous section.
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_0.5.png">
 </div>
 
-To get a sense of how the contour shape varies with the distribution parameters the following two plots scan the range of
-{% katex %}\sigma_{v}/\sigma{u}{% endkatex %} with {% katex %}\gamma = 0{% endkatex %} to illustrate the
-limits {% katex %}\sigma_{v}/\sigma{u}\to 0{% endkatex %} and {% katex %}\sigma_{v}/\sigma{u}\to\infty{% endkatex %}
-respectively with {% katex %}\gamma=0{% endkatex %}.
+To get a sense of how the contour shape varies with the distribution parameters the following two
+plots scan a range of {% katex %}\sigma_{v}/\sigma_{u}{% endkatex %} with
+{% katex %}\gamma = 0{% endkatex %} to illustrate the
+limits {% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} and
+{% katex %}\sigma_{v}/\sigma_{u}\to\infty{% endkatex %}.
 This result agrees with the expectation obtained in the previous analysis.
-The {% katex %}\sigma_{v}/\sigma{u}\to 0{% endkatex %} series of contours approaches the {% katex %}u{% endkatex %} axis and
-the {% katex %}\sigma_{v}/\sigma{u}\to\infty{% endkatex %} contours approach the {% katex %}v{% endkatex %} axis.
+The {% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} series of contours approaches the {% katex %}u{% endkatex %} axis and
+the {% katex %}\sigma_{v}/\sigma_{u}\to\infty{% endkatex %} contours approach the
+{% katex %}v{% endkatex %} axis.
 
 
 <div style="text-align:center;">
@@ -1162,10 +1165,11 @@ the {% katex %}\sigma_{v}/\sigma{u}\to\infty{% endkatex %} contours approach the
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_sigma2_scan.png">
 </div>
 
-The next two plots illustrate the limit {% katex %}\gamma\to 1{% endkatex %} and {% katex %}\gamma\to -1{% endkatex %} respectively
-with {% katex %}\sigma_{u}/\sigma{v}=1{% endkatex %}. The {% katex %}\gamma\to 1{% endkatex %} plot is converging to the line
-{% katex %}v=u{% endkatex %} and the {% katex %}\gamma\to -1{% endkatex %} to the line {% katex %}v=-u{% endkatex %} as described
-in the previous section. Note that as {% katex %}\gamma{% endkatex %} approaches the limit the semi-axis of the contour increases along
+The next two plots illustrate the limit {% katex %}\gamma\to 1{% endkatex %} and
+{% katex %}\gamma\to -1{% endkatex %} with {% katex %}\sigma_{v}/\sigma_{u}=1{% endkatex %}.
+The {% katex %}\gamma\to 1{% endkatex %} plot is converging to the line
+{% katex %}v=u{% endkatex %} and the {% katex %}\gamma\to -1{% endkatex %} to the line {% katex %}v=-u{% endkatex %} as described in the previous section. Note that as {% katex %}\gamma{% endkatex %}
+approaches the limit the semi-major axis of the contour increases along
 the appropriate limiting line without any rotation of the contour.
 
 <div style="text-align:center;">
@@ -1176,15 +1180,15 @@ the appropriate limiting line without any rotation of the contour.
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_negative_correlation_scan.png">
 </div>
 
-The final two plots look at the {% katex %}\gamma\to 1{% endkatex %} limit but this time the first plot has
-{% katex %}\sigma_{v}/\sigma{u}=0.5{% endkatex %} and the second {% katex %}\sigma_{v}/\sigma{u}=2{% endkatex %}. The first is converging to th e line {% katex %}v=0.5u{% endkatex %} and the second converges to the
+The final two plots also look at the {% katex %}\gamma\to 1{% endkatex %} limit but this time
+the first plot has {% katex %}\sigma_{v}/\sigma_{u}=0.5{% endkatex %} and the second
+{% katex %}\sigma_{v}/\sigma_{u}=2{% endkatex %}. The first is converging to the line
+{% katex %}v=u/2{% endkatex %} and the second converges to the
 line {% katex %}v=2u{% endkatex %} in agreement with the previous analysis. The behavior of the
 contour as the limit is approached is more interesting since the ellipse has to rotate to reach the limit.
-This is caused by the {% katex %}\gamma=0{% endkatex %} contour also being an ellipse. As
-{% katex %}/gamma{% endkatex %} increases it begins to distort along the limiting line. The result
-is the vector sum of the semi-major axis of the {% katex %}\gamma=0{% endkatex %} contour and the
-developing component along the limiting line. If the {% katex %}\gamma=0{% endkatex %}
-contour were a symmetric circle the axis is uniform and lies along the limiting line.
+This is caused by the {% katex %}\gamma=0{% endkatex %} contour also being an ellipse which
+introduces and asymmetry that must be eliminated in the limit. If the {% katex %}\gamma=0{% endkatex %}
+contour were a symmetric circle no initial asymmetry need to be erased.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_sigma1_scan.png">
@@ -1196,22 +1200,10 @@ contour were a symmetric circle the axis is uniform and lies along the limiting 
 
 ### Coordinate Transformation
 
-In the derivation of the Bivariate Normal Distribution the linear transform defined by
-equation {% katex %}(6){% endkatex %} is applied two independent
-{% katex %}\textbf{Normal}(0, 1){% endkatex %} random variables {% katex %}x{% endkatex %}
-and {% katex %}y{% endkatex %}. This transformation is shown below.
-
-{% katex display %}
-\begin{aligned}
-x(u,v) &= \frac{1}{\sigma_{u}}\left(u-\mu_{u}\right) \\
-y(u,v) &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}\right) -
-  \frac{\gamma}{\sigma_{u}}\left(u-\mu_{u)}\right)\right].
-\end{aligned}
-{% endkatex %}
-
-Contours of constant {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %}
-using the transform are plotted in the {% katex %}(x, y){% endkatex %} coordinate system to understand
-how the transform distorts area elements.
+In this section contours of constant {% katex %}u{% endkatex %} and {% katex %}v{% endkatex %}
+are plotted in the {% katex %}(x, y){% endkatex %} coordinate system using equation
+{% katex %}(6){% endkatex %} to understand how the transform distorts area elements as the
+distribution parameters are varied.
 
 Contours of constant {% katex %}u = C_{u}{% endkatex %} in {% katex %}(x, y){% endkatex %}
 coordinates are defined by,
@@ -1220,7 +1212,7 @@ coordinates are defined by,
 \begin{aligned}
 x &= \frac{1}{\sigma_{u}}\left(C_{u}-\mu_{u}\right) \\
 y &= \frac{1}{\sqrt{1-\gamma^{2}}}\left[\frac{1}{\sigma_{v}}\left(v-\mu_{v}\right) -
-  \frac{\gamma}{\sigma_{u}}\left(C_{u}-\mu_{u)}\right)\right],
+  \frac{\gamma}{\sigma_{u}}\left(C_{u}-\mu_{u)}\right)\right].
 \end{aligned}
 {% endkatex %}
 
@@ -1245,11 +1237,10 @@ y = \frac{-\gamma}{\sqrt{1-\gamma^{2}}}x +
   \frac{1}{\sigma_{v}\sqrt{1-\gamma^{2}}}\left(C_{v}-\mu_{v}\right),
 {% endkatex %}
 
-which is the equation a line with slope {% katex %}-\gamma/\sqrt{1-\gamma^{2}}{% endkatex %}.
+which is the equation of a line with slope {% katex %}-\gamma/\sqrt{1-\gamma^{2}}{% endkatex %}.
 
-The following plot shows the transformation for parameter values
-{% katex %}\gamma=0{% endkatex %}, {% katex %}\mu_{u}=\mu_{v}=0{% endkatex %} and
-{% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %} which results in the transform,
+First, consider the case {% katex %}\gamma=0{% endkatex %}, {% katex %}\mu_{u}=\mu_{v}=0{% endkatex %}
+and {% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %} which results in the transform,
 
 {% katex display %}
 \begin{aligned}
@@ -1258,7 +1249,7 @@ y &= C_{v},
 \end{aligned}
 {% endkatex %}
 
-and Jacobian, from equation {% katex %}(10){% endkatex %}, is given by,
+and the Jacobian, equation {% katex %}(10){% endkatex %}, is given by,
 
 {% katex display %}
 \mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}} = 1.
@@ -1270,9 +1261,10 @@ It follows that area elements satisfy,
 dxdy = |J|dudv = dudv.
 {% endkatex %}
 
-Thus, for this particular choice of transform parameters area elements are preserved. Inspection of the plot and transform
-confirms that this is the case since the transform exactly maps {% katex %}(u,v){% endkatex %} coordinates onto
-{% katex %}(x,y){% endkatex %} coordinates.
+Thus, for this particular choice of transform parameters area elements are preserved.
+Inspection of the following plot confirms that this is the case since the
+transform exactly maps {% katex %}(u,v){% endkatex %} coordinates onto {% katex %}(x,y){% endkatex %}
+coordinates.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0.png">
@@ -1294,25 +1286,27 @@ with Jacobian,
 \mid J \mid = \frac{1}{\sigma_{u}\sigma_{v} \sqrt{1-\gamma^{2}}} = \frac{1}{2}.
 {% endkatex %}
 
-Once again the {% katex %}u{% endkatex %} contours are aligned with lines of constant{% katex %}x{% endkatex %} but
-the {% katex %}v{% endkatex %} contours are compressed by a factor of {% katex %}2{% endkatex %} relative to lines of
-constant {% katex %}y{% endkatex %}. If follows that the transform reduces the size of {% katex %}(u,v){% endkatex %}
+Once again the {% katex %}u{% endkatex %} contours are aligned with lines of constant
+{% katex %}x{% endkatex %} but the {% katex %}v{% endkatex %} contours are compressed by a
+factor of {% katex %}2{% endkatex %} relative to lines of constant {% katex %}y{% endkatex %}.
+If follows that the transform reduces the size of {% katex %}(u,v){% endkatex %}
 area elements by a factor of {% katex %}1/2{% endkatex %} when transformed, namely,
 
 {% katex display %}
 dxdy = |J|dudv = \frac{1}{2}dudv.
 {% endkatex %}
 
-What this is saying is that for an arbitrary area element {% katex %}dudv{% endkatex %} in the {% katex %}(u,v){% endkatex %}
-coordinates when transformed to the {% katex %}(x,y){% endkatex %} the element has {% katex %}1/2{% endkatex %} the area. This is seen
-to be the case in the plot where the area of a {% katex %}(u,v){% endkatex %} rectangle is reduced by a factor of
-{% katex %}(2){% endkatex %}.
+What this is saying is that for an arbitrary area element {% katex %}dudv{% endkatex %} in the
+{% katex %}(u,v){% endkatex %} coordinates when transformed to the {% katex %}(x,y){% endkatex %}
+coordinates the {% katex %}dxdy{% endkatex %} element has {% katex %}1/2{% endkatex %} the area.
+This is seen to be the case in the plot where the area of a {% katex %}(u,v){% endkatex %}
+rectangle is reduced by a factor of {% katex %}2{% endkatex %}.
 
 <div style="text-align:center;">
   <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_normal_transformation_correlation_0_sigma.png">
 </div>
 
-The final plot introduces the impact of correlation to the transform by using the parameters
+The final plot considers the impact of correlation to the transform by using the parameters
 {% katex %}\gamma=0.5{% endkatex %} and {% katex %}\sigma_{u}=\sigma_{v}=1{% endkatex %}. The transform corresponding
 to this parameter choice is given by,
 
@@ -1350,8 +1344,8 @@ but {% katex %}\Delta C_{u}=\Delta C_{v} = 1{% endkatex %}, so the area of the p
 \Delta y \Delta x = \frac{2}{\sqrt{3}},
 {% endkatex %}
 
-which is equal to the Jacobian. It follows that for this transformation area elements are increased in size by
-a factor of {% katex %}2/\sqrt{3}{% endkatex %},
+which is equal to the Jacobian. It follows that for this choice of parameters the transformation area
+elements are increased in size by a factor of {% katex %}2/\sqrt{3}{% endkatex %},
 
 {% katex display %}
 dxdy = |J|dudv = \frac{2}{\sqrt{3}}dudv.
@@ -1363,23 +1357,26 @@ dxdy = |J|dudv = \frac{2}{\sqrt{3}}dudv.
 
 ## Conclusions
 
-The Bivariate Normal distribution is widely used because it provides a simple model of correlated random variables.
-It is interesting to study because it is modeled as a linear transform of independent {% katex %}\textbf{Normal}(0, 1){% endkatex %}
-random variables that can serve as an introduction to the concepts used in application of transformations to multivariate integrals.
-Here the background needed to understand transformations of multivariate integrals was developed by starting with a discussion of the
-interpretation of the vector cross product as an area. This idea was then applied to the derivation of the Jacobian Matrix for an arbitrary
-multivariate transformation of differential area elements. Next, the transformation used to define the Bivariate Normal distribution was
-introduced and applied do a distribution of two independent {% katex %}\textbf{Normal}(0, 1){% endkatex %} random variables. The Jacobian
-matrix was next computed and the Bivariate Normal PDF derived. A matrix form of the Bivariate Normal PDF
-based the idea of the [Covariance Matrix](https://en.wikipedia.org/wiki/Covariance_matrix) was introduced and shown to
-be equivalent to the linear transform version first discussed. The covariance matrix for more easily extends to higher dimensions.
-The linear transform used to define the Bivariate Normal PDF introduced five parameters. It was next shown that these parameters are the
-means, {% katex %}\mu_{u}, \mu_{v}{% endkatex %}, variance, {% katex %}\sigma_{u}, \sigma_{v}{% endkatex %} and correlation coefficient,
-{% katex %}\gamma{% endkatex %}, of the distribution. This was followed by a derivation of the conditional distributions which are useful
-in simulations. The change in shape of the distribution was then investigated by
-evaluating limits for the PDF contours that included {% katex %}\gamma\to 0{% endkatex %}, {% katex %}\gamma\to \pm 1{% endkatex %},
-{% katex %}\sigma_{v}/\sigma_{u}\to 1{% endkatex %}, {% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} and
-{% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %}. This was followed by numerically investigating the convergence to these limits
-using a parametric form of the equation defining the PDF contours. The last topic discussed was the variation of the linear coordinate
-transformation with the distribution parameters. It was shown that resulting changes in area of transformed area elements were described
+The Bivariate Normal distribution provides a simple model of correlated random
+variables. It is interesting to study because it is modeled as a linear transform of independent
+{% katex %}\textbf{Normal}(0, 1){% endkatex %} random variables that can serve as an introduction to
+the concepts used in transformations of multivariate integrals.
+Here the background needed to understand transformations of bivariate integrals was developed by starting with a discussion of the interpretation of the vector cross product as an area. This idea was then
+applied to the derivation of the Jacobian Matrix for an arbitrary bivariate transformation of
+differential area elements. Next, the transformation used to define the Bivariate Normal distribution was
+introduced and applied to a distribution of two independent {% katex %}\textbf{Normal}(0, 1){% endkatex %} random variables. The Jacobian matrix was then computed and the Bivariate Normal PDF derived.
+A matrix form of the Bivariate Normal PDF based the covariance matrix was introduced and shown to
+be equivalent to the linear transform version first discussed. The covariance matrix more easily
+extends to higher dimensions. The linear transform used to define the Bivariate Normal PDF introduced
+five parameters. It was next shown that these parameters are the means,
+{% katex %}\mu_{u},\ \mu_{v}{% endkatex %}, variance, {% katex %}\sigma_{u},\ \sigma_{v}{% endkatex %}
+and correlation coefficient, {% katex %}\gamma{% endkatex %}, of the distribution.
+The conditional distributions were also discussed.
+The change in shape of the distribution as the parameters were varied was then investigated by
+evaluating limits for the PDF contours that included {% katex %}\gamma\to 0{% endkatex %},
+{% katex %}\gamma\to \pm 1{% endkatex %}, {% katex %}\sigma_{v}/\sigma_{u}\to 1{% endkatex %},
+{% katex %}\sigma_{v}/\sigma_{u}\to 0{% endkatex %} and
+{% katex %}\sigma_{v}/\sigma_{u}\to \infty{% endkatex %}. This was followed by numerically investigating the convergence to these limits using a parametric form of the PDF contour equation.
+The last topic discussed was the variation of the linear coordinate transformation with the distribution
+parameters. It was shown that resulting changes in transformed area elements were accounted for
 by the Jacobian.
