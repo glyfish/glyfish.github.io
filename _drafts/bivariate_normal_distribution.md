@@ -7,29 +7,31 @@ permlink: /bivariate_normal_distribution.html
 comments: false
 ---
 
-The [Bivariate Normal Distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) is a frequently used
-multivariable distribution because it provides a simple model of correlation between random variables. It is derived by
-application of a linear transformation to a sum of two independent {% katex %}\textbf{Normal}(0,\ 1){% endkatex %}
-random variables. Here a derivation is presented that uses a change of variables on the distribution of the independent variable sum.
-To provide background a general expression for change of variables of a bivariate integral is discussed. This result is then applied to
-obtain the Bivariate Normal Distribution. The first and seconds moments and correlation coefficient are next computed followed by
-derivation of the [marginal](https://en.wikipedia.org/wiki/Marginal_distribution) and [conditional](https://en.wikipedia.org/wiki/Conditional_probability_distribution) distributions which are
-used in a calculation of the [conditional expectation and variance](https://en.wikipedia.org/wiki/Conditional_expectation).
-Finally, the variation in the shape of the distribution as the free parameters are varied is discussed.
+The [Bivariate Normal Distribution](https://en.wikipedia.org/wiki/Multivariate_normal_distribution) is an
+often used multivariable distribution because it provides a simple model of correlated
+random variables. Here it is derived by application of a linear transformation
+and a multivariate change of variables to the distribution of two independent unit normal,
+{% katex %}\textbf{Normal}(0,\ 1){% endkatex %}, random variables. To provide background a general
+expression for change of variables of a bivariate integral is discussed and then used to
+obtain the Bivariate Normal Distribution. The [marginal](https://en.wikipedia.org/wiki/Marginal_distribution) and [conditional](https://en.wikipedia.org/wiki/Conditional_probability_distribution) distributions are next
+computed and used to evaluate the first and seconds moments, correlation coefficient
+and [conditional expectation and conditional variance](https://en.wikipedia.org/wiki/Conditional_expectation).
+Finally, the variation in the shape of the distribution and transformation as the distribution parameters
+are varied is discussed.
 
 <!--more-->
 
 ## Bivariate Change of Variables
 
-First, consider the PDF of a single variable, {% katex %}f(x){% endkatex %}, and the transformation,
+Consider the PDF of a single variable, {% katex %}f(x){% endkatex %}, and the transformation,
 {% katex %}x=x(y){% endkatex %} which is assumed monotonically increasing.
 The PDF of the transformed variable is given by,
 
 {% katex display %}
-g(y) = f(x(y)) \frac{dx}{dy},
+g(y) = f(x(y)) \frac{dx}{dy}.
 {% endkatex %}
 
-This result follows from performing a change of variables on the CDF,
+This result follows by performing a change of variables to the CDF,
 
 {% katex display %}
 \begin{aligned}
@@ -46,7 +48,7 @@ dx = \frac{dh}{dx} dy.
 {% endkatex %}
 
 The {% katex %}dh/dx{% endkatex %} term stretches or scales {% katex %}dy{% endkatex %} appropriately. In two
-dimensions a similar thing happens that is slightly more complicated. Consider the PDF of two variables,
+dimensions a similar but more complicated thing happens. Consider the PDF of two variables,
 {% katex %}f(x,y){% endkatex %}, with CDF,
 
 {% katex display %}
@@ -88,17 +90,18 @@ where,
 
 {% katex display %}
 \begin{aligned}
-A_{x} &= \mid \textbf{A} \mid \cos{\gamma} \\
-A_{y} &= \mid \textbf{A} \mid \sin{\gamma} \\
-B_{x} &= \mid \textbf{B} \mid \cos{\left(\gamma + \theta\right)} \\
-B_{y} &= \mid \textbf{B} \mid \sin{\left(\gamma + \theta\right)} \\
+A_{x} &= \mid \textbf{A} \mid \cos{\phi} \\
+A_{y} &= \mid \textbf{A} \mid \sin{\phi} \\
+B_{x} &= \mid \textbf{B} \mid \cos{\left(\phi + \theta\right)} \\
+B_{y} &= \mid \textbf{B} \mid \sin{\left(\phi + \theta\right)} \\
 \end{aligned}\ \ \ \ \ (2).
 {% endkatex %}
 
-The cross product of two vectors is another vector perpendicular both vectors. Here, for the figure
-above, this direction is perpendicular to the plane of the page, call it {% katex %}\textbf{z}{% endkatex %}.
-Then the cross product is defined by the [determinate](https://en.wikipedia.org/wiki/Determinant) computed
-computed from the components of the two vectors and projected along, namely,
+The cross product of two vectors is another vector perpendicular to both vectors. Here, for the figure
+above, that direction is perpendicular to the plane of the page, call it {% katex %}\textbf{z}{% endkatex %}.
+The cross product is then defined by the [determinate](https://en.wikipedia.org/wiki/Determinant)
+computed from the components of the two vectors and projected along
+{% katex %}\textbf{z}{% endkatex %}, namely,
 
 {% katex display %}
 \begin{aligned}
@@ -115,20 +118,28 @@ Substituting equation {% katex %}(2){% endkatex %} into {% katex %}(3){% endkate
 
 {% katex display %}
 \begin{gathered}
-\sin{\left(\theta + \gamma\right)} = \sin{\theta}\ \cos{\gamma}\ +\ \cos{\theta}\ \sin{\gamma} \\
-\cos{\left(\theta + \gamma\right)} = \cos{\theta}\ \cos{\gamma}\ -\ \sin{\theta}\ \sin{\gamma} \\
-\sin^2{\gamma}\ +\ \cos^2{\gamma} = 1
+\sin{\left(\theta + \phi\right)} = \sin{\theta}\ \cos{\phi}\ +\ \cos{\theta}\ \sin{\phi} \\
+\cos{\left(\theta + \phi\right)} = \cos{\theta}\ \cos{\phi}\ -\ \sin{\theta}\ \sin{\phi} \\
+\sin^2{\phi}\ +\ \cos^2{\phi} = 1
 \end{gathered}
 {% endkatex %}
 
 results in,
 
 {% katex display %}
-\mid \textbf{A} \times \textbf{B} \mid = \mid \textbf{A} \mid \mid \textbf{B} \mid \sin{\theta},
+\begin{aligned}
+\mid \textbf{A} \times \textbf{B} \mid &= \mid A_{x} B_{y} - B_{x} A_{y} \mid \\
+&= \mid \textbf{A} \mid \mid \textbf{B} \mid\left[\cos{\phi}\ \sin{\left(\phi + \theta\right)} -
+  \sin{\phi}\ \cos{\left(\phi + \theta\right)}\right] \\
+&= \mid \textbf{A} \mid \mid \textbf{B} \mid\left(\cos^{2}{\phi}\ \sin{\theta} +
+\sin{\phi}\ \cos{\phi}\ \cos{\theta} - \sin{\phi}\ \cos{\phi}\ \cos{\theta} + \sin^2{\phi}\ \sin{\theta}\right) \\
+&= \mid \textbf{A} \mid \mid \textbf{B} \mid\sin{\theta}\left(\cos^{2}{\phi}\ + \sin^2{\phi}\ \right) \\
+&= \mid \textbf{A} \mid \mid \textbf{B} \mid \sin{\theta},
+\end{aligned}
 {% endkatex %}
 
 which is the area of the parallelogram indicated by orange in the figure above.
-{% katex %}sin\theta{% endkatex %} can be assumed positive since
+{% katex %}\sin\theta{% endkatex %} can be assumed positive since
 {% katex %}\theta{% endkatex %} can always be chosen such that
 {% katex %}0\ \leq\ \theta\ \leq\ \pi{% endkatex %}.
 
