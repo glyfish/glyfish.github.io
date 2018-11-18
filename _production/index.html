@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-beta/dist/katex.min.css" integrity="sha384-9tPv11A+glH/on/wEu99NVwDPwkMQESOocs/ZGXPoIiLE8MU/qkqUcZ3zzL+6DuH" crossorigin="anonymous"><!-- Begin Jekyll SEO tag v2.5.0 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous"><!-- Begin Jekyll SEO tag v2.5.0 -->
 <title>gly.fish</title>
 <meta name="generator" content="Jekyll v3.7.3" />
 <meta property="og:title" content="gly.fish" />
@@ -140,6 +140,27 @@ if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNo
   <ul class="post-list">
     
     <li><h1 class="post-title p-name" >
+        Bivariate Normal Distribution
+      </h1>
+      <p class="post-meta">
+        <time class="dt-published" datetime="" itemprop="datePublished">Nov 18, 2018
+        </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <span class="p-author h-card" itemprop="name">Troy Stribling</span>
+            </span></p>
+      <img class="post-image" src="/assets/posts/bivariate_normal_distribution/bivariate_pdf_parameterized_contour_correlation_sigma2_scan.png"><p>The <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">Bivariate Normal Distribution</a> is an
+often used multivariable distribution because it provides a simple model of correlated
+random variables. Here it is derived by application of a linear transformation
+and a multivariate change of variables to the distribution of two independent unit normal,
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>Normal</mtext><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mtext> </mtext><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\textbf{Normal}(0,\ 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord text"><span class="mord mathbf">Normal</span></span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm"><span class="mspace"> </span><span class="mord mathrm">1</span></span><span class="mclose">)</span></span></span></span>, random variables. To provide background a general
+expression for change of variables of a bivariate integral is discussed and then used to
+obtain the Bivariate Normal Distribution. The <a href="https://en.wikipedia.org/wiki/Marginal_distribution">Marginal</a> and <a href="https://en.wikipedia.org/wiki/Conditional_probability_distribution">Conditional</a> distributions are next
+computed and used to evaluate the first and seconds moments, correlation coefficient
+and <a href="https://en.wikipedia.org/wiki/Conditional_expectation">conditional expectation and conditional variance</a>.
+Finally, the variation in the shape of the distribution and transformation as the distribution parameters
+are varied is discus...
+      <a href="/2018/11/18/bivariate_normal_distribution.html">read more</a>
+    </li>
+    <li><h1 class="post-title p-name" >
         Metropolis Hastings Sampling
       </h1>
       <p class="post-meta">
@@ -235,24 +256,6 @@ that is, as time advances<br />
 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><msub><mi>X</mi><mi>t</mi></msub><mo>=</mo><msub><mi>x</mi><mi>i</mi></msub><mo>)</mo></mrow><annotation encoding="application/x-tex">P(X_t=x_i)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord mathit" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mrel">=</span><span class="mord"><span class="mord mathit">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"></span></span></span></span></span><span class="mclose">)</span></span></span></span> becomes independent of time. Here a solution
 for this limit is discussed and illustrated with examp...
       <a href="/2018/08/08/discrete_state_markov_chain_equilibrium.html">read more</a>
-    </li>
-    <li><h1 class="post-title p-name" >
-        Rejection Sampling
-      </h1>
-      <p class="post-meta">
-        <time class="dt-published" datetime="" itemprop="datePublished">Jul 29, 2018
-        </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-              <span class="p-author h-card" itemprop="name">Troy Stribling</span>
-            </span></p>
-      <img class="post-image" src="/assets/posts/rejection_sampling/weibull_normal_3_efficiency.png"><p><a href="https://en.wikipedia.org/wiki/Rejection_sampling">Rejection Sampling</a> is a method for obtaining samples for a known target probability distribution using samples from some other proposal distribution.
-It is a more general method than
-<a href="/2018/07/21/inverse_cdf_sampling.html">Inverse CDF Sampling</a> which requires
-distribution to have an invertible CDF. Inverse CDF Sampling transforms a
-<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtext>Uniform</mtext><mo>(</mo><mn>0</mn><mo separator="true">,</mo><mtext> </mtext><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\textbf{Uniform}(0,\ 1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base"><span class="mord text"><span class="mord mathbf">Uniform</span></span><span class="mopen">(</span><span class="mord mathrm">0</span><span class="mpunct">,</span><span class="mord mathrm"><span class="mspace"> </span><span class="mord mathrm">1</span></span><span class="mclose">)</span></span></span></span> random variable into a random variable with
-a desired target distribution using the inverted CDF of the target distribution. While, Rejection Sampling
-is a method for transformation of random variables from arbitrary proposal distributions into a desired target
-distribut...
-      <a href="/2018/07/29/rejection_sampling.html">read more</a>
     </li></ul>
 
   
