@@ -13,7 +13,7 @@ random variables. Here it is derived by application of a linear transformation
 and a multivariate change of variables to the distribution of two independent unit normal,
 {% katex %}\textbf{Normal}(0,\ 1){% endkatex %}, random variables. To provide background a general
 expression for change of variables of a bivariate integral is discussed and then used to
-obtain the Bivariate Normal Distribution. The [marginal](https://en.wikipedia.org/wiki/Marginal_distribution) and [conditional](https://en.wikipedia.org/wiki/Conditional_probability_distribution) distributions are next
+obtain the Bivariate Normal Distribution. The [Marginal](https://en.wikipedia.org/wiki/Marginal_distribution) and [Conditional](https://en.wikipedia.org/wiki/Conditional_probability_distribution) distributions are next
 computed and used to evaluate the first and seconds moments, correlation coefficient
 and [conditional expectation and conditional variance](https://en.wikipedia.org/wiki/Conditional_expectation).
 Finally, the variation in the shape of the distribution and transformation as the distribution parameters
@@ -35,8 +35,8 @@ This result follows by performing a change of variables to the CDF,
 
 {% katex display %}
 \begin{aligned}
-P(X\ \leq\ x) &= \int_{-\infty}^{x} f(x) dx \\
-&= \int_{-\infty}^{y} f(x(w)) \frac{dx}{dw} dy \\
+P(X\ \leq\ x) &= \int_{-\infty}^{x} f(w) dw \\
+&= \int_{-\infty}^{y} f(x(w)) \frac{dx}{dw} dw \\
 &= P(Y\ \leq\ y)
 \end{aligned}
 {% endkatex %}
@@ -44,19 +44,19 @@ P(X\ \leq\ x) &= \int_{-\infty}^{x} f(x) dx \\
 where use was made of,
 
 {% katex display %}
-dx = \frac{dh}{dx} dy.
+dx = \frac{dx}{dy} dy.
 {% endkatex %}
 
-The {% katex %}dh/dx{% endkatex %} term stretches or scales {% katex %}dy{% endkatex %} appropriately
+The {% katex %}dx/dy{% endkatex %} term scales {% katex %}dy{% endkatex %} appropriately
 to conserve the differential length. In two dimensions a similar but more complicated thing happens.
 
 Consider the bivariate PDF, {% katex %}f(x,y){% endkatex %}, with CDF,
 
 {% katex display %}
-P(\{X,Y\} \in A) = \int_{A} f(x, y) dA\ \ \ \ \ (1),
+P(\{X,Y\} \in A) = \int_{A} f(x, y) dA,\ \ \ \ \ (1)
 {% endkatex %}
 
-that defines an integration over a region that computes that probability that {% katex %}X{% endkatex %} and
+which defines an integration over a region computing the probability that {% katex %}X{% endkatex %} and
 {% katex %}Y{% endkatex %} are both in the region {% katex %}A{% endkatex %}. The figure below provides an illustration for a [Cartesian Coordinate System](https://en.wikipedia.org/wiki/Cartesian_coordinate_system)
 where {% katex %}dA=dxdy{% endkatex %}.
 
@@ -98,11 +98,11 @@ B_{y} &= \mid \textbf{B} \mid \sin{\left(\phi + \theta\right)}. \\
 \end{aligned}\ \ \ \ \ (2)
 {% endkatex %}
 
-The cross product of two vectors is another vector perpendicular to both vectors. Here, for the figure
+The cross product of two vectors is another vector perpendicular to both vectors. For the figure
 above, that direction is perpendicular to the plane of the page, call it {% katex %}\textbf{z}{% endkatex %}.
 The cross product is then defined by the [determinate](https://en.wikipedia.org/wiki/Determinant)
 computed from the components of the two vectors and projected along
-{% katex %}\textbf{z}{% endkatex %}, namely,
+{% katex %}\textbf{z}{% endkatex %},
 
 {% katex display %}
 \begin{aligned}
@@ -110,8 +110,8 @@ computed from the components of the two vectors and projected along
 \begin{vmatrix}
 A_{x} & A_{y} \\
 B_{x} & B_{y}
-\end{vmatrix}\ \textbf{z} \\
-&= \left( A_{x}B_{y} - A_{y} B_{x} \right)\ \textbf{z}.
+\end{vmatrix}\textbf{z} \\
+&= \left( A_{x}B_{y} - A_{y} B_{x} \right)\textbf{z}.
 \end{aligned}\ \ \ \ \ (3)
 {% endkatex %}
 
@@ -185,12 +185,12 @@ Cartesian coordinates as shown in the figure. The transformed
 Consider the differential area elements indicated by orange in the figure. In the
 {% katex %}\left(\textit{u}, \textit{v} \right){% endkatex %}
 Cartesian coordinates the differential area element is given by {% katex %}dA=dudv{% endkatex %} but
-in {% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %} cooirdinates differentials defining the area are not orthogonal and the element is distorted. In the infinitesimal limit it
+in {% katex %}\left(\textit{x}, \textit{y}\right){% endkatex %} coordinates differentials defining the area are not orthogonal so the element is distorted. In the infinitesimal limit it
 will become a parallelogram with area given by the cross product of {% katex %}d\textbf{X}{% endkatex %}
 and {% katex %}d\textbf{Y}{% endkatex %} which are tangent vectors to the curves of constant
 {% katex %}\textit{v}{% endkatex %} and {% katex %}\textit{u}{% endkatex %} respectively at the origin
 point of the vectors. To compute the cross product expressions for the differentials are required.
-The components of the differentials are computed from the transformation defined by equation
+The components of the differentials are computed from transformation
 {% katex %}(4){% endkatex %} by assuming {% katex %}\textit{v}{% endkatex %} is constant for
 {% katex %}d\textbf{X}{% endkatex %} and {% katex %}\textit{u}{% endkatex %} is constant for
 {% katex %}d\textbf{Y}{% endkatex %}. It follows that,
