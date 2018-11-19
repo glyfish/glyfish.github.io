@@ -57,7 +57,7 @@ paginate_path: "/page:num"
 
 ## => Katex
 katex:
-  js_path: "{{ Gem::lib_path }}/assets/js"
+  js_path: "assets/js"
   rendering_options:
     throw_error: false
     error_color: "#cc0000"

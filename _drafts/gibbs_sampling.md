@@ -1,6 +1,6 @@
 ---
 title: Gibbs Sampling
-key: 20180909
+key: 20181119
 image: /assets/posts/gibbs_sampling/bivariate_pdf_sampler_steps_1.png
 author: Troy Stribling
 permlink: /gibbs_sampling.html

@@ -4,15 +4,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>gly.fish</title>
+<title>Gibbs Sampling | gly.fish</title>
 <meta name="generator" content="Jekyll v3.7.4" />
-<meta property="og:title" content="gly.fish" />
+<meta property="og:title" content="Gibbs Sampling" />
+<meta name="author" content="Troy Stribling" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/404.html" />
-<meta property="og:url" content="http://localhost:4000/404.html" />
+<meta name="description" content="Gibbs sampling." />
+<meta property="og:description" content="Gibbs sampling." />
+<link rel="canonical" href="http://localhost:4000/2018/11/19/gibbs_sampling.html" />
+<meta property="og:url" content="http://localhost:4000/2018/11/19/gibbs_sampling.html" />
 <meta property="og:site_name" content="gly.fish" />
+<meta property="og:image" content="http://localhost:4000/assets/posts/gibbs_sampling/bivariate_pdf_sampler_steps_1.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-19T12:05:46-08:00" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/404.html","@type":"WebPage","headline":"gly.fish","@context":"http://schema.org"}</script>
+{"datePublished":"2018-11-19T12:05:46-08:00","url":"http://localhost:4000/2018/11/19/gibbs_sampling.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/11/19/gibbs_sampling.html"},"author":{"@type":"Person","name":"Troy Stribling"},"description":"Gibbs sampling.","image":"http://localhost:4000/assets/posts/gibbs_sampling/bivariate_pdf_sampler_steps_1.png","@type":"BlogPosting","headline":"Gibbs Sampling","dateModified":"2018-11-19T12:05:46-08:00","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -123,26 +129,39 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-<div class="container">
-  <h1>404</h1>
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Gibbs Sampling</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-11-19T12:05:46-08:00" itemprop="datePublished">Nov 19, 2018
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Troy Stribling</span>
+          </span></p>
+  </header>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Gibbs sampling.</p>
+
+<!--more-->
+
+<h2 id="algorithm">Algorithm</h2>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>q</mi></mrow><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">\dot{q}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.66786em;"></span><span class="strut bottom" style="height:0.8623000000000001em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit" style="margin-right:0.03588em;">q</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="margin-left:0.16668em;"><span>˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"></span></span></span></span></span></span></span>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mover accent="true"><mrow><mi>p</mi></mrow><mo>˙</mo></mover></mrow><annotation encoding="application/x-tex">
+\dot{p}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.66786em;"></span><span class="strut bottom" style="height:0.8623000000000001em;vertical-align:-0.19444em;"></span><span class="base"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathit">p</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="margin-left:0.16668em;"><span>˙</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"></span></span></span></span></span></span></span></span></p>
+<h2 id="theory">Theory</h2>
+
+<h3 id="metropolis-hastings">Metropolis Hastings</h3>
+
+<h2 id="implementation">Implementation</h2>
+
+<h2 id="normal-bivariate-sampler">Normal Bivariate Sampler</h2>
+
+<h2 id="change-point-model">Change Point Model</h2>
+
+  </div><a class="u-url" href="/2018/11/19/gibbs_sampling.html" hidden></a>
+</article>
 
       </div>
     </main><footer class="h-card">
