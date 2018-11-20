@@ -13,6 +13,7 @@ Gibbs sampling.
 
 ## Algorithm
 
+{% katex %}\dot{x}, \ddot{x}{% endkatex %}
 ## Theory
 
 ### Metropolis Hastings
