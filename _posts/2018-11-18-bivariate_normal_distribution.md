@@ -248,7 +248,7 @@ dA = \mid d\textbf{X} \times d\textbf{Y} \mid = \mid J \mid dudv.
 
 {% katex %}\mid J \mid{% endkatex %} will scale the differential area {% katex %}dudv{% endkatex %}
 by the amount required by the transform to conserve the area in a manner similar to that seen for a
-single variable length is conserved.
+single variable where length is conserved.
 
 Finally the transform of the bivariate integral in equation {% katex %}(1){% endkatex %} is given by,
 
